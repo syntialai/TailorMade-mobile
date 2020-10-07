@@ -1,0 +1,3 @@
+include ':dls'
+include ':app'
+rootProject.name = "TailorMade"
