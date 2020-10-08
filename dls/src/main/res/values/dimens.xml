@@ -17,6 +17,7 @@
     <dimen name="sp_10">10sp</dimen>
     <dimen name="sp_8">8sp</dimen>
 
+    <dimen name="dp_200">200dp</dimen>
     <dimen name="dp_120">120dp</dimen>
     <dimen name="dp_100">100dp</dimen>
     <dimen name="dp_80">80dp</dimen>
@@ -44,4 +45,10 @@
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_0">0dp</dimen>
+
+    <dimen name="dp_1_25" format="float">1.25dp</dimen>
+    <dimen name="dp_0_5" format="float">0.5dp</dimen>
+    <dimen name="dp_0_25" format="float">0.25dp</dimen>
+    <dimen name="dp_0_15" format="float">0.15dp</dimen>
+    <dimen name="dp_0_1" format="float">0.1dp</dimen>
 </resources>
