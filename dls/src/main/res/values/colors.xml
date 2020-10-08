@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Main Colors -->
-    <color name="colorPrimary">#AD974F</color>
-    <color name="colorPrimaryDark">#887347</color>
-    <color name="colorAccent">#AD974F</color>
-
     <!-- Design Language System Colors -->
     <color name="color_primary_50">#FDFAEA</color>
     <color name="color_primary_100">#F9F1CA</color>
@@ -15,6 +10,8 @@
     <color name="color_primary_500">#E7D361</color>
     <color name="color_primary_600">#D7C25B</color>
     <color name="color_primary_700">#C2AD54</color>
+    <color name="color_primary_800">#AD974F</color>
+    <color name="color_primary_900">#887347</color>
 
     <color name="color_red_50">#FFEBEE</color>
     <color name="color_red_100">#FFCDD2</color>
@@ -38,7 +35,7 @@
     <color name="color_green_800">#009e0b</color>
     <color name="color_green_900">#007c00</color>
 
-    <color name="color_black">#FFFFFF</color>
+    <color name="color_black">#121212</color>
     <color name="color_black_87">#DE000000</color>
     <color name="color_black_60">#99000000</color>
     <color name="color_black_54">#8A000000</color>
