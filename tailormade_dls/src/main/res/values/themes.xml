@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.TailorMade" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- Color styles -->
+        <item name="colorPrimary">@color/color_primary_800</item>
+        <item name="colorPrimaryDark">@color/color_primary_900</item>
+        <item name="colorAccent">@color/color_primary_800</item>
+
+        <item name="android:colorBackground">@color/color_white</item>
+        <item name="colorSurface">@color/color_white</item>
+        <item name="colorError">@color/color_red_600</item>
+
+        <item name="colorOnPrimary">@color/color_white</item>
+        <item name="colorOnBackground">@color/color_black_87</item>
+        <item name="colorOnSurface">@color/color_black_87</item>
+        <item name="colorOnError">@color/color_white</item>
+
+        <!-- Type styles -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.TailorMade.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.TailorMade.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.TailorMade.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.TailorMade.Headline3.Bold</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.TailorMade.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.TailorMade.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.TailorMade.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.TailorMade.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.TailorMade.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.TailorMade.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.TailorMade.Overline</item>
+
+        <!-- Component Styles -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+        <item name="cardViewStyle">@style/Widget.MaterialComponents.CardView</item>
+        <item name="buttonStyle">@style/Widget.MaterialComponents.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
+        <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
+        <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
+    </style>
+</resources>
