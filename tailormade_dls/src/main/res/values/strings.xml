@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spin_number_reduce_label">-</string>
+    <string name="spin_number_add_label">+</string>
+    <string name="spin_number_value_label">1</string>
+</resources>

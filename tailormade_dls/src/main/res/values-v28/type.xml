@@ -79,7 +79,7 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textFontWeight">400</item>
         <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:letterSpacing">0.4%</item>
+        <item name="android:letterSpacing">@dimen/dp_0_4</item>
     </style>
     <style name="TextAppearance.TailorMade.Overline" parent="TextAppearance.MaterialComponents.Overline">
         <item name="fontFamily">@font/maison</item>

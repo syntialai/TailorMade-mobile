@@ -1,3 +1,2 @@
-include ':tailormade_dls'
-include ':app'
+include ':app', ':tailormade_dls'
 rootProject.name = "TailorMade"

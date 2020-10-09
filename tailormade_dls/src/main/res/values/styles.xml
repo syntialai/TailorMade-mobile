@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Button Style -->
+    <style name="Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">@style/CornerRounded</item>
+    </style>
+
+    <style name="Button.Outlined.Rounded.Left" parent="Button.Outlined.Rounded">
+        <item name="shapeAppearanceOverlay">@style/CornerRounded.Left</item>
+    </style>
+
+    <style name="Button.Outlined.Rounded.Right" parent="Button.Outlined.Rounded">
+        <item name="shapeAppearanceOverlay">@style/CornerRounded.Right</item>
+    </style>
+
+    <!-- Corner Style -->
+    <style name="CornerRounded">
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="CornerRounded.Top" parent="CornerRounded">
+        <item name="cornerSizeTopLeft">@dimen/dp_200</item>
+        <item name="cornerSizeTopRight">@dimen/dp_200</item>
+    </style>
+
+    <style name="CornerRounded.Bottom" parent="CornerRounded">
+        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+    </style>
+
+    <style name="CornerRounded.Left" parent="CornerRounded">
+        <item name="cornerSizeTopLeft">@dimen/dp_200</item>
+        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+    </style>
+
+    <style name="CornerRounded.Right" parent="CornerRounded">
+        <item name="cornerSizeTopRight">@dimen/dp_200</item>
+        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+    </style>
+</resources>

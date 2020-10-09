@@ -48,6 +48,7 @@
 
     <dimen name="dp_1_25" format="float">1.25dp</dimen>
     <dimen name="dp_0_5" format="float">0.5dp</dimen>
+    <dimen name="dp_0_4" format="float">0.4dp</dimen>
     <dimen name="dp_0_25" format="float">0.25dp</dimen>
     <dimen name="dp_0_15" format="float">0.15dp</dimen>
     <dimen name="dp_0_1" format="float">0.1dp</dimen>
