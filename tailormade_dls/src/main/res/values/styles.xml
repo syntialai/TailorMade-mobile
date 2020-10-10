@@ -19,6 +19,10 @@
         <item name="cornerFamily">rounded</item>
     </style>
 
+    <style name="CornerRounded.Image16">
+        <item name="cornerSize">@dimen/dp_16</item>
+    </style>
+
     <style name="CornerRounded.Top" parent="CornerRounded">
         <item name="cornerSizeTopLeft">@dimen/dp_200</item>
         <item name="cornerSizeTopRight">@dimen/dp_200</item>
@@ -37,6 +41,15 @@
     <style name="CornerRounded.Right" parent="CornerRounded">
         <item name="cornerSizeTopRight">@dimen/dp_200</item>
         <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+    </style>
+
+    <style name="CornerRounded.TopLeft" parent="CornerRounded.Left">
+        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+        <item name="cornerSizeTopLeft">@dimen/dp_0</item>
+    </style>
+
+    <style name="CornerRounded.TopRight" parent="CornerRounded.Right">
+        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
     </style>
 
     <!-- Margin style -->

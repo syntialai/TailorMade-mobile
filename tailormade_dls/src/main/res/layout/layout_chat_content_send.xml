@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/drawable_chat_send"
+    android:elevation="@dimen/dp_4"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/text_view_chat_content_send_text"
+        style="?attr/textAppearanceBody2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_12"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:text="@string/chat_content_label"
+        android:textColor="@color/color_black_87" />
+
+    <ImageView
+        android:id="@+id/image_view_chat_content_send"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginHorizontal="@dimen/dp_12"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text_view_chat_content_send_time"
+        style="?attr/textAppearanceOverline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:text="@string/chat_content_send_time_label"
+        android:textColor="@color/color_black_54" />
+</LinearLayout>

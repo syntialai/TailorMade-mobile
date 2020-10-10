@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:orientation="horizontal">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40">
 
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/spin_button_number_group"
@@ -34,5 +33,5 @@
                 android:text="@string/spin_number_add_label" />
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
-    </LinearLayout>
+    </FrameLayout>
 </layout>

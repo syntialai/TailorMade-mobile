@@ -13,4 +13,15 @@
     <string name="notification_type_label">Notification Type</string>
     <string name="notification_time_label">Notification time</string>
     <string name="notification_title_label">Notification title</string>
+    <string name="chat_content_send_time_label">Chat sent time</string>
+    <string name="chat_content_reply_time_label">Chat reply time</string>
+    <string name="order_title_label">Order title</string>
+    <string name="order_price_label">Order price</string>
+    <string name="order_price_discount_label">Order price discount</string>
+    <string name="order_discount_label">Order discount</string>
+    <string name="checkout_order_label">Checkout</string>
+    <string name="order_color_label">Color:</string>
+    <string name="order_color_value_label">color</string>
+    <string name="order_size_label">Size:</string>
+    <string name="order_size_value_label">size</string>
 </resources>
