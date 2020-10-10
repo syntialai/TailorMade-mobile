@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Label -->
     <string name="spin_number_reduce_label">-</string>
     <string name="spin_number_add_label">+</string>
     <string name="spin_number_value_label">1</string>
+    <string name="design_name_label">Design name</string>
+    <string name="design_price_label">Design price</string>
+    <string name="chat_name_label">Chat Name</string>
+    <string name="chat_content_label">Chat content</string>
+    <string name="chat_time_label">Chat time</string>
+    <string name="notification_type_label">Notification Type</string>
+    <string name="notification_time_label">Notification time</string>
+    <string name="notification_title_label">Notification title</string>
 </resources>

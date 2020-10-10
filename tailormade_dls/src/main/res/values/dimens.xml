@@ -52,4 +52,5 @@
     <dimen name="dp_0_25" format="float">0.25dp</dimen>
     <dimen name="dp_0_15" format="float">0.15dp</dimen>
     <dimen name="dp_0_1" format="float">0.1dp</dimen>
+    <dimen name="dp_600">600dp</dimen>
 </resources>

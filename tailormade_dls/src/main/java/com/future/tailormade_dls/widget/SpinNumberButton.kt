@@ -3,11 +3,11 @@ package com.future.tailormade_dls.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.FrameLayout
+import android.widget.LinearLayout
 import com.future.tailormade_dls.databinding.LayoutSpinButtonNumberBinding
 
 class SpinNumberButton constructor(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs) {
+    LinearLayout(context, attrs) {
 
     companion object {
         const val DEFAULT_VALUE = 1
