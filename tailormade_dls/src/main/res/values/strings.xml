@@ -24,4 +24,19 @@
     <string name="order_color_value_label">color</string>
     <string name="order_size_label">Size:</string>
     <string name="order_size_value_label">size</string>
+    <string name="ordered_title_label">Ordered title</string>
+    <string name="ordered_color_label">Color:</string>
+    <string name="ordered_color_value_label">color</string>
+    <string name="ordered_size_label">Size:</string>
+    <string name="ordered_size_value_label">size</string>
+    <string name="ordered_price_label">Price</string>
+    <string name="ordered_price_discount_label">Price discount</string>
+    <string name="ordered_discount_label">Discount</string>
+    <string name="order_again_label">Order Again</string>
+    <string name="order_quantity_value_label">1</string>
+    <string name="order_quantity_label">Quantity</string>
+    <string name="order_total_discount_label">Total Discount</string>
+    <string name="order_total_discount_value_label">-</string>
+    <string name="order_total_price_label">Total Price</string>
+    <string name="order_total_price_value_label">0</string>
 </resources>
