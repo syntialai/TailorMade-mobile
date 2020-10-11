@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.future.tailormade.util.AppLogger
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
 
     protected var appLogger = AppLogger.create(this.getScreenName())
 

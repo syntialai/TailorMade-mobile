@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.future.tailormade.util.AppLogger
 
-abstract class BaseActivity: AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     protected var appLogger = AppLogger.create(this.getScreenName())
 
