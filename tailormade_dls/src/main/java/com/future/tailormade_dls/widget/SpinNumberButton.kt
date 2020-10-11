@@ -16,7 +16,7 @@ class SpinNumberButton constructor(context: Context, attrs: AttributeSet) :
     private val layoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    private val viewBinding = LayoutSpinButtonNumberBinding.inflate(layoutInflater, this, true)
+    private val binding = LayoutSpinButtonNumberBinding.inflate(layoutInflater, this, true)
 
     private var spinValue: Int = 0
 
@@ -45,14 +45,14 @@ class SpinNumberButton constructor(context: Context, attrs: AttributeSet) :
     }
 
     fun setValueText() {
-        viewBinding.spinNumberValue.text = spinValue.toString()
+        binding.spinNumberValue.text = spinValue.toString()
     }
 
     fun enableReduceButton() {
-        viewBinding.spinButtonNumberReduce.isEnabled = true
+        binding.spinButtonNumberReduce.isEnabled = true
     }
 
     fun disableReduceButton() {
-        viewBinding.spinButtonNumberReduce.isEnabled = false
+        binding.spinButtonNumberReduce.isEnabled = false
     }
 }

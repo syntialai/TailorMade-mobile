@@ -1,2 +1,3 @@
+include ':tailormade_base'
 include ':app', ':tailormade_dls'
 rootProject.name = "TailorMade"
