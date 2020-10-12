@@ -1,4 +1,4 @@
-package com.future.tailormade.util
+package com.future.tailormade.util.logger
 
 import android.util.Log
 

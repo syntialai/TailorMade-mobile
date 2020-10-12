@@ -2,7 +2,7 @@ package com.future.tailormade.base.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.future.tailormade.util.AppLogger
+import com.future.tailormade.util.logger.AppLogger
 
 abstract class BaseActivity : AppCompatActivity() {
 

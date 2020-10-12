@@ -3,7 +3,7 @@ package com.future.tailormade.base.view
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.future.tailormade.util.AppLogger
+import com.future.tailormade.util.logger.AppLogger
 
 abstract class BaseFragment : Fragment() {
 

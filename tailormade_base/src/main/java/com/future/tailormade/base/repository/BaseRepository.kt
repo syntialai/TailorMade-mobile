@@ -1,6 +1,6 @@
 package com.future.tailormade.base.repository
 
-import com.future.tailormade.util.AppLogger
+import com.future.tailormade.util.logger.AppLogger
 
 abstract class BaseRepository {
 
