@@ -1,4 +1,4 @@
-package com.future.tailormade.base
+package com.future.tailormade.base.repository
 
 import com.future.tailormade.util.AppLogger
 

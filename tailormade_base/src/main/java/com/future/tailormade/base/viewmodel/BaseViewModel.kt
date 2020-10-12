@@ -1,4 +1,4 @@
-package com.future.tailormade.base
+package com.future.tailormade.base.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

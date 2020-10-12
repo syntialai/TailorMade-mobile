@@ -1,18 +1,29 @@
-package com.future.tailormade.base
+package com.future.tailormade.base.view
 
+import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.future.tailormade.util.AppLogger
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseFragment : Fragment() {
 
     protected var appLogger = AppLogger.create(this.getScreenName())
 
-    open fun getScreenName(): String = "com.future.tailormade.base.BaseActivity"
+    open fun getScreenName(): String = "com.future.tailormade.base.view.BaseFragment"
+
+    override fun onAttach(context: Context) {
+        appLogger.logLifecycleOnAttach()
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appLogger.logLifecycleOnCreate()
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        appLogger.logLifecycleOnActivityCreated()
+        super.onActivityCreated(savedInstanceState)
     }
 
     override fun onStart() {
@@ -38,5 +49,15 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         appLogger.logLifecycleOnDestroy()
         super.onDestroy()
+    }
+
+    override fun onDestroyView() {
+        appLogger.logLifecycleOnDestroyView()
+        super.onDestroyView()
+    }
+
+    override fun onDetach() {
+        appLogger.logLifecycleOnDetach()
+        super.onDetach()
     }
 }
