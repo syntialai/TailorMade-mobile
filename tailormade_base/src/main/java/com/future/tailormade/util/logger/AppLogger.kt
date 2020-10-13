@@ -1,6 +1,6 @@
 package com.future.tailormade.util.logger
 
-import android.util.Log
+import timber.log.Timber
 
 class AppLogger(private val logName: String) {
 
@@ -88,7 +88,8 @@ class AppLogger(private val logName: String) {
     }
 
     fun logOnError(message: String, throwable: Throwable) {
-        Log.e(logName, message, throwable)
+        logError(message)
+        Timber.tag(logName).e(throwable)
     }
 
     fun logApiOnCall(url: String) {
@@ -100,10 +101,14 @@ class AppLogger(private val logName: String) {
     }
 
     fun logApiOnError(url: String, errorCode: String?, errorMessage: String?) {
-        logInfo("Error API call $url (${errorCode.orEmpty()}) ${errorMessage.orEmpty()}")
+        logError("Error API call $url (${errorCode.orEmpty()}) ${errorMessage.orEmpty()}")
     }
 
     private fun logInfo(message: String) {
-        Log.i(logName, message)
+        Timber.tag(logName).i(message)
+    }
+
+    private fun logError(errorMessage: String) {
+        Timber.tag(logName).e(errorMessage)
     }
 }
