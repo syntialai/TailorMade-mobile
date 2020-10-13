@@ -16,6 +16,7 @@
         <item name="colorOnBackground">@color/color_black_87</item>
         <item name="colorOnSurface">@color/color_black_87</item>
         <item name="colorOnError">@color/color_white</item>
+        <item name="badgeTextColor">@color/color_white</item>
 
         <!-- Type styles -->
         <item name="textAppearanceHeadline1">@style/TextAppearance.TailorMade.Headline1</item>
@@ -32,12 +33,15 @@
 
         <!-- Component Styles -->
         <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
-        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Surface</item>
         <item name="cardViewStyle">@style/Widget.MaterialComponents.CardView</item>
-        <item name="buttonStyle">@style/Widget.MaterialComponents.Button</item>
-        <item name="materialButtonOutlinedStyle">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
+        <item name="buttonStyle">@style/Theme.TailorMade.Button.Rounded</item>
+        <item name="materialButtonOutlinedStyle">@style/Theme.TailorMade.Button.Outlined.Rounded</item>
         <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
         <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
         <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
+        <item name="floatingActionButtonStyle">@style/Theme.TailorMade.FloatingActionButton</item>
+        <item name="chipStyle">@style/Theme.TailorMade.Chip</item>
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
     </style>
 </resources>

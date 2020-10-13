@@ -23,7 +23,7 @@
 
         <View
             android:id="@+id/view_rounded_separator"
-            style="@style/CornerRounded.Top"
+            style="@style/Theme.TailorMade.CornerRounded.Top"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_8"
             android:background="?attr/colorSurface"

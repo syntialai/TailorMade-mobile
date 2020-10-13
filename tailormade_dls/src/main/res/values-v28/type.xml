@@ -52,7 +52,7 @@
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textFontWeight">400</item>
+        <item name="android:textFontWeight">500</item>
         <item name="android:textSize">@dimen/sp_16</item>
         <item name="android:letterSpacing">@dimen/dp_0_5</item>
     </style>
@@ -60,7 +60,7 @@
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textFontWeight">400</item>
+        <item name="android:textFontWeight">500</item>
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:letterSpacing">@dimen/dp_0_25</item>
     </style>
@@ -68,7 +68,7 @@
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textFontWeight">500</item>
+        <item name="android:textFontWeight">600</item>
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:letterSpacing">@dimen/dp_1_25</item>
         <item name="android:textAllCaps">true</item>
@@ -77,7 +77,7 @@
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textFontWeight">400</item>
+        <item name="android:textFontWeight">500</item>
         <item name="android:textSize">@dimen/sp_12</item>
         <item name="android:letterSpacing">@dimen/dp_0_4</item>
     </style>
@@ -85,7 +85,7 @@
         <item name="fontFamily">@font/maison</item>
         <item name="android:fontFamily">@font/maison</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textFontWeight">500</item>
+        <item name="android:textFontWeight">600</item>
         <item name="android:textSize">@dimen/sp_10</item>
         <item name="android:letterSpacing">@dimen/dp_0</item>
         <item name="android:textAllCaps">true</item>
