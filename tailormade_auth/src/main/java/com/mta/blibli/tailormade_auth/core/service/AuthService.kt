@@ -12,11 +12,12 @@ import com.mta.blibli.tailormade_auth.core.model.response.VerifyPhoneResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface AuthService {
 
     @GET(AuthApiUrl.API_GET_FIREBASE_TOKEN_PATH)
-    fun getFirebaseToken(): BaseSingleValueResponse<String>
+    fun getFirebaseToken(@Query("userId") userId: String): BaseSingleValueResponse<String>
 
     @POST(AuthApiUrl.API_LOGIN_PATH)
     fun login(@Body LoginRequest: LoginRequest): BaseSingleObjectResponse<LoginResponse>
