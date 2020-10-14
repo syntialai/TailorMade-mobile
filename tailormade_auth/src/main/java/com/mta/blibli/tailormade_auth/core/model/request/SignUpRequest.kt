@@ -2,7 +2,7 @@ package com.mta.blibli.tailormade_auth.core.model.request
 
 import com.google.gson.annotations.SerializedName
 
-data class signUpRequest(
+data class SignUpRequest(
 
     @SerializedName("name")
     var name: String = "",

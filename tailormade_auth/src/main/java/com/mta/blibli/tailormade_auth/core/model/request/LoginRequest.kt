@@ -2,8 +2,11 @@ package com.mta.blibli.tailormade_auth.core.model.request
 
 import com.google.gson.annotations.SerializedName
 
-data class verifyCodeRequest(
+data class LoginRequest(
 
     @SerializedName("phoneNumber")
-    var phoneNumber: String = ""
+    var phoneNumber: String = "",
+
+    @SerializedName("verificationCode")
+    var verificationCode: String = ""
 )
