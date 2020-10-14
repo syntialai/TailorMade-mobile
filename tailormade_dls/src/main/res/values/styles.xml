@@ -6,7 +6,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_56</item>
         <item name="android:layout_margin">@dimen/dp_16</item>
-        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+        <item name="android:background">@drawable/drawable_bottom_nav_background</item>
+        <item name="labelVisibilityMode">unlabeled</item>
     </style>
 
     <!-- Button Style -->
