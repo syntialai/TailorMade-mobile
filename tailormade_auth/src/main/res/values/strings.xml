@@ -1,0 +1,7 @@
+<resources>
+    <string name="welcome_label">Welcome!</string>
+    <string name="enter_phone_label">Enter your mobile phone number to continue.</string>
+    <string name="id_number_label">+62</string>
+    <string name="phone_number_label">Phone Number</string>
+    <string name="continue_label">Continue</string>
+</resources>

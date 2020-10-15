@@ -2,4 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mta.blibli.tailormade_auth">
 
+    <application android:theme="@style/Theme.TailorMade">
+        <activity android:name=".feature.login.view.LoginActivity" />
+    </application>
+
 </manifest>
