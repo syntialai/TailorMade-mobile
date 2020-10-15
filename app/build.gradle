@@ -72,74 +72,73 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(":tailormade_base")
+    implementation project(path: ":tailormade_base")
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation project(path: ':tailormade_base')
+    implementation core.kotlin
+    implementation core.legacy_support
 
     // Tests
-    testImplementation 'junit:junit:4.13'
-    testImplementation 'androidx.test:core:1.3.0'
-    testImplementation 'org.mockito:mockito-core:3.5.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation test.junit
+    testImplementation test.androidx_core
+    testImplementation test.mockito
+    androidTestImplementation androidTest.junit
+    androidTestImplementation androidTest.espresso
 
     // AndroidX
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation "androidx.constraintlayout:constraintlayout:2.0.2"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigation_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-    implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc03"
+    implementation androidx.appcompat
+    implementation androidx.core
+    implementation androidx.constraintlayout
+    implementation androidx.lifecycle_extensions
+    implementation androidx.lifecycle_viewmodel
+    implementation androidx.lifecycle_livedata
+    implementation androidx.lifecycle_viewmodel_savedstate
+    implementation androidx.fragment
+    implementation androidx.navigation_fragment
+    implementation androidx.navigation_ui
 
     // Paging
-    implementation "androidx.paging:paging-runtime-ktx:2.1.2"
-    testImplementation "androidx.paging:paging-common-ktx:2.1.2"
+    implementation paging.runtime
+    testImplementation paging.test_common
 
     // Annotation Processing
-    kapt "com.android.databinding:compiler:$android_plugin_version"
+    kapt dataBinding.kapt
 
     // MDC
-    implementation 'com.google.android.material:material:1.3.0-alpha03'
+    implementation materialDesign
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation glide.core
+    kapt glide.kapt
 
     // Retrofit
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation retrofit.gson
+    implementation retrofit.core
+    implementation retrofit.converter
 
     // Dagger 2
-    implementation 'com.google.dagger:dagger-android:2.29.1'
-    implementation 'com.google.dagger:dagger-android-support:2.29.1'
-    kapt 'com.google.dagger:dagger-android-processor:2.29.1'
-    kapt 'com.google.dagger:dagger-compiler:2.29.1'
+    implementation dagger.android
+    implementation dagger.support
+    kapt dagger.kapt_processor
+    kapt dagger.kapt_compiler
 
     // Dagger Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
-    kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-    kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
-    testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    implementation daggerHilt.core
+    implementation daggerHilt.lifecycle_viewmodel
+    kapt daggerHilt.kapt_compiler
+    kapt daggerHilt.kapt_google_compiler
+    kaptTest daggerHilt.kaptTest_compiler
+    testImplementation daggerHilt.test
 
     // Coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9-native-mt-2'
+    implementation coroutine
 
     // Room
-    implementation "androidx.room:room-runtime:2.2.5"
-    implementation "androidx.room:room-ktx:2.2.5"
-    kapt "androidx.room:room-compiler:2.2.5"
-    androidTestImplementation "androidx.room:room-testing:2.2.5"
-    androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
+    implementation room.runtime
+    implementation room.core
+    kapt room.kapt_compiler
+    androidTestImplementation room.androidTest
+    androidTestImplementation room.androidTest_arch_persistence
+
+    // Logger
+    implementation timber
 }
