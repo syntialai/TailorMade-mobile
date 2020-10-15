@@ -93,6 +93,8 @@ dependencies {
     implementation androidx.lifecycle_livedata
     implementation androidx.lifecycle_viewmodel_savedstate
     implementation androidx.fragment
+    implementation androidx.navigation_fragment
+    implementation androidx.navigation_ui
 
     // Paging
     implementation paging.runtime
