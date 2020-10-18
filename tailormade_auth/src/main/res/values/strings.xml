@@ -8,4 +8,10 @@
     <string name="resend_code_label">Resend Code</string>
     <string name="verify_number_label">Verify Your Number</string>
     <string name="enter_verification_code_label">Enter the verification code we sent to </string>
+    <string name="get_started_label">Let\'s Get Started!</string>
+    <string name="enter_info_label">Enter your basic information to get started.</string>
+    <string name="name_label">Name</string>
+    <string name="email_label">Email</string>
+    <string name="birth_date_label">Birthdate</string>
+    <string name="next_label">Next</string>
 </resources>

@@ -13,9 +13,12 @@ fun <T> Flow<T>.flowOnIO(): Flow<T> = this.flowOn(Dispatchers.IO)
 
 fun <T> Flow<T>.flowOnMain(): Flow<T> = this.flowOn(Dispatchers.Main)
 
-fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> = catch { error -> block(error) }
+fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> =
+    catch { error -> block(error) }
 
 /**
- * Validate phone number extension functions
+ * Validate string extension functions
  */
 fun String.isPhoneNumberValid(): Boolean = Patterns.PHONE.matcher(this).matches()
+
+fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
