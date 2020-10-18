@@ -2,6 +2,7 @@ package com.future.tailormade.base.view
 
 import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.future.tailormade.util.logger.AppLogger
 
@@ -59,5 +60,13 @@ abstract class BaseFragment : Fragment() {
     override fun onDetach() {
         appLogger.logLifecycleOnDetach()
         super.onDetach()
+    }
+
+    fun hideKeyboard() {
+        view?.let { view ->
+            val inputManager =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }

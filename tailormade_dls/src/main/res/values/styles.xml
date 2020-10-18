@@ -24,6 +24,12 @@
         <item name="android:paddingBottom">@dimen/dp_8</item>
     </style>
 
+    <style name="Theme.TailorMade.Button.Small.Outlined.Rounded" parent="Theme.TailorMade.Button.Outlined.Rounded">
+        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="android:paddingTop">@dimen/dp_8</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+    </style>
+
     <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
     </style>

@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.future.tailormade"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -73,6 +73,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(path: ":tailormade_base")
+    implementation project(path: ":tailormade_auth")
 
     implementation core.kotlin
     implementation core.legacy_support

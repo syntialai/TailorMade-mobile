@@ -4,4 +4,8 @@
     <string name="id_number_label">+62</string>
     <string name="phone_number_label">Phone Number</string>
     <string name="continue_label">Continue</string>
+    <string name="code_label">Code</string>
+    <string name="resend_code_label">Resend Code</string>
+    <string name="verify_number_label">Verify Your Number</string>
+    <string name="enter_verification_code_label">Enter the verification code we sent to </string>
 </resources>
