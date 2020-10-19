@@ -105,4 +105,16 @@
         <item name="android:background">@color/color_primary_900</item>
         <item name="android:textColor">@color/color_primary_50</item>
     </style>
+
+    <!-- Radio Button Style -->
+    <style name="Theme.TailorMade.RadioImageButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">null</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">@dimen/dp_24</item>
+        <item name="android:layout_marginStart">@dimen/dp_16</item>
+        <item name="android:layout_marginEnd">@dimen/dp_16</item>
+        <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
+    </style>
 </resources>

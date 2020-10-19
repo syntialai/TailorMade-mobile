@@ -14,4 +14,13 @@
     <string name="email_label">Email</string>
     <string name="birth_date_label">Birthdate</string>
     <string name="next_label">Next</string>
+    <string name="select_role_label">Select Your Role</string>
+    <string name="select_role_info_label">Pick your role, as User or Tailor.</string>
+    <string name="role_user_label">User</string>
+    <string name="role_tailor_label">Tailor</string>
+    <string name="select_gender_info_label">Pick one of your gender.</string>
+    <string name="select_gender_label">Select Your Gender</string>
+    <string name="gender_male_label">Male</string>
+    <string name="gender_female_label">Female</string>
+    <string name="gender_other_label">Other</string>
 </resources>

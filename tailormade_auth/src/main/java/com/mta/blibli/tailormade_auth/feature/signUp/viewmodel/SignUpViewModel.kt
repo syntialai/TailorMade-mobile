@@ -23,6 +23,8 @@ class SignUpViewModel @ViewModelInject constructor(
 
     private var _phoneNumber: String = ""
 
+    private var signUpRequest: SignUpRequest = SignUpRequest()
+
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?>
         get() = _errorMessage
@@ -31,10 +33,24 @@ class SignUpViewModel @ViewModelInject constructor(
         _phoneNumber = phoneNumber
     }
 
-    @InternalCoroutinesApi
-    fun signUp(name: String, email: String, birthDate: String) {
-        val signUpRequest = SignUpRequest(name, email, _phoneNumber, birthDate)
+    fun setSignUpInfo(name: String, email: String, birthDate: String) {
+        signUpRequest.apply {
+            this.name = name
+            this.email = email
+            this.birthDate = birthDate
+        }
+    }
 
+    fun setSignUpRole(role: String) {
+        signUpRequest.role = role
+    }
+
+    fun setSignUpGender(gender: String) {
+        signUpRequest.gender = gender
+    }
+
+    @InternalCoroutinesApi
+    fun signUp() {
         launchViewModelScope {
             authRepository.signUp(signUpRequest)
                 .onError { error ->

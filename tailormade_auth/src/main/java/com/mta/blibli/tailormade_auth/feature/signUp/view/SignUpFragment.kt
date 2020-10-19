@@ -12,7 +12,6 @@ import com.future.tailormade.util.extension.isEmailValid
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.mta.blibli.tailormade_auth.databinding.FragmentSignUpBinding
 import com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
 
 class SignUpFragment : Fragment() {
 
@@ -22,7 +21,6 @@ class SignUpFragment : Fragment() {
 
     private lateinit var birthDatePicker: MaterialDatePicker<Long>
 
-    @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,10 +80,9 @@ class SignUpFragment : Fragment() {
         birthDatePicker.show(parentFragmentManager, BIRTH_DATE_PICKER)
     }
 
-    @InternalCoroutinesApi
     private fun submitForm(name: String, email: String, birthDate: String) {
         if (isFormValid(name, email, birthDate)) {
-            viewModel.signUp(name, email, birthDate)
+            viewModel.setSignUpInfo(name, email, birthDate)
         } else {
             setFormErrorMessage()
         }
