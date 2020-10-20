@@ -24,7 +24,8 @@
         android:layout_marginHorizontal="@dimen/dp_12"
         android:layout_marginVertical="@dimen/dp_8"
         android:visibility="gone"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/text_view_chat_content_send_time"
