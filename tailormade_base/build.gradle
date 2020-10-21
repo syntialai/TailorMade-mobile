@@ -1,0 +1,100 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 22
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api project(":tailormade_dls")
+
+    api core.kotlin
+    api core.legacy_support
+
+    // Tests
+    testImplementation test.junit
+    testImplementation test.androidx_core
+    testImplementation test.mockito
+    androidTestImplementation androidTest.junit
+    androidTestImplementation androidTest.espresso
+
+    // AndroidX
+    api androidx.appcompat
+    api androidx.core
+    api androidx.constraintlayout
+    api androidx.lifecycle_extensions
+    api androidx.lifecycle_viewmodel
+    api androidx.lifecycle_livedata
+    api androidx.lifecycle_viewmodel_savedstate
+    api androidx.fragment
+
+    // Paging
+    api paging.runtime
+    testImplementation paging.test_common
+
+    // Annotation Processing
+    kapt dataBinding.kapt
+
+    // MDC
+    api materialDesign
+
+    // Glide
+    api glide.core
+    kapt glide.kapt
+
+    // Retrofit
+    api retrofit.gson
+    api retrofit.core
+    api retrofit.converter
+
+    // Dagger 2
+    api dagger.android
+    api dagger.support
+    kapt dagger.kapt_processor
+    kapt dagger.kapt_compiler
+
+    // Dagger Hilt
+    api daggerHilt.core
+    api daggerHilt.lifecycle_viewmodel
+    kapt daggerHilt.kapt_compiler
+    kapt daggerHilt.kapt_google_compiler
+    kaptTest daggerHilt.kaptTest_compiler
+    testImplementation daggerHilt.test
+
+    // Coroutine
+    api coroutine
+
+    // Room
+    api room.runtime
+    api room.core
+    kapt room.kapt_compiler
+    androidTestImplementation room.androidTest
+    androidTestImplementation room.androidTest_arch_persistence
+
+    // Logger
+    implementation timber
+}
