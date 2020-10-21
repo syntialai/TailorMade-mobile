@@ -1,7 +1,6 @@
 package com.future.tailormade
 
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.databinding.ActivityMainBinding
 

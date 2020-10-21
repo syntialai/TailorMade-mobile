@@ -1,0 +1,113 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 22
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api project(path: ":tailormade_base")
+
+    implementation core.kotlin
+    implementation core.legacy_support
+
+    // Tests
+    testImplementation test.junit
+    testImplementation test.androidx_core
+    testImplementation test.mockito
+    androidTestImplementation androidTest.junit
+    androidTestImplementation androidTest.espresso
+
+    // AndroidX
+    implementation androidx.appcompat
+    implementation androidx.core
+    implementation androidx.constraintlayout
+    implementation androidx.lifecycle_extensions
+    implementation androidx.lifecycle_viewmodel
+    implementation androidx.lifecycle_livedata
+    implementation androidx.lifecycle_viewmodel_savedstate
+    implementation androidx.fragment
+    implementation androidx.navigation_fragment
+    implementation androidx.navigation_ui
+
+    // Paging
+    implementation paging.runtime
+    testImplementation paging.test_common
+
+    // Annotation Processing
+    kapt dataBinding.kapt
+
+    // MDC
+    implementation materialDesign
+
+    // Glide
+    implementation glide.core
+    kapt glide.kapt
+
+    // Retrofit
+    implementation retrofit.gson
+    implementation retrofit.core
+    implementation retrofit.converter
+
+    // Dagger 2
+    implementation dagger.android
+    implementation dagger.support
+    kapt dagger.kapt_processor
+    kapt dagger.kapt_compiler
+
+    // Dagger Hilt
+    implementation daggerHilt.core
+    implementation daggerHilt.lifecycle_viewmodel
+    kapt daggerHilt.kapt_compiler
+    kapt daggerHilt.kapt_google_compiler
+    kaptTest daggerHilt.kaptTest_compiler
+    testImplementation daggerHilt.test
+
+    // Coroutine
+    implementation coroutine
+
+    // Room
+    implementation room.runtime
+    implementation room.core
+    kapt room.kapt_compiler
+    androidTestImplementation room.androidTest
+    androidTestImplementation room.androidTest_arch_persistence
+
+    // Logger
+    implementation timber
+}

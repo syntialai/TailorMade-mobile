@@ -24,6 +24,12 @@
         <item name="android:paddingBottom">@dimen/dp_8</item>
     </style>
 
+    <style name="Theme.TailorMade.Button.Small.Outlined.Rounded" parent="Theme.TailorMade.Button.Outlined.Rounded">
+        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="android:paddingTop">@dimen/dp_8</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+    </style>
+
     <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
     </style>
@@ -98,5 +104,17 @@
     <style name="Theme.TailorMade.FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
         <item name="android:background">@color/color_primary_900</item>
         <item name="android:textColor">@color/color_primary_50</item>
+    </style>
+
+    <!-- Radio Button Style -->
+    <style name="Theme.TailorMade.RadioImageButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">null</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">@dimen/dp_24</item>
+        <item name="android:layout_marginStart">@dimen/dp_16</item>
+        <item name="android:layout_marginEnd">@dimen/dp_16</item>
+        <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
     </style>
 </resources>
