@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.TailorMade.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/maison</item>
+        <item name="android:fontFamily">@font/maison</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_32</item>
+        <item name="android:letterSpacing">@dimen/dp_0</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/maison</item>
+        <item name="android:fontFamily">@font/maison</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_24</item>
+        <item name="android:letterSpacing">@dimen/dp_0</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/maison</item>
+        <item name="android:fontFamily">@font/maison</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/sp_20</item>
+        <item name="android:letterSpacing">@dimen/dp_0_15</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Headline3.Bold" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/maison</item>
+        <item name="android:fontFamily">@font/maison</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/sp_20</item>
+        <item name="android:letterSpacing">@dimen/dp_0_15</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/maison</item>
+        <item name="android:fontFamily">@font/maison</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:letterSpacing">@dimen/dp_0_15</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/maison</item>
+        <item name="android:fontFamily">@font/maison</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:letterSpacing">@dimen/dp_0_1</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:letterSpacing">@dimen/dp_0_5</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:letterSpacing">@dimen/dp_0_25</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:letterSpacing">@dimen/dp_1_25</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:letterSpacing">@dimen/dp_0_4</item>
+    </style>
+    <style name="TextAppearance.TailorMade.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="fontFamily">@font/maison</item>
+        <item name="android:fontFamily">@font/maison</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/sp_10</item>
+        <item name="android:letterSpacing">@dimen/dp_0</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+</resources>

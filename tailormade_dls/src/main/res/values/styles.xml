@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Bottom Navigation Style -->
+    <style name="Theme.TailorMade.BottomNavigation" parent="Widget.Design.BottomNavigationView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="android:layout_margin">@dimen/dp_16</item>
+        <item name="android:background">@drawable/drawable_bottom_nav_background</item>
+        <item name="labelVisibilityMode">unlabeled</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="Theme.TailorMade.Button.Rounded" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">@dimen/dp_48</item>
+        <item name="android:paddingTop">@dimen/dp_12</item>
+        <item name="android:paddingBottom">@dimen/dp_12</item>
+        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+    </style>
+
+    <style name="Theme.TailorMade.Button.Small.Rounded" parent="Theme.TailorMade.Button.Rounded">
+        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="android:paddingTop">@dimen/dp_8</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+    </style>
+
+    <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+    </style>
+
+    <style name="Theme.TailorMade.Button.Outlined.Rounded.Red" parent="Theme.TailorMade.Button.Outlined.Rounded">
+        <item name="android:strokeColor">@color/color_red_600</item>
+        <item name="android:textColor">@color/color_red_600</item>
+    </style>
+
+    <style name="Theme.TailorMade.Button.Outlined.Rounded.Green" parent="Theme.TailorMade.Button.Outlined.Rounded">
+        <item name="android:strokeColor">@color/color_green_600</item>
+        <item name="android:textColor">@color/color_green_600</item>
+    </style>
+
+    <style name="Theme.TailorMade.Button.Outlined.Rounded.Left" parent="Theme.TailorMade.Button.Outlined.Rounded">
+        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.Left</item>
+    </style>
+
+    <style name="Theme.TailorMade.Button.Outlined.Rounded.Right" parent="Theme.TailorMade.Button.Outlined.Rounded">
+        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.Right</item>
+    </style>
+
+    <!-- Chip Style -->
+    <style name="Theme.TailorMade.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="checkedIconVisible">false</item>
+        <item name="android:checkable">true</item>
+    </style>
+
+    <!-- Corner Style -->
+    <style name="Theme.TailorMade.CornerRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_0</item>
+    </style>
+
+    <style name="Theme.TailorMade.CornerRounded.All" parent="Theme.TailorMade.CornerRounded">
+        <item name="cornerSize">@dimen/dp_200</item>
+    </style>
+
+    <style name="Theme.TailorMade.CornerRounded_16dp">
+        <item name="cornerSize">@dimen/dp_16</item>
+    </style>
+
+    <style name="Theme.TailorMade.CornerRounded.Top" parent="Theme.TailorMade.CornerRounded">
+        <item name="cornerSizeTopLeft">@dimen/dp_200</item>
+        <item name="cornerSizeTopRight">@dimen/dp_200</item>
+    </style>
+
+    <style name="Theme.TailorMade.CornerRounded.Bottom" parent="Theme.TailorMade.CornerRounded">
+        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+    </style>
+
+    <style name="Theme.TailorMade.CornerRounded.Left" parent="Theme.TailorMade.CornerRounded">
+        <item name="cornerSizeTopLeft">@dimen/dp_200</item>
+        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+    </style>
+
+    <style name="Theme.TailorMade.CornerRounded.Right" parent="Theme.TailorMade.CornerRounded">
+        <item name="cornerSizeTopRight">@dimen/dp_200</item>
+        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+    </style>
+
+    <style name="Theme.TailorMade.CornerRounded.TopLeft" parent="Theme.TailorMade.CornerRounded.Left">
+        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+    </style>
+
+    <style name="Theme.TailorMade.CornerRounded.TopRight" parent="Theme.TailorMade.CornerRounded.Right">
+        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+    </style>
+
+    <!-- FAB Style -->
+    <style name="Theme.TailorMade.FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:background">@color/color_primary_900</item>
+        <item name="android:textColor">@color/color_primary_50</item>
+    </style>
+</resources>

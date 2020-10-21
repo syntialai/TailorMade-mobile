@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Label -->
+    <string name="spin_number_reduce_label">-</string>
+    <string name="spin_number_add_label">+</string>
+    <string name="spin_number_value_label">1</string>
+    <string name="design_name_label">Design name</string>
+    <string name="design_price_label">Design price</string>
+    <string name="chat_name_label">Chat Name</string>
+    <string name="chat_content_label">Chat content</string>
+    <string name="chat_time_label">Chat time</string>
+    <string name="notification_type_label">Notification Type</string>
+    <string name="notification_time_label">Notification time</string>
+    <string name="notification_title_label">Notification title</string>
+    <string name="chat_content_send_time_label">Chat sent time</string>
+    <string name="chat_content_reply_time_label">Chat reply time</string>
+    <string name="order_title_label">Order title</string>
+    <string name="order_price_label">Order price</string>
+    <string name="order_price_discount_label">Order price discount</string>
+    <string name="order_discount_label">Order discount</string>
+    <string name="checkout_order_label">Checkout</string>
+    <string name="order_color_label">Color:</string>
+    <string name="order_color_value_label">color</string>
+    <string name="order_size_label">Size:</string>
+    <string name="order_size_value_label">size</string>
+    <string name="ordered_title_label">Ordered title</string>
+    <string name="ordered_color_label">Color:</string>
+    <string name="ordered_color_value_label">color</string>
+    <string name="ordered_size_label">Size:</string>
+    <string name="ordered_size_value_label">size</string>
+    <string name="ordered_price_label">Price</string>
+    <string name="ordered_price_discount_label">Price discount</string>
+    <string name="ordered_discount_label">Discount</string>
+    <string name="order_again_label">Order Again</string>
+    <string name="order_quantity_value_label">1</string>
+    <string name="order_quantity_label">Quantity</string>
+    <string name="order_total_discount_label">Total Discount</string>
+    <string name="order_total_discount_value_label">-</string>
+    <string name="order_total_price_label">Total Price</string>
+    <string name="order_total_price_value_label">0</string>
+
+    <string name="home_menu_label">Home</string>
+    <string name="chat_menu_label">Chat</string>
+    <string name="order_menu_label">Order</string>
+    <string name="cart_menu_label">Cart</string>
+    <string name="profile_menu_label">Profile</string>
+</resources>
