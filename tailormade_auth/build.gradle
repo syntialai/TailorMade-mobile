@@ -26,14 +26,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     buildFeatures {
         dataBinding true
         viewBinding true
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -41,10 +44,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    api project(path: ":tailormade_base")
-
-    implementation core.kotlin
-    implementation core.legacy_support
+    implementation project(path: ":tailormade_base")
 
     // Tests
     testImplementation test.junit
@@ -53,40 +53,16 @@ dependencies {
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
 
-    // AndroidX
-    implementation androidx.appcompat
-    implementation androidx.core
-    implementation androidx.constraintlayout
-    implementation androidx.lifecycle_extensions
-    implementation androidx.lifecycle_viewmodel
-    implementation androidx.lifecycle_livedata
-    implementation androidx.lifecycle_viewmodel_savedstate
-    implementation androidx.fragment
-    implementation androidx.navigation_fragment
-    implementation androidx.navigation_ui
-
     // Paging
-    implementation paging.runtime
     testImplementation paging.test_common
 
     // Annotation Processing
     kapt dataBinding.kapt
 
-    // MDC
-    implementation materialDesign
-
     // Glide
-    implementation glide.core
     kapt glide.kapt
 
-    // Retrofit
-    implementation retrofit.gson
-    implementation retrofit.core
-    implementation retrofit.converter
-
     // Dagger 2
-    implementation dagger.android
-    implementation dagger.support
     kapt dagger.kapt_processor
     kapt dagger.kapt_compiler
 
@@ -98,16 +74,8 @@ dependencies {
     kaptTest daggerHilt.kaptTest_compiler
     testImplementation daggerHilt.test
 
-    // Coroutine
-    implementation coroutine
-
     // Room
-    implementation room.runtime
-    implementation room.core
     kapt room.kapt_compiler
     androidTestImplementation room.androidTest
     androidTestImplementation room.androidTest_arch_persistence
-
-    // Logger
-    implementation timber
 }
