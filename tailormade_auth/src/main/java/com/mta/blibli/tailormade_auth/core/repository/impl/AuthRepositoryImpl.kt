@@ -2,9 +2,9 @@ package com.mta.blibli.tailormade_auth.core.repository.impl
 
 import android.app.Application
 import com.future.tailormade.util.extension.flowOnIO
-import com.mta.blibli.tailormade_auth.core.model.request.LoginRequest
+import com.mta.blibli.tailormade_auth.core.model.request.RefreshTokenRequest
+import com.mta.blibli.tailormade_auth.core.model.request.SignInRequest
 import com.mta.blibli.tailormade_auth.core.model.request.SignUpRequest
-import com.mta.blibli.tailormade_auth.core.model.request.VerifyPhoneRequest
 import com.mta.blibli.tailormade_auth.core.repository.AuthRepository
 import com.mta.blibli.tailormade_auth.core.service.AuthService
 import kotlinx.coroutines.flow.flow
@@ -19,12 +19,12 @@ class AuthRepositoryImpl @Inject constructor(
         emit(authService.getFirebaseToken(userId))
     }.flowOnIO()
 
-    override suspend fun verifyPhone(verifyPhoneRequest: VerifyPhoneRequest) = flow {
-        emit(authService.verifyPhone(verifyPhoneRequest))
+    override suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest) = flow {
+        emit(authService.refreshToken(refreshTokenRequest))
     }.flowOnIO()
 
-    override suspend fun login(loginRequest: LoginRequest) = flow {
-        emit(authService.login(loginRequest))
+    override suspend fun signIn(signInRequest: SignInRequest) = flow {
+        emit(authService.signIn(signInRequest))
     }.flowOnIO()
 
     override suspend fun signUp(signUpRequest: SignUpRequest) = flow {
