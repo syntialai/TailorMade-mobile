@@ -1,6 +1,6 @@
 <resources>
     <string name="welcome_label">Welcome!</string>
-    <string name="enter_phone_label">Enter your mobile phone number to continue.</string>
+    <string name="enter_email_password_label">Enter your email and password to continue.</string>
     <string name="id_number_label">+62</string>
     <string name="phone_number_label">Phone Number</string>
     <string name="continue_label">Continue</string>
@@ -23,4 +23,10 @@
     <string name="gender_male_label">Male</string>
     <string name="gender_female_label">Female</string>
     <string name="gender_other_label">Other</string>
+    <string name="sign_in_label">Sign In</string>
+    <string name="password_label">Password</string>
+    <string name="or_label">OR</string>
+    <string name="sign_up_label">Sign up</string>
+    <string name="no_account_label">Don\'t have an account?</string>
+    <string name="tailormade_label">TailorMade</string>
 </resources>
