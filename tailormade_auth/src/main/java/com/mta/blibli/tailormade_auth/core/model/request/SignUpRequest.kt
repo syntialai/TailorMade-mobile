@@ -6,11 +6,9 @@ data class SignUpRequest(
 
     var email: String = "",
 
-    var phoneNumber: String = "",
+    var password: String = "",
 
     var birthDate: String = "",
-
-    var role: String = "",
 
     var gender: String = ""
 )

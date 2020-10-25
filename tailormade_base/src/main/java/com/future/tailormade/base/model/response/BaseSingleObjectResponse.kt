@@ -5,5 +5,5 @@ import com.google.gson.annotations.Expose
 data class BaseSingleObjectResponse<T>(
 
     @Expose
-    var content: T? = null
+    var data: T? = null
 ) : BaseResponse()

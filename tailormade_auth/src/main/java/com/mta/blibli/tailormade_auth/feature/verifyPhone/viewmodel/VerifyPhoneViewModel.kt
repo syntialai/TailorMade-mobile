@@ -8,7 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
-import com.mta.blibli.tailormade_auth.core.model.request.LoginRequest
+import com.mta.blibli.tailormade_auth.core.model.request.SignInRequest
 import com.mta.blibli.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -33,10 +33,10 @@ class VerifyPhoneViewModel @ViewModelInject constructor(
 
     @InternalCoroutinesApi
     fun submitVerificationCode(verificationCode: String) {
-        val loginRequest = LoginRequest(_phoneNumber, verificationCode)
+        val loginRequest = SignInRequest(_phoneNumber, verificationCode)
 
         launchViewModelScope {
-            authRepository.login(loginRequest)
+            authRepository.signIn(loginRequest)
                 .onError { error ->
                     appLogger.logOnError(error.message.orEmpty(), error)
                     _errorMessage.value = Constants.VERIFICATION_CODE_IS_WRONG

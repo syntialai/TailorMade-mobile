@@ -8,7 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
-import com.mta.blibli.tailormade_auth.core.model.request.VerifyPhoneRequest
+import com.mta.blibli.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.mta.blibli.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -36,10 +36,10 @@ class LoginViewModel @ViewModelInject constructor(
     @InternalCoroutinesApi
     fun submitPhoneNumber() {
         _phoneNumber?.let {
-            val verifyPhoneRequest = VerifyPhoneRequest()
+            val verifyPhoneRequest = RefreshTokenRequest()
 
             launchViewModelScope {
-                authRepository.verifyPhone(verifyPhoneRequest)
+                authRepository.refreshToken(verifyPhoneRequest)
                     .onError { error ->
                         appLogger.logOnError(error.message.orEmpty(), error)
                         _errorMessage.value = Constants.PHONE_NUMBER_IS_NOT_VALID
