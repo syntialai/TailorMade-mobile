@@ -14,4 +14,7 @@ object Constants {
     const val EMAIL_IS_NOT_VALID = "Email is not valid"
     const val BIRTH_DATE_IS_NOT_SET = "Birth date is not set"
     const val PASSWORD_IS_EMPTY = "Password is empty"
+    const val PASSWORD_IS_NOT_VALID = "Password length should be more than 7 characters"
+    const val CONFIRM_PASSWORD_IS_EMPTY = "Confirm $PASSWORD_IS_EMPTY"
+    const val CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD = "Confirm Password must be same with password"
 }

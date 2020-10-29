@@ -1,6 +1,5 @@
 package com.future.tailormade_auth.core.repository.impl
 
-import android.app.Application
 import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.request.SignInRequest
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private var application: Application,
     private var authService: AuthService
 ) : AuthRepository {
 

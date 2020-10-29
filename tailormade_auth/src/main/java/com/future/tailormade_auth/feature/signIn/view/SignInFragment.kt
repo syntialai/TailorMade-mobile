@@ -60,26 +60,40 @@ class SignInFragment : BaseFragment() {
         return binding.root
     }
 
+    private fun isFormValid(email: String, password: String): Boolean =
+        email.isNotBlank() && email.isEmailValid() && password.isNotBlank()
+
+    private fun setFormErrorMessage() {
+        with(binding) {
+            textInputEmailSignIn.error = when {
+                editTextEmailSignIn.text.toString().isBlank() -> Constants.EMAIL_IS_EMPTY
+                editTextEmailSignIn.text.toString().isEmailValid()
+                    .not() -> Constants.EMAIL_IS_NOT_VALID
+                else -> null
+            }
+
+            textInputPasswordSignIn.error = when {
+                editTextPasswordSignIn.text.toString().isBlank() -> Constants.PASSWORD_IS_EMPTY
+                else -> null
+            }
+        }
+    }
+
     private fun setupObserver() {
-        viewModel.errorMessage.observe(viewLifecycleOwner, {
-            it?.let {
-                ToastHelper.showErrorToast(requireContext(), requireView(), it)
+        viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
+            if (error != null && context != null) {
+                ToastHelper.showErrorToast(requireContext(), requireView(), error)
             }
         })
     }
 
     @InternalCoroutinesApi
     private fun submitEmailAndPassword(email: String, password: String) {
-        if (email.isBlank()) {
-            binding.textInputEmailSignIn.error = Constants.EMAIL_IS_EMPTY
-        } else if (!email.isEmailValid()) {
-            binding.textInputEmailSignIn.error = Constants.EMAIL_IS_NOT_VALID
-        } else if (password.isBlank()) {
-            viewModel.setEmail(email)
-            binding.textInputPasswordSignIn.error = Constants.PASSWORD_IS_EMPTY
-        } else {
+        if (isFormValid(email, password)) {
             viewModel.setPassword(password)
             viewModel.signIn()
+        } else {
+            setFormErrorMessage()
         }
     }
 

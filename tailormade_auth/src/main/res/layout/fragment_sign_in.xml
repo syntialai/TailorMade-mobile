@@ -6,7 +6,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:context=".feature.signIn.view.SignInFragment">
 
         <ImageView
@@ -21,7 +20,6 @@
             android:id="@+id/text_tailormade"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_48"
-            android:layout_marginStart="84dp"
             android:gravity="center_vertical"
             android:text="@string/tailormade_label"
             android:textAppearance="?attr/textAppearanceHeadline1"

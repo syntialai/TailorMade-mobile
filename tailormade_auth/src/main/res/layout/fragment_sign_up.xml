@@ -14,7 +14,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/linear_layout_form"
+            app:layout_constraintBottom_toTopOf="@id/linear_layout_sign_up_form"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -38,7 +38,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_layout_form"
+            android:id="@+id/linear_layout_sign_up_form"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -48,21 +48,21 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_name"
+                android:id="@+id/text_input_name_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name_label"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_name"
+                    android:id="@+id/edit_text_name_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_email"
+                android:id="@+id/text_input_email_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/dp_8"
@@ -70,14 +70,14 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_email"
+                    android:id="@+id/edit_text_email_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_birth_date"
+                android:id="@+id/text_input_birth_date_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/birth_date_label"
@@ -85,11 +85,42 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_birth_date"
+                    android:id="@+id/edit_text_birth_date_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_password_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:hint="@string/password_label"
+                app:endIconDrawable="@drawable/ic_visibility_off"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_password_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_confirm_password_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:hint="@string/password_label"
+                app:endIconDrawable="@drawable/ic_visibility_off"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_confirm_password_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -98,7 +129,6 @@
             android:id="@+id/button_submit_form"
             style="@style/Theme.TailorMade.Button.Rounded"
             android:layout_width="@dimen/dp_0"
-            android:enabled="false"
             android:text="@string/next_label"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

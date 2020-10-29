@@ -21,23 +21,18 @@ class SignUpViewModel @ViewModelInject constructor(
     override fun getLogName(): String =
         "com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel"
 
-    private var _phoneNumber: String = ""
-
     private var signUpRequest: SignUpRequest = SignUpRequest()
 
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?>
         get() = _errorMessage
 
-    fun setPhoneNumber(phoneNumber: String) {
-        _phoneNumber = phoneNumber
-    }
-
-    fun setSignUpInfo(name: String, email: String, birthDate: String) {
+    fun setSignUpInfo(name: String, email: String, birthDate: String, password: String) {
         signUpRequest.apply {
             this.name = name
             this.email = email
             this.birthDate = birthDate
+            this.password = password
         }
     }
 
