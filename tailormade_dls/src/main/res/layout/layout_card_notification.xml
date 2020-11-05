@@ -15,7 +15,6 @@
             android:id="@+id/image_view_notification_type"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
-            app:layout_constraintBottom_toTopOf="@id/text_view_notification_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />

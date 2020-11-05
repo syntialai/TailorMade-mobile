@@ -73,8 +73,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
-    implementation project(path: ":tailormade_base")
-    implementation project(path: ":tailormade_auth")
+    implementation project(":tailormade_dls")
+    implementation project(":tailormade_base")
+    implementation project(":tailormade_auth")
     implementation androidx.navigation_fragment
     implementation androidx.navigation_ui
 

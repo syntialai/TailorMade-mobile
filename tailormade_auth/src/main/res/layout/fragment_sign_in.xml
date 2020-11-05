@@ -14,43 +14,44 @@
             android:layout_height="@dimen/dp_48"
             android:src="@drawable/ic_tailormade_primary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/text_tailormade"
+            style="@style/TextAppearance.TailorMade.Headline1.Primary"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_48"
             android:gravity="center_vertical"
             android:text="@string/tailormade_label"
-            android:textAppearance="?attr/textAppearanceHeadline1"
             app:layout_constraintStart_toEndOf="@id/image_tailormade"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linear_layout_sign_in_info"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_0"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/linear_layout_sign_in_form"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/text_tailormade">
 
             <TextView
                 android:id="@+id/text_view_title"
+                style="@style/TextAppearance.TailorMade.Headline3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
-                android:text="@string/welcome_label"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:text="@string/welcome_label" />
 
             <TextView
                 android:id="@+id/text_view_description"
+                style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/enter_email_password_label"
-                android:textAppearance="?attr/textAppearanceBody2" />
+                android:text="@string/enter_email_password_label" />
 
         </LinearLayout>
 
@@ -119,22 +120,19 @@
 
             <TextView
                 android:id="@+id/text_go_to_sign_up_label"
+                style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_account_label"
-                android:textAppearance="?attr/textAppearanceBody1" />
+                android:text="@string/no_account_label" />
 
             <TextView
                 android:id="@+id/text_go_to_sign_up"
+                style="@style/TextAppearance.TailorMade.Body1.Primary.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_4"
-                android:text="@string/sign_up_label"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold" />
+                android:layout_marginStart="@dimen/dp_8"
+                android:text="@string/sign_up_label" />
 
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

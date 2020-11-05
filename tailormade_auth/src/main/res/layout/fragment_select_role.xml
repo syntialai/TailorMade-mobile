@@ -12,7 +12,7 @@
         <LinearLayout
             android:id="@+id/linear_layout_title"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_0"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/radio_group_select_role"
             app:layout_constraintEnd_toEndOf="parent"
@@ -21,6 +21,7 @@
 
             <TextView
                 android:id="@+id/text_view_title"
+                style="@style/TextAppearance.TailorMade.Headline3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
@@ -29,11 +30,12 @@
 
             <TextView
                 android:id="@+id/text_view_description"
+                style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
                 android:text="@string/select_role_info_label"
-                android:textAppearance="?attr/textAppearanceBody2" />
+                 />
 
         </LinearLayout>
 

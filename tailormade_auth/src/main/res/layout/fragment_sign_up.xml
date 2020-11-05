@@ -12,7 +12,7 @@
         <LinearLayout
             android:id="@+id/linear_layout_title"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_0"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/linear_layout_sign_up_form"
             app:layout_constraintEnd_toEndOf="parent"
@@ -21,19 +21,19 @@
 
             <TextView
                 android:id="@+id/text_view_title"
+                style="@style/TextAppearance.TailorMade.Headline3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
-                android:text="@string/get_started_label"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:text="@string/get_started_label" />
 
             <TextView
                 android:id="@+id/text_view_description"
+                style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/enter_info_label"
-                android:textAppearance="?attr/textAppearanceBody2" />
+                android:text="@string/enter_info_label" />
 
         </LinearLayout>
 
@@ -123,16 +123,42 @@
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/button_submit_form"
+                style="@style/Theme.TailorMade.Button.Rounded"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_40"
+                android:text="@string/next_label" />
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button_submit_form"
-            style="@style/Theme.TailorMade.Button.Rounded"
+        <LinearLayout
+            android:id="@+id/linear_layout_go_to_sign_in"
             android:layout_width="@dimen/dp_0"
-            android:text="@string/next_label"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_32"
+            android:gravity="center|center_horizontal"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/text_go_to_sign_in_label"
+                style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/have_account_label" />
+
+            <TextView
+                android:id="@+id/text_go_to_sign_in"
+                style="@style/TextAppearance.TailorMade.Body1.Primary.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:text="@string/sign_in_label" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
