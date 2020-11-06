@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade_auth.databinding.FragmentSelectRoleBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class SelectRoleFragment : BaseFragment() {
@@ -17,6 +18,7 @@ class SelectRoleFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSelectRoleBinding
 
+    @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +35,7 @@ class SelectRoleFragment : BaseFragment() {
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     private fun submitRole(id: Int) {
         val selectedRadioButton = binding.radioGroupSelectRole.findViewById<RadioButton>(id)

@@ -23,6 +23,7 @@ ext {
             recyclerview          : "1.1.0",
             recyclerview_selection: "1.1.0-rc03",
             legacy                : "1.0.0",
+            firebase              : "26.0.0",
             test_junit            : "4.13",
             test_core             : "1.3.0",
             test_mockito          : "3.5.13",
@@ -111,4 +112,8 @@ ext {
     ]
 
     timber = "com.jakewharton.timber:timber:${versions.logger}"
+
+    firebase = [
+            admin: "com.google.firebase:firebase-database-ktx:${versions.firebase}",
+    ]
 }

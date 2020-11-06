@@ -8,10 +8,13 @@ import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
 import com.future.tailormade_auth.core.repository.AuthRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flatMapLatest
 
 class SignUpViewModel @ViewModelInject constructor(
     private val authRepository: AuthRepository,
@@ -26,6 +29,8 @@ class SignUpViewModel @ViewModelInject constructor(
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?>
         get() = _errorMessage
+
+    private fun getSignInInfo() = SignInRequest(signUpRequest.email, signUpRequest.password)
 
     fun setSignUpInfo(name: String, email: String, birthDate: String, password: String) {
         signUpRequest.apply {
@@ -44,6 +49,7 @@ class SignUpViewModel @ViewModelInject constructor(
         signUpRequest.gender = gender
     }
 
+    @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     fun signUp() {
         launchViewModelScope {
@@ -51,8 +57,12 @@ class SignUpViewModel @ViewModelInject constructor(
                 .onError { error ->
                     appLogger.logOnError(error.message.orEmpty(), error)
                     _errorMessage.value = Constants.SIGN_UP_ERROR
+                }.flatMapLatest {
+                    authRepository.signIn(getSignInInfo())
+                }.onError { error ->
+                    appLogger.logOnError(error.message.orEmpty(), error)
                 }.collect {
-                    _errorMessage.value = null
+                    // Save token
                 }
         }
     }

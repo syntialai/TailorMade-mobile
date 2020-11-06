@@ -1,9 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_user_graph"
-    app:startDestination="@id/signInFragment">
-    <fragment
-        android:id="@+id/signInFragment"
-        android:name="com.future.tailormade_auth.feature.signIn.view.SignInFragment"
-        android:label="SignInFragment" />
-</navigation>
+    android:id="@+id/nav_user_graph" />
