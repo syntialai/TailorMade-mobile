@@ -17,31 +17,43 @@ import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@AndroidEntryPoint class SignInFragment : BaseFragment() {
+@AndroidEntryPoint
+class SignInFragment : BaseFragment() {
 
   private lateinit var binding: FragmentSignInBinding
 
   private val viewModel: SignInViewModel by viewModels()
 
-  @InternalCoroutinesApi override fun onCreateView(inflater: LayoutInflater,
-      container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun getScreenName(): String =
+    "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
+
+  @InternalCoroutinesApi
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?, savedInstanceState: Bundle?
+  ): View? {
     binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
 
     with(binding) {
       buttonSignIn.setOnClickListener {
-        submitEmailAndPassword(editTextEmailSignIn.text.toString(),
-            editTextPasswordSignIn.text.toString())
+        submitEmailAndPassword(
+          editTextEmailSignIn.text.toString(),
+          editTextPasswordSignIn.text.toString()
+        )
       }
 
       textInputPasswordSignIn.setEndIconOnClickListener {
         context?.let { context ->
           if (textInputPasswordSignIn.endIconDrawable == ContextCompat.getDrawable(
-                  context, R.drawable.ic_visibility_off)) {
+              context, R.drawable.ic_visibility_off
+            )
+          ) {
             textInputPasswordSignIn.setEndIconDrawable(R.drawable.ic_visibility)
             textInputPasswordSignIn.setEndIconActivated(true)
           } else {
             textInputPasswordSignIn.setEndIconDrawable(
-                R.drawable.ic_visibility_off)
+              R.drawable.ic_visibility_off
+            )
             textInputPasswordSignIn.setEndIconActivated(false)
           }
         }
@@ -53,7 +65,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
     return binding.root
   }
 
-  private fun isFormValid(email: String, password: String): Boolean = email.isNotBlank() && email.isEmailValid() && password.isNotBlank()
+  private fun isFormValid(email: String, password: String): Boolean =
+    email.isNotBlank() && email.isEmailValid() && password.isNotBlank()
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -70,7 +83,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
       textGoToSignUp.setOnClickListener {
         findNavController().navigate(
-            SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
+          SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
+        )
       }
     }
   }
@@ -83,8 +97,11 @@ import kotlinx.coroutines.InternalCoroutinesApi
     })
   }
 
-  @InternalCoroutinesApi private fun submitEmailAndPassword(email: String,
-      password: String) {
+  @InternalCoroutinesApi
+  private fun submitEmailAndPassword(
+    email: String,
+    password: String
+  ) {
     if (isFormValid(email, password)) {
       viewModel.setPassword(password)
       viewModel.signIn()
@@ -95,6 +112,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
   companion object {
 
-    @JvmStatic fun newInstance() = SignInFragment()
+    @JvmStatic
+    fun newInstance() = SignInFragment()
   }
 }

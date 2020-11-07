@@ -10,7 +10,7 @@ abstract class BaseFragment : Fragment() {
 
     protected var appLogger = AppLogger.create(this.getScreenName())
 
-    open fun getScreenName(): String = "BaseFragment"
+    abstract fun getScreenName(): String
 
     override fun onAttach(context: Context) {
         appLogger.logLifecycleOnAttach()

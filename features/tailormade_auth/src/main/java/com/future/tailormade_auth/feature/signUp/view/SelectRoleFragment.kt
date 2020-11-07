@@ -9,20 +9,30 @@ import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade_auth.databinding.FragmentSelectRoleBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
+@AndroidEntryPoint
 class SelectRoleFragment : BaseFragment() {
 
   private val viewModel: SignUpViewModel by viewModels()
 
   private lateinit var binding: FragmentSelectRoleBinding
 
-  @ExperimentalCoroutinesApi @InternalCoroutinesApi override fun onCreateView(
-      inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
-    binding = FragmentSelectRoleBinding.inflate(layoutInflater, container,
-        false)
+  override fun getScreenName(): String =
+    "com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
+
+  @ExperimentalCoroutinesApi
+  @InternalCoroutinesApi
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    binding = FragmentSelectRoleBinding.inflate(
+      layoutInflater, container,
+      false
+    )
 
     with(binding) {
       buttonSubmitRole.setOnClickListener {
@@ -33,10 +43,14 @@ class SelectRoleFragment : BaseFragment() {
     return binding.root
   }
 
-  @ExperimentalCoroutinesApi @InternalCoroutinesApi private fun submitRole(
-      id: Int) {
+  @ExperimentalCoroutinesApi
+  @InternalCoroutinesApi
+  private fun submitRole(
+    id: Int
+  ) {
     val selectedRadioButton = binding.radioGroupSelectRole.findViewById<RadioButton>(
-        id)
+      id
+    )
     viewModel.setSignUpRole(selectedRadioButton.text.toString())
     viewModel.signUp()
   }

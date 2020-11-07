@@ -14,9 +14,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
 class SignInViewModel @ViewModelInject constructor(
-    private val authRepository: AuthRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle) :
-    BaseViewModel() {
+  private val authRepository: AuthRepository,
+  @Assisted private val savedStateHandle: SavedStateHandle
+) :
+  BaseViewModel() {
 
   override fun getLogName(): String = "SignInViewModel"
 
@@ -36,16 +37,17 @@ class SignInViewModel @ViewModelInject constructor(
     _password = password
   }
 
-  @InternalCoroutinesApi fun signIn() {
+  @InternalCoroutinesApi
+  fun signIn() {
     val signInRequest = SignInRequest(_email, _password)
 
     launchViewModelScope {
       authRepository.signIn(signInRequest).onError { error ->
-            appLogger.logOnError(error.message.orEmpty(), error)
-            _errorMessage.value = Constants.SIGN_IN_ERROR
-          }.collect {
-            _errorMessage.value = null
-          }
+        appLogger.logOnError(error.message.orEmpty(), error)
+        _errorMessage.value = Constants.SIGN_IN_ERROR
+      }.collect {
+        _errorMessage.value = null
+      }
     }
   }
 }

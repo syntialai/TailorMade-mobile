@@ -17,11 +17,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
 
 class SignUpViewModel @ViewModelInject constructor(
-    private val authRepository: AuthRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle) :
-    BaseViewModel() {
+  private val authRepository: AuthRepository,
+  @Assisted private val savedStateHandle: SavedStateHandle
+) :
+  BaseViewModel() {
 
-  override fun getLogName(): String = "com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel"
+  override fun getLogName(): String =
+    "com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel"
 
   private var signUpRequest: SignUpRequest = SignUpRequest()
 
@@ -29,11 +31,15 @@ class SignUpViewModel @ViewModelInject constructor(
   val errorMessage: LiveData<String?>
     get() = _errorMessage
 
-  private fun getSignInInfo() = SignInRequest(signUpRequest.email,
-      signUpRequest.password)
+  private fun getSignInInfo() = SignInRequest(
+    signUpRequest.email,
+    signUpRequest.password
+  )
 
-  fun setSignUpInfo(name: String, email: String, birthDate: String,
-      password: String) {
+  fun setSignUpInfo(
+    name: String, email: String, birthDate: String,
+    password: String
+  ) {
     signUpRequest.apply {
       this.name = name
       this.email = email
@@ -50,7 +56,9 @@ class SignUpViewModel @ViewModelInject constructor(
     signUpRequest.gender = gender
   }
 
-  @ExperimentalCoroutinesApi @InternalCoroutinesApi fun signUp() {
+  @ExperimentalCoroutinesApi
+  @InternalCoroutinesApi
+  fun signUp() {
     launchViewModelScope {
       authRepository.signUp(signUpRequest).onError { error ->
         appLogger.logOnError(error.message.orEmpty(), error)

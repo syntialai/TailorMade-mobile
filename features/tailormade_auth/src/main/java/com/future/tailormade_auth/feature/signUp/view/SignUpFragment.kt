@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.toast.ToastHelper
@@ -17,7 +17,8 @@ import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint class SignUpFragment : Fragment() {
+@AndroidEntryPoint
+class SignUpFragment : BaseFragment() {
 
   private val viewModel: SignUpViewModel by viewModels()
 
@@ -25,8 +26,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
   private lateinit var birthDatePicker: MaterialDatePicker<Long>
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+  override fun getScreenName(): String =
+    "com.future.tailormade_auth.feature.signUp.view.SignUpFragment"
+
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().build()
 
     binding = FragmentSignUpBinding.inflate(layoutInflater, container, false)
@@ -38,23 +44,26 @@ import dagger.hilt.android.AndroidEntryPoint
 
       buttonSubmitForm.setOnClickListener {
         submitForm(
-            editTextNameSignUp.text.toString(),
-            editTextEmailSignUp.text.toString(),
-            editTextBirthDateSignUp.text.toString(),
-            editTextPasswordSignUp.text.toString(),
-            editTextConfirmPasswordSignUp.text.toString(),
+          editTextNameSignUp.text.toString(),
+          editTextEmailSignUp.text.toString(),
+          editTextBirthDateSignUp.text.toString(),
+          editTextPasswordSignUp.text.toString(),
+          editTextConfirmPasswordSignUp.text.toString(),
         )
       }
 
       textInputPasswordSignUp.setEndIconOnClickListener {
         context?.let { context ->
           if (textInputPasswordSignUp.endIconDrawable == ContextCompat.getDrawable(
-                  context, R.drawable.ic_visibility_off)) {
+              context, R.drawable.ic_visibility_off
+            )
+          ) {
             textInputPasswordSignUp.setEndIconDrawable(R.drawable.ic_visibility)
             textInputPasswordSignUp.setEndIconActivated(true)
           } else {
             textInputPasswordSignUp.setEndIconDrawable(
-                R.drawable.ic_visibility_off)
+              R.drawable.ic_visibility_off
+            )
             textInputPasswordSignUp.setEndIconActivated(false)
           }
         }
@@ -63,13 +72,17 @@ import dagger.hilt.android.AndroidEntryPoint
       textInputConfirmPasswordSignUp.setEndIconOnClickListener {
         context?.let { context ->
           if (textInputConfirmPasswordSignUp.endIconDrawable == ContextCompat.getDrawable(
-                  context, R.drawable.ic_visibility_off)) {
+              context, R.drawable.ic_visibility_off
+            )
+          ) {
             textInputConfirmPasswordSignUp.setEndIconDrawable(
-                R.drawable.ic_visibility)
+              R.drawable.ic_visibility
+            )
             textInputConfirmPasswordSignUp.setEndIconActivated(true)
           } else {
             textInputConfirmPasswordSignUp.setEndIconDrawable(
-                R.drawable.ic_visibility_off)
+              R.drawable.ic_visibility_off
+            )
             textInputConfirmPasswordSignUp.setEndIconActivated(false)
           }
         }
@@ -77,7 +90,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
       textGoToSignIn.setOnClickListener {
         findNavController().navigate(
-            SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
+          SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
+        )
       }
     }
 
@@ -86,8 +100,11 @@ import dagger.hilt.android.AndroidEntryPoint
     return binding.root
   }
 
-  private fun isFormValid(name: String, email: String, birthDate: String,
-      password: String, confirmPassword: String): Boolean = name.isNotBlank() && email.isNotBlank() && email.isEmailValid() && birthDate.isNotBlank() && password.isNotBlank() && password.length >= 8 && confirmPassword.isNotBlank() && confirmPassword == password
+  private fun isFormValid(
+    name: String, email: String, birthDate: String,
+    password: String, confirmPassword: String
+  ): Boolean =
+    name.isNotBlank() && email.isNotBlank() && email.isEmailValid() && birthDate.isNotBlank() && password.isNotBlank() && password.length >= 8 && confirmPassword.isNotBlank() && confirmPassword == password
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -114,7 +131,8 @@ import dagger.hilt.android.AndroidEntryPoint
       }
 
       textInputConfirmPasswordSignUp.error = when {
-        editTextConfirmPasswordSignUp.text.toString().isBlank() -> Constants.CONFIRM_PASSWORD_IS_EMPTY
+        editTextConfirmPasswordSignUp.text.toString()
+          .isBlank() -> Constants.CONFIRM_PASSWORD_IS_EMPTY
         editTextConfirmPasswordSignUp.text.toString() != editTextPasswordSignUp.text.toString() -> Constants.CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD
         else -> null
       }
@@ -123,9 +141,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
   private fun setupObserver() {
     viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
-        if (error != null && context != null) {
-            ToastHelper.showErrorToast(requireContext(), requireView(), error)
-        }
+      if (error != null && context != null) {
+        ToastHelper.showErrorToast(requireContext(), requireView(), error)
+      }
     })
   }
 
@@ -133,12 +151,15 @@ import dagger.hilt.android.AndroidEntryPoint
     birthDatePicker.show(parentFragmentManager, BIRTH_DATE_PICKER)
   }
 
-  private fun submitForm(name: String, email: String, birthDate: String,
-      password: String, confirmPassword: String) {
+  private fun submitForm(
+    name: String, email: String, birthDate: String,
+    password: String, confirmPassword: String
+  ) {
     if (isFormValid(name, email, birthDate, password, confirmPassword)) {
       viewModel.setSignUpInfo(name, email, birthDate, password)
       findNavController().navigate(
-          SignUpFragmentDirections.actionSignUpFragmentToSelectGenderFragment())
+        SignUpFragmentDirections.actionSignUpFragmentToSelectGenderFragment()
+      )
     } else {
       setFormErrorMessage()
     }
@@ -148,6 +169,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
     private const val BIRTH_DATE_PICKER = "Birth Date Picker"
 
-    @JvmStatic fun newInstance() = SignUpFragment()
+    @JvmStatic
+    fun newInstance() = SignUpFragment()
   }
 }
