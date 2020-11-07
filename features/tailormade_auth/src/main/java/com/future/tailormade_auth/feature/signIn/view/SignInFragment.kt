@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
@@ -16,90 +17,84 @@ import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@AndroidEntryPoint
-class SignInFragment : BaseFragment() {
+@AndroidEntryPoint class SignInFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentSignInBinding
+  private lateinit var binding: FragmentSignInBinding
 
-    private val viewModel: SignInViewModel by viewModels()
+  private val viewModel: SignInViewModel by viewModels()
 
-    @InternalCoroutinesApi
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
+  @InternalCoroutinesApi override fun onCreateView(inflater: LayoutInflater,
+      container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
 
-        with(binding) {
-            buttonSignIn.setOnClickListener {
-                submitEmailAndPassword(
-                    editTextEmailSignIn.text.toString(),
-                    editTextPasswordSignIn.text.toString()
-                )
-            }
+    with(binding) {
+      buttonSignIn.setOnClickListener {
+        submitEmailAndPassword(editTextEmailSignIn.text.toString(),
+            editTextPasswordSignIn.text.toString())
+      }
 
-            textInputPasswordSignIn.setEndIconOnClickListener {
-                context?.let { context ->
-                    if (textInputPasswordSignIn.endIconDrawable == ContextCompat.getDrawable(
-                            context,
-                            R.drawable.ic_visibility_off
-                        )
-                    ) {
-                        textInputPasswordSignIn.setEndIconDrawable(R.drawable.ic_visibility)
-                        textInputPasswordSignIn.setEndIconActivated(true)
-                    } else {
-                        textInputPasswordSignIn.setEndIconDrawable(R.drawable.ic_visibility_off)
-                        textInputPasswordSignIn.setEndIconActivated(false)
-                    }
-                }
-            }
+      textInputPasswordSignIn.setEndIconOnClickListener {
+        context?.let { context ->
+          if (textInputPasswordSignIn.endIconDrawable == ContextCompat.getDrawable(
+                  context, R.drawable.ic_visibility_off)) {
+            textInputPasswordSignIn.setEndIconDrawable(R.drawable.ic_visibility)
+            textInputPasswordSignIn.setEndIconActivated(true)
+          } else {
+            textInputPasswordSignIn.setEndIconDrawable(
+                R.drawable.ic_visibility_off)
+            textInputPasswordSignIn.setEndIconActivated(false)
+          }
         }
-
-        setupObserver()
-
-        return binding.root
+      }
     }
 
-    private fun isFormValid(email: String, password: String): Boolean =
-        email.isNotBlank() && email.isEmailValid() && password.isNotBlank()
+    setupObserver()
 
-    private fun setFormErrorMessage() {
-        with(binding) {
-            textInputEmailSignIn.error = when {
-                editTextEmailSignIn.text.toString().isBlank() -> Constants.EMAIL_IS_EMPTY
-                editTextEmailSignIn.text.toString().isEmailValid()
-                    .not() -> Constants.EMAIL_IS_NOT_VALID
-                else -> null
-            }
+    return binding.root
+  }
 
-            textInputPasswordSignIn.error = when {
-                editTextPasswordSignIn.text.toString().isBlank() -> Constants.PASSWORD_IS_EMPTY
-                else -> null
-            }
-        }
+  private fun isFormValid(email: String, password: String): Boolean = email.isNotBlank() && email.isEmailValid() && password.isNotBlank()
+
+  private fun setFormErrorMessage() {
+    with(binding) {
+      textInputEmailSignIn.error = when {
+        editTextEmailSignIn.text.toString().isBlank() -> Constants.EMAIL_IS_EMPTY
+        editTextEmailSignIn.text.toString().isEmailValid().not() -> Constants.EMAIL_IS_NOT_VALID
+        else -> null
+      }
+
+      textInputPasswordSignIn.error = when {
+        editTextPasswordSignIn.text.toString().isBlank() -> Constants.PASSWORD_IS_EMPTY
+        else -> null
+      }
+
+      textGoToSignUp.setOnClickListener {
+        findNavController().navigate(
+            SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
+      }
     }
+  }
 
-    private fun setupObserver() {
-        viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
-            if (error != null && context != null) {
-                ToastHelper.showErrorToast(requireContext(), requireView(), error)
-            }
-        })
+  private fun setupObserver() {
+    viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
+      if (error != null && context != null) {
+        ToastHelper.showErrorToast(requireContext(), requireView(), error)
+      }
+    })
+  }
+
+  @InternalCoroutinesApi private fun submitEmailAndPassword(email: String,
+      password: String) {
+    if (isFormValid(email, password)) {
+      viewModel.setPassword(password)
+      viewModel.signIn()
+    } else {
+      setFormErrorMessage()
     }
+  }
 
-    @InternalCoroutinesApi
-    private fun submitEmailAndPassword(email: String, password: String) {
-        if (isFormValid(email, password)) {
-            viewModel.setPassword(password)
-            viewModel.signIn()
-        } else {
-            setFormErrorMessage()
-        }
-    }
+  companion object {
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance() = SignInFragment()
-    }
+    @JvmStatic fun newInstance() = SignInFragment()
+  }
 }

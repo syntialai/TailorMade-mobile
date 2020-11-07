@@ -15,15 +15,15 @@ import retrofit2.http.Path
 
 interface AuthService {
 
-    @GET(AuthApiUrl.USERS_GET_FIREBASE_TOKEN_PATH)
-    fun getFirebaseToken(@Path("userId") userId: String): BaseSingleObjectResponse<FirebaseTokenResponse>
+  @GET(AuthApiUrl.USERS_GET_FIREBASE_TOKEN_PATH) fun getFirebaseToken(
+      @Path("userId") userId: String): BaseSingleObjectResponse<FirebaseTokenResponse>
 
-    @POST(AuthApiUrl.USERS_SIGN_IN_PATH)
-    fun signIn(@Body SignInRequest: SignInRequest): BaseSingleObjectResponse<TokenResponse>
+  @POST(AuthApiUrl.USERS_SIGN_IN_PATH) fun signIn(
+      @Body SignInRequest: SignInRequest): BaseSingleObjectResponse<TokenResponse>
 
-    @POST(AuthApiUrl.USERS_SIGN_UP_PATH)
-    fun signUp(@Body SignUpRequest: SignUpRequest): BaseResponse
+  @POST(AuthApiUrl.USERS_SIGN_UP_PATH) fun signUp(
+      @Body SignUpRequest: SignUpRequest): BaseResponse
 
-    @POST(AuthApiUrl.USERS_REFRESH_TOKEN_PATH)
-    fun refreshToken(@Body RefreshTokenRequest: RefreshTokenRequest): BaseSingleObjectResponse<TokenResponse>
+  @POST(AuthApiUrl.USERS_REFRESH_TOKEN_PATH) fun refreshToken(
+      @Body RefreshTokenRequest: RefreshTokenRequest): BaseSingleObjectResponse<TokenResponse>
 }

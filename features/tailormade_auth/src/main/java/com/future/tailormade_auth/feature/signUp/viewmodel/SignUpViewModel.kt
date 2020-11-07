@@ -18,52 +18,50 @@ import kotlinx.coroutines.flow.flatMapLatest
 
 class SignUpViewModel @ViewModelInject constructor(
     private val authRepository: AuthRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+    @Assisted private val savedStateHandle: SavedStateHandle) :
+    BaseViewModel() {
 
-    override fun getLogName(): String =
-        "com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel"
+  override fun getLogName(): String = "com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel"
 
-    private var signUpRequest: SignUpRequest = SignUpRequest()
+  private var signUpRequest: SignUpRequest = SignUpRequest()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?>
-        get() = _errorMessage
+  private val _errorMessage = MutableLiveData<String?>()
+  val errorMessage: LiveData<String?>
+    get() = _errorMessage
 
-    private fun getSignInInfo() = SignInRequest(signUpRequest.email, signUpRequest.password)
+  private fun getSignInInfo() = SignInRequest(signUpRequest.email,
+      signUpRequest.password)
 
-    fun setSignUpInfo(name: String, email: String, birthDate: String, password: String) {
-        signUpRequest.apply {
-            this.name = name
-            this.email = email
-            this.birthDate = birthDate
-            this.password = password
-        }
+  fun setSignUpInfo(name: String, email: String, birthDate: String,
+      password: String) {
+    signUpRequest.apply {
+      this.name = name
+      this.email = email
+      this.birthDate = birthDate
+      this.password = password
     }
+  }
 
-    fun setSignUpRole(role: String) {
-//        signUpRequest.role = role
-    }
+  fun setSignUpRole(role: String) {
+    //        signUpRequest.role = role
+  }
 
-    fun setSignUpGender(gender: String) {
-        signUpRequest.gender = gender
-    }
+  fun setSignUpGender(gender: String) {
+    signUpRequest.gender = gender
+  }
 
-    @ExperimentalCoroutinesApi
-    @InternalCoroutinesApi
-    fun signUp() {
-        launchViewModelScope {
-            authRepository.signUp(signUpRequest)
-                .onError { error ->
-                    appLogger.logOnError(error.message.orEmpty(), error)
-                    _errorMessage.value = Constants.SIGN_UP_ERROR
-                }.flatMapLatest {
-                    authRepository.signIn(getSignInInfo())
-                }.onError { error ->
-                    appLogger.logOnError(error.message.orEmpty(), error)
-                }.collect {
-                    // Save token
-                }
-        }
+  @ExperimentalCoroutinesApi @InternalCoroutinesApi fun signUp() {
+    launchViewModelScope {
+      authRepository.signUp(signUpRequest).onError { error ->
+        appLogger.logOnError(error.message.orEmpty(), error)
+        _errorMessage.value = Constants.SIGN_UP_ERROR
+      }.flatMapLatest {
+        authRepository.signIn(getSignInInfo())
+      }.onError { error ->
+        appLogger.logOnError(error.message.orEmpty(), error)
+      }.collect {
+        // Save token
+      }
     }
+  }
 }

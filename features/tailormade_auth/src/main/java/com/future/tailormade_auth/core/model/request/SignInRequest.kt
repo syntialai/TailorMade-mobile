@@ -4,5 +4,4 @@ data class SignInRequest(
 
     var username: String = "",
 
-    var password: String = ""
-)
+    var password: String = "")

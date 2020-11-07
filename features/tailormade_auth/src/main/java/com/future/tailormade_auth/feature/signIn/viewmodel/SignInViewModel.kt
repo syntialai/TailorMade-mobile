@@ -15,40 +15,37 @@ import kotlinx.coroutines.flow.collect
 
 class SignInViewModel @ViewModelInject constructor(
     private val authRepository: AuthRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+    @Assisted private val savedStateHandle: SavedStateHandle) :
+    BaseViewModel() {
 
-    override fun getLogName(): String =
-        "SignInViewModel"
+  override fun getLogName(): String = "SignInViewModel"
 
-    private var _email: String = ""
+  private var _email: String = ""
 
-    private var _password: String = ""
+  private var _password: String = ""
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?>
-        get() = _errorMessage
+  private val _errorMessage = MutableLiveData<String?>()
+  val errorMessage: LiveData<String?>
+    get() = _errorMessage
 
-    fun setEmail(email: String) {
-        _email = email
+  fun setEmail(email: String) {
+    _email = email
+  }
+
+  fun setPassword(password: String) {
+    _password = password
+  }
+
+  @InternalCoroutinesApi fun signIn() {
+    val signInRequest = SignInRequest(_email, _password)
+
+    launchViewModelScope {
+      authRepository.signIn(signInRequest).onError { error ->
+            appLogger.logOnError(error.message.orEmpty(), error)
+            _errorMessage.value = Constants.SIGN_IN_ERROR
+          }.collect {
+            _errorMessage.value = null
+          }
     }
-
-    fun setPassword(password: String) {
-        _password = password
-    }
-
-    @InternalCoroutinesApi
-    fun signIn() {
-        val signInRequest = SignInRequest(_email, _password)
-
-        launchViewModelScope {
-            authRepository.signIn(signInRequest)
-                .onError { error ->
-                    appLogger.logOnError(error.message.orEmpty(), error)
-                    _errorMessage.value = Constants.SIGN_IN_ERROR
-                }.collect {
-                    _errorMessage.value = null
-                }
-        }
-    }
+  }
 }

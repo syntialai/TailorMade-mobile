@@ -77,9 +77,6 @@ dependencies {
     implementation project(":libraries:tailormade_base")
     implementation project(":features:tailormade_auth")
 
-    implementation androidx.navigation_fragment
-    implementation androidx.navigation_ui
-
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core

@@ -6,13 +6,11 @@ import com.future.tailormade_auth.databinding.ActivitySignInBinding
 
 class SignInActivity : BaseActivity() {
 
-    private lateinit var binding: ActivitySignInBinding
+  private lateinit var binding: ActivitySignInBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-
-        super.onCreate(savedInstanceState)
-        binding = ActivitySignInBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    binding = ActivitySignInBinding.inflate(layoutInflater)
+    setContentView(binding.root)
+  }
 }

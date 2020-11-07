@@ -10,5 +10,4 @@ data class SignUpRequest(
 
     var birthDate: String = "",
 
-    var gender: String = ""
-)
+    var gender: String = "")

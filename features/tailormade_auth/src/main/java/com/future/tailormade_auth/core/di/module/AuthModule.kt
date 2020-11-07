@@ -10,12 +10,9 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module(includes = [NetworkModule::class])
-@InstallIn(ApplicationComponent::class)
-class AuthModule {
+@InstallIn(ApplicationComponent::class) class AuthModule {
 
-    @Provides
-    @Singleton
-    fun provideAuthService(retrofit: Retrofit): AuthService {
-        return retrofit.create(AuthService::class.java)
-    }
+  @Provides @Singleton fun provideAuthService(retrofit: Retrofit): AuthService {
+    return retrofit.create(AuthService::class.java)
+  }
 }

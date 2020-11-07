@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_auth_graph"
+    app:startDestination="@id/signUpFragment">
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.future.tailormade_auth.feature.signUp.view.SignUpFragment"
+        android:label="SignUpFragment">
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_selectGenderFragment"
+            app:destination="@id/selectGenderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.future.tailormade_auth.feature.signIn.view.SignInFragment"
+        android:label="SignInFragment">
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectGenderFragment"
+        android:name="com.future.tailormade_auth.feature.signUp.view.SelectGenderFragment"
+        android:label="SelectGenderFragment">
+        <action
+            android:id="@+id/action_selectGenderFragment_to_selectRoleFragment"
+            app:destination="@id/selectRoleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectRoleFragment"
+        android:name="com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
+        android:label="SelectRoleFragment" />
+</navigation>

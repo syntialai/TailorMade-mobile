@@ -11,13 +11,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
-    suspend fun getFirebaseToken(userId: String):
-            Flow<BaseSingleObjectResponse<FirebaseTokenResponse>>
+  suspend fun getFirebaseToken(userId: String): Flow<BaseSingleObjectResponse<FirebaseTokenResponse>>
 
-    suspend fun signIn(signInRequest: SignInRequest): Flow<BaseSingleObjectResponse<TokenResponse>>
+  suspend fun signIn(signInRequest: SignInRequest): Flow<BaseSingleObjectResponse<TokenResponse>>
 
-    suspend fun signUp(signUpRequest: SignUpRequest): Flow<BaseResponse>
+  suspend fun signUp(signUpRequest: SignUpRequest): Flow<BaseResponse>
 
-    suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest):
-            Flow<BaseSingleObjectResponse<TokenResponse>>
+  suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): Flow<BaseSingleObjectResponse<TokenResponse>>
 }

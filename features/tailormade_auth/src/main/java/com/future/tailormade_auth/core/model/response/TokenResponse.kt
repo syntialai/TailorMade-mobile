@@ -2,5 +2,4 @@ package com.future.tailormade_auth.core.model.response
 
 data class TokenResponse(
 
-    var token: TokenDetailResponse? = null
-)
+    var token: TokenDetailResponse? = null)

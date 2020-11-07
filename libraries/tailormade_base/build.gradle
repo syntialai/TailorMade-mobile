@@ -35,6 +35,10 @@ dependencies {
     api core.kotlin
     api core.legacy_support
 
+    // Navigation
+    api androidx.navigation_fragment
+    api androidx.navigation_ui
+
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core

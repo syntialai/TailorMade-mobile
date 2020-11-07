@@ -14,36 +14,34 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class SelectRoleFragment : BaseFragment() {
 
-    private val viewModel: SignUpViewModel by viewModels()
+  private val viewModel: SignUpViewModel by viewModels()
 
-    private lateinit var binding: FragmentSelectRoleBinding
+  private lateinit var binding: FragmentSelectRoleBinding
 
-    @ExperimentalCoroutinesApi
-    @InternalCoroutinesApi
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSelectRoleBinding.inflate(layoutInflater, container, false)
+  @ExperimentalCoroutinesApi @InternalCoroutinesApi override fun onCreateView(
+      inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?): View? {
+    binding = FragmentSelectRoleBinding.inflate(layoutInflater, container,
+        false)
 
-        with(binding) {
-            buttonSubmitRole.setOnClickListener {
-                submitRole(radioGroupSelectRole.checkedRadioButtonId)
-            }
-        }
-
-        return binding.root
+    with(binding) {
+      buttonSubmitRole.setOnClickListener {
+        submitRole(radioGroupSelectRole.checkedRadioButtonId)
+      }
     }
 
-    @ExperimentalCoroutinesApi
-    @InternalCoroutinesApi
-    private fun submitRole(id: Int) {
-        val selectedRadioButton = binding.radioGroupSelectRole.findViewById<RadioButton>(id)
-        viewModel.setSignUpRole(selectedRadioButton.text.toString())
-        viewModel.signUp()
-    }
+    return binding.root
+  }
 
-    companion object {
-        fun newInstance() = SelectRoleFragment()
-    }
+  @ExperimentalCoroutinesApi @InternalCoroutinesApi private fun submitRole(
+      id: Int) {
+    val selectedRadioButton = binding.radioGroupSelectRole.findViewById<RadioButton>(
+        id)
+    viewModel.setSignUpRole(selectedRadioButton.text.toString())
+    viewModel.signUp()
+  }
+
+  companion object {
+    fun newInstance() = SelectRoleFragment()
+  }
 }
