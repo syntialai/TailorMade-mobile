@@ -10,14 +10,15 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.repository.AuthRepository
+import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
 class SignInViewModel @ViewModelInject constructor(
   private val authRepository: AuthRepository,
+  private val authSharedPrefRepository: AuthSharedPrefRepository,
   @Assisted private val savedStateHandle: SavedStateHandle
-) :
-  BaseViewModel() {
+) : BaseViewModel() {
 
   override fun getLogName(): String = "SignInViewModel"
 
@@ -29,11 +30,8 @@ class SignInViewModel @ViewModelInject constructor(
   val errorMessage: LiveData<String?>
     get() = _errorMessage
 
-  fun setEmail(email: String) {
+  fun setData(email: String, password: String) {
     _email = email
-  }
-
-  fun setPassword(password: String) {
     _password = password
   }
 
@@ -45,8 +43,12 @@ class SignInViewModel @ViewModelInject constructor(
       authRepository.signIn(signInRequest).onError { error ->
         appLogger.logOnError(error.message.orEmpty(), error)
         _errorMessage.value = Constants.SIGN_IN_ERROR
-      }.collect {
+      }.collect { response ->
         _errorMessage.value = null
+        response.data?.let {
+          authSharedPrefRepository.accessToken = it.token?.access.orEmpty()
+          authSharedPrefRepository.refreshToken = it.token?.refresh.orEmpty()
+        }
       }
     }
   }

@@ -1,4 +1,4 @@
-package com.future.tailormade.core.di.component
+package com.future.tailormade.core.di.module
 
 import com.future.tailormade_auth.core.repository.AuthRepository
 import com.future.tailormade_auth.core.repository.impl.AuthRepositoryImpl

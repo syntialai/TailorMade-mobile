@@ -10,7 +10,8 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private var authService: AuthService) : AuthRepository {
+  private var authService: AuthService
+) : AuthRepository {
 
   override suspend fun getFirebaseToken(userId: String) = flow {
     emit(authService.getFirebaseToken(userId))

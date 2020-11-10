@@ -41,9 +41,7 @@ class SelectGenderFragment : BaseFragment() {
   }
 
   private fun submitGender(id: Int) {
-    val selectedRadioButton = binding.radioGroupSelectGender.findViewById<RadioButton>(
-      id
-    )
+    val selectedRadioButton = binding.radioGroupSelectGender.findViewById<RadioButton>(id)
     viewModel.setSignUpGender(selectedRadioButton.text.toString())
     findNavController().navigate(
       SelectGenderFragmentDirections.actionSelectGenderFragmentToSelectRoleFragment()
