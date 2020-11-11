@@ -5,6 +5,7 @@ import com.future.tailormade_auth.core.api.AuthApiUrl
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
+import com.future.tailormade_auth.core.model.response.ActivateTailorResponse
 import com.future.tailormade_auth.core.model.response.FirebaseTokenResponse
 import com.future.tailormade_auth.core.model.response.TokenResponse
 import com.future.tailormade_auth.core.model.response.UserResponse
@@ -20,11 +21,8 @@ interface AuthService {
     @Path("userId") userId: String
   ): BaseSingleObjectResponse<FirebaseTokenResponse>
 
-  @POST(AuthApiUrl.USERS_SET_ROLE_PATH)
-  fun setRole(
-    @Path("id") userId: String,
-    @Body role: String
-  ): BaseSingleObjectResponse<UserResponse>
+  @POST(AuthApiUrl.USERS_ACTIVATE_TAILOR_PATH)
+  fun activateTailor(): BaseSingleObjectResponse<ActivateTailorResponse>
 
   @POST(AuthApiUrl.USERS_SIGN_IN_PATH)
   fun signIn(

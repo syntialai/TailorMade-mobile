@@ -5,7 +5,7 @@ import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
-import com.future.tailormade_auth.core.model.response.UserResponse
+import com.future.tailormade_auth.core.model.response.ActivateTailorResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import com.future.tailormade_auth.core.service.AuthService
 import kotlinx.coroutines.flow.Flow
@@ -24,8 +24,8 @@ class AuthRepositoryImpl @Inject constructor(
     emit(authService.refreshToken(refreshTokenRequest))
   }.flowOnIO()
 
-  override suspend fun setRole(userId: String, role: String) = flow {
-    emit(authService.setRole(userId, role))
+  override suspend fun activateTailor(): Flow<BaseSingleObjectResponse<ActivateTailorResponse>> = flow {
+    emit(authService.activateTailor())
   }.flowOnIO()
 
   override suspend fun signIn(signInRequest: SignInRequest) = flow {

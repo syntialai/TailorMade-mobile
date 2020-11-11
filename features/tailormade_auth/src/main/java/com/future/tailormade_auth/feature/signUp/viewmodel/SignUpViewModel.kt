@@ -47,23 +47,22 @@ class SignUpViewModel @ViewModelInject constructor(
   }
 
   private fun saveUserData(user: UserResponse) {
-    with (authSharedPrefRepository) {
+    with(authSharedPrefRepository) {
       userId = user.id
       name = user.name
       username = user.email
+      userRole = user.role ?: 0
     }
   }
 
   @ExperimentalCoroutinesApi
-  fun setRole(role: String) {
+  fun activateTailor() {
     launchViewModelScope {
-      authSharedPrefRepository.userId?.let { id ->
-        authRepository.setRole(id, role).onError { error ->
-          appLogger.logOnError(error.message.orEmpty(), error)
-        }.collect { response ->
-          response.data?.let {
-            authSharedPrefRepository.userRole = it.role ?: 0
-          }
+      authRepository.activateTailor().onError { error ->
+        appLogger.logOnError(error.message.orEmpty(), error)
+      }.collect { response ->
+        response.data?.let {
+          authSharedPrefRepository.userRole = it.role ?: 0
         }
       }
     }

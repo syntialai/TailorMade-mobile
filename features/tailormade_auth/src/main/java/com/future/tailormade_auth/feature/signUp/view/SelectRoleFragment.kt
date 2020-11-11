@@ -49,7 +49,9 @@ class SelectRoleFragment : BaseFragment() {
   private fun submitRole(id: Int) {
     val selectedRadioButton =
       binding.radioGroupSelectRole.findViewById<RadioButton>(id)
-    viewModel.setRole(selectedRadioButton.text.toString())
+    if (selectedRadioButton == binding.radioButtonSelectRoleTailor) {
+      viewModel.activateTailor()
+    }
   }
 
   companion object {

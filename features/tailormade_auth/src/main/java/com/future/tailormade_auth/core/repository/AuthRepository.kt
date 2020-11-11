@@ -4,6 +4,7 @@ import com.future.tailormade.base.model.response.BaseSingleObjectResponse
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
+import com.future.tailormade_auth.core.model.response.ActivateTailorResponse
 import com.future.tailormade_auth.core.model.response.FirebaseTokenResponse
 import com.future.tailormade_auth.core.model.response.TokenResponse
 import com.future.tailormade_auth.core.model.response.UserResponse
@@ -19,5 +20,5 @@ interface AuthRepository {
 
   suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): Flow<BaseSingleObjectResponse<TokenResponse>>
 
-  suspend fun setRole(userId: String, role: String): Flow<BaseSingleObjectResponse<UserResponse>>
+  suspend fun activateTailor(): Flow<BaseSingleObjectResponse<ActivateTailorResponse>>
 }
