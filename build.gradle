@@ -6,6 +6,13 @@ buildscript {
         kotlin_version = "1.4.10"
         navigation_version = '2.3.0'
         hilt_version = '2.29.1-alpha'
+
+        compileSdkVersion = 30
+        buildToolsVersion = "30.0.2"
+        minSdkVersion = 22
+        targetSdkVersion = 30
+        versionCode = 1
+        versionName = "1.0"
     }
 
     repositories {
@@ -16,7 +23,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
