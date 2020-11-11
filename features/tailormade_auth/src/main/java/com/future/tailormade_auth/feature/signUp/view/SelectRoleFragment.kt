@@ -26,7 +26,8 @@ class SelectRoleFragment : BaseFragment() {
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     binding = FragmentSelectRoleBinding.inflate(
@@ -45,14 +46,10 @@ class SelectRoleFragment : BaseFragment() {
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  private fun submitRole(
-    id: Int
-  ) {
-    val selectedRadioButton = binding.radioGroupSelectRole.findViewById<RadioButton>(
-      id
-    )
-    viewModel.setSignUpRole(selectedRadioButton.text.toString())
-    viewModel.signUp()
+  private fun submitRole(id: Int) {
+    val selectedRadioButton =
+      binding.radioGroupSelectRole.findViewById<RadioButton>(id)
+    viewModel.setRole(selectedRadioButton.text.toString())
   }
 
   companion object {

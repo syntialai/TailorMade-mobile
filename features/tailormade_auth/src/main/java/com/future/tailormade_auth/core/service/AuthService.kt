@@ -1,6 +1,5 @@
 package com.future.tailormade_auth.core.service
 
-import com.future.tailormade.base.model.response.BaseResponse
 import com.future.tailormade.base.model.response.BaseSingleObjectResponse
 import com.future.tailormade_auth.core.api.AuthApiUrl
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
@@ -8,6 +7,7 @@ import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
 import com.future.tailormade_auth.core.model.response.FirebaseTokenResponse
 import com.future.tailormade_auth.core.model.response.TokenResponse
+import com.future.tailormade_auth.core.model.response.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -20,6 +20,12 @@ interface AuthService {
     @Path("userId") userId: String
   ): BaseSingleObjectResponse<FirebaseTokenResponse>
 
+  @POST(AuthApiUrl.USERS_SET_ROLE_PATH)
+  fun setRole(
+    @Path("id") userId: String,
+    @Body role: String
+  ): BaseSingleObjectResponse<UserResponse>
+
   @POST(AuthApiUrl.USERS_SIGN_IN_PATH)
   fun signIn(
     @Body SignInRequest: SignInRequest
@@ -28,7 +34,7 @@ interface AuthService {
   @POST(AuthApiUrl.USERS_SIGN_UP_PATH)
   fun signUp(
     @Body SignUpRequest: SignUpRequest
-  ): BaseResponse
+  ): BaseSingleObjectResponse<UserResponse>
 
   @POST(AuthApiUrl.USERS_REFRESH_TOKEN_PATH)
   fun refreshToken(

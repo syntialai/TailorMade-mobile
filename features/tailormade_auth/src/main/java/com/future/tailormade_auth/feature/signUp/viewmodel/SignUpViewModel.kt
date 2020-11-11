@@ -10,6 +10,7 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
+import com.future.tailormade_auth.core.model.response.UserResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,24 +38,35 @@ class SignUpViewModel @ViewModelInject constructor(
     signUpRequest.password
   )
 
-  fun setSignUpInfo(
-    name: String, email: String, birthDate: String,
-    password: String
-  ) {
-    signUpRequest.apply {
-      this.name = name
-      this.email = email
-      this.birthDate = birthDate
-      this.password = password
-    }
-  }
-
-  fun setSignUpRole(role: String) {
-    //        signUpRequest.role = role
+  fun setSignUpInfo(name: String, email: String, birthDate: String, password: String) {
+    signUpRequest = SignUpRequest(name, email, password, birthDate)
   }
 
   fun setSignUpGender(gender: String) {
-    signUpRequest.gender = gender
+    signUpRequest = signUpRequest.copy(gender = gender)
+  }
+
+  private fun saveUserData(user: UserResponse) {
+    with (authSharedPrefRepository) {
+      userId = user.id
+      name = user.name
+      username = user.email
+    }
+  }
+
+  @ExperimentalCoroutinesApi
+  fun setRole(role: String) {
+    launchViewModelScope {
+      authSharedPrefRepository.userId?.let { id ->
+        authRepository.setRole(id, role).onError { error ->
+          appLogger.logOnError(error.message.orEmpty(), error)
+        }.collect { response ->
+          response.data?.let {
+            authSharedPrefRepository.userRole = it.role ?: 0
+          }
+        }
+      }
+    }
   }
 
   @ExperimentalCoroutinesApi
@@ -64,7 +76,8 @@ class SignUpViewModel @ViewModelInject constructor(
       authRepository.signUp(signUpRequest).onError { error ->
         appLogger.logOnError(error.message.orEmpty(), error)
         _errorMessage.value = Constants.SIGN_UP_ERROR
-      }.flatMapLatest {
+      }.flatMapLatest { response ->
+        response.data?.let { saveUserData(it) }
         authRepository.signIn(getSignInInfo())
       }.onError { error ->
         appLogger.logOnError(error.message.orEmpty(), error)
