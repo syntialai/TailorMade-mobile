@@ -23,7 +23,6 @@ class SignInViewModel @ViewModelInject constructor(
   override fun getLogName(): String = "SignInViewModel"
 
   private var _email: String = ""
-
   private var _password: String = ""
 
   private val _errorMessage = MutableLiveData<String?>()

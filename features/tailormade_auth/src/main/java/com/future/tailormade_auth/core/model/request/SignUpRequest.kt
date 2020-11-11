@@ -2,12 +2,13 @@ package com.future.tailormade_auth.core.model.request
 
 data class SignUpRequest(
 
-    var name: String = "",
+    val name: String = "",
 
-    var email: String = "",
+    val email: String = "",
 
-    var password: String = "",
+    val password: String = "",
 
-    var birthDate: String = "",
+    val birthDate: String = "",
 
-    var gender: String = "")
+    val gender: String = ""
+)

@@ -2,6 +2,7 @@ package com.future.tailormade_auth.core.model.request
 
 data class SignInRequest(
 
-    var username: String = "",
+    val username: String = "",
 
-    var password: String = "")
+    val password: String = ""
+)

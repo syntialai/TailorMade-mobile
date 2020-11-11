@@ -4,9 +4,9 @@ import com.google.gson.annotations.Expose
 
 open class BaseResponse {
 
-    @Expose
-    var code: Int? = null
+  @Expose
+  val code: Int? = null
 
-    @Expose
-    var status: String? = null
+  @Expose
+  val status: String? = null
 }
