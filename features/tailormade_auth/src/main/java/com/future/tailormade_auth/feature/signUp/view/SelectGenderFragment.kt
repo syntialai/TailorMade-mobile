@@ -30,10 +30,7 @@ class SelectGenderFragment : BaseFragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = FragmentSelectGenderBinding.inflate(
-      layoutInflater, container,
-      false
-    )
+    binding = FragmentSelectGenderBinding.inflate(inflater, container, false)
 
     with(binding) {
       buttonSubmitGender.setOnClickListener {

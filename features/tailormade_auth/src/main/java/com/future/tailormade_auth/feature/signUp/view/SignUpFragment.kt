@@ -29,13 +29,11 @@ class SignUpFragment : BaseFragment() {
   override fun getScreenName(): String =
     "com.future.tailormade_auth.feature.signUp.view.SignUpFragment"
 
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?): View? {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().build()
 
-    binding = FragmentSignUpBinding.inflate(layoutInflater, container, false)
+    binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
     with(binding) {
       textInputBirthDateSignUp.setEndIconOnClickListener {

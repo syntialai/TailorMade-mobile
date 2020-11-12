@@ -16,11 +16,6 @@ import retrofit2.http.Path
 
 interface AuthService {
 
-  @GET(AuthApiUrl.USERS_GET_FIREBASE_TOKEN_PATH)
-  fun getFirebaseToken(
-    @Path("userId") userId: String
-  ): BaseSingleObjectResponse<FirebaseTokenResponse>
-
   @POST(AuthApiUrl.USERS_ACTIVATE_TAILOR_PATH)
   fun activateTailor(): BaseSingleObjectResponse<ActivateTailorResponse>
 

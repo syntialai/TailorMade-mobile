@@ -5,7 +5,6 @@ plugins {
     id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.gms.google-services'
 }
 
 android {
@@ -61,6 +60,8 @@ dependencies {
 
     // Annotation Processing
     kapt dataBinding.kapt
+
+    implementation materialDesign
 
     // Glide
     kapt glide.kapt

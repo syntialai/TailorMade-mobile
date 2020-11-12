@@ -1,5 +1,7 @@
 package com.future.tailormade.di.module
 
+import com.future.tailormade.di.scope.FirebaseApi
+import com.future.tailormade.di.scope.TailormadeApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,8 +18,15 @@ class NetworkModule {
 
     private val BASE_URL = ""
 
+    private val FIREBASE_URL = "https://tailormade-eac34.firebaseio.com"
+
     @Provides
+    @TailormadeApi
     fun provideBaseUrl() = BASE_URL
+
+    @Provides
+    @FirebaseApi
+    fun provideFirebaseUrl() = FIREBASE_URL
 
     @Provides
     @Singleton
@@ -35,12 +44,20 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
+    @TailormadeApi
+    fun provideBaseRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return buildRetrofit(BASE_URL, okHttpClient)
     }
+
+    @Provides
+    @FirebaseApi
+    fun provideFirebaseRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return buildRetrofit(FIREBASE_URL, okHttpClient)
+    }
+
+    private fun buildRetrofit(url: String, okHttpClient: OkHttpClient) = Retrofit.Builder()
+        .baseUrl(url)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
 }

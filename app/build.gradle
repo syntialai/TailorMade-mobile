@@ -5,7 +5,6 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.gms.google-services'
 }
 
 android {
@@ -94,6 +93,8 @@ dependencies {
 
     // Glide
     kapt glide.kapt
+
+    implementation materialDesign
 
     // Dagger 2
     kapt dagger.kapt_processor

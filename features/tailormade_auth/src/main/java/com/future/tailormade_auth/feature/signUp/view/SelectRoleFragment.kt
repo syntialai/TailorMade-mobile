@@ -25,15 +25,9 @@ class SelectRoleFragment : BaseFragment() {
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    binding = FragmentSelectRoleBinding.inflate(
-      layoutInflater, container,
-      false
-    )
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?): View? {
+    binding = FragmentSelectRoleBinding.inflate(inflater, container, false)
 
     with(binding) {
       buttonSubmitRole.setOnClickListener {
@@ -47,8 +41,7 @@ class SelectRoleFragment : BaseFragment() {
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   private fun submitRole(id: Int) {
-    val selectedRadioButton =
-      binding.radioGroupSelectRole.findViewById<RadioButton>(id)
+    val selectedRadioButton = binding.radioGroupSelectRole.findViewById<RadioButton>(id)
     if (selectedRadioButton == binding.radioButtonSelectRoleTailor) {
       viewModel.activateTailor()
     }

@@ -32,7 +32,7 @@ class SignInFragment : BaseFragment() {
     inflater: LayoutInflater,
     container: ViewGroup?, savedInstanceState: Bundle?
   ): View? {
-    binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
+    binding = FragmentSignInBinding.inflate(inflater, container, false)
 
     with(binding) {
       buttonSignIn.setOnClickListener {
