@@ -114,6 +114,9 @@ ext {
     timber = "com.jakewharton.timber:timber:${versions.logger}"
 
     firebase = [
-            admin: "com.google.firebase:firebase-database-ktx:${versions.firebase}",
+            bom: "com.google.firebase:firebase-bom:${versions.firebase}",
+            database: "com.google.firebase:firebase-database",
+            storage: "com.google.firebase:firebase-storage",
+            auth: "com.google.firebase:firebase-auth"
     ]
 }
