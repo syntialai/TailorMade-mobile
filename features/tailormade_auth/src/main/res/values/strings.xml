@@ -30,4 +30,5 @@
     <string name="no_account_label">Don\'t have an account?</string>
     <string name="tailormade_label">TailorMade</string>
     <string name="have_account_label">Already have an account?</string>
+    <string name="confirm_password_label">Confirm Password</string>
 </resources>

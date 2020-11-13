@@ -14,22 +14,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@AndroidEntryPoint
-class SelectGenderFragment : BaseFragment() {
+@AndroidEntryPoint class SelectGenderFragment : BaseFragment() {
 
   private val viewModel: SignUpViewModel by viewModels()
 
   private lateinit var binding: FragmentSelectGenderBinding
 
   override fun getScreenName(): String =
-    "com.future.tailormade_auth.feature.signUp.view.SelectGenderFragment"
+      "com.future.tailormade_auth.feature.signUp.view.SelectGenderFragment"
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?): View? {
     binding = FragmentSelectGenderBinding.inflate(inflater, container, false)
 
     with(binding) {
@@ -44,12 +41,12 @@ class SelectGenderFragment : BaseFragment() {
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   private fun submitGender(id: Int) {
-    val selectedRadioButton = binding.radioGroupSelectGender.findViewById<RadioButton>(id)
+    val selectedRadioButton =
+        binding.radioGroupSelectGender.findViewById<RadioButton>(id)
     viewModel.setSignUpGender(selectedRadioButton.text.toString())
     viewModel.signUp()
     findNavController().navigate(
-      SelectGenderFragmentDirections.actionSelectGenderFragmentToSelectRoleFragment()
-    )
+        SelectGenderFragmentDirections.actionSelectGenderFragmentToSelectRoleFragment())
   }
 
   companion object {

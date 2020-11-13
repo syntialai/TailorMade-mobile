@@ -86,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
                 android:hint="@string/password_label"
+                app:endIconCheckable="true"
                 app:endIconDrawable="@drawable/ic_visibility_off"
                 app:errorEnabled="true">
 
@@ -125,12 +126,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/no_account_label" />
 
-            <TextView
-                android:id="@+id/text_go_to_sign_up"
-                style="@style/TextAppearance.TailorMade.Body1.Primary.Bold"
+            <Button
+                android:id="@+id/button_go_to_sign_up"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
                 android:text="@string/sign_up_label" />
 
         </LinearLayout>

@@ -6,25 +6,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:context=".feature.signUp.view.SignUpFragment">
 
         <LinearLayout
             android:id="@+id/linear_layout_title"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_80"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/linear_layout_sign_up_form"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/linear_layout_sign_up_form"
+            >
 
             <TextView
                 android:id="@+id/text_view_title"
                 style="@style/TextAppearance.TailorMade.Headline3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
                 android:text="@string/get_started_label" />
 
             <TextView
@@ -41,11 +41,11 @@
             android:id="@+id/linear_layout_sign_up_form"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_80"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_title" >
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_name_sign_up"
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
-                android:hint="@string/password_label"
+                android:hint="@string/confirm_password_label"
                 app:endIconDrawable="@drawable/ic_visibility_off"
                 app:errorEnabled="true">
 
@@ -136,10 +136,11 @@
             android:id="@+id/linear_layout_go_to_sign_in"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_32"
             android:layout_marginBottom="@dimen/dp_32"
             android:gravity="center|center_horizontal"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_sign_up_form"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 

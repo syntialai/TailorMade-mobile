@@ -25,8 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
-                android:text="@string/select_gender_label"
-                />
+                android:text="@string/select_gender_label" />
 
             <TextView
                 android:id="@+id/text_view_description"

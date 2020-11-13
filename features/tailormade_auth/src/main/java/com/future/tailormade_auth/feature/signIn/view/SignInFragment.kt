@@ -28,10 +28,8 @@ class SignInFragment : BaseFragment() {
     "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
 
   @InternalCoroutinesApi
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?, savedInstanceState: Bundle?
-  ): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?): View? {
     binding = FragmentSignInBinding.inflate(inflater, container, false)
 
     with(binding) {
@@ -81,7 +79,7 @@ class SignInFragment : BaseFragment() {
         else -> null
       }
 
-      textGoToSignUp.setOnClickListener {
+      buttonGoToSignUp.setOnClickListener {
         findNavController().navigate(
           SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
         )

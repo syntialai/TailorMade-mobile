@@ -16,7 +16,8 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class NetworkModule {
 
-    private val BASE_URL = ""
+    // To Do : Change base url to actual api url
+    private val BASE_URL = "https://tailormade-api.com"
 
     private val FIREBASE_URL = "https://tailormade-eac34.firebaseio.com"
 
