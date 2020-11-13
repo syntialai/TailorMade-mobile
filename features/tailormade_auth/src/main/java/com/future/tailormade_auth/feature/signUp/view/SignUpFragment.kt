@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
+import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade.util.toast.ToastHelper
-import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignUpBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -31,7 +30,7 @@ class SignUpFragment : BaseFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?): View? {
-    birthDatePicker = MaterialDatePicker.Builder.datePicker().build()
+    setupDatePicker()
 
     binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
@@ -48,42 +47,6 @@ class SignUpFragment : BaseFragment() {
           editTextPasswordSignUp.text.toString(),
           editTextConfirmPasswordSignUp.text.toString(),
         )
-      }
-
-      textInputPasswordSignUp.setEndIconOnClickListener {
-        context?.let { context ->
-          if (textInputPasswordSignUp.endIconDrawable == ContextCompat.getDrawable(
-              context, R.drawable.ic_visibility_off
-            )
-          ) {
-            textInputPasswordSignUp.setEndIconDrawable(R.drawable.ic_visibility)
-            textInputPasswordSignUp.setEndIconActivated(true)
-          } else {
-            textInputPasswordSignUp.setEndIconDrawable(
-              R.drawable.ic_visibility_off
-            )
-            textInputPasswordSignUp.setEndIconActivated(false)
-          }
-        }
-      }
-
-      textInputConfirmPasswordSignUp.setEndIconOnClickListener {
-        context?.let { context ->
-          if (textInputConfirmPasswordSignUp.endIconDrawable == ContextCompat.getDrawable(
-              context, R.drawable.ic_visibility_off
-            )
-          ) {
-            textInputConfirmPasswordSignUp.setEndIconDrawable(
-              R.drawable.ic_visibility
-            )
-            textInputConfirmPasswordSignUp.setEndIconActivated(true)
-          } else {
-            textInputConfirmPasswordSignUp.setEndIconDrawable(
-              R.drawable.ic_visibility_off
-            )
-            textInputConfirmPasswordSignUp.setEndIconActivated(false)
-          }
-        }
       }
 
       buttonGoToSignIn.setOnClickListener {
@@ -134,6 +97,14 @@ class SignUpFragment : BaseFragment() {
         editTextConfirmPasswordSignUp.text.toString() != editTextPasswordSignUp.text.toString() -> Constants.CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD
         else -> null
       }
+    }
+  }
+
+  private fun setupDatePicker() {
+    birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
+        "Choose Date").build()
+    birthDatePicker.addOnPositiveButtonClickListener {
+      binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY))
     }
   }
 

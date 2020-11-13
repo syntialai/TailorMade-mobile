@@ -17,4 +17,9 @@ object Constants {
     const val PASSWORD_IS_NOT_VALID = "Password length should be more than 7 characters"
     const val CONFIRM_PASSWORD_IS_EMPTY = "Confirm $PASSWORD_IS_EMPTY"
     const val CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD = "Confirm Password must be same with password"
+
+    /*
+     * Date Patterns
+     */
+    const val DD_MMMM_YYYY = "dd MMMM yyyy"
 }

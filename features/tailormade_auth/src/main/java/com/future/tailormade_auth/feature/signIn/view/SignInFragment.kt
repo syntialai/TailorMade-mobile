@@ -40,23 +40,6 @@ class SignInFragment : BaseFragment() {
         )
       }
 
-      textInputPasswordSignIn.setEndIconOnClickListener {
-        context?.let { context ->
-          if (textInputPasswordSignIn.endIconDrawable == ContextCompat.getDrawable(
-              context, R.drawable.ic_visibility_off
-            )
-          ) {
-            textInputPasswordSignIn.setEndIconDrawable(R.drawable.ic_visibility)
-            textInputPasswordSignIn.setEndIconActivated(true)
-          } else {
-            textInputPasswordSignIn.setEndIconDrawable(
-              R.drawable.ic_visibility_off
-            )
-            textInputPasswordSignIn.setEndIconActivated(false)
-          }
-        }
-      }
-
       buttonGoToSignUp.setOnClickListener {
         findNavController().navigate(
             SignInFragmentDirections.actionSignInFragmentToSignUpFragment())

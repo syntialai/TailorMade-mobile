@@ -42,5 +42,6 @@
         <item name="floatingActionButtonStyle">@style/Theme.TailorMade.FloatingActionButton</item>
         <item name="chipStyle">@style/Theme.TailorMade.Chip</item>
         <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+        <item name="textInputStyle">@style/Theme.TailorMade.TextInputEditText</item>
     </style>
 </resources>

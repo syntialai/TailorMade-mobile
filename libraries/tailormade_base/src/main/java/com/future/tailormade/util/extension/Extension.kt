@@ -5,6 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Flow extension functions
@@ -22,3 +24,10 @@ fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> =
 fun String.isPhoneNumberValid(): Boolean = Patterns.PHONE.matcher(this).matches()
 
 fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+/**
+ * Date Converter
+ */
+fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(this)
+
+fun Long.toDate(): Date = Date(this)

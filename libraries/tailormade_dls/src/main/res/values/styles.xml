@@ -286,4 +286,9 @@
     <style name="TextAppearance.TailorMade.Overline.BlackLight" parent="TextAppearance.TailorMade.Overline">
         <item name="android:textColor">@color/color_black_20</item>
     </style>
+
+    <!-- Text Fields -->
+    <style name="Theme.TailorMade.TextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
 </resources>

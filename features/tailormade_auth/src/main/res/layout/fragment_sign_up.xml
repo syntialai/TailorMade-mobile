@@ -16,13 +16,12 @@
                 android:id="@+id/linear_layout_title"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_64"
+                android:layout_marginTop="@dimen/dp_100"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/linear_layout_sign_up_form"
-                >
+                app:layout_constraintBottom_toTopOf="@id/linear_layout_sign_up_form">
 
                 <TextView
                     android:id="@+id/text_view_title"
@@ -69,7 +68,6 @@
                     android:id="@+id/text_input_email_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/dp_8"
                     android:hint="@string/email_label"
                     app:errorEnabled="true">
 
@@ -85,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/birth_date_label"
+                    app:endIconMode="custom"
                     app:endIconDrawable="@drawable/ic_date"
                     app:errorEnabled="true">
 
@@ -99,9 +98,8 @@
                     android:id="@+id/text_input_password_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_8"
                     android:hint="@string/password_label"
-                    app:endIconDrawable="@drawable/ic_visibility_off"
+                    app:endIconMode="password_toggle"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -115,9 +113,8 @@
                     android:id="@+id/text_input_confirm_password_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_8"
                     android:hint="@string/confirm_password_label"
-                    app:endIconDrawable="@drawable/ic_visibility_off"
+                    app:endIconMode="password_toggle"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -131,7 +128,7 @@
                     android:id="@+id/button_submit_form"
                     style="@style/Theme.TailorMade.Button.Rounded"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_64"
                     android:text="@string/next_label" />
 
             </LinearLayout>
@@ -141,7 +138,6 @@
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_50"
-                android:layout_marginBottom="@dimen/dp_32"
                 android:gravity="center|center_horizontal"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/linear_layout_sign_up_form"
@@ -160,7 +156,6 @@
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_8"
                     android:text="@string/sign_in_label" />
 
             </LinearLayout>
