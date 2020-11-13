@@ -86,7 +86,7 @@ class SignUpFragment : BaseFragment() {
         }
       }
 
-      textGoToSignIn.setOnClickListener {
+      buttonGoToSignIn.setOnClickListener {
         findNavController().navigate(
           SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
         )

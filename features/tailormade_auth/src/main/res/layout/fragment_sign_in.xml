@@ -30,9 +30,9 @@
         <LinearLayout
             android:id="@+id/linear_layout_sign_in_info"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_64"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/linear_layout_sign_in_form"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_tailormade">
@@ -42,7 +42,6 @@
                 style="@style/TextAppearance.TailorMade.Headline3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
                 android:text="@string/welcome_label" />
 
             <TextView
@@ -103,7 +102,6 @@
                 style="@style/Theme.TailorMade.Button.Rounded"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/dp_40"
-                android:enabled="false"
                 android:text="@string/sign_in_label" />
 
         </LinearLayout>

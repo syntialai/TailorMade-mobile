@@ -56,6 +56,11 @@ class SignInFragment : BaseFragment() {
           }
         }
       }
+
+      buttonGoToSignUp.setOnClickListener {
+        findNavController().navigate(
+            SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
+      }
     }
 
     setupObserver()
