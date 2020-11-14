@@ -51,7 +51,8 @@ class EditProfileFragment : BaseFragment() {
     return binding.root
   }
 
-  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) = name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid()
+  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) =
+    name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid()
                                                                               ?: true)
 
   private fun setFormErrorMessage() {
