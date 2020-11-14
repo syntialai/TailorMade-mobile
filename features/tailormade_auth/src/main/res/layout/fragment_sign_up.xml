@@ -25,7 +25,7 @@
 
                 <TextView
                     android:id="@+id/text_view_title"
-                    style="@style/TextAppearance.TailorMade.Headline3"
+                    style="@style/TextAppearance.TailorMade.Headline3.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/get_started_label" />

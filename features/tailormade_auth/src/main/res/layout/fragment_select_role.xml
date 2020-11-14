@@ -6,7 +6,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:context=".feature.signUp.view.SelectRoleFragment">
 
         <LinearLayout
@@ -21,7 +20,7 @@
 
             <TextView
                 android:id="@+id/text_view_title"
-                style="@style/TextAppearance.TailorMade.Headline3"
+                style="@style/TextAppearance.TailorMade.Headline3.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
