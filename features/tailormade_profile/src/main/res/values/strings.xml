@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="location_label">Location</string>
+    <string name="update_profile_label">Update Profile</string>
+</resources>

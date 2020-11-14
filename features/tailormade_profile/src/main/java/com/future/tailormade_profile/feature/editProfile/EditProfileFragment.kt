@@ -1,30 +1,31 @@
 package com.future.tailormade_profile.feature.editProfile
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.future.tailormade_profile.R
+import androidx.fragment.app.viewModels
+import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade_profile.databinding.EditProfileFragmentBinding
 
-class EditProfileFragment : Fragment() {
+class EditProfileFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = EditProfileFragment()
-    }
+    private lateinit var binding: EditProfileFragmentBinding
 
-    private lateinit var viewModel: EditProfileViewModel
+    private val viewModel: EditProfileViewModel by viewModels()
+
+    override fun getScreenName(): String =
+        "com.future.tailormade_profile.feature.editProfile.EditProfileFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.edit_profile_fragment, container, false)
+        savedInstanceState: Bundle?): View? {
+        binding = EditProfileFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    companion object {
 
+        @JvmStatic
+        fun newInstance() = EditProfileFragment()
+    }
 }
