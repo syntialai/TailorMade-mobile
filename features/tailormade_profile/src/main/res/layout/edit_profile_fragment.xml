@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.editProfile.EditProfileFragment">
+        tools:context=".feature.editProfile.view.EditProfileFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_name_edit_profile"
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@id/text_input_name_edit_profile">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_email_edit_profile"
+                android:id="@+id/edit_text_phone_number_edit_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -85,6 +85,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/button_submit_edit_profile_form"
             style="@style/Theme.TailorMade.Button.Rounded"
             android:layout_width="@dimen/dp_0"
             android:text="@string/update_profile_label"
