@@ -14,7 +14,8 @@ import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileVi
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint class EditProfileFragment : BaseFragment() {
+@AndroidEntryPoint
+class EditProfileFragment : BaseFragment() {
 
   private val viewModel: EditProfileViewModel by viewModels()
 

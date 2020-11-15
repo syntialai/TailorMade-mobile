@@ -45,13 +45,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":libraries:tailormade_base")
     implementation project(":libraries:tailormade_dls")
-    api project(":libraries:tailormade_base")
     implementation project(":features:tailormade_auth")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     // Tests
     testImplementation test.junit
