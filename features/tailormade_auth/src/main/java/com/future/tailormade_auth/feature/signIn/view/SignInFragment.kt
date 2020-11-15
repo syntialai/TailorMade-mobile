@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
-import com.future.tailormade.util.toast.ToastHelper
-import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,8 +25,10 @@ class SignInFragment : BaseFragment() {
     "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
 
   @InternalCoroutinesApi
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     binding = FragmentSignInBinding.inflate(inflater, container, false)
 
     with(binding) {
@@ -45,8 +44,6 @@ class SignInFragment : BaseFragment() {
             SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
       }
     }
-
-    setupObserver()
 
     return binding.root
   }
@@ -66,21 +63,7 @@ class SignInFragment : BaseFragment() {
         editTextPasswordSignIn.text.toString().isBlank() -> Constants.PASSWORD_IS_EMPTY
         else -> null
       }
-
-      buttonGoToSignUp.setOnClickListener {
-        findNavController().navigate(
-          SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
-        )
-      }
     }
-  }
-
-  private fun setupObserver() {
-    viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
-      if (error != null && context != null) {
-        ToastHelper.showErrorToast(requireContext(), requireView(), error)
-      }
-    })
   }
 
   @InternalCoroutinesApi

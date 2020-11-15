@@ -10,7 +10,7 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.extension.toDateString
-import com.future.tailormade.util.toast.ToastHelper
+import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_auth.databinding.FragmentSignUpBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -52,8 +52,6 @@ import dagger.hilt.android.AndroidEntryPoint
             SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
       }
     }
-
-    setupObserver()
 
     return binding.root
   }
@@ -100,14 +98,6 @@ import dagger.hilt.android.AndroidEntryPoint
       binding.editTextBirthDateSignUp.setText(
           it.toDateString(Constants.DD_MMMM_YYYY))
     }
-  }
-
-  private fun setupObserver() {
-    viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
-      if (error != null && context != null) {
-        ToastHelper.showErrorToast(requireContext(), requireView(), error)
-      }
-    })
   }
 
   private fun showDatePicker() {
