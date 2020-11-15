@@ -9,14 +9,12 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isPhoneNumberValid
 import com.future.tailormade.util.extension.toDateString
-import com.future.tailormade.util.toast.ToastHelper
 import com.future.tailormade_profile.databinding.EditProfileFragmentBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class EditProfileFragment : BaseFragment() {
+@AndroidEntryPoint class EditProfileFragment : BaseFragment() {
 
   private val viewModel: EditProfileViewModel by viewModels()
 
@@ -49,13 +47,11 @@ class EditProfileFragment : BaseFragment() {
       }
     }
 
-    setupObserver()
-
     return binding.root
   }
 
-  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) =
-      name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid() ?: true)
+  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) = name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid()
+                                                                              ?: true)
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -83,14 +79,6 @@ class EditProfileFragment : BaseFragment() {
       binding.editTextBirthDateEditProfile.setText(
           it.toDateString(Constants.DD_MMMM_YYYY))
     }
-  }
-
-  private fun setupObserver() {
-    viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
-      if (error != null && context != null) {
-        ToastHelper.showErrorToast(requireContext(), requireView(), error)
-      }
-    })
   }
 
   private fun showDatePicker() {
