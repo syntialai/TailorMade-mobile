@@ -25,10 +25,6 @@ class SignInViewModel @ViewModelInject constructor(
   private var _email: String = ""
   private var _password: String = ""
 
-  private val _errorMessage = MutableLiveData<String?>()
-  val errorMessage: LiveData<String?>
-    get() = _errorMessage
-
   fun setData(email: String, password: String) {
     _email = email
     _password = password

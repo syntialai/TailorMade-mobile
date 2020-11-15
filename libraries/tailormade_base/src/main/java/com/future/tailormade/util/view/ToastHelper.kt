@@ -1,4 +1,4 @@
-package com.future.tailormade.util.toast
+package com.future.tailormade.util.view
 
 import android.content.Context
 import android.view.View

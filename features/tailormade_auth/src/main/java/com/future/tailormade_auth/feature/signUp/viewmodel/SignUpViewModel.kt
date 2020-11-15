@@ -29,10 +29,6 @@ class SignUpViewModel @ViewModelInject constructor(
 
   private var signUpRequest: SignUpRequest = SignUpRequest()
 
-  private val _errorMessage = MutableLiveData<String?>()
-  val errorMessage: LiveData<String?>
-    get() = _errorMessage
-
   private fun getSignInInfo() = SignInRequest(
     signUpRequest.email,
     signUpRequest.password
