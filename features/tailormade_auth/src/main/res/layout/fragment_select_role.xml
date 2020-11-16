@@ -9,35 +9,27 @@
         android:orientation="vertical"
         tools:context=".feature.signUp.view.SelectRoleFragment">
 
-        <LinearLayout
-            android:id="@+id/linear_layout_title"
+        <TextView
+            android:id="@+id/text_view_title"
+            style="@style/TextAppearance.TailorMade.Headline3.Bold"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_0"
-            android:layout_marginTop="@dimen/dp_48"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/radio_group_select_role"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_80"
+            android:text="@string/select_role_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_view_title"
-                style="@style/TextAppearance.TailorMade.Headline3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/select_role_label"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
-
-            <TextView
-                android:id="@+id/text_view_description"
-                style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/select_role_info_label"
-                 />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/text_view_description"
+            style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/select_role_info_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
         <RadioGroup
             android:id="@+id/radio_group_select_role"
