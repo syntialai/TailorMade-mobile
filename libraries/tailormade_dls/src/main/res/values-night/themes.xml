@@ -32,7 +32,7 @@
         </item>
         <item name="textAppearanceSubtitle1">
             @style/TextAppearance.TailorMade.Subtitle1
-        </item>
+        </item>d
         <item name="textAppearanceSubtitle2">
             @style/TextAppearance.TailorMade.Subtitle2
         </item>

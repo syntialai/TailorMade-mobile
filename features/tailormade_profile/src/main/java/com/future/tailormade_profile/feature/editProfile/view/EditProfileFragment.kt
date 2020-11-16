@@ -13,7 +13,7 @@ import com.future.tailormade.util.extension.debounceOnTextChanged
 import com.future.tailormade.util.extension.isPhoneNumberValid
 import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade_profile.R
-import com.future.tailormade_profile.databinding.EditProfileFragmentBinding
+import com.future.tailormade_profile.databinding.FragmentEditProfileBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +23,7 @@ class EditProfileFragment : BaseFragment() {
 
   private val viewModel: EditProfileViewModel by viewModels()
 
-  private lateinit var binding: EditProfileFragmentBinding
+  private lateinit var binding: FragmentEditProfileBinding
 
   private lateinit var birthDatePicker: MaterialDatePicker<Long>
 
@@ -35,7 +35,7 @@ class EditProfileFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
     setupDatePicker()
-    binding = EditProfileFragmentBinding.inflate(inflater, container, false)
+    binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 
     with(binding) {
       buttonSubmitEditProfileForm.setOnClickListener {
