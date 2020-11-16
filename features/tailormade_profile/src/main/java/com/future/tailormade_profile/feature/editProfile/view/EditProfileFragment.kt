@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.BaseFragment
@@ -11,12 +12,14 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.debounceOnTextChanged
 import com.future.tailormade.util.extension.isPhoneNumberValid
 import com.future.tailormade.util.extension.toDateString
+import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.EditProfileFragmentBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint class EditProfileFragment : BaseFragment() {
+@AndroidEntryPoint
+class EditProfileFragment : BaseFragment() {
 
   private val viewModel: EditProfileViewModel by viewModels()
 
@@ -24,12 +27,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
   private lateinit var birthDatePicker: MaterialDatePicker<Long>
 
-  override fun getScreenName(): String = "com.future.tailormade_profile.feature.editProfile.view.EditProfileFragment"
+  override fun getLogName(): String =
+      "com.future.tailormade_profile.feature.editProfile.view.EditProfileFragment"
+
+  override fun getScreenName(): String = "Edit Profile"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
     setupDatePicker()
-
     binding = EditProfileFragmentBinding.inflate(inflater, container, false)
 
     with(binding) {
@@ -46,17 +51,15 @@ import dagger.hilt.android.AndroidEntryPoint
       textInputBirthDateEditProfile.setEndIconOnClickListener {
         showDatePicker()
       }
-
-      textInputLocationEditProfile.setEndIconOnClickListener {
-        showLocationPicker()
-      }
     }
+
+    setupLocationObserver()
 
     return binding.root
   }
 
-  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) = name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid()
-                                                                              ?: true)
+  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) =
+      name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid() ?: true)
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -86,12 +89,17 @@ import dagger.hilt.android.AndroidEntryPoint
     }
   }
 
-  private fun showDatePicker() {
-    birthDatePicker.show(parentFragmentManager, Constants.BIRTH_DATE_PICKER)
+  private fun setupLocationObserver() {
+    viewModel.listOfLocations.observe(viewLifecycleOwner, { items ->
+      context?.let { context ->
+        binding.editTextLocationEditProfile.setAdapter(
+            ArrayAdapter(context, R.layout.layout_list_item_text, items))
+      }
+    })
   }
 
-  private fun showLocationPicker() {
-    // TODO: Implement location picker
+  private fun showDatePicker() {
+    birthDatePicker.show(parentFragmentManager, Constants.BIRTH_DATE_PICKER)
   }
 
   private fun submitForm(name: String, phoneNumber: String, birthDate: String,

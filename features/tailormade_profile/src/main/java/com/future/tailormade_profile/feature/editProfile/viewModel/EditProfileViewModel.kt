@@ -11,8 +11,8 @@ class EditProfileViewModel : BaseViewModel() {
   override fun getLogName(): String =
       "com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel"
 
-  private var _listOfLocations = MutableLiveData<ArrayList<String>>()
-  val listOfLocations: LiveData<ArrayList<String>>
+  private var _listOfLocations = MutableLiveData<List<String>>()
+  val listOfLocations: LiveData<List<String>>
     get() = _listOfLocations
 
   fun updateBasicInfo(name: String, phoneNumber: String, birthDate: String,

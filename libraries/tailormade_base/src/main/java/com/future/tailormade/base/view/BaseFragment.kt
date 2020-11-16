@@ -14,9 +14,11 @@ import com.future.tailormade.util.view.ToastHelper
 
 abstract class BaseFragment : Fragment() {
 
-  protected var appLogger = AppLogger.create(this.getScreenName())
+  abstract fun getLogName(): String
 
-  abstract fun getScreenName(): String
+  open fun getScreenName(): String = ""
+
+  protected var appLogger = AppLogger.create(this.getLogName())
 
   protected open fun getViewModel(): BaseViewModel? = null
 
@@ -35,6 +37,10 @@ abstract class BaseFragment : Fragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     appLogger.logLifecycleOnActivityCreated()
     super.onActivityCreated(savedInstanceState)
+
+    activity?.let { activity ->
+      (activity as BaseActivity).setupToolbar(getScreenName())
+    }
 
     getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
       when (state) {
@@ -99,6 +105,18 @@ abstract class BaseFragment : Fragment() {
       showLoadingView()
     } else {
       hideLoadingView()
+    }
+  }
+
+  fun hideToolbar() {
+    activity?.let { activity ->
+      (activity as BaseActivity).hideToolbar()
+    }
+  }
+
+  fun showToolbar() {
+    activity?.let { activity ->
+      (activity as BaseActivity).showToolbar()
     }
   }
 

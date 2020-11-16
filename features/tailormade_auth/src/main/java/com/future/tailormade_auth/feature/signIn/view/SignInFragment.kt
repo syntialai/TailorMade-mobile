@@ -22,8 +22,10 @@ class SignInFragment : BaseFragment() {
 
   private val viewModel: SignInViewModel by viewModels()
 
-  override fun getScreenName(): String =
-    "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
+  override fun getLogName(): String =
+      "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
+
+  override fun getScreenName(): String = "Sign In"
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
@@ -48,6 +50,11 @@ class SignInFragment : BaseFragment() {
     }
 
     return binding.root
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    hideToolbar()
   }
 
   private fun isFormValid(email: String, password: String): Boolean =

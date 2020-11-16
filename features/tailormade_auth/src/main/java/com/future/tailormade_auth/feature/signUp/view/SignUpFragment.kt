@@ -10,13 +10,13 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.extension.toDateString
-import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_auth.databinding.FragmentSignUpBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint class SignUpFragment : BaseFragment() {
+@AndroidEntryPoint
+class SignUpFragment : BaseFragment() {
 
   private val viewModel: SignUpViewModel by viewModels()
 
@@ -24,7 +24,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
   private lateinit var birthDatePicker: MaterialDatePicker<Long>
 
-  override fun getScreenName(): String = "com.future.tailormade_auth.feature.signUp.view.SignUpFragment"
+  override fun getLogName(): String =
+      "com.future.tailormade_auth.feature.signUp.view.SignUpFragment"
+
+  override fun getScreenName(): String = "Sign Up"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
@@ -54,6 +57,11 @@ import dagger.hilt.android.AndroidEntryPoint
     }
 
     return binding.root
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    showToolbar()
   }
 
   private fun isFormValid(name: String, email: String, birthDate: String,

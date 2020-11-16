@@ -33,7 +33,7 @@
 
         <!-- Component Styles -->
         <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
-        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Surface</item>
+        <item name="toolbarStyle">@style/Theme.TailorMade.Toolbar</item>
         <item name="cardViewStyle">@style/Widget.MaterialComponents.CardView</item>
         <item name="buttonStyle">@style/Theme.TailorMade.Button.Rounded</item>
         <item name="materialButtonOutlinedStyle">@style/Theme.TailorMade.Button.Outlined.Rounded</item>
@@ -44,5 +44,6 @@
         <item name="chipStyle">@style/Theme.TailorMade.Chip</item>
         <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
         <item name="textInputStyle">@style/Theme.TailorMade.TextInputEditText</item>
+        <item name="autoCompleteTextViewStyle">@style/Theme.TailorMade.TextInputEditText.Dropdown</item>
     </style>
 </resources>

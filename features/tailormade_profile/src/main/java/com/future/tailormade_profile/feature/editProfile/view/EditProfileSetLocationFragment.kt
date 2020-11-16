@@ -19,8 +19,10 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
   private lateinit var binding: FragmentEditProfileSetLocationBinding
 
-  override fun getScreenName(): String =
+  override fun getLogName(): String =
       "com.future.tailormade_profile.feature.editProfile.view.EditProfileSetLocationFragment"
+
+  override fun getScreenName(): String = "Set Location"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {

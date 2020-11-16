@@ -16,6 +16,7 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/top_toolbar_profile"
+                style="@style/Theme.TailorMade.Toolbar.Back"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize" />
 

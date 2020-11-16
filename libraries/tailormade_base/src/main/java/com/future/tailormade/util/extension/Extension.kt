@@ -1,6 +1,7 @@
 package com.future.tailormade.util.extension
 
 import android.util.Patterns
+import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
 import com.future.tailormade.base.view.ViewState
@@ -54,6 +55,18 @@ fun EditText.debounceOnTextChanged(scope: CoroutineScope,
       debounce.invoke(text.toString())
     }
   }
+}
+
+fun View.show() {
+  visibility = View.VISIBLE
+}
+
+fun View.hide() {
+  visibility = View.INVISIBLE
+}
+
+fun View.remove() {
+  visibility = View.GONE
 }
 
 /**

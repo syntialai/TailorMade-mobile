@@ -8,11 +8,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EditProfileActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityEditProfileBinding
+  private lateinit var binding: ActivityEditProfileBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityEditProfileBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    binding = ActivityEditProfileBinding.inflate(layoutInflater)
+    toolbar = binding.topToolbarProfile
+    setContentView(binding.root)
+  }
 }

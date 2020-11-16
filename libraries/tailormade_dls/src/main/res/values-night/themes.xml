@@ -1,47 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.TailorMade" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.TailorMade.Night" parent="Theme.TailorMade">
 
         <!-- Color styles -->
-        <item name="colorPrimary">@color/color_primary_800</item>
-        <item name="colorPrimaryDark">@color/color_primary_900</item>
-        <item name="colorAccent">@color/color_primary_800</item>
+        <item name="colorPrimary">@color/color_primary_600</item>
+        <item name="colorPrimaryDark">@color/color_primary_700</item>
+        <item name="colorAccent">@color/color_primary_600</item>
 
         <item name="android:colorBackground">@color/color_black</item>
         <item name="colorSurface">@color/color_black</item>
-        <item name="colorError">@color/color_red_600</item>
+        <item name="colorError">@color/color_red_400</item>
 
         <item name="colorOnPrimary">@color/color_white</item>
         <item name="colorOnBackground">@color/color_white</item>
         <item name="colorOnSurface">@color/color_white</item>
         <item name="colorOnError">@color/color_white</item>
-
-        <!-- Type styles -->
-        <item name="textAppearanceHeadline1">@style/TextAppearance.TailorMade.Headline1</item>
-        <item name="textAppearanceHeadline2">@style/TextAppearance.TailorMade.Headline2</item>
-        <item name="textAppearanceHeadline3">@style/TextAppearance.TailorMade.Headline3</item>
-        <item name="textAppearanceHeadline4">@style/TextAppearance.TailorMade.Headline3.Bold</item>
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.TailorMade.Subtitle1</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.TailorMade.Subtitle2</item>
-        <item name="textAppearanceBody1">@style/TextAppearance.TailorMade.Body1</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.TailorMade.Body2</item>
-        <item name="textAppearanceCaption">@style/TextAppearance.TailorMade.Caption</item>
-        <item name="textAppearanceButton">@style/TextAppearance.TailorMade.Button</item>
-        <item name="textAppearanceOverline">@style/TextAppearance.TailorMade.Overline</item>
-
-        <!-- Component Styles -->
-        <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
-        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Surface</item>
-        <item name="cardViewStyle">@style/Widget.MaterialComponents.CardView</item>
-        <item name="buttonStyle">@style/Theme.TailorMade.Button.Rounded</item>
-        <item name="materialButtonOutlinedStyle">@style/Theme.TailorMade.Button.Outlined.Rounded</item>
-        <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
-        <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
-        <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
-        <item name="floatingActionButtonStyle">@style/Theme.TailorMade.FloatingActionButton</item>
-        <item name="chipStyle">@style/Theme.TailorMade.Chip</item>
-        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
-        <item name="textInputStyle">@style/Theme.TailorMade.TextInputEditText</item>
     </style>
 </resources>

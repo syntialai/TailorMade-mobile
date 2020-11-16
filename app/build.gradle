@@ -73,10 +73,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
+
+    // Libraries
     implementation project(":libraries:tailormade_dls")
     implementation project(":libraries:tailormade_base")
     implementation project(":libraries:tailormade_router")
+
+    // Features
     implementation project(":features:tailormade_auth")
+    implementation project(":features:tailormade_profile")
 
     // Tests
     testImplementation test.junit
