@@ -13,6 +13,7 @@
             android:id="@+id/linear_layout_title"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_0"
+            android:layout_marginTop="@dimen/dp_48"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/radio_group_select_role"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +25,6 @@
                 style="@style/TextAppearance.TailorMade.Headline3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
                 android:text="@string/select_role_label"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 

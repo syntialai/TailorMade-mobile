@@ -22,17 +22,9 @@ class SignInViewModel @ViewModelInject constructor(
 
   override fun getLogName(): String = "SignInViewModel"
 
-  private var _email: String = ""
-  private var _password: String = ""
-
-  fun setData(email: String, password: String) {
-    _email = email
-    _password = password
-  }
-
   @InternalCoroutinesApi
-  fun signIn() {
-    val signInRequest = SignInRequest(_email, _password)
+  fun signIn(email: String, password: String) {
+    val signInRequest = SignInRequest(email, password)
 
     launchViewModelScope {
       authRepository.signIn(signInRequest).onError { error ->

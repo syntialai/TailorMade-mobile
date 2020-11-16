@@ -12,5 +12,5 @@ data class UserResponse (
 
   val gender: String = "",
 
-  val role: Int? = null
+  val role: Int = 0
 )

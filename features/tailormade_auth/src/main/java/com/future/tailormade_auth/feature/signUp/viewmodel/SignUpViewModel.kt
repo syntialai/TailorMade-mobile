@@ -27,11 +27,11 @@ class SignUpViewModel @ViewModelInject constructor(
   override fun getLogName(): String =
     "com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel"
 
-  private var signUpRequest: SignUpRequest = SignUpRequest()
+  private var signUpRequest: SignUpRequest? = null
 
   private fun getSignInInfo() = SignInRequest(
-    signUpRequest.email,
-    signUpRequest.password
+    signUpRequest?.email.orEmpty(),
+    signUpRequest?.password.orEmpty()
   )
 
   fun setSignUpInfo(name: String, email: String, birthDate: String, password: String) {
@@ -39,7 +39,7 @@ class SignUpViewModel @ViewModelInject constructor(
   }
 
   fun setSignUpGender(gender: String) {
-    signUpRequest = signUpRequest.copy(gender = gender)
+    signUpRequest = signUpRequest?.copy(gender = gender)
   }
 
   private fun saveUserData(user: UserResponse) {
@@ -47,7 +47,7 @@ class SignUpViewModel @ViewModelInject constructor(
       userId = user.id
       name = user.name
       username = user.email
-      userRole = user.role ?: 0
+      userRole = user.role
     }
   }
 
@@ -68,18 +68,20 @@ class SignUpViewModel @ViewModelInject constructor(
   @InternalCoroutinesApi
   fun signUp() {
     launchViewModelScope {
-      authRepository.signUp(signUpRequest).onError { error ->
-        appLogger.logOnError(error.message.orEmpty(), error)
-        _errorMessage.value = Constants.SIGN_UP_ERROR
-      }.flatMapLatest { response ->
-        response.data?.let { saveUserData(it) }
-        authRepository.signIn(getSignInInfo())
-      }.onError { error ->
-        appLogger.logOnError(error.message.orEmpty(), error)
-      }.collect { response ->
-        response.data?.let {
-          authSharedPrefRepository.accessToken = it.token?.access.orEmpty()
-          authSharedPrefRepository.refreshToken = it.token?.refresh.orEmpty()
+      signUpRequest?.let { request ->
+        authRepository.signUp(request).onError { error ->
+          appLogger.logOnError(error.message.orEmpty(), error)
+          _errorMessage.value = Constants.SIGN_UP_ERROR
+        }.flatMapLatest { response ->
+          response.data?.let { saveUserData(it) }
+          authRepository.signIn(getSignInInfo())
+        }.onError { error ->
+          appLogger.logOnError(error.message.orEmpty(), error)
+        }.collect { response ->
+          response.data?.let {
+            authSharedPrefRepository.accessToken = it.token?.access.orEmpty()
+            authSharedPrefRepository.refreshToken = it.token?.refresh.orEmpty()
+          }
         }
       }
     }

@@ -69,8 +69,7 @@ class SignInFragment : BaseFragment() {
   @InternalCoroutinesApi
   private fun submitEmailAndPassword(email: String, password: String) {
     if (isFormValid(email, password)) {
-      viewModel.setData(email, password)
-      viewModel.signIn()
+      viewModel.signIn(email, password)
     } else {
       setFormErrorMessage()
     }
