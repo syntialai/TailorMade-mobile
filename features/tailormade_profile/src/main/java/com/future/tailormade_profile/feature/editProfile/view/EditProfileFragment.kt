@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.debounceOnTextChanged
 import com.future.tailormade.util.extension.isPhoneNumberValid
 import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade_profile.databinding.EditProfileFragmentBinding
@@ -14,8 +16,7 @@ import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileVi
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class EditProfileFragment : BaseFragment() {
+@AndroidEntryPoint class EditProfileFragment : BaseFragment() {
 
   private val viewModel: EditProfileViewModel by viewModels()
 
@@ -39,6 +40,9 @@ class EditProfileFragment : BaseFragment() {
             editTextLocationEditProfile.text.toString())
       }
 
+      editTextLocationEditProfile.debounceOnTextChanged(
+          viewModel.viewModelScope, viewModel::updateLocations)
+
       textInputBirthDateEditProfile.setEndIconOnClickListener {
         showDatePicker()
       }
@@ -51,8 +55,7 @@ class EditProfileFragment : BaseFragment() {
     return binding.root
   }
 
-  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) =
-    name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid()
+  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) = name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid()
                                                                               ?: true)
 
   private fun setFormErrorMessage() {
