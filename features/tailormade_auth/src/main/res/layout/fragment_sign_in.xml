@@ -105,7 +105,6 @@
             android:text="@string/no_account_label"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_go_to_sign_up"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/button_go_to_sign_up" />
@@ -118,7 +117,6 @@
             android:text="@string/sign_up_label"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/text_go_to_sign_up_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
