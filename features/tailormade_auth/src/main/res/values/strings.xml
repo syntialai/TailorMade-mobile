@@ -1,0 +1,34 @@
+<resources>
+    <string name="welcome_label">Welcome!</string>
+    <string name="enter_email_password_label">Enter your email and password to continue.</string>
+    <string name="id_number_label">+62</string>
+    <string name="phone_number_label">Phone Number</string>
+    <string name="continue_label">Continue</string>
+    <string name="code_label">Code</string>
+    <string name="resend_code_label">Resend Code</string>
+    <string name="verify_number_label">Verify Your Number</string>
+    <string name="enter_verification_code_label">Enter the verification code we sent to </string>
+    <string name="get_started_label">Let\'s Get Started!</string>
+    <string name="enter_info_label">Enter your basic information to get started.</string>
+    <string name="name_label">Name</string>
+    <string name="email_label">Email</string>
+    <string name="birth_date_label">Birthdate</string>
+    <string name="next_label">Next</string>
+    <string name="select_role_label">Select Your Role</string>
+    <string name="select_role_info_label">Pick your role, as User or Tailor.</string>
+    <string name="role_user_label">User</string>
+    <string name="role_tailor_label">Tailor</string>
+    <string name="select_gender_info_label">Pick one of your gender.</string>
+    <string name="select_gender_label">Select Your Gender</string>
+    <string name="gender_male_label">Male</string>
+    <string name="gender_female_label">Female</string>
+    <string name="gender_other_label">Other</string>
+    <string name="sign_in_label">Sign In</string>
+    <string name="password_label">Password</string>
+    <string name="or_label">OR</string>
+    <string name="sign_up_label">Sign up</string>
+    <string name="no_account_label">Don\'t have an account?</string>
+    <string name="tailormade_label">TailorMade</string>
+    <string name="have_account_label">Already have an account?</string>
+    <string name="confirm_password_label">Confirm Password</string>
+</resources>

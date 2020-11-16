@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "648001432509",
+    "firebase_url": "https://tailormade-eac34.firebaseio.com",
+    "project_id": "tailormade-eac34",
+    "storage_bucket": "tailormade-eac34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648001432509:android:57d599d5e2486505c340d4",
+        "android_client_info": {
+          "package_name": "com.future.tailormade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648001432509-mnkburfajicfgqcn5d1ou0dq5hrmbbl8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.future.tailormade",
+            "certificate_hash": "99f4f159b540c9520ad019538f1203c6ff5653cb"
+          }
+        },
+        {
+          "client_id": "648001432509-mk362sn6c0eefk26opei8u7kptip908q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvqcSHT7OVFP-HZs0CVYtKNEoYjy2UD5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648001432509-mk362sn6c0eefk26opei8u7kptip908q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

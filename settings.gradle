@@ -1,3 +1,11 @@
-include ':tailormade_base'
-include ':app', ':tailormade_dls'
+include ':libraries:tailormade_router'
+include ':app'
+
+// Features
+include ':features:tailormade_auth'
+
+// Libraries
+include ':libraries:tailormade_base'
+include ':libraries:tailormade_dls'
+
 rootProject.name = "TailorMade"

@@ -8,15 +8,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.future.tailormade"
-        minSdkVersion 22
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -73,7 +73,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
-    implementation project(path: ":tailormade_base")
+    implementation project(":libraries:tailormade_dls")
+    implementation project(":libraries:tailormade_base")
+    implementation project(":libraries:tailormade_router")
+    implementation project(":features:tailormade_auth")
 
     // Tests
     testImplementation test.junit
@@ -90,6 +93,8 @@ dependencies {
 
     // Glide
     kapt glide.kapt
+
+    implementation materialDesign
 
     // Dagger 2
     kapt dagger.kapt_processor
