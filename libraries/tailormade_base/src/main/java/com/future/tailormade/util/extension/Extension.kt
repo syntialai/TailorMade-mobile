@@ -3,12 +3,16 @@ package com.future.tailormade.util.extension
 import android.util.Patterns
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
+import com.future.tailormade.base.view.ViewState
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.coroutine.CoroutineHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onStart
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,6 +22,22 @@ import java.util.*
 fun <T> Flow<T>.flowOnIO(): Flow<T> = this.flowOn(Dispatchers.IO)
 
 fun <T> Flow<T>.flowOnMain(): Flow<T> = this.flowOn(Dispatchers.Main)
+
+@ExperimentalCoroutinesApi
+fun <T> Flow<T>.flowWithLoadingDialog(viewModel: BaseViewModel) =
+    onStart {
+      viewModel.viewState.value = ViewState.Loading(true)
+    }.onError {
+      viewModel.viewState.value = ViewState.Loading(false)
+    }
+
+@ExperimentalCoroutinesApi
+fun <T> Flow<T>.flowOnIOwithLoadingDialog(viewModel: BaseViewModel) =
+    flowWithLoadingDialog(viewModel).flowOnIO()
+
+@ExperimentalCoroutinesApi
+fun <T> Flow<T>.flowOnMainWithLoadingDialog(viewModel: BaseViewModel) =
+    flowWithLoadingDialog(viewModel).flowOnMain()
 
 fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> =
     catch { error -> block(error) }

@@ -36,7 +36,7 @@ abstract class BaseFragment : Fragment() {
     appLogger.logLifecycleOnActivityCreated()
     super.onActivityCreated(savedInstanceState)
 
-    getViewModel()?.viewState?.observe(viewLifecycleOwner, Observer { state ->
+    getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
       when (state) {
         is ViewState.Loading -> onLoading(state.isLoading)
         is ViewState.Unauthorized -> onUnauthorized()

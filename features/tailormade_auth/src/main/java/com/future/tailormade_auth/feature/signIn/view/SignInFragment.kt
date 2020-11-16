@@ -12,6 +12,7 @@ import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
@@ -24,6 +25,7 @@ class SignInFragment : BaseFragment() {
   override fun getScreenName(): String =
     "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
 
+  @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +68,7 @@ class SignInFragment : BaseFragment() {
     }
   }
 
+  @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   private fun submitEmailAndPassword(email: String, password: String) {
     if (isFormValid(email, password)) {
