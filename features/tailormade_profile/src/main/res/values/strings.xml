@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="location_label">Location</string>
+    <string name="update_profile_label">Update Profile</string>
+
+    <string name="occupation_label">Occupation</string>
+    <string name="about_company_label">In what company do you work?</string>
+    <string name="about_occupation_label">What\'s your occupation?</string>
+    <string name="about_occupation_city_label">Where city do you work?</string>
+    <string name="education_label">Education</string>
+    <string name="about_school_label">Your School/University</string>
+    <string name="about_major_label">What\'s your department/majors?</string>
+    <string name="about_education_city_label">Where city do you study?</string>
+</resources>
