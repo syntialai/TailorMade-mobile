@@ -12,7 +12,7 @@
 
     <!-- Button Style -->
     <style name="Theme.TailorMade.Button.Rounded" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_height">@dimen/dp_48</item>
+        <item name="android:layout_height">@dimen/dp_56</item>
         <item name="android:paddingTop">@dimen/dp_12</item>
         <item name="android:paddingBottom">@dimen/dp_12</item>
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>

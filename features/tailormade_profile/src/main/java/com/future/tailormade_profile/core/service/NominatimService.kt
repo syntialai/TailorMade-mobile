@@ -11,5 +11,5 @@ interface NominatimService {
   fun searchLocation(@Query("query") query: String,
       @Query("format") format: String,
       @Query("addressdetails") addressDetails: Int,
-      @Query("limit") limit: Int): LocationResponse
+      @Query("limit") limit: Int): List<LocationResponse>
 }

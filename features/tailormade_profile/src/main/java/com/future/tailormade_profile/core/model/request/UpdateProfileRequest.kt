@@ -4,7 +4,7 @@ data class UpdateProfileRequest (
 
     val name: String,
 
-    val birthDate: String,
+    val birthDate: Long,
 
     val phoneNumber: String? = null,
 
