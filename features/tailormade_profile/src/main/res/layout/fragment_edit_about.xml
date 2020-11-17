@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.editAbout.view.EditAboutFragment">
+
+        <TextView
+            android:id="@+id/text_view_group_occupation"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:text="@string/occupation_label"
+            android:textAppearance="?textAppearanceHeadline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_company_edit_about"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:hint="@string/about_company_label"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_group_occupation">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_company_edit_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_occupation_edit_about"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:hint="@string/about_occupation_label"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_company_edit_about">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_occupation_edit_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_occupation_city_edit_about"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:hint="@string/about_occupation_city_label"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_occupation_edit_about">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_occupation_city_edit_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/text_view_group_education"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/education_label"
+            android:textAppearance="?textAppearanceHeadline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_occupation_city_edit_about" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_school_edit_about"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:hint="@string/about_school_label"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_group_education">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_school_edit_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_major_edit_about"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:hint="@string/about_major_label"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_school_edit_about">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_major_edit_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_education_city_edit_about"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:hint="@string/about_education_city_label"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_major_edit_about">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_education_city_edit_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

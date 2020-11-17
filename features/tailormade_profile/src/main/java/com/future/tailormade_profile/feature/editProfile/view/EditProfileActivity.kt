@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade_profile.databinding.ActivityEditProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditProfileActivity : BaseActivity() {
