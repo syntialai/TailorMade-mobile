@@ -1,6 +1,7 @@
 package com.future.tailormade_profile.core.repository.impl
 
 import com.future.tailormade.base.model.response.BaseSingleObjectResponse
+import com.future.tailormade_profile.core.di.scope.ProfileScope
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
 import com.future.tailormade_profile.core.model.response.LocationResponse
 import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
+@ProfileScope
 class ProfileRepositoryImpl @Inject constructor(
     private var profileService: ProfileService,
     private var nominatimService: NominatimService) : ProfileRepository {

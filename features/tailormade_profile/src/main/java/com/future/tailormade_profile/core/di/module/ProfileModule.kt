@@ -3,16 +3,18 @@ package com.future.tailormade_profile.core.di.module
 import com.future.tailormade.di.scope.OtherApi
 import com.future.tailormade.di.scope.TailormadeApi
 import com.future.tailormade_profile.core.api.ProfileApiUrl
-import com.future.tailormade_profile.core.di.component.ProfileComponent
+import com.future.tailormade_profile.core.di.scope.ProfileScope
 import com.future.tailormade_profile.core.service.NominatimService
 import com.future.tailormade_profile.core.service.ProfileService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Retrofit
 
 @Module
-@InstallIn(ProfileComponent::class)
+@InstallIn(ApplicationComponent::class)
+@ProfileScope
 class ProfileModule {
 
   @Provides
@@ -27,7 +29,6 @@ class ProfileModule {
   }
 
   @Provides
-  @OtherApi
   fun providesNominatimService(@OtherApi retrofit: Retrofit): NominatimService {
     return retrofit.create(NominatimService::class.java)
   }

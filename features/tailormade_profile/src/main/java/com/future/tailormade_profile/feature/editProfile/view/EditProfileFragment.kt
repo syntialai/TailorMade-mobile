@@ -17,11 +17,15 @@ import com.future.tailormade_profile.databinding.FragmentEditProfileBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
 class EditProfileFragment : BaseFragment() {
 
   private val viewModel: EditProfileViewModel by viewModels()
+
+  private var birthDate: Long = 0L
 
   private lateinit var binding: FragmentEditProfileBinding
 
@@ -32,6 +36,8 @@ class EditProfileFragment : BaseFragment() {
 
   override fun getScreenName(): String = "Edit Profile"
 
+  @ExperimentalCoroutinesApi
+  @InternalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
     setupDatePicker()
@@ -53,6 +59,7 @@ class EditProfileFragment : BaseFragment() {
       }
     }
 
+    setupProfileDataObserver()
     setupLocationObserver()
 
     return binding.root
@@ -84,6 +91,7 @@ class EditProfileFragment : BaseFragment() {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
         Constants.BIRTH_DATE_PICKER_TITLE).build()
     birthDatePicker.addOnPositiveButtonClickListener {
+      birthDate = it
       binding.editTextBirthDateEditProfile.setText(
           it.toDateString(Constants.DD_MMMM_YYYY))
     }
@@ -92,8 +100,24 @@ class EditProfileFragment : BaseFragment() {
   private fun setupLocationObserver() {
     viewModel.listOfLocations.observe(viewLifecycleOwner, { items ->
       context?.let { context ->
-        binding.editTextLocationEditProfile.setAdapter(
-            ArrayAdapter(context, R.layout.layout_list_item_text, items))
+        if (items.isNullOrEmpty().not()) {
+          val adapter = ArrayAdapter(context, R.layout.layout_list_item_text,
+              items)
+          binding.editTextLocationEditProfile.setAdapter(adapter)
+          adapter.notifyDataSetChanged()
+        }
+      }
+    })
+  }
+
+  private fun setupProfileDataObserver() {
+    viewModel.profileInfo.observe(viewLifecycleOwner, {
+      with(binding) {
+        editTextNameEditProfile.setText(it.name)
+        editTextBirthDateEditProfile.setText(
+            it.birthDate.toDateString(Constants.DD_MMMM_YYYY))
+        editTextPhoneNumberEditProfile.setText(it.phoneNumber.orEmpty())
+        editTextLocationEditProfile.setText(it.location?.address.orEmpty())
       }
     })
   }
@@ -102,10 +126,12 @@ class EditProfileFragment : BaseFragment() {
     birthDatePicker.show(parentFragmentManager, Constants.BIRTH_DATE_PICKER)
   }
 
+  @ExperimentalCoroutinesApi
+  @InternalCoroutinesApi
   private fun submitForm(name: String, phoneNumber: String, birthDate: String,
       location: String) {
     if (isFormValid(name, birthDate, phoneNumber)) {
-      viewModel.updateBasicInfo(name, phoneNumber, birthDate, location)
+      viewModel.updateBasicInfo(name, this.birthDate, phoneNumber, location)
     } else {
       setFormErrorMessage()
     }
