@@ -2,6 +2,12 @@
 <resources>
     <string name="location_label">Location</string>
     <string name="update_profile_label">Update Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Preference Titles -->
+    <string name="pref_title_invite_friends_settings">Invite friends</string>
+    <string name="pref_title_notification_settings">Notification</string>
+    <string name="pref_title_help_settings">Help</string>
+    <string name="pref_title_about_settings">About</string>
+    <string name="pref_title_sign_out_settings">Sign out</string>
+    <string name="settings_label">Settings</string>
 </resources>

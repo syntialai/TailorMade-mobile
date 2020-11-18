@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:icon="@drawable/ic_invite_friends"
+        android:title="@string/pref_title_invite_friends_settings">
+        <intent android:action="android.settings.SYNC_SETTINGS" />
+    </Preference>
+
+    <Preference
+        android:icon="@drawable/ic_notification"
+        android:title="@string/pref_title_notification_settings">
+        <intent android:action="android.settings.SYNC_SETTINGS" />
+    </Preference>
+
+    <Preference
+        android:icon="@drawable/ic_help"
+        android:title="@string/pref_title_help_settings">
+        <intent android:action="android.settings.SYNC_SETTINGS" />
+    </Preference>
+
+    <Preference
+        android:icon="@drawable/ic_info"
+        android:title="@string/pref_title_about_settings">
+        <intent android:action="android.settings.SYNC_SETTINGS" />
+    </Preference>
+
+    <Preference
+        android:icon="@drawable/ic_sign_out"
+        android:title="@string/pref_title_sign_out_settings">
+        <intent android:action="android.settings.SYNC_SETTINGS" />
+    </Preference>
+</PreferenceScreen>
