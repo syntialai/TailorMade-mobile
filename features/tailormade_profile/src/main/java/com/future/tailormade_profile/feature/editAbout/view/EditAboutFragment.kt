@@ -15,6 +15,7 @@ import com.future.tailormade_profile.core.model.entity.Occupation
 import com.future.tailormade_profile.databinding.FragmentEditAboutBinding
 import com.future.tailormade_profile.feature.editAbout.viewmodel.EditAboutViewModel
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class EditAboutFragment : BaseFragment() {
 
@@ -28,6 +29,7 @@ class EditAboutFragment : BaseFragment() {
 
   override fun getScreenName(): String = "Edit About"
 
+  @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
     binding = FragmentEditAboutBinding.inflate(inflater, container, false)
@@ -86,6 +88,7 @@ class EditAboutFragment : BaseFragment() {
     })
   }
 
+  @ExperimentalCoroutinesApi
   private fun submitForm(occupationCompany: String, occupationName: String,
       occupationCity: String, schoolName: String, schoolMajor: String,
       schoolCity: String) {
