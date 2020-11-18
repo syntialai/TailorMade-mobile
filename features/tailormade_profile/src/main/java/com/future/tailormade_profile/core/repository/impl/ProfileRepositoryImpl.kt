@@ -1,5 +1,6 @@
 package com.future.tailormade_profile.core.repository.impl
 
+import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_profile.core.di.scope.ProfileScope
 import com.future.tailormade_profile.core.model.request.UpdateProfileAboutRequest
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
@@ -16,11 +17,11 @@ class ProfileRepositoryImpl @Inject constructor(
 
   override suspend fun getProfileInfo(id: String) = flow {
     emit(profileService.getProfileInfo(id))
-  }
+  }.flowOnIO()
 
   override suspend fun searchLocation(query: String) = flow {
-    emit(nominatimService.searchLocation(query, "json", 1, 5))
-  }
+    emit(nominatimService.searchLocation(query, "json", "1", "5", "1"))
+  }.flowOnIO()
 
   override suspend fun updateProfileAbout(id: String,
       updateProfileAboutRequest: UpdateProfileAboutRequest) = flow {

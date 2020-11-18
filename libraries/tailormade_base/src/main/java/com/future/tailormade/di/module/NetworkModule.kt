@@ -1,5 +1,6 @@
 package com.future.tailormade.di.module
 
+import android.util.Log
 import com.future.tailormade.di.scope.FirebaseApi
 import com.future.tailormade.di.scope.OtherApi
 import com.future.tailormade.di.scope.TailormadeApi
@@ -11,6 +12,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -35,6 +37,7 @@ class NetworkModule {
   fun provideAuthInterceptor(): Interceptor {
     return Interceptor { chain ->
       val request = chain.request().newBuilder().build()
+      Timber.d(this::class.java.simpleName, request.url())
       chain.proceed(request)
     }
   }

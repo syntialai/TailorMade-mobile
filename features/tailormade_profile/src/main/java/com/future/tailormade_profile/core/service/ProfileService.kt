@@ -14,13 +14,14 @@ import retrofit2.http.Path
 interface ProfileService {
 
   @GET(ProfileApiUrl.USERS_ID_PATH)
-  fun getProfileInfo(@Path("id") id: String): BaseSingleObjectResponse<ProfileInfoResponse>
+  suspend fun getProfileInfo(
+      @Path("id") id: String): BaseSingleObjectResponse<ProfileInfoResponse>
 
   @PUT(ProfileApiUrl.USERS_ID_UPDATE_BASIC_INFO_PATH)
-  fun updateProfileInfo(@Path("id") id: String,
+  suspend fun updateProfileInfo(@Path("id") id: String,
       @Body updateProfileRequest: UpdateProfileRequest): BaseSingleObjectResponse<ProfileInfoResponse>
 
   @PUT(ProfileApiUrl.USERS_ID_UPDATE_MORE_INFO_PATH)
-  fun updateProfileAboutInfo(@Path("id") id: String,
+  suspend fun updateProfileAboutInfo(@Path("id") id: String,
       @Body updateProfileAboutRequest: UpdateProfileAboutRequest): BaseSingleObjectResponse<ProfileAboutResponse>
 }
