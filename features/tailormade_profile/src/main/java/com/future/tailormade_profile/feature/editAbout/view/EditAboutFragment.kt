@@ -15,8 +15,10 @@ import com.future.tailormade_profile.core.model.entity.Occupation
 import com.future.tailormade_profile.databinding.FragmentEditAboutBinding
 import com.future.tailormade_profile.feature.editAbout.viewmodel.EditAboutViewModel
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@AndroidEntryPoint
 class EditAboutFragment : BaseFragment() {
 
   private val editAboutViewModel: EditAboutViewModel by viewModels()

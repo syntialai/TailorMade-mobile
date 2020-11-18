@@ -25,7 +25,7 @@ class ProfileModule {
   @Provides
   @OtherApi
   fun providesNominatimRetrofit(@OtherApi builder: Retrofit.Builder): Retrofit {
-    return builder.baseUrl(ProfileApiUrl.NOMINATIM_API).build()
+    return builder.baseUrl(ProfileApiUrl.BASE_NOMINATIM_API_PATH).build()
   }
 
   @Provides

@@ -55,6 +55,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_occupation_city_edit_about"
+            style="@style/Theme.TailorMade.TextInputEditText.Dropdown"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:hint="@string/about_occupation_city_label"
@@ -119,6 +120,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_education_city_edit_about"
+            style="@style/Theme.TailorMade.TextInputEditText.Dropdown"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:hint="@string/about_education_city_label"

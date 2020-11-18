@@ -290,12 +290,10 @@
     <!-- Text Fields -->
     <style name="Theme.TailorMade.TextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundColor">?colorSurface</item>
-        <item name="hintTextAppearance">?textAppearanceBody1</item>
     </style>
 
     <style name="Theme.TailorMade.TextInputEditText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?colorSurface</item>
-        <item name="hintTextAppearance">?textAppearanceBody1</item>
     </style>
 
     <!-- Toolbar -->
