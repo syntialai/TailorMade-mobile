@@ -10,7 +10,6 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.extension.toDateString
-import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_auth.databinding.FragmentSignUpBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -25,11 +24,13 @@ class SignUpFragment : BaseFragment() {
 
   private lateinit var birthDatePicker: MaterialDatePicker<Long>
 
-  override fun getScreenName(): String =
-    "com.future.tailormade_auth.feature.signUp.view.SignUpFragment"
+  override fun getLogName(): String =
+      "com.future.tailormade_auth.feature.signUp.view.SignUpFragment"
+
+  override fun getScreenName(): String = "Sign Up"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View? {
     setupDatePicker()
 
     binding = FragmentSignUpBinding.inflate(inflater, container, false)
@@ -41,29 +42,30 @@ class SignUpFragment : BaseFragment() {
 
       buttonSubmitForm.setOnClickListener {
         submitForm(
-          editTextNameSignUp.text.toString(),
-          editTextEmailSignUp.text.toString(),
-          editTextBirthDateSignUp.text.toString(),
-          editTextPasswordSignUp.text.toString(),
-          editTextConfirmPasswordSignUp.text.toString(),
+            editTextNameSignUp.text.toString(),
+            editTextEmailSignUp.text.toString(),
+            editTextBirthDateSignUp.text.toString(),
+            editTextPasswordSignUp.text.toString(),
+            editTextConfirmPasswordSignUp.text.toString(),
         )
       }
 
       buttonGoToSignIn.setOnClickListener {
         findNavController().navigate(
-          SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
-        )
+            SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
       }
     }
 
     return binding.root
   }
 
-  private fun isFormValid(
-    name: String, email: String, birthDate: String,
-    password: String, confirmPassword: String
-  ): Boolean =
-    name.isNotBlank() && email.isNotBlank() && email.isEmailValid() && birthDate.isNotBlank() && password.isNotBlank() && password.length >= 8 && confirmPassword.isNotBlank() && confirmPassword == password
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    showToolbar()
+  }
+
+  private fun isFormValid(name: String, email: String, birthDate: String,
+      password: String, confirmPassword: String): Boolean = name.isNotBlank() && email.isNotBlank() && email.isEmailValid() && birthDate.isNotBlank() && password.isNotBlank() && password.length >= 8 && confirmPassword.isNotBlank() && confirmPassword == password
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -90,8 +92,7 @@ class SignUpFragment : BaseFragment() {
       }
 
       textInputConfirmPasswordSignUp.error = when {
-        editTextConfirmPasswordSignUp.text.toString()
-          .isBlank() -> Constants.CONFIRM_PASSWORD_IS_EMPTY
+        editTextConfirmPasswordSignUp.text.toString().isBlank() -> Constants.CONFIRM_PASSWORD_IS_EMPTY
         editTextConfirmPasswordSignUp.text.toString() != editTextPasswordSignUp.text.toString() -> Constants.CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD
         else -> null
       }
@@ -102,23 +103,21 @@ class SignUpFragment : BaseFragment() {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
         "Choose Date").build()
     birthDatePicker.addOnPositiveButtonClickListener {
-      binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY))
+      binding.editTextBirthDateSignUp.setText(
+          it.toDateString(Constants.DD_MMMM_YYYY))
     }
   }
 
   private fun showDatePicker() {
-    birthDatePicker.show(parentFragmentManager, BIRTH_DATE_PICKER)
+    birthDatePicker.show(parentFragmentManager, Constants.BIRTH_DATE_PICKER)
   }
 
-  private fun submitForm(
-    name: String, email: String, birthDate: String,
-    password: String, confirmPassword: String
-  ) {
+  private fun submitForm(name: String, email: String, birthDate: String,
+      password: String, confirmPassword: String) {
     if (isFormValid(name, email, birthDate, password, confirmPassword)) {
       viewModel.setSignUpInfo(name, email, birthDate, password)
       findNavController().navigate(
-        SignUpFragmentDirections.actionSignUpFragmentToSelectGenderFragment()
-      )
+          SignUpFragmentDirections.actionSignUpFragmentToSelectGenderFragment())
     } else {
       setFormErrorMessage()
     }
@@ -126,9 +125,6 @@ class SignUpFragment : BaseFragment() {
 
   companion object {
 
-    private const val BIRTH_DATE_PICKER = "Birth Date Picker"
-
-    @JvmStatic
-    fun newInstance() = SignUpFragment()
+    @JvmStatic fun newInstance() = SignUpFragment()
   }
 }

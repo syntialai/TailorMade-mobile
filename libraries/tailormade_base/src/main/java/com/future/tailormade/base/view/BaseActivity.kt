@@ -4,11 +4,16 @@ import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.logger.AppLogger
+import com.google.android.material.appbar.MaterialToolbar
 
 abstract class BaseActivity : AppCompatActivity() {
 
   open fun getScreenName(): String = "BaseActivity"
+
+  protected var toolbar: MaterialToolbar? = null
 
   protected var appLogger = AppLogger.create(this.getScreenName())
 
@@ -48,5 +53,22 @@ abstract class BaseActivity : AppCompatActivity() {
         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
       inputManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
+  }
+
+  fun setupToolbar(title: String) {
+    toolbar?.let {
+      it.title = title
+      it.setNavigationOnClickListener {
+        onBackPressed()
+      }
+    }
+  }
+
+  fun hideToolbar() {
+    toolbar?.remove()
+  }
+
+  fun showToolbar() {
+    toolbar?.show()
   }
 }
