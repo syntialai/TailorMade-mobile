@@ -9,7 +9,6 @@ import retrofit2.http.Path
 interface FirebaseAuthService {
 
   @GET(AuthApiUrl.USERS_GET_FIREBASE_TOKEN_PATH)
-  fun getFirebaseToken(
-    @Path("userId") userId: String
-  ): BaseSingleObjectResponse<FirebaseTokenResponse>
+  suspend fun getFirebaseToken(
+      @Path("userId") userId: String): BaseSingleObjectResponse<FirebaseTokenResponse>
 }

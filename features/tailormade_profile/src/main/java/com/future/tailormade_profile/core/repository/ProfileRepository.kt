@@ -12,7 +12,7 @@ interface ProfileRepository {
 
   suspend fun getProfileInfo(id: String): Flow<BaseSingleObjectResponse<ProfileInfoResponse>>
 
-  suspend fun searchLocation(query: String): Flow<List<LocationResponse>>
+  suspend fun searchLocation(query: String): Flow<ArrayList<LocationResponse>>
 
   suspend fun updateProfileAbout(id: String,
       updateProfileAboutRequest: UpdateProfileAboutRequest):
