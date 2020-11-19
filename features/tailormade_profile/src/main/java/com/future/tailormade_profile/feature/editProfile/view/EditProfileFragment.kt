@@ -62,8 +62,8 @@ class EditProfileFragment : BaseFragment() {
     return binding.root
   }
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
     setupProfileDataObserver()
     setupLocationObserver()
   }
