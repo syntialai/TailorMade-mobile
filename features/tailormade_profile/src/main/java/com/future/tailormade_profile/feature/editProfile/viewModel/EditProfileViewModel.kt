@@ -2,9 +2,7 @@ package com.future.tailormade_profile.feature.editProfile.viewModel
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -77,7 +75,9 @@ class EditProfileViewModel @ViewModelInject constructor(
   @ExperimentalCoroutinesApi
   fun updateLocations(query: String) {
     launchViewModelScope {
-      profileRepository.searchLocation(query).collect {
+      profileRepository.searchLocation(query).onError {
+        _errorMessage.value = it.toString()
+      }.collect {
         val response = it.map { item ->
           appLogger.logOnEvent(it.toString())
           item.display_name.orEmpty()

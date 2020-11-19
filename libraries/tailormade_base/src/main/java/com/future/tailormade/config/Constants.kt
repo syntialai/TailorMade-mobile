@@ -5,6 +5,7 @@ object Constants {
     /**
      * Static data
      */
+    const val MIN_DEBOUNCE_TIME = 300L
     const val MIN_PASSWORD_LENGTH = 8
     const val MIN_QUERY_SEARCH_LENGTH = 3
 

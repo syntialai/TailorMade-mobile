@@ -90,6 +90,7 @@ abstract class BaseFragment : Fragment() {
     })
 
     getViewModel()?.errorMessage?.observe(viewLifecycleOwner, { error ->
+      hideKeyboard()
       if (error != null && context != null && view != null) {
         ToastHelper.showErrorToast(requireContext(), requireView(), error)
       }
