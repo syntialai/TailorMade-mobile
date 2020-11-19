@@ -12,7 +12,7 @@
 
     <!-- Button Style -->
     <style name="Theme.TailorMade.Button.Rounded" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_height">@dimen/dp_48</item>
+        <item name="android:layout_height">@dimen/dp_56</item>
         <item name="android:paddingTop">@dimen/dp_12</item>
         <item name="android:paddingBottom">@dimen/dp_12</item>
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
@@ -290,5 +290,20 @@
     <!-- Text Fields -->
     <style name="Theme.TailorMade.TextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputEditText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
+
+    <!-- Toolbar -->
+    <style name="Theme.TailorMade.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="titleTextAppearance">?textAppearanceHeadline4</item>
+        <item name="titleTextColor">?colorOnBackground</item>
+    </style>
+
+    <style name="Theme.TailorMade.Toolbar.Back" parent="Theme.TailorMade.Toolbar">
+        <item name="navigationIcon">@drawable/ic_back</item>
+        <item name="navigationIconColor">?colorOnBackground</item>
     </style>
 </resources>
