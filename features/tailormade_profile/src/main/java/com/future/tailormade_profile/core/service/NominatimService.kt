@@ -9,10 +9,8 @@ import retrofit2.http.Query
 interface NominatimService {
 
   @GET(ProfileApiUrl.NOMINATIM_SEARCH_BY_QUERY_PATH)
-  suspend fun searchLocation(@Path("query") query: String,
-      @Query("format") format: String,
+  suspend fun searchLocation(
+      @Path("query") query: String, @Query("format") format: String,
       @Query("addressdetails") addressDetails: String,
-      @Query("limit") limit: String,
-      @Query("svg") svg: String
-  ): ArrayList<LocationResponse>
+      @Query("limit") limit: String, @Query("svg") svg: String): ArrayList<LocationResponse>
 }

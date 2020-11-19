@@ -57,10 +57,13 @@ class EditAboutFragment : BaseFragment() {
           editProfileViewModel::updateLocations)
     }
 
+    return binding.root
+  }
+
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
     setupAboutDataObserver()
     setupLocationObserver()
-
-    return binding.root
   }
 
   private fun setupAboutDataObserver() {
