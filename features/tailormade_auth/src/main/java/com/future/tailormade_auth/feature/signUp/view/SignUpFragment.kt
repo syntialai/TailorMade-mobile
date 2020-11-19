@@ -65,7 +65,11 @@ class SignUpFragment : BaseFragment() {
   }
 
   private fun isFormValid(name: String, email: String, birthDate: String,
-      password: String, confirmPassword: String): Boolean = name.isNotBlank() && email.isNotBlank() && email.isEmailValid() && birthDate.isNotBlank() && password.isNotBlank() && password.length >= 8 && confirmPassword.isNotBlank() && confirmPassword == password
+      password: String, confirmPassword: String): Boolean =
+    name.isNotBlank() && email.isNotBlank() && email.isEmailValid()
+            && birthDate.isNotBlank() && password.isNotBlank()
+            && password.length >= Constants.MIN_PASSWORD_LENGTH
+            && confirmPassword.isNotBlank() && confirmPassword == password
 
   private fun setFormErrorMessage() {
     with(binding) {

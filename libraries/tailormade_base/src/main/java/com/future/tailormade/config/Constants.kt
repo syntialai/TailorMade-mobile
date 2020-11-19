@@ -3,6 +3,11 @@ package com.future.tailormade.config
 object Constants {
 
     /**
+     * Static data
+     */
+    const val MIN_PASSWORD_LENGTH = 8
+
+    /**
      * Error messages
      */
     private const val IS_EMPTY = "is empty"
