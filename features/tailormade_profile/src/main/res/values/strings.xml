@@ -2,6 +2,4 @@
 <resources>
     <string name="location_label">Location</string>
     <string name="update_profile_label">Update Profile</string>
-    <string name="birth_date_picker_label">Birth Date Picker</string>
-    <string name="birth_date_picker_title_label">Choose Date</string>
 </resources>
