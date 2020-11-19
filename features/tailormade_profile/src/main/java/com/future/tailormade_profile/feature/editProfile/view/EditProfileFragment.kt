@@ -59,10 +59,13 @@ class EditProfileFragment : BaseFragment() {
       }
     }
 
+    return binding.root
+  }
+
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
     setupProfileDataObserver()
     setupLocationObserver()
-
-    return binding.root
   }
 
   private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) =
@@ -89,7 +92,7 @@ class EditProfileFragment : BaseFragment() {
 
   private fun setupDatePicker() {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
-        Constants.BIRTH_DATE_PICKER_TITLE).build()
+        getString(R.string.birth_date_picker_title_label)).build()
     birthDatePicker.addOnPositiveButtonClickListener {
       birthDate = it
       binding.editTextBirthDateEditProfile.setText(
@@ -123,7 +126,8 @@ class EditProfileFragment : BaseFragment() {
   }
 
   private fun showDatePicker() {
-    birthDatePicker.show(parentFragmentManager, Constants.BIRTH_DATE_PICKER)
+    birthDatePicker.show(parentFragmentManager,
+        getString(R.string.birth_date_picker_label))
   }
 
   @ExperimentalCoroutinesApi

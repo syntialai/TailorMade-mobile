@@ -3,8 +3,15 @@ package com.future.tailormade.config
 object Constants {
 
     /**
+     * Static data
+     */
+    const val MIN_PASSWORD_LENGTH = 8
+    const val MIN_QUERY_SEARCH_LENGTH = 3
+
+    /**
      * Error messages
      */
+    private const val FAILED_TO = "Failed to"
     private const val IS_EMPTY = "is empty"
     private const val IS_NOT_VALID = "is not valid"
 
@@ -21,15 +28,11 @@ object Constants {
     const val PASSWORD_IS_NOT_VALID = "Password length should be more than 7 characters"
     const val CONFIRM_PASSWORD_IS_EMPTY = "Confirm password $IS_EMPTY"
     const val CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD = "Confirm password must be same with password"
+    const val FAILED_TO_GET_PROFILE_INFO = "$FAILED_TO get profile info"
+    const val FAILED_TO_UPDATE_PROFILE = "$FAILED_TO update profile"
 
     /*
      * Date Patterns
      */
     const val DD_MMMM_YYYY = "dd MMMM yyyy"
-
-    /*
-     * Other
-     */
-    const val BIRTH_DATE_PICKER = "Birth Date Picker"
-    const val BIRTH_DATE_PICKER_TITLE = "Choose Date"
 }

@@ -42,19 +42,7 @@ abstract class BaseFragment : Fragment() {
       (activity as BaseActivity).setupToolbar(getScreenName())
     }
 
-    getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
-      when (state) {
-        is ViewState.Loading -> onLoading(state.isLoading)
-        is ViewState.Unauthorized -> onUnauthorized()
-        else -> showNoInternetConnection()
-      }
-    })
-
-    getViewModel()?.errorMessage?.observe(viewLifecycleOwner, { error ->
-      if (error != null && context != null && view != null) {
-        ToastHelper.showErrorToast(requireContext(), requireView(), error)
-      }
-    })
+    setupFragmentObserver()
   }
 
   override fun onStart() {
@@ -90,6 +78,22 @@ abstract class BaseFragment : Fragment() {
   override fun onDetach() {
     appLogger.logLifecycleOnDetach()
     super.onDetach()
+  }
+
+  open fun setupFragmentObserver() {
+    getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
+      when (state) {
+        is ViewState.Loading -> onLoading(state.isLoading)
+        is ViewState.Unauthorized -> onUnauthorized()
+        else -> showNoInternetConnection()
+      }
+    })
+
+    getViewModel()?.errorMessage?.observe(viewLifecycleOwner, { error ->
+      if (error != null && context != null && view != null) {
+        ToastHelper.showErrorToast(requireContext(), requireView(), error)
+      }
+    })
   }
 
   private fun onUnauthorized() {

@@ -6,6 +6,7 @@ import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
 import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.coroutine.CoroutineHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,7 +52,7 @@ fun EditText.debounceOnTextChanged(scope: CoroutineScope,
   doOnTextChanged { text, _, _, count ->
     val debounce = CoroutineHelper.debounce(scope = scope,
         destinationFunction = listener)
-    if (count >= 3) {
+    if (count >= Constants.MIN_QUERY_SEARCH_LENGTH) {
       debounce.invoke(text.toString())
     }
   }
