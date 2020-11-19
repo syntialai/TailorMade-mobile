@@ -10,6 +10,7 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.extension.toDateString
+import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignUpBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -65,7 +66,11 @@ class SignUpFragment : BaseFragment() {
   }
 
   private fun isFormValid(name: String, email: String, birthDate: String,
-      password: String, confirmPassword: String): Boolean = name.isNotBlank() && email.isNotBlank() && email.isEmailValid() && birthDate.isNotBlank() && password.isNotBlank() && password.length >= 8 && confirmPassword.isNotBlank() && confirmPassword == password
+      password: String, confirmPassword: String): Boolean =
+    name.isNotBlank() && email.isNotBlank() && email.isEmailValid()
+            && birthDate.isNotBlank() && password.isNotBlank()
+            && password.length >= Constants.MIN_PASSWORD_LENGTH
+            && confirmPassword.isNotBlank() && confirmPassword == password
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -101,7 +106,7 @@ class SignUpFragment : BaseFragment() {
 
   private fun setupDatePicker() {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
-        "Choose Date").build()
+        R.string.birth_date_picker_title_label).build()
     birthDatePicker.addOnPositiveButtonClickListener {
       binding.editTextBirthDateSignUp.setText(
           it.toDateString(Constants.DD_MMMM_YYYY))
@@ -109,7 +114,8 @@ class SignUpFragment : BaseFragment() {
   }
 
   private fun showDatePicker() {
-    birthDatePicker.show(parentFragmentManager, Constants.BIRTH_DATE_PICKER)
+    birthDatePicker.show(parentFragmentManager,
+        getString(R.string.birth_date_picker_label))
   }
 
   private fun submitForm(name: String, email: String, birthDate: String,

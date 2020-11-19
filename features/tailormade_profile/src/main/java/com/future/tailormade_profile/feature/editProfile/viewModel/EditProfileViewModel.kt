@@ -2,7 +2,9 @@ package com.future.tailormade_profile.feature.editProfile.viewModel
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -42,7 +44,7 @@ class EditProfileViewModel @ViewModelInject constructor(
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
         profileRepository.getProfileInfo(id).onError {
-          _errorMessage.postValue("Failed to get profile info")
+          _errorMessage.postValue(Constants.FAILED_TO_GET_PROFILE_INFO)
         }.collect { response ->
           response.data?.let {
             _profileInfo.postValue(it)
