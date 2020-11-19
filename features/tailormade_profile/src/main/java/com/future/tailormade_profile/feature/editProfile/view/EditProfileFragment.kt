@@ -59,10 +59,13 @@ class EditProfileFragment : BaseFragment() {
       }
     }
 
+    return binding.root
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
     setupProfileDataObserver()
     setupLocationObserver()
-
-    return binding.root
   }
 
   private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) =
