@@ -22,8 +22,8 @@ class SelectRoleFragment : BaseFragment() {
 
   private lateinit var binding: FragmentSelectRoleBinding
 
-  override fun getScreenName(): String =
-    "com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
+  override fun getLogName(): String =
+      "com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi

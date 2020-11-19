@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Text Styles -->
+    <style name="TextAppearance.TailorMade.Body1.BlackHigh" parent="TextAppearance.TailorMade.Body1">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Body1.BlackMedium" parent="TextAppearance.TailorMade.Body1">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Body1.BlackMedium2" parent="TextAppearance.TailorMade.Body1">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Body2.BlackHigh" parent="TextAppearance.TailorMade.Body2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Body2.BlackMedium" parent="TextAppearance.TailorMade.Body2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Body2.BlackMedium2" parent="TextAppearance.TailorMade.Body2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Subtitle1.BlackHigh" parent="TextAppearance.TailorMade.Subtitle1">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Subtitle1.BlackMedium" parent="TextAppearance.TailorMade.Subtitle1">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Subtitle1.BlackMedium2" parent="TextAppearance.TailorMade.Subtitle1">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Subtitle2.BlackHigh" parent="TextAppearance.TailorMade.Subtitle2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Subtitle2.BlackMedium" parent="TextAppearance.TailorMade.Subtitle2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Subtitle2.BlackMedium2" parent="TextAppearance.TailorMade.Subtitle2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Overline.BlackHigh" parent="TextAppearance.TailorMade.Overline">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Overline.BlackMedium" parent="TextAppearance.TailorMade.Overline">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Overline.BlackMedium2" parent="TextAppearance.TailorMade.Overline">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+</resources>
