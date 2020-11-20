@@ -1,1 +1,4 @@
-<resources></resources>
+<resources>
+    <string name="search_state">Find anything you want!</string>
+    <string name="search_description_state">Type any design category or tailors.</string>
+</resources>

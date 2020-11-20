@@ -8,5 +8,67 @@
         android:layout_height="match_parent"
         tools:context=".feature.view.SearchActivity">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_appbar_layout_search"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/top_toolbar_search"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_search_result_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search" />
+
+        <ImageView
+            android:id="@+id/image_view_search_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/illustration_search"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_search_state"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_search_result_container"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_view_search_state"
+            style="@style/TextAppearance.TailorMade.Headline2.BlackHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:text="@string/search_state"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_search_description_state"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_search_state" />
+
+        <TextView
+            android:id="@+id/text_view_search_description_state"
+            style="@style/TextAppearance.TailorMade.Body1.BlackMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/search_description_state"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/fl_search_result_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_search_state" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
