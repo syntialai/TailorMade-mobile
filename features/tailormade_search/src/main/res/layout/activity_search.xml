@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.view.SearchActivity">
+        tools:context=".feature.search.view.SearchActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/top_appbar_layout_search"
@@ -19,29 +19,37 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/top_toolbar_search"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize">
 
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/view_search_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
-            android:id="@+id/fl_search_result_container"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            app:defaultNavHost="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search" />
+            app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search"
+            app:navGraph="@navigation/nav_search_graph" />
 
         <ImageView
             android:id="@+id/image_view_search_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/illustration_search"
-            app:layout_constraintBottom_toTopOf="@+id/text_view_search_state"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fl_search_result_container"
-            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -51,7 +59,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_24"
             android:text="@string/search_state"
-            android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/text_view_search_description_state"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,8 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
             android:text="@string/search_description_state"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/fl_search_result_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_search_state" />

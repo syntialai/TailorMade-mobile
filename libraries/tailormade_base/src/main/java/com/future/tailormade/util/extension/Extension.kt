@@ -1,6 +1,7 @@
 package com.future.tailormade.util.extension
 
 import android.util.Patterns
+import android.view.View
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -17,6 +18,10 @@ fun <T> Flow<T>.flowOnMain(): Flow<T> = this.flowOn(Dispatchers.Main)
 
 fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> =
     catch { error -> block(error) }
+
+fun View.remove() {
+    this.visibility = View.GONE
+}
 
 /**
  * Validate string extension functions
