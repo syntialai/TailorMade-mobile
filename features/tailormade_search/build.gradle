@@ -44,8 +44,16 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Libraries
     implementation project(":libraries:tailormade_base")
     implementation project(":libraries:tailormade_dls")
+
+    // Features
+    implementation project(":features:tailormade_auth")
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     // Tests
     testImplementation test.junit
@@ -59,8 +67,6 @@ dependencies {
 
     // Annotation Processing
     kapt dataBinding.kapt
-
-    implementation materialDesign
 
     // Glide
     kapt glide.kapt
