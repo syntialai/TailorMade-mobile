@@ -23,10 +23,8 @@ class SearchActivity : BaseActivity() {
     setContentView(binding.root)
 
     with(binding) {
-      viewSearchField.setOnQueryTextFocusChangeListener { _, hasFocus ->
-        if (hasFocus.not()) {
-          // TODO: Debounce and call View Model
-        }
+      viewSearchField.setOnSearchClickListener {
+        // call the view
       }
     }
   }
