@@ -1,11 +1,12 @@
 package com.future.tailormade_search.feature.search.view
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade_search.databinding.ActivitySearchBinding
+import com.future.tailormade_search.feature.search.adapter.SearchPagerAdapter
 import com.future.tailormade_search.feature.search.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +28,7 @@ class SearchActivity : BaseActivity() {
       }
     }
 
+    setupPagerAdapter()
     setupObserver()
   }
 
@@ -39,12 +41,12 @@ class SearchActivity : BaseActivity() {
 
   private fun setupObserver() {
     viewModel.listOfDesigns.observe(this, {
-      hideInitialSearchState()
+      showSearchResultView()
       // TODO: show fragment and pass data to adapter
     })
 
     viewModel.listOfTailors.observe(this, {
-      hideInitialSearchState()
+      showSearchResultView()
       // TODO: show fragment and pass data to adapter
     })
   }
@@ -55,7 +57,7 @@ class SearchActivity : BaseActivity() {
     }
   }
 
-  fun hideInitialSearchState() {
+  private fun hideInitialSearchState() {
     with(binding) {
       imageViewSearchState.remove()
       textViewSearchState.remove()
@@ -63,7 +65,19 @@ class SearchActivity : BaseActivity() {
     }
   }
 
-  fun showSearchResultView() {
-    binding.navHostFragment.visibility = View.VISIBLE
+  private fun isSearchResultShown() = binding.viewPagerSearch.isShown
+
+  private fun setupPagerAdapter() {
+    binding.viewPagerSearch.adapter = SearchPagerAdapter()
+  }
+
+  private fun showSearchResultView() {
+    if (isSearchResultShown().not()) {
+      hideInitialSearchState()
+      with(binding) {
+        tabLayoutSearch.show()
+        viewPagerSearch.show()
+      }
+    }
   }
 }

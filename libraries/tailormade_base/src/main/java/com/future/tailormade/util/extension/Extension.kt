@@ -2,6 +2,7 @@ package com.future.tailormade.util.extension
 
 import android.util.Patterns
 import android.view.View
+import android.view.ViewGroup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -21,6 +22,18 @@ fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> =
 
 fun View.remove() {
     this.visibility = View.GONE
+}
+
+fun ViewGroup.remove() {
+    this.visibility = View.GONE
+}
+
+fun ViewGroup.hide() {
+    this.visibility = View.INVISIBLE
+}
+
+fun ViewGroup.show() {
+    this.visibility = View.VISIBLE
 }
 
 /**
