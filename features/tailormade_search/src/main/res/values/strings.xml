@@ -17,4 +17,6 @@
     <string name="tailor_location_label">Tailor\'s Location</string>
     <string name="apply_label">Apply</string>
     <string name="filter_tailors_label">Filter Tailors</string>
+    <string name="lowest_price_hint">Rp1000</string>
+    <string name="highest_price_hint">Rp1000000</string>
 </resources>

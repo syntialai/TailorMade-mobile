@@ -6,6 +6,8 @@ import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_search.databinding.ActivitySearchBinding
+import com.future.tailormade_search.feature.filter.view.FilterDesignBottomSheetDialogFragment
+import com.future.tailormade_search.feature.filter.view.FilterTailorBottomSheetDialogFragment
 import com.future.tailormade_search.feature.search.adapter.SearchPagerAdapter
 import com.future.tailormade_search.feature.search.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +32,9 @@ class SearchActivity : BaseActivity() {
 
     setupPagerAdapter()
     setupObserver()
+
+    FilterDesignBottomSheetDialogFragment.newInstance().show(supportFragmentManager, "")
+    FilterTailorBottomSheetDialogFragment.newInstance().show(supportFragmentManager, "")
   }
 
   private fun doSearch(query: String) {

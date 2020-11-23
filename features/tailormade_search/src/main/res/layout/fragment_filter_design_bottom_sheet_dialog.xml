@@ -42,9 +42,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_lowest_price"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginVertical="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_8"
             app:layout_constraintEnd_toStartOf="@id/text_view_separator"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintHorizontal_weight="4"
@@ -53,8 +54,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_lowest_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lowest_price_hint" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/separator"
+            android:layout_marginStart="@dimen/dp_0"
             app:layout_constraintBottom_toBottomOf="@id/text_input_lowest_price"
             app:layout_constraintEnd_toStartOf="@id/text_input_highest_price"
             app:layout_constraintStart_toEndOf="@id/text_input_lowest_price"
@@ -72,9 +75,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_highest_price"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_16"
+            android:layout_marginHorizontal="@dimen/dp_16"
             app:layout_constraintBottom_toBottomOf="@id/text_input_lowest_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="4"
@@ -83,8 +85,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_highest_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/highest_price_hint" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
