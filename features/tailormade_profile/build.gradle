@@ -56,6 +56,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
+    // Preferences
+    implementation androidx.preferences
+
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core
