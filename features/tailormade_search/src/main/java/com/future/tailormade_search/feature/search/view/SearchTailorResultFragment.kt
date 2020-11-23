@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade_search.core.model.response.SearchTailorResponse
 import com.future.tailormade_search.databinding.FragmentSearchTailorResultBinding
 import com.future.tailormade_search.feature.search.adapter.SearchTailorListAdapter
@@ -35,6 +37,18 @@ class SearchTailorResultFragment : BaseFragment() {
     return binding.root
   }
 
+  private fun hideNoDataState() {
+    with(binding) {
+      imageViewNoTailorDataState.remove()
+      textViewNoTailorDataState.remove()
+      textViewNoTailorDataDescriptionState.remove()
+    }
+  }
+
+  private fun hideRecyclerView() {
+    binding.recyclerViewSearchTailorResult.remove()
+  }
+
   private fun setupAdapter(tailorList: List<SearchTailorResponse>) {
     val adapter = SearchTailorListAdapter(tailorList)
     with(binding.recyclerViewSearchTailorResult) {
@@ -46,7 +60,27 @@ class SearchTailorResultFragment : BaseFragment() {
   private fun setupFragmentObserver() {
     viewModel.listOfTailors.observe(viewLifecycleOwner, {
       setupAdapter(it)
+      setupAdapter(it)
+      if (it.isEmpty()) {
+        showNoDataState()
+      } else {
+        showRecyclerView()
+      }
     })
+  }
+
+  private fun showNoDataState() {
+    with(binding) {
+      imageViewNoTailorDataState.show()
+      textViewNoTailorDataState.show()
+      textViewNoTailorDataDescriptionState.show()
+    }
+    hideRecyclerView()
+  }
+
+  private fun showRecyclerView() {
+    binding.recyclerViewSearchTailorResult.show()
+    hideNoDataState()
   }
 
   companion object {
