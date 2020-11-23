@@ -6,7 +6,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_16"
         tools:context=".feature.filter.view.FilterDesignBottomSheetDialogFragment">
 
         <TextView
@@ -122,6 +121,8 @@
         <include
             android:id="@+id/group_search_location"
             layout="@layout/layout_search_tailor_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chip_group_category" />

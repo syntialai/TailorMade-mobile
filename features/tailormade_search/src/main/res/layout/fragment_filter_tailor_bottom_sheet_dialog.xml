@@ -13,6 +13,7 @@
             style="@style/TextAppearance.TailorMade.Headline3.Bold"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
             android:layout_marginStart="@dimen/dp_16"
             android:text="@string/filter_tailors_label"
             app:layout_constraintBottom_toBottomOf="@id/button_close_filter_tailor_dialog"
@@ -24,14 +25,22 @@
             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
             android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/group_search_location"
             tools:ignore="ContentDescription" />
 
         <include
             android:id="@+id/group_search_location"
-            layout="@layout/layout_search_tailor_location" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_search_tailor_location"
+            app:layout_constraintBottom_toTopOf="@id/button_submit_tailor_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_close_filter_tailor_dialog" />
 
         <Button
             android:id="@+id/button_submit_tailor_filter"
@@ -39,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_16"
             android:text="@string/apply_label"
+            app:layout_constraintTop_toBottomOf="@id/group_search_location"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
