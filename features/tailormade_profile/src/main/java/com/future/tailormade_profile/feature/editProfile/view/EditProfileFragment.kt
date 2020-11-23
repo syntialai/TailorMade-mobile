@@ -92,7 +92,7 @@ class EditProfileFragment : BaseFragment() {
 
   private fun setupDatePicker() {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
-        getString(R.string.birth_date_picker_label)).build()
+        getString(R.string.birth_date_picker_title_label)).build()
     birthDatePicker.addOnPositiveButtonClickListener {
       birthDate = it
       binding.editTextBirthDateEditProfile.setText(
