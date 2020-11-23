@@ -16,4 +16,5 @@
     <string name="separator">-</string>
     <string name="tailor_location_label">Tailor\'s Location</string>
     <string name="apply_label">Apply</string>
+    <string name="filter_tailors_label">Filter Tailors</string>
 </resources>

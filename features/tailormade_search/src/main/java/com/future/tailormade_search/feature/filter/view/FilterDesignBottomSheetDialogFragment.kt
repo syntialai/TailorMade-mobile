@@ -25,7 +25,7 @@ class FilterDesignBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
         dismiss()
       }
 
-      buttonSubmitFilter.setOnClickListener {
+      buttonSubmitDesignFilter.setOnClickListener {
         dismiss()
       }
     }
