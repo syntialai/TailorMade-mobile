@@ -22,7 +22,7 @@ class SearchTailorResultFragment : BaseFragment() {
 
   private val viewModel: SearchViewModel by viewModels()
 
-  override fun getScreenName(): String = ""
+  override fun getScreenName(): String = "Search Tailor Result"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {

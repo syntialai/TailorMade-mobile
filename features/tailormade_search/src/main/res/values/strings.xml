@@ -9,4 +9,11 @@
     <string name="sort_oldest_label">Oldest</string>
     <string name="sort_a_to_z_label"> A to Z</string>
     <string name="sort_z_to_a_label"> Z to A</string>
+    <string name="filter_designs_label">Filter Designs</string>
+    <string name="price_label">Price</string>
+    <string name="category_label">Category</string>
+    <string name="show_all_label">Show all</string>
+    <string name="separator">-</string>
+    <string name="tailor_location_label">Tailor\'s Location</string>
+    <string name="apply_label">Apply</string>
 </resources>

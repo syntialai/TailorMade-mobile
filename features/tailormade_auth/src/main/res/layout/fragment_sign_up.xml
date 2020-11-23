@@ -123,8 +123,8 @@
 
         <Button
             android:id="@+id/button_submit_form"
-            style="@style/Theme.TailorMade.Button.Rounded"
             android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_40"
             android:text="@string/next_label"
             app:layout_constraintEnd_toEndOf="parent"
