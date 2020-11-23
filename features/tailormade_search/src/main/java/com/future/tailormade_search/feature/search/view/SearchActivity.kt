@@ -37,26 +37,6 @@ class SearchActivity : BaseActivity() {
     launchCoroutineOnMain { viewModel.searchTailor(query) }
   }
 
-  private fun isQueryValid(query: String): Boolean = query.isNotBlank() && query.length >= 3
-
-  private fun setupObserver() {
-    viewModel.listOfDesigns.observe(this, {
-      showSearchResultView()
-      // TODO: show fragment and pass data to adapter
-    })
-
-    viewModel.listOfTailors.observe(this, {
-      showSearchResultView()
-      // TODO: show fragment and pass data to adapter
-    })
-  }
-
-  private fun validateQuery(query: String) {
-    if (isQueryValid(query)) {
-      doSearch(query)
-    }
-  }
-
   private fun hideInitialSearchState() {
     with(binding) {
       imageViewSearchState.remove()
@@ -65,10 +45,21 @@ class SearchActivity : BaseActivity() {
     }
   }
 
+  private fun isQueryValid(query: String): Boolean = query.isNotBlank() && query.length >= 3
+
   private fun isSearchResultShown() = binding.viewPagerSearch.isShown
 
+  private fun setupObserver() {
+    viewModel.searchResultCount.observe(this, {
+      if (it > 0) {
+        showSearchResultView()
+      }
+    })
+  }
+
   private fun setupPagerAdapter() {
-    binding.viewPagerSearch.adapter = SearchPagerAdapter()
+    binding.viewPagerSearch.adapter = SearchPagerAdapter(supportFragmentManager,
+        lifecycle)
   }
 
   private fun showSearchResultView() {
@@ -78,6 +69,12 @@ class SearchActivity : BaseActivity() {
         tabLayoutSearch.show()
         viewPagerSearch.show()
       }
+    }
+  }
+
+  private fun validateQuery(query: String) {
+    if (isQueryValid(query)) {
+      doSearch(query)
     }
   }
 }

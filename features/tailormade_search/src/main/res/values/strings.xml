@@ -4,4 +4,6 @@
     <string name="search_label">Search</string>
     <string name="design_label">Design</string>
     <string name="tailor_label">Tailor</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

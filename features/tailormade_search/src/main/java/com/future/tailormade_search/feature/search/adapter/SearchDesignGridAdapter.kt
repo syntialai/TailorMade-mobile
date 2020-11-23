@@ -9,22 +9,22 @@ import com.future.tailormade_dls.databinding.LayoutCardDesignBinding
 import com.future.tailormade_search.R
 import com.future.tailormade_search.core.model.response.SearchDesignResponse
 
-class SearchDesignListAdapter(
+class SearchDesignGridAdapter(
     private var designList: List<SearchDesignResponse>) :
-    RecyclerView.Adapter<SearchDesignListAdapter.SearchDesignListViewHolder>() {
+    RecyclerView.Adapter<SearchDesignGridAdapter.SearchDesignGridViewHolder>() {
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SearchDesignListViewHolder(
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SearchDesignGridViewHolder(
       LayoutInflater.from(parent.context).inflate(R.layout.layout_card_design,
           parent, false))
 
-  override fun onBindViewHolder(holder: SearchDesignListViewHolder,
+  override fun onBindViewHolder(holder: SearchDesignGridViewHolder,
       position: Int) {
     holder.bind(designList[position])
   }
 
   override fun getItemCount(): Int = designList.size
 
-  inner class SearchDesignListViewHolder(view: View) :
+  inner class SearchDesignGridViewHolder(view: View) :
       RecyclerView.ViewHolder(view) {
 
     private val context = view.context
