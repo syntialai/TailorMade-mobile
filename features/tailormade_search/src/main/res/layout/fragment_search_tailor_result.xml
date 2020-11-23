@@ -12,6 +12,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <include
+                android:id="@+id/group_sort_and_filter"
+                layout="@layout/layout_sort_and_filter" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_search_tailor_result"
                 android:layout_width="match_parent"
@@ -19,7 +23,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/group_sort_and_filter" />
 
             <ImageView
                 android:id="@+id/image_view_no_tailor_data_state"

@@ -54,8 +54,16 @@
 
     <!-- Chip Style -->
     <style name="Theme.TailorMade.Chip" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="checkedIconVisible">false</item>
         <item name="android:checkable">true</item>
+    </style>
+
+    <style name="Theme.TailorMade.Chip.Icon" parent="Theme.TailorMade.Chip">
+        <item name="chipIconEnabled">true</item>
+        <item name="chipIconVisible">true</item>
+        <item name="chipIconTint">@color/color_black_38</item>
+        <item name="checkedIconEnabled">true</item>
+        <item name="checkedIconVisible">true</item>
+        <item name="checkedIconTint">?colorPrimary</item>
     </style>
 
     <!-- Corner Style -->
