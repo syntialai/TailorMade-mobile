@@ -47,7 +47,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // Library
-    implementation project(":libraries:tailormade_base")
+    api project(":libraries:tailormade_base")
 
     // Tests
     testImplementation test.junit

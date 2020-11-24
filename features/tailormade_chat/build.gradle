@@ -49,6 +49,10 @@ dependencies {
     // Features
     implementation project(":features:tailormade_auth")
 
+    // Firebase
+    implementation firebase.bom
+    implementation firebase.database
+
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core

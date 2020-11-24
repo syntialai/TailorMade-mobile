@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,8 +16,9 @@ fun <T> Flow<T>.flowOnIO(): Flow<T> = this.flowOn(Dispatchers.IO)
 
 fun <T> Flow<T>.flowOnMain(): Flow<T> = this.flowOn(Dispatchers.Main)
 
-fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> =
-    catch { error -> block(error) }
+fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> = catch { error ->
+  block(error)
+}
 
 /**
  * Validate string extension functions
@@ -28,6 +30,10 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 /**
  * Date Converter
  */
-fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(this)
+fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern,
+    Locale.ENGLISH).format(this)
 
 fun Long.toDate(): Date = Date(this)
+
+fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern,
+    Locale.ENGLISH).format(this)

@@ -33,7 +33,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // Library
-    implementation project(":libraries:tailormade_dls")
+    api project(":libraries:tailormade_dls")
 
     api core.kotlin
     api core.legacy_support
