@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_checkable_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:checkable="true">
+
+        <TextView
+            android:id="@+id/text_view_text_content"
+            style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_16"
+            android:text="@string/home_menu_label" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
