@@ -1,3 +1,4 @@
+include ':features:tailormade_chat'
 include ':libraries:tailormade_router'
 include ':app'
 
