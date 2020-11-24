@@ -31,7 +31,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    api project(":libraries:tailormade_dls")
+
+    // Library
+    implementation project(":libraries:tailormade_dls")
 
     api core.kotlin
     api core.legacy_support
