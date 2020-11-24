@@ -38,7 +38,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search"
-            app:tabMode="fixed">
+            app:tabMode="fixed"
+            tools:visibility="visible">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_item_design"
@@ -62,21 +63,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_layout_search">
+            app:layout_constraintTop_toBottomOf="@id/tab_layout_search"
+            tools:visibility="visible">
 
         </androidx.viewpager2.widget.ViewPager2>
 
-<!--        <androidx.fragment.app.FragmentContainerView-->
-<!--            android:id="@+id/nav_host_fragment"-->
-<!--            android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:visibility="gone"-->
-<!--            app:defaultNavHost="true"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search"-->
-<!--            app:navGraph="@navigation/nav_search_graph" />-->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:defaultNavHost="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search"
+            app:navGraph="@navigation/nav_search_graph"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/image_view_search_state"
