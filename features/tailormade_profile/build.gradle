@@ -54,6 +54,9 @@ dependencies {
     // OSM
     implementation osm
 
+    // Preferences
+    implementation androidx.preferences
+
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core
