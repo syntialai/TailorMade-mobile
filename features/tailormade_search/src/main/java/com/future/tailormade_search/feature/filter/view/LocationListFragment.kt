@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade_search.databinding.FragmentLocationListBinding
@@ -28,6 +29,11 @@ class LocationListFragment : BaseFragment() {
     // TODO: show toolbar
 
     return binding.root
+  }
+
+  // TODO: call onBackPressed for back button in toolbar
+  private fun onBackPressed() {
+    findNavController().navigateUp()
   }
 
   private fun onItemClickedListener(position: Int) {

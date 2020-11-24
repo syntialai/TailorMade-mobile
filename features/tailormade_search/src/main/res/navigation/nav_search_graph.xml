@@ -20,7 +20,7 @@
         android:name="com.future.tailormade_search.feature.filter.view.LocationListFragment"
         android:label="LocationListFragment" />
     <fragment
-        android:id="@+id/filterDesignBottomSheetDialogFragment2"
+        android:id="@+id/filterDesignBottomSheetDialogFragment"
         android:name="com.future.tailormade_search.feature.filter.view.FilterDesignBottomSheetDialogFragment"
         android:label="FilterDesignBottomSheetDialogFragment" >
         <action

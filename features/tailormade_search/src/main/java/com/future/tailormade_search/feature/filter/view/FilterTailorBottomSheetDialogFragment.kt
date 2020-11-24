@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseBottomSheetDialogFragment
 import com.future.tailormade_search.databinding.FragmentFilterTailorBottomSheetDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,12 @@ class FilterTailorBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
 
       buttonSubmitTailorFilter.setOnClickListener {
         dismiss()
+      }
+
+      groupSearchLocation.buttonShowAllLocation.setOnClickListener {
+        findNavController().navigate(
+            FilterTailorBottomSheetDialogFragmentDirections
+                .actionFilterTailorBottomSheetDialogFragmentToLocationListFragment())
       }
     }
 
