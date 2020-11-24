@@ -33,7 +33,7 @@ class FilterDesignBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
       }
 
       buttonSubmitDesignFilter.setOnClickListener {
-        dismiss()
+        applyFilter()
       }
 
       groupSearchLocation.buttonShowAllLocation.setOnClickListener {
@@ -46,8 +46,14 @@ class FilterDesignBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
     return binding.root
   }
 
+  private fun applyFilter() {
+    // TODO: Apply filter
+    dismiss()
+  }
+
   companion object {
 
-    @JvmStatic fun newInstance() = FilterDesignBottomSheetDialogFragment()
+    @JvmStatic
+    fun newInstance() = FilterDesignBottomSheetDialogFragment()
   }
 }

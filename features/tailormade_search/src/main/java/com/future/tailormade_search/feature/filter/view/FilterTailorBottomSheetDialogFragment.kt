@@ -27,7 +27,7 @@ class FilterTailorBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
       }
 
       buttonSubmitTailorFilter.setOnClickListener {
-        dismiss()
+        applyFilter()
       }
 
       groupSearchLocation.buttonShowAllLocation.setOnClickListener {
@@ -40,8 +40,14 @@ class FilterTailorBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
     return binding.root
   }
 
+  private fun applyFilter() {
+    // TODO: Apply filter
+    dismiss()
+  }
+
   companion object {
 
-    @JvmStatic fun newInstance() = FilterTailorBottomSheetDialogFragment()
+    @JvmStatic
+    fun newInstance() = FilterTailorBottomSheetDialogFragment()
   }
 }
