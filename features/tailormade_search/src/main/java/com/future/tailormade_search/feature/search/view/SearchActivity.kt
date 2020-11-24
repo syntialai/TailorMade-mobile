@@ -32,9 +32,6 @@ class SearchActivity : BaseActivity() {
 
     setupPagerAdapter()
     setupObserver()
-
-    FilterDesignBottomSheetDialogFragment.newInstance().show(supportFragmentManager, "")
-    FilterTailorBottomSheetDialogFragment.newInstance().show(supportFragmentManager, "")
   }
 
   private fun doSearch(query: String) {
