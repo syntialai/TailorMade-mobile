@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_chat.databinding.FragmentChatListBinding
+import com.future.tailormade_chat.feature.adapter.ChatListAdapter
 import com.future.tailormade_chat.feature.viewModel.ChatListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +20,8 @@ class ChatListFragment : BaseFragment() {
 
   private val viewModel: ChatListViewModel by viewModels()
 
+  private var adapter = ChatListAdapter()
+
   override fun getScreenName(): String = "Chat"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -26,13 +30,10 @@ class ChatListFragment : BaseFragment() {
 
     with(binding) {
       recyclerViewChatList.layoutManager = LinearLayoutManager(context)
+      recyclerViewChatList.adapter = adapter
     }
 
     return binding.root
-  }
-
-  private fun setupAdapter() {
-    // TODO: setup chat list adapter
   }
 
   private fun setupFragmentObserver() {

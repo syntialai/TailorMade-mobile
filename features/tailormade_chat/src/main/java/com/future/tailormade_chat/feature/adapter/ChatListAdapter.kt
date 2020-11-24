@@ -3,26 +3,34 @@ package com.future.tailormade_chat.feature.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.toTimeString
 import com.future.tailormade_chat.R
-import com.future.tailormade_chat.core.model.entity.Chat
 import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_dls.databinding.LayoutCardChatBinding
 
-class ChatListAdapter(private val sessionsList: List<Session>) :
-    RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder>() {
+class ChatListAdapter :
+    ListAdapter<Session, ChatListAdapter.ChatListViewHolder>(diffCallback) {
+
+  companion object {
+    private val diffCallback = object : DiffUtil.ItemCallback<Session>() {
+
+      override fun areItemsTheSame(oldItem: Session, newItem: Session): Boolean = oldItem == newItem
+
+      override fun areContentsTheSame(oldItem: Session, newItem: Session): Boolean = oldItem == newItem
+    }
+  }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ChatListViewHolder(
       LayoutInflater.from(parent.context).inflate(R.layout.layout_card_chat,
           parent, false))
 
   override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {
-    holder.bind(sessionsList[position])
+    holder.bind(getItem(position))
   }
-
-  override fun getItemCount(): Int = sessionsList.size
 
   inner class ChatListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
