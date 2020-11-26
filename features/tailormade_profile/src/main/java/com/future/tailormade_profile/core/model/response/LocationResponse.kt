@@ -8,7 +8,7 @@ data class LocationResponse (
     @Expose
     val address: AddressResponse? = null,
 
-    val boundingbox: List<Int>? = null,
+    val boundingbox: List<String>? = null,
 
     @SerializedName("class")
     val className: String? = null,

@@ -28,7 +28,6 @@ class EditProfileFragment : BaseFragment() {
   private var birthDate: Long = 0L
 
   private lateinit var binding: FragmentEditProfileBinding
-
   private lateinit var birthDatePicker: MaterialDatePicker<Long>
 
   override fun getLogName(): String =
