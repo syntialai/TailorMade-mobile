@@ -1,0 +1,9 @@
+<resources>
+    <string name="search_state">Find anything you want!</string>
+    <string name="search_description_state">Type any design category or tailors.</string>
+    <string name="search_label">Search</string>
+    <string name="design_label">Design</string>
+    <string name="tailor_label">Tailor</string>
+    <string name="search_no_data_state">Oops! No results found</string>
+    <string name="search_description_no_data_state">Try searching with another keyword.</string>
+</resources>

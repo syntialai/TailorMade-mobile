@@ -45,4 +45,6 @@
     <string name="order_menu_label">Order</string>
     <string name="cart_menu_label">Cart</string>
     <string name="profile_menu_label">Profile</string>
+    <string name="profile_name_label">Profile name</string>
+    <string name="profile_location_label">Profile Location</string>
 </resources>

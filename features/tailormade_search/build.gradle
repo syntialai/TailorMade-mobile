@@ -1,8 +1,8 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
 }
@@ -12,24 +12,13 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.future.tailormade"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        dataBinding true
-        viewBinding true
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -39,49 +28,26 @@ android {
         }
     }
 
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    hilt {
-        enableTransformForLocalTests = true
-    }
-
-    kapt {
-        correctErrorTypes true
-    }
-
     kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-    packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
-    }
-
-    sourceSets {
-        androidTest.assets.srcDirs +=
-                files("$projectDir/schemas".toString())
-    }
-
-    testOptions {
-        unitTests.includeAndroidResources = true
-        unitTests.returnDefaultValues = true
+        jvmTarget = '1.8'
     }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
+    implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    // Libraries
-    implementation project(":libraries:tailormade_dls")
-    implementation project(":libraries:tailormade_base")
-    implementation project(":libraries:tailormade_router")
-
-    // Features
+    // Feature
     implementation project(":features:tailormade_auth")
-    implementation project(":features:tailormade_search")
 
     // Tests
     testImplementation test.junit
@@ -98,8 +64,6 @@ dependencies {
 
     // Glide
     kapt glide.kapt
-
-    implementation materialDesign
 
     // Dagger 2
     kapt dagger.kapt_processor
