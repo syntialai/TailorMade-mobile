@@ -2,11 +2,10 @@ package com.future.tailormade_auth.feature.signUp.viewmodel
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.flowOnIOwithLoadingDialog
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
@@ -69,7 +68,7 @@ class SignUpViewModel @ViewModelInject constructor(
   fun signUp() {
     launchViewModelScope {
       signUpRequest?.let { request ->
-        authRepository.signUp(request).onError { error ->
+        authRepository.signUp(request).flowOnIOwithLoadingDialog(this).onError { error ->
           appLogger.logOnError(error.message.orEmpty(), error)
           _errorMessage.value = Constants.SIGN_UP_ERROR
         }.flatMapLatest { response ->

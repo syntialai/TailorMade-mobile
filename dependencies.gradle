@@ -1,10 +1,12 @@
 ext {
     versions = [
+            jvm                   : "1.8",
             kotlin                : "1.4.10",
             android_plugin        : "3.5.2",
             navigation            : "2.3.0",
             lifecycle             : "2.2.0",
             fragment              : "1.2.5",
+            preferences           : "1.1.1",
             dagger                : "2.29.1",
             hilt                  : "2.29.1-alpha",
             hilt_viewmodel        : "1.0.0-alpha02",
@@ -24,6 +26,7 @@ ext {
             recyclerview_selection: "1.1.0-rc03",
             legacy                : "1.0.0",
             firebase              : "26.0.0",
+            osm                   : "6.1.8",
             test_junit            : "4.13",
             test_core             : "1.3.0",
             test_mockito          : "3.5.13",
@@ -49,7 +52,8 @@ ext {
             lifecycle_viewmodel_savedstate      : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.lifecycle}",
             fragment                            : "androidx.fragment:fragment-ktx:${versions.fragment}",
             recyclerview                        : "androidx.recyclerview:recyclerview:${versions.recyclerview}",
-            recyclerview_selection              : "androidx.recyclerview:recyclerview-selection:${versions.recyclerview_selection}"
+            recyclerview_selection              : "androidx.recyclerview:recyclerview-selection:${versions.recyclerview_selection}",
+            preferences                         : "androidx.preference:preference-ktx:${versions.preferences}"
     ]
 
     test = [
@@ -114,9 +118,11 @@ ext {
     timber = "com.jakewharton.timber:timber:${versions.logger}"
 
     firebase = [
-            bom: "com.google.firebase:firebase-bom:${versions.firebase}",
+            bom     : "com.google.firebase:firebase-bom:${versions.firebase}",
             database: "com.google.firebase:firebase-database",
-            storage: "com.google.firebase:firebase-storage",
-            auth: "com.google.firebase:firebase-auth"
+            storage : "com.google.firebase:firebase-storage",
+            auth    : "com.google.firebase:firebase-auth"
     ]
+
+    osm = "org.osmdroid:osmdroid-android:${versions.osm}"
 }

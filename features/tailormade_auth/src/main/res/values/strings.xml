@@ -31,4 +31,6 @@
     <string name="tailormade_label">TailorMade</string>
     <string name="have_account_label">Already have an account?</string>
     <string name="confirm_password_label">Confirm Password</string>
+    <string name="birth_date_picker_label">Birth Date Picker</string>
+    <string name="birth_date_picker_title_label">Choose Date</string>
 </resources>
