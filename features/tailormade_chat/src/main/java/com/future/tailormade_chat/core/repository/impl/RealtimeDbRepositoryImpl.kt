@@ -45,6 +45,13 @@ class RealtimeDbRepositoryImpl @Inject constructor(
     return setValue(getChatRoomRef.child(chatRoomId), null)
   }
 
+  override fun deleteSessionByUserChatSession(userId: String,
+      userChatId: String): Task<Void> {
+    return setValue(
+        getUserChatSessionById(userId).child(ReferenceConstants.SESSIONS).child(
+            userChatId), null)
+  }
+
   private fun getRoomId(anotherUserId: String) = if (authSharedPrefRepository.userRole == 0) {
     "${authSharedPrefRepository.userId}_${anotherUserId}"
   } else {

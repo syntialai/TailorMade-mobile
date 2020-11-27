@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_chat.core.repository.RealtimeDbRepository
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.Query
 
 class ChatListViewModel @ViewModelInject constructor(
@@ -18,5 +19,11 @@ class ChatListViewModel @ViewModelInject constructor(
 
   fun getUserChatSessions(): Query? = authSharedPrefRepository.userId?.let { userId ->
     realtimeDbRepository.getUserChatSessionById(userId)
+  }
+
+  fun deleteSessionByUserChatSession(userChatId: String): Task<Void>? {
+    return authSharedPrefRepository.userId?.let { userId ->
+      realtimeDbRepository.deleteSessionByUserChatSession(userId, userChatId)
+    }
   }
 }

@@ -7,13 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
-import com.future.tailormade_chat.core.model.entity.ChatRoom
+import com.future.tailormade.base.view.BaseSwipeActionCallback
+import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.UserChatSession
 import com.future.tailormade_chat.databinding.FragmentChatListBinding
 import com.future.tailormade_chat.feature.adapter.ChatListAdapter
 import com.future.tailormade_chat.feature.viewModel.ChatListViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -40,6 +44,15 @@ class ChatListFragment : BaseFragment() {
       }
     }
   }
+  private val deleteAlertDialog by lazy {
+    context?.let {
+      MaterialAlertDialogBuilder(it).setTitle(
+          resources.getString(R.string.delete_chat_alert_dialog_title))
+          .setNegativeButton(R.string.delete_chat_alert_dialog_cancel_button) { dialog, _ ->
+            dialog.dismiss()
+          }
+    }
+  }
 
   private var adapter = ChatListAdapter()
 
@@ -58,17 +71,55 @@ class ChatListFragment : BaseFragment() {
     }
 
     setupListener()
+    setupDeleteSwipeCallback()
 
     return binding.root
+  }
+
+  override fun onDestroyView() {
+    viewModel.getChatRooms().removeEventListener(adapterValueEventListener)
+    super.onDestroyView()
+  }
+
+  private fun setupDeleteSwipeCallback() {
+    context?.resources?.let { res ->
+      val swipeDeleteCallback = object: BaseSwipeActionCallback(
+          res.getColor(R.color.color_red_600),
+          res.getDrawable(R.drawable.ic_delete)) {
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
+            direction: Int) {
+          val position = viewHolder.adapterPosition
+          val item = adapter.currentList[position]
+
+          showAlertDialogForDeleteChat(item.userId, item.userName)
+        }
+      }
+
+      ItemTouchHelper(swipeDeleteCallback).attachToRecyclerView(
+          binding.recyclerViewChatList)
+    }
+  }
+
+  private fun removeData(userChatId: String) {
+    viewModel.deleteSessionByUserChatSession(userChatId)?.addOnSuccessListener {
+      // TODO: Remove data from adapter
+    }?.addOnFailureListener {
+      // TODO: Show error toast
+    }
   }
 
   private fun setupListener() {
     viewModel.getUserChatSessions()?.addValueEventListener(adapterValueEventListener)
   }
 
-  override fun onDestroyView() {
-    viewModel.getChatRooms().removeEventListener(adapterValueEventListener)
-    super.onDestroyView()
+  private fun showAlertDialogForDeleteChat(userChatId: String, userName: String) {
+    deleteAlertDialog?.setMessage(resources.getString(
+        R.string.delete_chat_alert_dialog_content) + userName)?.setPositiveButton(
+        R.string.delete_chat_alert_dialog_delete_button) { dialog, _ ->
+      removeData(userChatId)
+      dialog.dismiss()
+    }?.show()
   }
 
   companion object {

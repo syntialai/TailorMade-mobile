@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.config.Constants
@@ -41,7 +42,8 @@ class ChatListAdapter :
     private val binding = LayoutCardChatBinding.bind(view)
     private val context = view.context
 
-    @RequiresApi(Build.VERSION_CODES.N) fun bind(data: Session) {
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun bind(data: Session) {
       with(binding) {
         textViewChatName.text = data.userId
         textViewChatTime.text = data.updatedDate.toTimeString(Constants.HH_MM)

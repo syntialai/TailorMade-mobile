@@ -16,4 +16,6 @@ interface RealtimeDbRepository {
   fun updateChatRoom(chatRoomId: String, chat: Chat): Task<Void>
 
   fun deleteChatRoom(chatRoomId: String): Task<Void>
+
+  fun deleteSessionByUserChatSession(userId: String, userChatId: String): Task<Void>
 }
