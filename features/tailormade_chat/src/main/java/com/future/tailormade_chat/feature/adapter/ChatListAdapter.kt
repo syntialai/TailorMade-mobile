@@ -9,26 +9,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.config.Constants
-import com.future.tailormade.util.extension.getFirstElement
 import com.future.tailormade.util.extension.setVisibility
 import com.future.tailormade.util.extension.toTimeString
 import com.future.tailormade_chat.R
-import com.future.tailormade_chat.core.model.entity.ChatRoom
+import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_dls.databinding.LayoutCardChatBinding
 
 class ChatListAdapter :
-    ListAdapter<Map.Entry<String, ChatRoom>, ChatListAdapter.ChatListViewHolder>(
-        diffCallback) {
+    ListAdapter<Session, ChatListAdapter.ChatListViewHolder>(diffCallback) {
 
   companion object {
-    private val diffCallback = object :
-        DiffUtil.ItemCallback<Map.Entry<String, ChatRoom>>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<Session>() {
 
-      override fun areItemsTheSame(oldItem: Map.Entry<String, ChatRoom>,
-          newItem: Map.Entry<String, ChatRoom>): Boolean = oldItem == newItem
+      override fun areItemsTheSame(oldItem: Session, newItem: Session) = oldItem.userId == newItem.userId
 
-      override fun areContentsTheSame(oldItem: Map.Entry<String, ChatRoom>,
-          newItem: Map.Entry<String, ChatRoom>): Boolean = oldItem == newItem
+      override fun areContentsTheSame(oldItem: Session, newItem: Session) = oldItem == newItem
     }
   }
 
@@ -46,17 +41,13 @@ class ChatListAdapter :
     private val binding = LayoutCardChatBinding.bind(view)
     private val context = view.context
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun bind(data: Map.Entry<String, ChatRoom>) {
-      val chat = data.value.chats.getFirstElement().value
-      val user = data.value.users.getFirstElement()
-
+    @RequiresApi(Build.VERSION_CODES.N) fun bind(data: Session) {
       with(binding) {
-        textViewChatName.text = user.value.name
-        textViewChatTime.text = chat.createdDate.toTimeString(Constants.HH_MM)
-        textViewChatContent.text = chat.text.body
+        textViewChatName.text = data.userId
+        textViewChatTime.text = data.updatedDate.toTimeString(Constants.HH_MM)
+        textViewChatContent.text = data.chat.text.body
 
-        layoutBadge.viewBadge.setVisibility(chat.hasBeenRead)
+        layoutBadge.viewBadge.setVisibility(data.hasBeenRead)
 
         // TODO: Bind image view
       }

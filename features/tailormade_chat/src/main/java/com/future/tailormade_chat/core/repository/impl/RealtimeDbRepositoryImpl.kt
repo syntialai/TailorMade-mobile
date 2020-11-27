@@ -17,12 +17,18 @@ class RealtimeDbRepositoryImpl @Inject constructor(
   private val getChatRoomRef = databaseReference.child(
       ReferenceConstants.CHAT_ROOMS)
 
+  private val getUserChatSessionRef = databaseReference.child(
+      ReferenceConstants.USERS_CHAT_SESSION)
+
   override fun getChatRooms(): Query {
     if (authSharedPrefRepository.userRole == 0) {
       return getChatRoomRef.startAt(authSharedPrefRepository.userId)
     }
     return getChatRoomRef.endAt(authSharedPrefRepository.userId)
   }
+
+  override fun getUserChatSessionById(userId: String) = getUserChatSessionRef.child(
+      userId)
 
   override fun addChatRoom(anotherUserId: String, chatRoom: ChatRoom): Task<Void> {
     val roomId = getRoomId(anotherUserId)

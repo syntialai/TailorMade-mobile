@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade_chat.core.model.entity.ChatRoom
+import com.future.tailormade_chat.core.model.entity.UserChatSession
 import com.future.tailormade_chat.databinding.FragmentChatListBinding
 import com.future.tailormade_chat.feature.adapter.ChatListAdapter
 import com.future.tailormade_chat.feature.viewModel.ChatListViewModel
@@ -30,9 +31,8 @@ class ChatListFragment : BaseFragment() {
 
       @RequiresApi(Build.VERSION_CODES.N)
       override fun onDataChange(snapshot: DataSnapshot) {
-        val chatRoom = viewModel.mapLastChatInChatRoom(
-            snapshot.value as Map<String, ChatRoom>)
-        adapter.submitList(chatRoom)
+        val userChatSession = snapshot.value as UserChatSession
+        adapter.submitList(userChatSession.sessions.values.toList())
       }
 
       override fun onCancelled(error: DatabaseError) {
@@ -42,6 +42,9 @@ class ChatListFragment : BaseFragment() {
   }
 
   private var adapter = ChatListAdapter()
+
+  override fun getLogName(): String =
+      "com.future.tailormade_chat.feature.view.ChatListFragment"
 
   override fun getScreenName(): String = "Chat"
 
@@ -60,7 +63,7 @@ class ChatListFragment : BaseFragment() {
   }
 
   private fun setupListener() {
-    viewModel.getChatRooms().addValueEventListener(adapterValueEventListener)
+    viewModel.getUserChatSessions()?.addValueEventListener(adapterValueEventListener)
   }
 
   override fun onDestroyView() {
