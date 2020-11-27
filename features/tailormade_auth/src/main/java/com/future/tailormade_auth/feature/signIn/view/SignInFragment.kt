@@ -12,6 +12,7 @@ import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
@@ -21,14 +22,15 @@ class SignInFragment : BaseFragment() {
 
   private val viewModel: SignInViewModel by viewModels()
 
-  override fun getScreenName(): String =
-    "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
+  override fun getLogName(): String =
+      "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
 
+  override fun getScreenName(): String = "Sign In"
+
+  @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?): View {
     binding = FragmentSignInBinding.inflate(inflater, container, false)
 
     with(binding) {
@@ -46,6 +48,11 @@ class SignInFragment : BaseFragment() {
     }
 
     return binding.root
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    hideToolbar()
   }
 
   private fun isFormValid(email: String, password: String): Boolean =
@@ -66,6 +73,7 @@ class SignInFragment : BaseFragment() {
     }
   }
 
+  @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   private fun submitEmailAndPassword(email: String, password: String) {
     if (isFormValid(email, password)) {

@@ -1,12 +1,13 @@
-include ':features:tailormade_chat'
-include ':libraries:tailormade_router'
 include ':app'
 
 // Features
 include ':features:tailormade_auth'
+include ':features:tailormade_profile'
+include ':features:tailormade_chat'
 
 // Libraries
 include ':libraries:tailormade_base'
 include ':libraries:tailormade_dls'
+include ':libraries:tailormade_router'
 
 rootProject.name = "TailorMade"

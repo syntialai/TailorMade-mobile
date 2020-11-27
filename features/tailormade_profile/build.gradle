@@ -1,0 +1,94 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = versions.jvm
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Libraries
+    implementation project(":libraries:tailormade_base")
+    implementation project(":libraries:tailormade_dls")
+    implementation project(":features:tailormade_auth")
+
+    // OSM
+    implementation osm
+
+    // Preferences
+    implementation androidx.preferences
+
+    // Tests
+    testImplementation test.junit
+    testImplementation test.androidx_core
+    testImplementation test.mockito
+    androidTestImplementation androidTest.junit
+    androidTestImplementation androidTest.espresso
+
+    // Paging
+    testImplementation paging.test_common
+
+    // Annotation Processing
+    kapt dataBinding.kapt
+
+    implementation materialDesign
+
+    // Glide
+    kapt glide.kapt
+
+    // Dagger 2
+    kapt dagger.kapt_processor
+    kapt dagger.kapt_compiler
+
+    // Dagger Hilt
+    implementation daggerHilt.core
+    implementation daggerHilt.lifecycle_viewmodel
+    kapt daggerHilt.kapt_compiler
+    kapt daggerHilt.kapt_google_compiler
+    kaptTest daggerHilt.kaptTest_compiler
+    testImplementation daggerHilt.test
+
+    // Room
+    kapt room.kapt_compiler
+    androidTestImplementation room.androidTest
+    androidTestImplementation room.androidTest_arch_persistence
+}

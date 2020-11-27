@@ -9,19 +9,21 @@
         android:orientation="vertical"
         tools:context=".feature.signIn.view.SignInActivity">
 
-        <!--        <com.google.android.material.appbar.AppBarLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content">-->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_appbar_layout_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!--            <com.google.android.material.appbar.MaterialToolbar-->
-        <!--                android:id="@+id/top_login_nav_bar"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="?attr/actionBarSize" />-->
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/top_toolbar_sign_in"
+                style="@style/Theme.TailorMade.Toolbar.Back"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
 
-        <!--        </com.google.android.material.appbar.AppBarLayout>-->
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_fragment"
+            android:id="@+id/nav_host_auth_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

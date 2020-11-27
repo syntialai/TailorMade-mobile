@@ -16,19 +16,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@AndroidEntryPoint class SelectGenderFragment : BaseFragment() {
+@AndroidEntryPoint
+class SelectGenderFragment : BaseFragment() {
 
   private val viewModel: SignUpViewModel by viewModels()
 
   private lateinit var binding: FragmentSelectGenderBinding
 
-  override fun getScreenName(): String =
+  override fun getLogName(): String =
       "com.future.tailormade_auth.feature.signUp.view.SelectGenderFragment"
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentSelectGenderBinding.inflate(inflater, container, false)
 
     with(binding) {

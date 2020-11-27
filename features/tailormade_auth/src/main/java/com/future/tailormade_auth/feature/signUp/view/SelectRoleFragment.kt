@@ -22,13 +22,13 @@ class SelectRoleFragment : BaseFragment() {
 
   private lateinit var binding: FragmentSelectRoleBinding
 
-  override fun getScreenName(): String =
-    "com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
+  override fun getLogName(): String =
+      "com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?): View? {
+    savedInstanceState: Bundle?): View {
     binding = FragmentSelectRoleBinding.inflate(inflater, container, false)
 
     with(binding) {

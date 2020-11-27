@@ -16,6 +16,6 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        startActivity(Action.goToSignIn(this))
+        startActivity(Action.goToSettings(this))
     }
 }
