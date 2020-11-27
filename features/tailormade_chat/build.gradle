@@ -52,6 +52,8 @@ dependencies {
     // Firebase
     implementation firebase.bom
     implementation firebase.database
+    implementation firebase.inappmessaging
+    implementation firebase.messaging
 
     // Tests
     testImplementation test.junit
