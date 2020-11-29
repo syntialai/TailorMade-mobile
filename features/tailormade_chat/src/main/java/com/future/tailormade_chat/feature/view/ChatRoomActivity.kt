@@ -43,10 +43,18 @@ class ChatRoomActivity : BaseActivity() {
 
   private var adapter = ChatRoomAdapter(authSharedPrefRepository.userId.orEmpty())
 
+  @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityChatRoomBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarChatRoom
+
+    with(binding) {
+      layoutInputTextChatRoom.buttonSendMessage.setOnClickListener {
+        sendMessage()
+      }
+    }
+
     setContentView(binding.root)
 
     getIntentData()
@@ -56,6 +64,14 @@ class ChatRoomActivity : BaseActivity() {
   private fun getIntentData() {
     intent.getStringExtra(PARAM_CHAT_ROOM_ID)?.let { chatRoomId ->
       viewModel.setChatRoomId(chatRoomId)
+    }
+  }
+
+  @RequiresApi(Build.VERSION_CODES.O)
+  private fun sendMessage() {
+    if (binding.layoutInputTextChatRoom.editTextMessageChatRoom.text.isNullOrBlank().not()) {
+      viewModel.sendMessage(
+          binding.layoutInputTextChatRoom.editTextMessageChatRoom.text.toString())
     }
   }
 

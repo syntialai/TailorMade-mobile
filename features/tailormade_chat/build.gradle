@@ -46,6 +46,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
+    implementation project(":libraries:tailormade_dls")
+
     // Features
     implementation project(":features:tailormade_auth")
 
