@@ -32,6 +32,8 @@ object Constants {
     const val FAILED_TO_GET_PROFILE_INFO = "$FAILED_TO get profile info"
     const val FAILED_TO_UPDATE_PROFILE = "$FAILED_TO update profile"
 
+    const val MESSAGES_TYPE_TEXT = "TEXT"
+
     /*
      * Date Patterns
      */
