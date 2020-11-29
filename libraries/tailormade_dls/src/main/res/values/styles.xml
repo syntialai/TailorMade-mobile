@@ -296,6 +296,10 @@
         <item name="boxBackgroundColor">?colorSurface</item>
     </style>
 
+    <style name="Theme.TailorMade.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+    </style>
+
     <!-- Toolbar -->
     <style name="Theme.TailorMade.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
         <item name="titleTextAppearance">?textAppearanceHeadline4</item>

@@ -52,11 +52,6 @@ dependencies {
     // Firebase
     implementation firebase.bom
     implementation firebase.database
-    implementation firebase.inappmessaging
-    implementation firebase.messaging
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     // Tests
     testImplementation test.junit

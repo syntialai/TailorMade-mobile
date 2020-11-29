@@ -5,4 +5,5 @@
     <string name="delete_chat_alert_dialog_content">You’ll delete all chat history with </string>
     <string name="delete_chat_alert_dialog_cancel_button">CANCEL</string>
     <string name="delete_chat_alert_dialog_delete_button">DELETE</string>
+    <string name="chat_input_message_label">Type a message</string>
 </resources>

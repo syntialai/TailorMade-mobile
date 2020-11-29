@@ -33,8 +33,8 @@ class ChatListFragment : BaseFragment() {
   private val adapterValueEventListener by lazy {
     object : ValueEventListener {
 
-      @RequiresApi(Build.VERSION_CODES.N)
-      override fun onDataChange(snapshot: DataSnapshot) {
+      @RequiresApi(Build.VERSION_CODES.N) override fun onDataChange(
+          snapshot: DataSnapshot) {
         val userChatSession = snapshot.value as UserChatSession
         adapter.submitList(userChatSession.sessions.values.toList())
       }
@@ -47,8 +47,8 @@ class ChatListFragment : BaseFragment() {
   private val deleteAlertDialog by lazy {
     context?.let {
       MaterialAlertDialogBuilder(it).setTitle(
-          resources.getString(R.string.delete_chat_alert_dialog_title))
-          .setNegativeButton(R.string.delete_chat_alert_dialog_cancel_button) { dialog, _ ->
+          resources.getString(R.string.delete_chat_alert_dialog_title)).setNegativeButton(
+          R.string.delete_chat_alert_dialog_cancel_button) { dialog, _ ->
             dialog.dismiss()
           }
     }
@@ -56,8 +56,7 @@ class ChatListFragment : BaseFragment() {
 
   private var adapter = ChatListAdapter()
 
-  override fun getLogName(): String =
-      "com.future.tailormade_chat.feature.view.ChatListFragment"
+  override fun getLogName(): String = "com.future.tailormade_chat.feature.view.ChatListFragment"
 
   override fun getScreenName(): String = "Chat"
 
@@ -83,9 +82,9 @@ class ChatListFragment : BaseFragment() {
 
   private fun setupDeleteSwipeCallback() {
     context?.resources?.let { res ->
-      val swipeDeleteCallback = object: BaseSwipeActionCallback(
-          res.getColor(R.color.color_red_600),
-          res.getDrawable(R.drawable.ic_delete)) {
+      val swipeDeleteCallback = object :
+          BaseSwipeActionCallback(res.getColor(R.color.color_red_600),
+              res.getDrawable(R.drawable.ic_delete)) {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
             direction: Int) {
@@ -110,7 +109,8 @@ class ChatListFragment : BaseFragment() {
   }
 
   private fun setupListener() {
-    viewModel.getUserChatSessions()?.addValueEventListener(adapterValueEventListener)
+    viewModel.getUserChatSessions()?.addValueEventListener(
+        adapterValueEventListener)
   }
 
   private fun showAlertDialogForDeleteChat(userChatId: String, userName: String) {
