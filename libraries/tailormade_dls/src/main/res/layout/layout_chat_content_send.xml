@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/drawable_chat_send"
+    android:elevation="@dimen/dp_4"
+    android:paddingHorizontal="@dimen/dp_12"
+    android:paddingVertical="@dimen/dp_8">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/text_view_chat_content_send_text"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:background="@drawable/drawable_chat_send"
-        android:elevation="@dimen/dp_4"
-        android:orientation="horizontal">
+        android:layout_marginEnd="@dimen/dp_12"
+        android:text="@string/chat_content_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/text_view_chat_content_send_time"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_view_chat_content_send_text"
-            style="?attr/textAppearanceBody2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_12"
-            android:layout_marginVertical="@dimen/dp_8"
-            android:text="@string/chat_content_label"
-            android:textColor="@color/color_black_87" />
-
-        <TextView
-            android:id="@+id/text_view_chat_content_send_time"
-            style="?attr/textAppearanceOverline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_12"
-            android:text="@string/chat_content_send_time_label"
-            android:textColor="@color/color_black_54" />
-    </LinearLayout>
-</layout>
+    <TextView
+        android:id="@+id/text_view_chat_content_send_time"
+        style="@style/TextAppearance.TailorMade.Overline.BlackMedium2"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:text="@string/chat_content_send_time_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_chat_content_send_text"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
