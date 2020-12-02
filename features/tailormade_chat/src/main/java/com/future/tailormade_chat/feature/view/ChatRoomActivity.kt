@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
+import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.ChatRoom
 import com.future.tailormade_chat.databinding.ActivityChatRoomBinding
 import com.future.tailormade_chat.feature.adapter.ChatRoomAdapter
@@ -36,7 +37,8 @@ class ChatRoomActivity : BaseActivity() {
       }
 
       override fun onCancelled(error: DatabaseError) {
-        // TODO: Provide error
+        viewModel.setErrorMessage(
+            getString(R.string.load_chat_data_error_message))
       }
     }
   }

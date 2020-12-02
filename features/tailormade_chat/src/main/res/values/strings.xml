@@ -6,4 +6,7 @@
     <string name="delete_chat_alert_dialog_cancel_button">CANCEL</string>
     <string name="delete_chat_alert_dialog_delete_button">DELETE</string>
     <string name="chat_input_message_label">Type a message</string>
+
+    <string name="delete_chat_error_message">Failed to delete chat</string>
+    <string name="load_chat_data_error_message">Failed to load chat data</string>
 </resources>

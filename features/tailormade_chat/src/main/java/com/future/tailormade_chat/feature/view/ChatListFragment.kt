@@ -33,14 +33,15 @@ class ChatListFragment : BaseFragment() {
   private val adapterValueEventListener by lazy {
     object : ValueEventListener {
 
-      @RequiresApi(Build.VERSION_CODES.N) override fun onDataChange(
-          snapshot: DataSnapshot) {
+      @RequiresApi(Build.VERSION_CODES.N)
+      override fun onDataChange(snapshot: DataSnapshot) {
         val userChatSession = snapshot.value as UserChatSession
         adapter.submitList(userChatSession.sessions.values.toList())
       }
 
       override fun onCancelled(error: DatabaseError) {
-        // TODO: Provide error
+        viewModel.setErrorMessage(
+            getString(R.string.load_chat_data_error_message))
       }
     }
   }
@@ -49,8 +50,8 @@ class ChatListFragment : BaseFragment() {
       MaterialAlertDialogBuilder(it).setTitle(
           resources.getString(R.string.delete_chat_alert_dialog_title)).setNegativeButton(
           R.string.delete_chat_alert_dialog_cancel_button) { dialog, _ ->
-            dialog.dismiss()
-          }
+        dialog.dismiss()
+      }
     }
   }
 
@@ -91,7 +92,7 @@ class ChatListFragment : BaseFragment() {
           val position = viewHolder.adapterPosition
           val item = adapter.currentList[position]
 
-          showAlertDialogForDeleteChat(item.userId, item.userName)
+          showAlertDialogForDeleteChat(item.userId, item.userName, position)
         }
       }
 
@@ -100,11 +101,11 @@ class ChatListFragment : BaseFragment() {
     }
   }
 
-  private fun removeData(userChatId: String) {
+  private fun removeData(userChatId: String, position: Int) {
     viewModel.deleteSessionByUserChatSession(userChatId)?.addOnSuccessListener {
-      // TODO: Remove data from adapter
+      adapter.notifyItemRemoved(position)
     }?.addOnFailureListener {
-      // TODO: Show error toast
+      viewModel.setErrorMessage(getString(R.string.delete_chat_error_message))
     }
   }
 
@@ -113,11 +114,12 @@ class ChatListFragment : BaseFragment() {
         adapterValueEventListener)
   }
 
-  private fun showAlertDialogForDeleteChat(userChatId: String, userName: String) {
+  private fun showAlertDialogForDeleteChat(userChatId: String, userName: String,
+      position: Int) {
     deleteAlertDialog?.setMessage(resources.getString(
         R.string.delete_chat_alert_dialog_content) + userName)?.setPositiveButton(
         R.string.delete_chat_alert_dialog_delete_button) { dialog, _ ->
-      removeData(userChatId)
+      removeData(userChatId, position)
       dialog.dismiss()
     }?.show()
   }

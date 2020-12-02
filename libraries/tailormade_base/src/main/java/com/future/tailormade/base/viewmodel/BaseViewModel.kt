@@ -23,6 +23,10 @@ abstract class BaseViewModel : ViewModel() {
     val errorMessage: LiveData<String?>
         get() = _errorMessage
 
+    fun setErrorMessage(message: String) {
+        _errorMessage.value = message
+    }
+
     fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
         return launchOnViewModelScope(block, Dispatchers.Main)
     }
