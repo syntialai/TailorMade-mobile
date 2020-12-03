@@ -18,4 +18,5 @@
     <string name="pref_title_about_settings">About</string>
     <string name="pref_title_sign_out_settings">Sign out</string>
     <string name="settings_label">Settings</string>
+    <string name="edit_profile_label">Edit Profile</string>
 </resources>

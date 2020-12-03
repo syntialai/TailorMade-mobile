@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?colorSurface"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_card_profile" />
+
+    <Button
+        android:id="@+id/button_go_to_edit_profile"
+        style="@style/Theme.TailorMade.Button.Outlined.Rounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:text="@string/edit_profile_label" />
+
+</LinearLayout>

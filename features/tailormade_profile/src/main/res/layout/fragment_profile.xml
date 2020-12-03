@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_grey_F1F1F1"
+    android:orientation="vertical"
+    tools:context=".feature.profile.view.ProfileFragment">
+
+    <include
+        android:id="@+id/view_stub_layout_card_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout="@layout/layout_card_profile_with_edit" />
+
+    <FrameLayout
+        android:id="@+id/frame_layout_profile_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:backgroundTint="?colorSurface" />
+
+</LinearLayout>
