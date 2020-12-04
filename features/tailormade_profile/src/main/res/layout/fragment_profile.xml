@@ -9,9 +9,9 @@
 
     <include
         android:id="@+id/layout_card_profile"
+        layout="@layout/layout_card_profile_with_edit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout="@layout/layout_card_profile_with_edit" />
+        android:layout_height="wrap_content" />
 
     <FrameLayout
         android:id="@+id/frame_layout_profile_content"
