@@ -17,7 +17,6 @@
         android:id="@+id/frame_layout_profile_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_16"
         android:backgroundTint="?colorSurface" />
 
 </LinearLayout>
