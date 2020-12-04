@@ -140,6 +140,10 @@
         <item name="android:textColor">?colorPrimary</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Headline3.Primary.Bold" parent="TextAppearance.TailorMade.Headline3.Primary">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Headline3.PrimaryDark" parent="TextAppearance.TailorMade.Headline3">
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
@@ -178,6 +182,10 @@
 
     <style name="TextAppearance.TailorMade.Body2.Primary" parent="TextAppearance.TailorMade.Body2">
         <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Body2.Primary.Bold" parent="TextAppearance.TailorMade.Body2.Primary">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Body2.PrimaryDark" parent="TextAppearance.TailorMade.Body2">

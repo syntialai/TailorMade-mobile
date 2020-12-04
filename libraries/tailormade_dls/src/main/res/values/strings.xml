@@ -13,6 +13,7 @@
     <string name="notification_type_label">Notification Type</string>
     <string name="notification_time_label">Notification time</string>
     <string name="notification_title_label">Notification title</string>
+    <string name="notification_content_label">Notification content</string>
     <string name="chat_content_send_time_label">Chat sent time</string>
     <string name="chat_content_reply_time_label">Chat reply time</string>
     <string name="order_title_label">Order title</string>
