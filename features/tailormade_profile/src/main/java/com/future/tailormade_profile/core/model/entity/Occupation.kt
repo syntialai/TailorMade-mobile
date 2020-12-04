@@ -2,9 +2,9 @@ package com.future.tailormade_profile.core.model.entity
 
 data class Occupation (
 
-    val company: String = "",
+    val company: String? = null,
 
-    val city: String = "",
+    val city: String? = null,
 
-    val job: String = ""
+    val job: String? = null
 )

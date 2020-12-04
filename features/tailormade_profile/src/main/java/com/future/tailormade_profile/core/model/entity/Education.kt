@@ -2,9 +2,9 @@ package com.future.tailormade_profile.core.model.entity
 
 data class Education (
 
-    val school: String = "",
+    val school: String? = null,
 
-    val major: String = "",
+    val major: String? = null,
 
-    val city: String = ""
+    val city: String? = null
 )
