@@ -53,6 +53,8 @@ class ProfileViewModel @ViewModelInject constructor(
     }
   }
 
+  fun isUserProfile(id: String) = authSharedPrefRepository.userId == id
+
   private fun getProfileInfo() = savedStateHandle.getLiveData<ProfileInfoResponse>(PROFILE_INFO)
 
   private fun setProfileInfo(profileInfoResponse: ProfileInfoResponse) {

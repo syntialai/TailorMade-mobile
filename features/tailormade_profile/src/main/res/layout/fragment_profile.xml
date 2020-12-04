@@ -8,7 +8,7 @@
     tools:context=".feature.profile.view.ProfileFragment">
 
     <include
-        android:id="@+id/view_stub_layout_card_profile"
+        android:id="@+id/layout_card_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout="@layout/layout_card_profile_with_edit" />

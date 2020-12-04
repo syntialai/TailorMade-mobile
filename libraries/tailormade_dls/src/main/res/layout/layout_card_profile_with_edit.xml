@@ -2,10 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?colorSurface"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_card_profile" />
+    <include
+        android:id="@+id/layout_profile_info"
+        layout="@layout/layout_card_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button_go_to_edit_profile"
@@ -14,6 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_16"
-        android:text="@string/edit_profile_label" />
+        android:text="@string/edit_profile_label"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </LinearLayout>

@@ -46,7 +46,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // Features
-    implementation project(":features:tailormade_auth")
+    api project(":features:tailormade_auth")
 
     // OSM
     implementation osm
