@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
 
-        <activity android:name=".feature.MainActivity">
+        <activity android:name=".feature.splash.view.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +23,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".feature.main.view.MainActivity">
+            <intent-filter>
+                <action android:name="com.future.tailormade.main.open" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
