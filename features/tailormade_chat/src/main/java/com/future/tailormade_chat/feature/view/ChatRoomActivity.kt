@@ -20,6 +20,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ChatRoomActivity : BaseActivity() {
 
+  companion object {
+    private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
+  }
+
   @Inject
   lateinit var authSharedPrefRepository: AuthSharedPrefRepository
 
@@ -42,8 +46,9 @@ class ChatRoomActivity : BaseActivity() {
       }
     }
   }
-
-  private var adapter = ChatRoomAdapter(authSharedPrefRepository.userId.orEmpty())
+  private val adapter by lazy {
+    ChatRoomAdapter(authSharedPrefRepository.userId.orEmpty())
+  }
 
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,9 +90,5 @@ class ChatRoomActivity : BaseActivity() {
     viewModel.chatRoomContent.observe(this, {
       it.addValueEventListener(adapterValueEventListener)
     })
-  }
-
-  companion object {
-    private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
   }
 }

@@ -12,8 +12,8 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.toTimeString
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.Chat
-import com.future.tailormade_dls.databinding.LayoutChatContentReplyBinding
-import com.future.tailormade_dls.databinding.LayoutChatContentSendBinding
+import com.future.tailormade_chat.databinding.LayoutChatContentReplyBinding
+import com.future.tailormade_chat.databinding.LayoutChatContentSendBinding
 
 class ChatRoomAdapter(private val userId: String) :
     ListAdapter<Chat, RecyclerView.ViewHolder>(diffCallback) {
@@ -30,19 +30,17 @@ class ChatRoomAdapter(private val userId: String) :
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatRoomSendViewHolder {
-    val layout = if (viewType == TYPE_SEND) {
-      R.layout.layout_chat_content_send
-    } else {
-      R.layout.layout_chat_content_reply
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    if (viewType == TYPE_SEND) {
+      return ChatRoomSendViewHolder(LayoutInflater.from(parent.context).inflate(
+          R.layout.layout_chat_content_send, parent, false))
     }
-    return ChatRoomSendViewHolder(
-        LayoutInflater.from(parent.context).inflate(layout, parent, false))
+    return ChatRoomReplyViewHolder(LayoutInflater.from(parent.context).inflate(
+        R.layout.layout_chat_content_reply, parent, false))
   }
 
-  @RequiresApi(Build.VERSION_CODES.N)
-  override fun onBindViewHolder(holder: RecyclerView.ViewHolder,
-      position: Int) {
+  @RequiresApi(Build.VERSION_CODES.N) override fun onBindViewHolder(
+      holder: RecyclerView.ViewHolder, position: Int) {
     if (getItemViewType(position) == TYPE_SEND) {
       (holder as ChatRoomSendViewHolder).bind(getItem(position))
     } else {
@@ -58,7 +56,8 @@ class ChatRoomAdapter(private val userId: String) :
 
   private fun isSender(position: Int) = getItem(position).userId == userId
 
-  inner class ChatRoomSendViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+  inner class ChatRoomSendViewHolder(view: View) :
+      RecyclerView.ViewHolder(view) {
 
     private val sendBinding = LayoutChatContentSendBinding.bind(view)
 
@@ -72,7 +71,8 @@ class ChatRoomAdapter(private val userId: String) :
     }
   }
 
-  inner class ChatRoomReplyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+  inner class ChatRoomReplyViewHolder(view: View) :
+      RecyclerView.ViewHolder(view) {
 
     private val replyBinding = LayoutChatContentReplyBinding.bind(view)
 

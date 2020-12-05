@@ -26,6 +26,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ChatListFragment : BaseFragment() {
 
+  companion object {
+
+    fun newInstance() = ChatListFragment()
+  }
+
   private lateinit var binding: FragmentChatListBinding
 
   private val viewModel: ChatListViewModel by viewModels()
@@ -54,8 +59,7 @@ class ChatListFragment : BaseFragment() {
       }
     }
   }
-
-  private var adapter = ChatListAdapter()
+  private val adapter by lazy { ChatListAdapter() }
 
   override fun getLogName(): String = "com.future.tailormade_chat.feature.view.ChatListFragment"
 
@@ -122,10 +126,5 @@ class ChatListFragment : BaseFragment() {
       removeData(userChatId, position)
       dialog.dismiss()
     }?.show()
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = ChatListFragment()
   }
 }
