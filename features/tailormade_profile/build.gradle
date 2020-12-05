@@ -45,8 +45,11 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
+    // Router
+    implementation project(":libraries:tailormade_router")
+
     // Features
-    api project(":features:tailormade_auth")
+    implementation project(":features:tailormade_auth")
 
     // OSM
     implementation osm

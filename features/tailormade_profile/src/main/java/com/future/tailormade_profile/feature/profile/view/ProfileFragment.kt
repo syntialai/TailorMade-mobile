@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
-import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade_dls.databinding.LayoutCardProfileWithEditBinding
+import com.future.tailormade_profile.databinding.LayoutCardProfileWithEditBinding
 import com.future.tailormade_profile.databinding.FragmentProfileBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -92,10 +92,12 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
-            android:text="@string/order_price_discount_label"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_order_price"
             app:layout_constraintStart_toEndOf="@id/text_view_order_price"
             app:layout_constraintTop_toTopOf="@id/text_view_order_price"
-            app:layout_constraintBottom_toBottomOf="@id/text_view_order_price"/>
+            tools:text="@string/order_price_discount_label"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/text_view_order_discount"
@@ -103,10 +105,12 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/text_view_order_price"
             app:layout_constraintStart_toEndOf="@id/text_view_order_price_discount"
             app:layout_constraintTop_toTopOf="@id/text_view_order_price"
-            tools:text="@string/order_discount_label" />
+            tools:text="@string/order_discount_label"
+            tools:visibility="visible" />
 
         <com.future.tailormade_dls.widget.SpinNumberButton
             android:id="@+id/spin_button_number"
@@ -130,12 +134,13 @@
 
         <Button
             android:id="@+id/button_checkout_order"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_24"
             android:text="@string/checkout_order_label"
-            app:layout_constraintStart_toEndOf="@id/image_view_order"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_delete_order" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
