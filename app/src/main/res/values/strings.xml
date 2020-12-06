@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TailorMade</string>
     <string name="title_dls">Design Language System for TailorMade</string>
+    <string name="dashboard_title_state">Hello!</string>
+    <string name="dashboard_description_state">Tailors near you will be shown here</string>
+    <string name="preview_label">Preview</string>
 </resources>

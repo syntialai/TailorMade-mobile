@@ -70,6 +70,10 @@ dependencies {
     api androidx.lifecycle_livedata
     api androidx.lifecycle_viewmodel_savedstate
     api androidx.fragment
+    api androidx.recyclerview
+    api androidx.recyclerview_selection
+    api androidx.preferences
+    api androidx.swipe_refresh_layout
 
     // Paging
     api paging.runtime
