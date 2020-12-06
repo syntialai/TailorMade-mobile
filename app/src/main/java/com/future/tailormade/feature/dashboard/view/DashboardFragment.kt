@@ -40,11 +40,20 @@ class DashboardFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentDashboardBinding.inflate(inflater, container, false)
     setupRecyclerView()
+    setupSwipeRefreshLayout()
+    hideRecyclerView()
+    showState()
     return binding.root
   }
 
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
+
+    viewModel.tailors.observe(viewLifecycleOwner, {
+      dashboardAdapter.submitList(it)
+      hideState()
+      showRecyclerView()
+    })
   }
 
   private fun hideRecyclerView() {

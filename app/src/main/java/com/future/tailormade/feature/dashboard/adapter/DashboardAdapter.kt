@@ -10,6 +10,7 @@ import com.future.tailormade.R
 import com.future.tailormade.core.model.response.dashboard.DashboardTailorResponse
 import com.future.tailormade.databinding.LayoutDashboardTailorBinding
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.image.ImageLoader
 
 class DashboardAdapter :
     ListAdapter<DashboardTailorResponse, DashboardAdapter.DashboardViewHolder>(
@@ -38,10 +39,18 @@ class DashboardAdapter :
   inner class DashboardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = LayoutDashboardTailorBinding.bind(view)
+    private val context = view.context
 
     fun bind(data: DashboardTailorResponse) {
       with(binding) {
-        // TODO: update layout data
+        layoutCardTailor.textViewProfileName.text = data.name
+        data.location?.let {
+          layoutCardTailor.textViewProfileLocation.text = "${it.city} ${it.country}"
+        }
+
+        data.image?.let {
+          ImageLoader.loadImageUrl(context, it, layoutCardTailor.imageViewProfile)
+        }
       }
       data.designs?.let { designs ->
         showPreview()

@@ -10,7 +10,7 @@ data class DashboardTailorResponse(
 
     val image: String? = null,
 
-    val location: Location,
+    val location: Location? = null,
 
     val designs: List<String>? = null
 )
