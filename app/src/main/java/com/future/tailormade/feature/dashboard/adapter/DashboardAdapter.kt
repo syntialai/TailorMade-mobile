@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
@@ -40,21 +41,37 @@ class DashboardAdapter :
 
     private val binding = LayoutDashboardTailorBinding.bind(view)
     private val context = view.context
+    private val previewImageAdapter by lazy {
+      DashboardPreviewImageAdapter()
+    }
 
     fun bind(data: DashboardTailorResponse) {
       with(binding) {
         layoutCardTailor.textViewProfileName.text = data.name
-        data.location?.let {
-          layoutCardTailor.textViewProfileLocation.text = "${it.city} ${it.country}"
+        (data.location?.city.orEmpty() + data.location?.country?.let {
+          (", $it")
+        }.orEmpty()).also {
+          layoutCardTailor.textViewProfileLocation.text = it
         }
 
         data.image?.let {
-          ImageLoader.loadImageUrl(context, it, layoutCardTailor.imageViewProfile)
+          ImageLoader.loadImageUrl(context, it,
+              layoutCardTailor.imageViewProfile)
+        }
+
+        data.designs?.let { designs ->
+          showPreview()
+          setupPreviewImageAdapter()
+          previewImageAdapter.submitList(designs)
         }
       }
-      data.designs?.let { designs ->
-        showPreview()
-        // TODO: bind designs
+    }
+
+    private fun setupPreviewImageAdapter() {
+      binding.recyclerViewPreviewDesigns.apply {
+        layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.HORIZONTAL, false)
+        adapter = previewImageAdapter
       }
     }
 

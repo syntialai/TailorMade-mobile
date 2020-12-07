@@ -1,7 +1,5 @@
 package com.future.tailormade.core.model.response.dashboard
 
-import com.future.tailormade_profile.core.model.entity.Location
-
 data class DashboardTailorResponse(
 
     val id: String,
@@ -10,7 +8,6 @@ data class DashboardTailorResponse(
 
     val image: String? = null,
 
-    val location: Location? = null,
+    val location: DashboardLocationResponse? = null,
 
-    val designs: List<String>? = null
-)
+    val designs: List<DashboardDesignResponse>? = null)
