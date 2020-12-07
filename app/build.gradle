@@ -82,10 +82,8 @@ dependencies {
     implementation project(":features:tailormade_auth")
     implementation project(":features:tailormade_profile")
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    // Location
+    implementation gms.location
 
     // Tests
     testImplementation test.junit
