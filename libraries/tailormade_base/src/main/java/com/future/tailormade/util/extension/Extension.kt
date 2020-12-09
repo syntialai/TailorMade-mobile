@@ -83,3 +83,5 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(this)
 
 fun Long.toDate(): Date = Date(this)
+
+fun Int?.orZero() = this ?: 0

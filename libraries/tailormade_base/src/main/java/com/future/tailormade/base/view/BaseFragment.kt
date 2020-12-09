@@ -4,9 +4,9 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.logger.AppLogger
 import com.future.tailormade.util.view.DialogHelper
@@ -20,7 +20,7 @@ abstract class BaseFragment : Fragment() {
 
   protected var appLogger = AppLogger.create(this.getLogName())
 
-  protected open fun getViewModel(): BaseViewModel? = null
+  protected abstract fun getViewModel(): BaseViewModel
 
   protected open var loadingDialog: Dialog? = null
 
@@ -81,7 +81,7 @@ abstract class BaseFragment : Fragment() {
   }
 
   open fun setupFragmentObserver() {
-    getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
+    getViewModel().viewState.observe(viewLifecycleOwner, { state ->
       when (state) {
         is ViewState.Loading -> onLoading(state.isLoading)
         is ViewState.Unauthorized -> onUnauthorized()
@@ -89,7 +89,7 @@ abstract class BaseFragment : Fragment() {
       }
     })
 
-    getViewModel()?.errorMessage?.observe(viewLifecycleOwner, { error ->
+    getViewModel().errorMessage.observe(viewLifecycleOwner, { error ->
       hideKeyboard()
       if (error != null && context != null && view != null) {
         ToastHelper.showErrorToast(requireContext(), requireView(), error)
@@ -111,6 +111,12 @@ abstract class BaseFragment : Fragment() {
     } else {
       hideLoadingView()
     }
+  }
+
+  open fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
+    val layoutManager: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+    return getViewModel().isStillLoading().not() &&
+           layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition
   }
 
   fun hideToolbar() {

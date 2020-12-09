@@ -9,12 +9,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentDashboardBinding
 import com.future.tailormade.feature.dashboard.adapter.DashboardAdapter
 import com.future.tailormade.feature.dashboard.viewModel.DashboardViewModel
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment() {
@@ -36,6 +39,9 @@ class DashboardFragment : BaseFragment() {
 
   override fun getScreenName(): String = "Home"
 
+  override fun getViewModel(): BaseViewModel = viewModel
+
+  @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentDashboardBinding.inflate(inflater, container, false)
@@ -80,10 +86,22 @@ class DashboardFragment : BaseFragment() {
     }
   }
 
+  @ExperimentalCoroutinesApi
   private fun setupRecyclerView() {
     with(binding.recyclerViewTailorList) {
       layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
       adapter = dashboardAdapter
+
+      addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          super.onScrolled(recyclerView, dx, dy)
+
+          if (isLastItemViewed(recyclerView, viewModel.tailors.value?.size.orZero())) {
+            viewModel.fetchMore()
+          }
+        }
+      })
     }
   }
 

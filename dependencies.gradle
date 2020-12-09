@@ -10,7 +10,7 @@ ext {
             dagger                : "2.29.1",
             hilt                  : "2.29.1-alpha",
             hilt_viewmodel        : "1.0.0-alpha02",
-            paging                : "2.1.2",
+            paging                : "3.0.0",
             logger                : "4.7.1",
             room                  : "2.2.5",
             room_arch_persistence : "1.1.1",
