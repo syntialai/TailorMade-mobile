@@ -3,7 +3,9 @@ package com.future.tailormade_design_detail.feature.view
 import android.os.Bundle
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade_design_detail.databinding.ActivityDesignDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DesignDetailActivity : BaseActivity() {
 
   companion object {
