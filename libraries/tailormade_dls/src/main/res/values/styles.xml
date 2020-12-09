@@ -100,10 +100,16 @@
         <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
     </style>
 
+    <!-- Card Style -->
+    <style name="Theme.TailorMade.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?cardBackgroundColor</item>
+    </style>
+
     <!-- FAB Style -->
     <style name="Theme.TailorMade.FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
-        <item name="android:background">@color/color_primary_900</item>
-        <item name="android:textColor">@color/color_primary_50</item>
+        <item name="android:background">?colorPrimaryDark</item>
+        <item name="backgroundTint">?colorPrimaryDark</item>
+        <item name="tint">@color/color_primary_50</item>
     </style>
 
     <!-- Radio Button Style -->
@@ -205,6 +211,10 @@
 
     <style name="TextAppearance.TailorMade.Subtitle1.Primary" parent="TextAppearance.TailorMade.Subtitle1">
         <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Subtitle1.Primary.Bold" parent="TextAppearance.TailorMade.Subtitle1.Primary">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Subtitle1.PrimaryDark" parent="TextAppearance.TailorMade.Subtitle1">

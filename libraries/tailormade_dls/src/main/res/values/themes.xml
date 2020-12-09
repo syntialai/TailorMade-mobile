@@ -10,6 +10,7 @@
 
         <item name="android:colorBackground">@color/color_white</item>
         <item name="colorSurface">@color/color_white</item>
+        <item name="colorSurface2">@color/color_black_8</item>
         <item name="colorError">@color/color_red_600</item>
 
         <item name="colorOnPrimary">@color/color_white</item>
@@ -17,6 +18,8 @@
         <item name="colorOnSurface">@color/color_black_87</item>
         <item name="colorOnError">@color/color_white</item>
         <item name="badgeTextColor">@color/color_white</item>
+
+        <item name="cardBackgroundColor">@color/color_white</item>
 
         <!-- Type styles-->
         <item name="textAppearanceHeadline1">
@@ -64,9 +67,7 @@
         <item name="materialButtonOutlinedStyle">
             @style/Theme.TailorMade.Button.Outlined.Rounded
         </item>
-        <item name="materialCardViewStyle">
-            @style/Widget.MaterialComponents.CardView
-        </item>
+        <item name="materialCardViewStyle">@style/Theme.TailorMade.Card</item>
         <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
         <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
         <item name="floatingActionButtonStyle">

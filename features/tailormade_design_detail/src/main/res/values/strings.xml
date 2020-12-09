@@ -1,1 +1,9 @@
-<resources></resources>
+<resources>
+    <string name="designed_by_label">Designed by</string>
+    <string name="edit_label">Edit</string>
+    <string name="size_information_label">Size Information</string>
+    <string name="choose_size_label">Choose size</string>
+    <string name="available_color_label">Available Color</string>
+    <string name="description_label">Description</string>
+    <string name="read_more_label">Read more</string>
+</resources>
