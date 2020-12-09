@@ -16,7 +16,8 @@
             android:id="@+id/top_toolbar_design_detail"
             style="@style/Theme.TailorMade.Toolbar.Back"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/menu_item_design_detail" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

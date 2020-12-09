@@ -6,4 +6,5 @@
     <string name="available_color_label">Available Color</string>
     <string name="description_label">Description</string>
     <string name="read_more_label">Read more</string>
+    <string name="search_label">Search</string>
 </resources>

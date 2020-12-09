@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp_26"
-            android:src="@drawable/drawable_gender_male"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -36,8 +35,8 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_swap_face"
-            android:layout_width="@dimen/dp_56"
-            android:layout_height="@dimen/dp_56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginTop="@dimen/dp_16"
             android:layout_marginEnd="@dimen/dp_16"
