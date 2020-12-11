@@ -82,5 +82,8 @@
         <item name="autoCompleteTextViewStyle">
             @style/Theme.TailorMade.TextInputEditText.Dropdown
         </item>
+        <item name="bottomNavigationStyle">
+            @style/Theme.TailorMade.BottomNavigation
+        </item>
     </style>
 </resources>

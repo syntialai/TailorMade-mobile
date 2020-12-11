@@ -35,8 +35,7 @@
             @style/TextAppearance.TailorMade.Headline3.Bold
         </item>
         <item name="textAppearanceSubtitle1">
-            @style/TextAppearance.TailorMade.Subtitle1
-        </item>d
+            @style/TextAppearance.TailorMade.Subtitle1</item>d
         <item name="textAppearanceSubtitle2">
             @style/TextAppearance.TailorMade.Subtitle2
         </item>
@@ -80,6 +79,12 @@
             @style/Widget.MaterialComponents.MaterialCalendar
         </item>
         <item name="textInputStyle">@style/Theme.TailorMade.TextInputEditText
+        </item>
+        <item name="autoCompleteTextViewStyle">
+            @style/Theme.TailorMade.TextInputEditText.Dropdown
+        </item>
+        <item name="bottomNavigationStyle">
+            @style/Theme.TailorMade.BottomNavigation
         </item>
     </style>
 </resources>
