@@ -40,11 +40,9 @@
             android:layout_gravity="bottom|end"
             android:layout_marginTop="@dimen/dp_16"
             android:layout_marginEnd="@dimen/dp_16"
-            android:visibility="gone"
             app:maxImageSize="@dimen/dp_40"
             app:srcCompat="@drawable/ic_swap_face"
-            tools:ignore="ContentDescription"
-            tools:visibility="visible" />
+            tools:ignore="ContentDescription" />
     </FrameLayout>
 
     <TextView
