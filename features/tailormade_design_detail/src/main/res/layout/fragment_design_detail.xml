@@ -148,5 +148,6 @@
         android:layout_margin="@dimen/dp_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom_nav_design_detail" />
 </androidx.constraintlayout.widget.ConstraintLayout>
