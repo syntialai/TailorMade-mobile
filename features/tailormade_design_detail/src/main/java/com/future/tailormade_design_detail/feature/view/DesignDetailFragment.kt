@@ -16,6 +16,7 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
+import com.future.tailormade_design_detail.core.model.response.SizeDetailResponse
 import com.future.tailormade_design_detail.core.model.response.SizeResponse
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
@@ -58,17 +59,21 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
-  private fun getChooseSizeChip(text: String): Chip {
+  private fun getChooseSizeChip(index: Int, text: String): Chip {
     val chipBinding =
       ItemChooseSizeChipBinding.inflate(layoutInflater, binding.chipGroupChooseSize, true)
-    chipBinding.chipChooseSize.text = text
+    with(chipBinding.chipChooseSize) {
+      this.id = index
+      this.text = text
+    }
     return chipBinding.root
   }
 
-  private fun getChooseColorChip(text: String, color: String): Chip {
+  private fun getChooseColorChip(index: Int, text: String, color: String): Chip {
     val chipBinding =
       ItemChooseColorChipBinding.inflate(layoutInflater, binding.chipGroupChooseColor, true)
     with(chipBinding.chipChooseColor) {
+      this.id = index
       this.text = text
       this.chipIconTint = ColorStateList.valueOf(Color.parseColor(color))
     }
@@ -79,6 +84,16 @@ class DesignDetailFragment : BaseFragment() {
     with(binding) {
       bottomNavDesignDetail.remove()
       layoutDesignDetailGeneralInfo.buttonSwapFace.remove()
+    }
+  }
+
+  private fun setSizeDetailInfoData(sizeDetailResponse: SizeDetailResponse?) {
+    with(binding.layoutSizeInformationDetail) {
+      textViewSizeChest.text = sizeDetailResponse?.chest.toString()
+      textViewSizeHips.text = sizeDetailResponse?.hips.toString()
+      textViewSizeWaist.text = sizeDetailResponse?.waist.toString()
+      textViewSizeInseam.text = sizeDetailResponse?.inseam.toString()
+      textViewSizeNeckToWaist.text = sizeDetailResponse?.neckToWaist.toString()
     }
   }
 
@@ -104,16 +119,19 @@ class DesignDetailFragment : BaseFragment() {
 
   private fun setupChooseColorChips(colors: List<ColorResponse>) {
     with(binding.chipGroupChooseColor) {
-      colors.forEach {
-        addView(getChooseColorChip(it.id, it.color))
+      colors.forEachIndexed { index, color ->
+        addView(getChooseColorChip(index, color.id, color.color))
       }
     }
   }
 
   private fun setupChooseSizeChips(sizes: List<SizeResponse>) {
     with(binding.chipGroupChooseSize) {
-      sizes.forEach {
-        addView(getChooseSizeChip(it.id))
+      sizes.forEachIndexed { index, size ->
+        addView(getChooseSizeChip(index, size.id))
+      }
+      this.setOnCheckedChangeListener { group, checkedId ->
+        setSizeDetailInfoData(sizes[checkedId].detail)
       }
     }
   }
