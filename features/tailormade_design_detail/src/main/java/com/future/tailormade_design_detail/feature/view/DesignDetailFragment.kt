@@ -14,26 +14,30 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_design_detail.R
+import com.future.tailormade_design_detail.core.model.SizeDetailUiModel
+import com.future.tailormade_design_detail.core.model.SizeUiModel
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
-import com.future.tailormade_design_detail.core.model.response.SizeDetailResponse
-import com.future.tailormade_design_detail.core.model.response.SizeResponse
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
 import com.future.tailormade_design_detail.feature.viewModel.DesignDetailViewModel
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class DesignDetailFragment : BaseFragment() {
 
   companion object {
     private const val DESCRIPTION_MAX_LINES = 3
-    private const val NO_DISCOUNT = 0.0
 
     fun newInstance() = DesignDetailFragment()
   }
+
+  @Inject lateinit var authSharedPrefRepository: AuthSharedPrefRepository
 
   private val viewModel: DesignDetailViewModel by viewModels()
 
@@ -46,6 +50,10 @@ class DesignDetailFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentDesignDetailBinding.inflate(inflater, container, false)
+    setupBottomNav()
+    if (authSharedPrefRepository.userRole != 0) {
+      hideCustomerFeatures()
+    }
     return binding.root
   }
 
@@ -57,6 +65,25 @@ class DesignDetailFragment : BaseFragment() {
       }
       else -> super.onOptionsItemSelected(item)
     }
+  }
+
+  @ExperimentalCoroutinesApi
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
+    activity?.let { activity ->
+      val id = (activity as DesignDetailActivity).getId()
+      if (id.isNotBlank()) {
+        viewModel.fetchDesignDetailData(id)
+      }
+    }
+    viewModel.designDetailUiModel.observe(viewLifecycleOwner, {
+      setupGeneralInfoLayout(it.title, it.tailorId, it.tailorName, it.image)
+      setupGeneralInfoPrice(it.price, it.discount)
+      setupChooseSizeChips(it.size)
+      setupChooseColorChips(it.color)
+      setupDescription(it.description)
+    })
   }
 
   private fun getChooseSizeChip(index: Int, text: String): Chip {
@@ -87,13 +114,13 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
-  private fun setSizeDetailInfoData(sizeDetailResponse: SizeDetailResponse?) {
+  private fun setSizeDetailInfoData(sizeDetailUiModel: SizeDetailUiModel) {
     with(binding.layoutSizeInformationDetail) {
-      textViewSizeChest.text = sizeDetailResponse?.chest.toString()
-      textViewSizeHips.text = sizeDetailResponse?.hips.toString()
-      textViewSizeWaist.text = sizeDetailResponse?.waist.toString()
-      textViewSizeInseam.text = sizeDetailResponse?.inseam.toString()
-      textViewSizeNeckToWaist.text = sizeDetailResponse?.neckToWaist.toString()
+      textViewSizeChest.text = sizeDetailUiModel.chest
+      textViewSizeHips.text = sizeDetailUiModel.hips
+      textViewSizeWaist.text = sizeDetailUiModel.waist
+      textViewSizeInseam.text = sizeDetailUiModel.inseam
+      textViewSizeNeckToWaist.text = sizeDetailUiModel.neckToWaist
     }
   }
 
@@ -125,13 +152,13 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
-  private fun setupChooseSizeChips(sizes: List<SizeResponse>) {
+  private fun setupChooseSizeChips(sizes: List<SizeUiModel>) {
     with(binding.chipGroupChooseSize) {
       sizes.forEachIndexed { index, size ->
         addView(getChooseSizeChip(index, size.id))
       }
-      this.setOnCheckedChangeListener { group, checkedId ->
-        setSizeDetailInfoData(sizes[checkedId].detail)
+      this.setOnCheckedChangeListener { _, checkedId ->
+        sizes[checkedId].detail?.let { setSizeDetailInfoData(it) }
       }
     }
   }
@@ -153,7 +180,8 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
-  private fun setupGeneralInfoLayout(name: String, tailorName: String, imageUrl: String) {
+  private fun setupGeneralInfoLayout(title: String, tailorId: String, tailorName: String,
+      imageUrl: String) {
     with(binding.layoutDesignDetailGeneralInfo) {
       buttonSwapFace.setOnClickListener {
         // TODO: Go to face swap
@@ -161,7 +189,11 @@ class DesignDetailFragment : BaseFragment() {
       buttonEditDesignDetail.setOnClickListener {
         // TODO: Go to edit design detail
       }
-      textViewDesignDetailName.text = name
+      textViewDesignDetailDesignedBy.setOnClickListener {
+        // TODO: Go to tailor profile
+      }
+
+      textViewDesignDetailTitle.text = title
       textViewDesignDetailDesignedBy.text = tailorName
 
       context?.let { context ->
@@ -170,15 +202,14 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
-  private fun setupGeneralInfoPrice(price: Double, discount: Double) {
+  private fun setupGeneralInfoPrice(price: String, discount: String?) {
     with(binding.layoutDesignDetailGeneralInfo) {
-      // TODO: Add money converter to extension and use it here
-      if (discount == NO_DISCOUNT) {
-        textViewDesignDetailPrice.text = price.toString()
-      } else {
+      discount?.let {
         showDiscountPrice()
-        textViewDesignDetailBeforeDiscountPrice.text = price.toString()
-        textViewDesignDetailBeforeDiscountPrice.text = (price - discount).toString()
+        textViewDesignDetailBeforeDiscountPrice.text = price
+        textViewDesignDetailBeforeDiscountPrice.text = it
+      } ?: run {
+        textViewDesignDetailPrice.text = price
       }
     }
   }
