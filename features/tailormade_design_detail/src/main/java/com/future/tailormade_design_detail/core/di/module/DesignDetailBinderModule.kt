@@ -5,10 +5,10 @@ import com.future.tailormade_design_detail.core.repository.impl.DesignDetailRepo
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 abstract class DesignDetailBinderModule {
 
   @Binds
