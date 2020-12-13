@@ -1,14 +1,11 @@
 package com.future.tailormade.core.repository.impl
 
-import com.future.tailormade.base.model.response.BaseListResponse
-import com.future.tailormade.base.model.response.BaseSingleObjectResponse
 import com.future.tailormade.base.repository.BaseRepository
-import com.future.tailormade.core.model.response.cart.CartResponse
+import com.future.tailormade.core.model.request.cart.CartEditQuantityRequest
 import com.future.tailormade.core.repository.CartRepository
 import com.future.tailormade.core.service.CartService
 import com.future.tailormade.util.extension.flowOnIO
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class CartRepositoryImpl @Inject constructor(private val cartService: CartService) :
@@ -23,4 +20,13 @@ class CartRepositoryImpl @Inject constructor(private val cartService: CartServic
 	override suspend fun getCartById(id: String) = flow {
 		emit(cartService.getCartById(id))
 	}
+
+	override suspend fun editCartItemQuantity(id: String,
+			editQuantityRequest: CartEditQuantityRequest) = flow {
+		emit(cartService.putEditCartItemQuantity(id, editQuantityRequest))
+	}.flowOnIO()
+
+	override suspend fun deleteCartItemById(id: String) = flow {
+		emit(cartService.deleteCartItemById(id))
+	}.flowOnIO()
 }
