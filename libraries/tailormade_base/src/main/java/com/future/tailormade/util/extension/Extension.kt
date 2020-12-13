@@ -1,8 +1,10 @@
 package com.future.tailormade.util.extension
 
+import android.os.Build
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
 import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -15,8 +17,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 /**
  * Flow extension functions
@@ -70,6 +74,14 @@ fun View.remove() {
   visibility = View.GONE
 }
 
+fun View.setVisibility(value: Boolean) {
+    if (value) {
+        this.show()
+    } else {
+        this.remove()
+    }
+}
+
 /**
  * Validate string extension functions
  */
@@ -80,6 +92,16 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 /**
  * Date Converter
  */
-fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(this)
+fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern,
+    Locale.ENGLISH).format(this)
 
 fun Long.toDate(): Date = Date(this)
+
+fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern,
+    Locale.ENGLISH).format(this)
+
+/**
+ * Collection converter
+ */
+@RequiresApi(Build.VERSION_CODES.N)
+fun <T> MutableMap<String, T>.getFirstElement() = this.entries.stream().findFirst().get()

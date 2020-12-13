@@ -39,8 +39,8 @@ class ChatRoomAdapter(private val userId: String) :
         R.layout.layout_chat_content_reply, parent, false))
   }
 
-  @RequiresApi(Build.VERSION_CODES.N) override fun onBindViewHolder(
-      holder: RecyclerView.ViewHolder, position: Int) {
+  @RequiresApi(Build.VERSION_CODES.N)
+  override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     if (getItemViewType(position) == TYPE_SEND) {
       (holder as ChatRoomSendViewHolder).bind(getItem(position))
     } else {
