@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about_label">About</string>
+    <string name="edit_label">Edit</string>
+    <string name="works_label">Works</string>
+    <string name="studied_label">Studied</string>
     <string name="location_label">Location</string>
     <string name="update_profile_label">Update Profile</string>
     <string name="occupation_label">Occupation</string>
@@ -10,6 +14,11 @@
     <string name="about_school_label">Your School/University</string>
     <string name="about_major_label">What\'s your department/majors?</string>
     <string name="about_education_city_label">Where city do you study?</string>
+    <string name="about_address_value">Lives in <b>%s</b></string>
+    <string name="about_occupation_value"> as <b>%s</b></string>
+    <string name="about_occupation_company_value"> at<b>%s</b></string>
+    <string name="about_school_value"> at <b>%s</b></string>
+    <string name="about_school_major_value"> in <b>%s</b> major</string>
 
     <!-- Preference Titles -->
     <string name="pref_title_invite_friends_settings">Invite friends</string>
@@ -18,4 +27,5 @@
     <string name="pref_title_about_settings">About</string>
     <string name="pref_title_sign_out_settings">Sign out</string>
     <string name="settings_label">Settings</string>
+    <string name="edit_profile_label">Edit Profile</string>
 </resources>

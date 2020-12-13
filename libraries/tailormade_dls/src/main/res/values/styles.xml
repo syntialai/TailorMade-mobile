@@ -32,6 +32,7 @@
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+        <item name="backgroundTint">?colorSurface</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Red" parent="Theme.TailorMade.Button.Outlined.Rounded">
@@ -139,6 +140,10 @@
         <item name="android:textColor">?colorPrimary</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Headline3.Primary.Bold" parent="TextAppearance.TailorMade.Headline3.Primary">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Headline3.PrimaryDark" parent="TextAppearance.TailorMade.Headline3">
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
@@ -177,6 +182,10 @@
 
     <style name="TextAppearance.TailorMade.Body2.Primary" parent="TextAppearance.TailorMade.Body2">
         <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Body2.Primary.Bold" parent="TextAppearance.TailorMade.Body2.Primary">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Body2.PrimaryDark" parent="TextAppearance.TailorMade.Body2">
@@ -261,6 +270,34 @@
 
     <style name="TextAppearance.TailorMade.Overline.Primary" parent="TextAppearance.TailorMade.Overline">
         <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.Primary" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.PrimaryDark" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">?colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackHigh" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_87</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackMedium" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_60</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackMedium2" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_54</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackLow" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_38</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackLight" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_20</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Overline.PrimaryDark" parent="TextAppearance.TailorMade.Overline">

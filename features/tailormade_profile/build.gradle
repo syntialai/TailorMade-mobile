@@ -29,7 +29,6 @@ android {
     }
 
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
 
@@ -46,9 +45,10 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    // Libraries
-    implementation project(":libraries:tailormade_base")
-    implementation project(":libraries:tailormade_dls")
+    // Router
+    implementation project(":libraries:tailormade_router")
+
+    // Features
     implementation project(":features:tailormade_auth")
 
     // OSM
