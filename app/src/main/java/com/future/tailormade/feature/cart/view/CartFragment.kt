@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.databinding.FragmentCartBinding
 import com.future.tailormade.feature.cart.adapter.CartAdapter
 import com.future.tailormade.feature.cart.viewModel.CartViewModel
@@ -29,7 +28,7 @@ class CartFragment : BaseFragment() {
 
 	private val viewModel: CartViewModel by viewModels()
 	private val cartAdapter by lazy {
-		CartAdapter(this::deleteItem, this::checkoutItem)
+		CartAdapter(this::deleteItem, this::checkoutItem, this::editItemQuantityListener)
 	}
 	private val deleteAlertDialog by lazy {
 		context?.let {
@@ -76,9 +75,13 @@ class CartFragment : BaseFragment() {
 	private fun deleteItem(id: String, title: String) {
 		deleteAlertDialog?.setMessage(getString(R.string.cart_delete_alert_dialog_content, title))?.setPositiveButton(
 				getString(R.string.cart_delete_alert_dialog_delete_button)) { dialog, _ ->
-			// TODO: Call view model to delete cart item
+			viewModel.deleteCartItem(id)
 			dialog.dismiss()
 		}?.show()
+	}
+
+	private fun editItemQuantityListener(id: String, quantity: Int) {
+		viewModel.editCartItemQuantity(id, quantity)
 	}
 
 	private fun hideState() {

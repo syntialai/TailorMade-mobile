@@ -15,7 +15,8 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 
 class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
-		private val checkoutCartItemListener: (String) -> Unit) :
+		private val checkoutCartItemListener: (String) -> Unit,
+		private val editItemQuantityListener: (String, Int) -> Unit) :
 		ListAdapter<CartUiModel, CartAdapter.CartViewHolder>(diffCallback) {
 
 	companion object {
@@ -44,7 +45,15 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
 			bindDesignData(data.design)
 			with(binding) {
 				root.id = position
-				spinButtonNumber.setValue(data.quantity)
+				with(spinButtonNumber) {
+					setValue(data.quantity)
+					setAddSpinNumberButtonListener {
+						editItemQuantityListener.invoke(data.id, it)
+					}
+					setReduceSpinNumberButtonListener {
+						editItemQuantityListener.invoke(data.id, it)
+					}
+				}
 
 				buttonDeleteOrder.setOnClickListener {
 					deleteCartItemListener.invoke(data.id, data.design.title)
