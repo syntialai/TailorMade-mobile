@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.core.model.request.cart.CartEditQuantityRequest
 import com.future.tailormade.core.model.response.cart.CartDesignResponse
 import com.future.tailormade.core.model.response.cart.CartResponse
 import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
@@ -52,6 +53,38 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
 		}
 	}
 
+	fun editCartItemQuantity(id: String, quantity: Int) {
+		val request = CartEditQuantityRequest(quantity)
+		launchViewModelScope {
+			cartRepository.editCartItemQuantity(id, request).onError {
+				_errorMessage.value = "Failed to update your cart item. Please try again."
+			}.collectLatest { response ->
+				response.data?.let {
+					setQuantity(it.id, it.quantity)
+				}
+			}
+		}
+	}
+
+	fun deleteCartItem(id: String) {
+		launchViewModelScope {
+			cartRepository.deleteCartItemById(id).onError {
+				_errorMessage.value = "Failed to delete your cart item. Please try again."
+			}.collectLatest {
+				deleteUiModelItem(id)
+			}
+		}
+	}
+
+	private fun deleteUiModelItem(id: String) {
+		val cartItemIndex = getCartItemIndex(id)
+		cartItemIndex?.let {
+			_cartUiModel.value?.removeAt(it)
+		}
+	}
+
+	private fun getCartItemIndex(id: String) = _cartUiModel.value?.indexOfFirst { it.id == id }
+
 	private fun mapToCartUiModel(carts: List<CartResponse>): ArrayList<CartUiModel> {
 		val cartUiModels = arrayListOf<CartUiModel>()
 		carts.forEach { cart ->
@@ -75,5 +108,12 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
 		null
 	} else {
 		(price - discount).toIndonesiaCurrencyFormat()
+	}
+
+	private fun setQuantity(id: String, quantity: Int) {
+		val cartItemIndex = getCartItemIndex(id)
+		cartItemIndex?.let {
+			_cartUiModel.value?.get(it)?.quantity = quantity
+		}
 	}
 }
