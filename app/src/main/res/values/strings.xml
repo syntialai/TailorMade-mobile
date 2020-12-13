@@ -4,4 +4,6 @@
     <string name="dashboard_title_state">Hello!</string>
     <string name="dashboard_description_state">Tailors near you will be shown here</string>
     <string name="preview_label">Preview</string>
+    <string name="cart_title_state">Empty cart...</string>
+    <string name="cart_description_state">Let’s add some design to your cart!</string>
 </resources>

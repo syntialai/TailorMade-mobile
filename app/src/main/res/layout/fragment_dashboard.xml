@@ -28,7 +28,7 @@
         android:id="@+id/image_view_dashboard_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/drawable_dashboard_state"
+        android:src="@drawable/illustration_dashboard"
         app:layout_constraintBottom_toTopOf="@+id/text_view_dashboard_title_state"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
