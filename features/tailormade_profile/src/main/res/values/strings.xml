@@ -2,7 +2,7 @@
 <resources>
     <string name="about_label">About</string>
     <string name="edit_label">Edit</string>
-    <string name="works_label">Works </string>
+    <string name="works_label">Works</string>
     <string name="studied_label">Studied</string>
     <string name="location_label">Location</string>
     <string name="update_profile_label">Update Profile</string>

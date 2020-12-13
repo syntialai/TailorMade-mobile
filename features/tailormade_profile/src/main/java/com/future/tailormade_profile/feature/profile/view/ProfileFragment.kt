@@ -69,8 +69,10 @@ class ProfileFragment : BaseFragment() {
       textViewProfileName.text = name
       textViewProfileCity.text = city
 
-      if (context != null && image.isNotBlank()) {
-        ImageLoader.loadImageUrl(requireContext(), image, imageViewProfile)
+      context?.let {
+        if (image.isNotBlank()) {
+          ImageLoader.loadImageUrl(requireContext(), image, imageViewProfile)
+        }
       }
     }
   }
