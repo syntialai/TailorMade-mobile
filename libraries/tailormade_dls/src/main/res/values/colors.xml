@@ -44,4 +44,6 @@
     <color name="color_black_20">#33000000</color>
     <color name="color_black_8">#14000000</color>
     <color name="color_white">#FFFFFF</color>
+
+    <color name="color_grey_F1F1F1">#F1F1F1</color>
 </resources>
