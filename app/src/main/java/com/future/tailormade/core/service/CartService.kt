@@ -5,7 +5,6 @@ import com.future.tailormade.base.model.response.BaseSingleObjectResponse
 import com.future.tailormade.core.api.AppApiUrl
 import com.future.tailormade.core.model.response.cart.CartResponse
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface CartService {

@@ -8,6 +8,7 @@ import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.coroutine.CoroutineHelper
+import java.text.NumberFormat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -83,5 +84,13 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(this)
 
 fun Long.toDate(): Date = Date(this)
+
+/**
+ * Money Converter
+ */
+fun Double.toIndonesiaCurrencyFormat() = NumberFormat.getCurrencyInstance().apply {
+  maximumFractionDigits = 0
+  currency = Currency.getInstance(Locale("in", "ID"))
+}.format(this)
 
 fun Int?.orZero() = this ?: 0

@@ -18,6 +18,7 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class CartFragment : BaseFragment() {
@@ -54,7 +55,21 @@ class CartFragment : BaseFragment() {
 		return binding.root
 	}
 
-	private fun checkoutItem(data: CartUiModel) {
+	@ExperimentalCoroutinesApi
+	override fun setupFragmentObserver() {
+		super.setupFragmentObserver()
+
+		viewModel.fetchCartData()
+		viewModel.cartUiModel.observe(viewLifecycleOwner, {
+			cartAdapter.submitList(it)
+			if (it.isNotEmpty()) {
+				hideState()
+				showRecyclerView()
+			}
+		})
+	}
+
+	private fun checkoutItem(id: String) {
 		// TODO: Route to checkout
 	}
 

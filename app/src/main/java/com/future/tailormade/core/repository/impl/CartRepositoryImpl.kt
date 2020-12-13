@@ -18,7 +18,7 @@ class CartRepositoryImpl @Inject constructor(private val cartService: CartServic
 
 	override suspend fun getCarts() = flow {
 		emit(cartService.getCarts())
-	}
+	}.flowOnIO()
 
 	override suspend fun getCartById(id: String) = flow {
 		emit(cartService.getCartById(id))
