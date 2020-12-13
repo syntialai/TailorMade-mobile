@@ -30,13 +30,14 @@ class ChatRoomAdapter(private val userId: String) :
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-    if (viewType == TYPE_SEND) {
-      return ChatRoomSendViewHolder(LayoutInflater.from(parent.context).inflate(
-          R.layout.layout_chat_content_send, parent, false))
-    }
-    return ChatRoomReplyViewHolder(LayoutInflater.from(parent.context).inflate(
-        R.layout.layout_chat_content_reply, parent, false))
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = if (viewType == TYPE_SEND) {
+    ChatRoomSendViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.layout_chat_content_send, parent,
+            false))
+  } else {
+    ChatRoomReplyViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.layout_chat_content_reply, parent,
+            false))
   }
 
   @RequiresApi(Build.VERSION_CODES.N)
