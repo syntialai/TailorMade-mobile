@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Theme.TailorMade.TextInputLayout.OutlinedBox"
+        android:id="@+id/text_input_message_chat_room"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:layout_width="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_send_message"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_message_chat_room"
-            style="@style/Theme.TailorMade.TextInputLayout.OutlinedBox"
-            android:layout_width="@dimen/dp_0"
+        <com.google.android.material.textfield.TextInputEditText
+            android:hint="@string/chat_input_message_label"
+            android:id="@+id/edit_text_message_chat_room"
+            android:inputType="textMultiLine"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_8"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/button_send_message"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_width="match_parent"
+            android:paddingHorizontal="@dimen/dp_8" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_message_chat_room"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/chat_input_message_label"
-                android:inputType="textMultiLine"
-                android:paddingHorizontal="@dimen/dp_8" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+    <ImageButton
+        android:background="@drawable/drawable_primary_rounded"
+        android:id="@+id/button_send_message"
+        android:layout_height="@dimen/dp_53"
+        android:layout_width="@dimen/dp_53"
+        android:src="@drawable/ic_send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription" />
 
-        <ImageButton
-            android:id="@+id/button_send_message"
-            android:layout_width="@dimen/dp_53"
-            android:layout_height="@dimen/dp_53"
-            android:background="@drawable/drawable_primary_rounded"
-            android:src="@drawable/ic_send"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
