@@ -1,5 +1,7 @@
 package com.future.tailormade.core.model.response.cart
 
+import com.google.gson.annotations.Expose
+
 data class CartDesignResponse(
 
     val color: String,
@@ -13,6 +15,9 @@ data class CartDesignResponse(
     val price: Double,
 
     val size: String,
+
+		@Expose
+		val sizeDetail: CartSizeDetailResponse? = null,
 
     val title: String
 )
