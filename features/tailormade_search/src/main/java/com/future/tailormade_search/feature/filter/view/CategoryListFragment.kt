@@ -14,7 +14,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CategoryListFragment : BaseFragment() {
 
+  companion object {
+
+    fun newInstance() = CategoryListFragment()
+  }
+
   private lateinit var binding: FragmentCategoryListBinding
+
+  override fun getLogName(): String = "com.future.tailormade_search.feature.filter.view.CategoryListFragment"
 
   override fun getScreenName(): String = "Select Category"
 
@@ -43,11 +50,5 @@ class CategoryListFragment : BaseFragment() {
   private fun setupAdapter(list: List<Pair<String, Boolean>>) {
     val adapter = ChooseListAdapter(list, this::onItemClickedListener)
     binding.recyclerViewCategoryList.adapter = adapter
-  }
-
-  companion object {
-
-    @JvmStatic
-    fun newInstance() = CategoryListFragment()
   }
 }

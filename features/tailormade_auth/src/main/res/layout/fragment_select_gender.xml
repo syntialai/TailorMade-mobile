@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature.signUp.view.SelectGenderFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/text_view_title"
+        style="@style/TextAppearance.TailorMade.Headline3.Bold"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
+        android:text="@string/select_gender_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_description"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".feature.signUp.view.SelectGenderFragment">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:text="@string/select_gender_info_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
-        <TextView
-            android:id="@+id/text_view_title"
-            style="@style/TextAppearance.TailorMade.Headline3.Bold"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_80"
-            android:text="@string/select_gender_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <RadioGroup
+        android:id="@+id/radio_group_select_gender"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_view_description"
-            style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_4"
-            android:text="@string/select_gender_info_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+        <RadioButton
+            android:id="@+id/radio_button_select_gender_male"
+            style="@style/Theme.TailorMade.RadioImageButton"
+            android:checked="true"
+            android:drawableTop="@drawable/drawable_gender_male"
+            android:text="@string/gender_male_label" />
 
-        <RadioGroup
-            android:id="@+id/radio_group_select_gender"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <RadioButton
+            android:id="@+id/radio_button_select_gender_female"
+            style="@style/Theme.TailorMade.RadioImageButton"
+            android:drawableTop="@drawable/drawable_gender_female"
+            android:text="@string/gender_female_label" />
 
-            <RadioButton
-                android:id="@+id/radio_button_select_gender_male"
-                style="@style/Theme.TailorMade.RadioImageButton"
-                android:checked="true"
-                android:drawableTop="@drawable/drawable_gender_male"
-                android:text="@string/gender_male_label" />
+        <RadioButton
+            android:id="@+id/radio_button_select_gender_other"
+            style="@style/Theme.TailorMade.RadioImageButton"
+            android:drawableTop="@drawable/ic_account"
+            android:text="@string/gender_other_label" />
 
-            <RadioButton
-                android:id="@+id/radio_button_select_gender_female"
-                style="@style/Theme.TailorMade.RadioImageButton"
-                android:drawableTop="@drawable/drawable_gender_female"
-                android:text="@string/gender_female_label" />
-
-            <RadioButton
-                android:id="@+id/radio_button_select_gender_other"
-                style="@style/Theme.TailorMade.RadioImageButton"
-                android:drawableTop="@drawable/ic_account"
-                android:text="@string/gender_other_label" />
-
-        </RadioGroup>
+    </RadioGroup>
 
         <Button
             android:id="@+id/button_submit_gender"
@@ -72,5 +70,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

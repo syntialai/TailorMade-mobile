@@ -33,7 +33,7 @@ class SearchTailorListAdapter(
     fun bind(data: SearchTailorResponse) {
       with(binding) {
         textViewProfileName.text = data.name
-        textViewProfileLocation.text = data.location
+        textViewProfileCity.text = data.location
 
         ImageLoader.loadImageUrl(context, data.imagePath, imageViewProfile)
 

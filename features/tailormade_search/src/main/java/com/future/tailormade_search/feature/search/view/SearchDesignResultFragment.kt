@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_search.core.model.response.SearchDesignResponse
@@ -19,14 +20,24 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SearchDesignResultFragment : BaseFragment() {
 
+  companion object {
+
+    fun newInstance() = SearchDesignResultFragment()
+  }
+
   private lateinit var binding: FragmentSearchDesignResultBinding
 
   private val viewModel: SearchViewModel by viewModels()
 
+  override fun getLogName(): String =
+      "com.future.tailormade_search.feature.search.view.SearchDesignResultFragment"
+
   override fun getScreenName(): String = "Search Design Result"
 
+  override fun getViewModel(): BaseViewModel = viewModel
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentSearchDesignResultBinding.inflate(inflater, container,
         false)
 
@@ -61,7 +72,9 @@ class SearchDesignResultFragment : BaseFragment() {
     }
   }
 
-  private fun setupFragmentObserver() {
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
     viewModel.listOfDesigns.observe(viewLifecycleOwner, {
       setupAdapter(it)
       if (it.isEmpty()) {
@@ -89,10 +102,5 @@ class SearchDesignResultFragment : BaseFragment() {
   private fun showRecyclerView() {
     binding.recyclerViewSearchDesignResult.show()
     hideNoDataState()
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = SearchDesignResultFragment()
   }
 }

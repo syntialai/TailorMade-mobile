@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_search.core.model.response.SearchTailorResponse
@@ -19,11 +20,20 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SearchTailorResultFragment : BaseFragment() {
 
+  companion object {
+
+    fun newInstance() = SearchTailorResultFragment()
+  }
+
   private lateinit var binding: FragmentSearchTailorResultBinding
 
   private val viewModel: SearchViewModel by viewModels()
 
+  override fun getLogName(): String = "com.future.tailormade_search.feature.search.view.SearchTailorResultFragment"
+
   override fun getScreenName(): String = "Search Tailor Result"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
@@ -62,7 +72,9 @@ class SearchTailorResultFragment : BaseFragment() {
     }
   }
 
-  private fun setupFragmentObserver() {
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
     viewModel.listOfTailors.observe(viewLifecycleOwner, {
       setupAdapter(it)
       setupAdapter(it)
@@ -91,10 +103,5 @@ class SearchTailorResultFragment : BaseFragment() {
   private fun showRecyclerView() {
     binding.recyclerViewSearchTailorResult.show()
     hideNoDataState()
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = SearchTailorResultFragment()
   }
 }

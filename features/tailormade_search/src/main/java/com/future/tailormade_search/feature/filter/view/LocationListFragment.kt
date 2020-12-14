@@ -16,17 +16,19 @@ class LocationListFragment : BaseFragment() {
 
   private lateinit var binding: FragmentLocationListBinding
 
+  override fun getLogName(): String = "com.future.tailormade_search.feature.filter.view.LocationListFragment"
+
   override fun getScreenName(): String = "Select Location"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentLocationListBinding.inflate(inflater, container, false)
 
     with(binding) {
       recyclerViewLocationList.layoutManager = LinearLayoutManager(context)
     }
 
-    // TODO: show toolbar
+    showToolbar()
 
     return binding.root
   }

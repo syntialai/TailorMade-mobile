@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.logger.AppLogger
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,6 +16,8 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseActivity : AppCompatActivity() {
 
   open fun getScreenName(): String = "BaseActivity"
+
+  protected var toolbar: MaterialToolbar? = null
 
   protected var appLogger = AppLogger.create(this.getScreenName())
 
@@ -66,5 +71,22 @@ abstract class BaseActivity : AppCompatActivity() {
     CoroutineScope(coroutineContext).launch {
       block()
     }
+  }
+
+  fun setupToolbar(title: String) {
+    toolbar?.let {
+      it.title = title
+      it.setNavigationOnClickListener {
+        onBackPressed()
+      }
+    }
+  }
+
+  fun hideToolbar() {
+    toolbar?.remove()
+  }
+
+  fun showToolbar() {
+    toolbar?.show()
   }
 }

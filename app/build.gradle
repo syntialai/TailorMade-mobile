@@ -53,7 +53,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = versions.jvm
     }
 
     packagingOptions {
@@ -82,6 +82,7 @@ dependencies {
     // Features
     implementation project(":features:tailormade_auth")
     implementation project(":features:tailormade_search")
+    implementation project(":features:tailormade_profile")
 
     // Tests
     testImplementation test.junit

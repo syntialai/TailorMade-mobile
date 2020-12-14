@@ -21,48 +21,45 @@
 
         <TextView
             android:id="@+id/text_view_notification_type"
-            style="?attr/textAppearanceCaption"
-            android:layout_width="0dp"
+            style="@style/TextAppearance.TailorMade.Caption.BlackMedium2"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
-            android:text="@string/notification_type_label"
-            android:textColor="@color/color_black_54"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_notification_type"
             app:layout_constraintStart_toEndOf="@id/image_view_notification_type"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/image_view_notification_type"
+            tools:text="@string/notification_type_label" />
 
         <TextView
             android:id="@+id/text_view_notification_time"
-            style="?attr/textAppearanceCaption"
-            android:layout_width="0dp"
+            style="@style/TextAppearance.TailorMade.Caption.BlackLow"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:text="@string/notification_time_label"
-            android:textColor="@color/color_black_38"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/notification_time_label" />
 
         <TextView
             android:id="@+id/text_view_notification_title"
-            style="?attr/textAppearanceHeadline6"
+            style="@style/TextAppearance.TailorMade.Headline3.Primary.Bold"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_12"
-            android:text="@string/notification_title_label"
-            android:textColor="?attr/colorPrimary"
+            android:layout_marginTop="@dimen/dp_8"
             app:layout_constraintBottom_toTopOf="@id/text_view_notification_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_view_notification_type" />
+            app:layout_constraintTop_toBottomOf="@id/image_view_notification_type"
+            tools:text="@string/notification_title_label" />
 
         <TextView
             android:id="@+id/text_view_notification_content"
-            style="?attr/textAppearanceBody2"
+            style="@style/TextAppearance.TailorMade.Body2.BlackMedium"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_4"
-            android:text="@string/chat_content_label"
-            android:textColor="@color/color_black_60"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_notification_title" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_notification_title"
+            tools:text="@string/notification_content_label" />
 
         <ImageView
             android:id="@+id/image_view_profile"
