@@ -40,6 +40,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Library
     api project(":libraries:tailormade_dls")
 
     api core.kotlin
@@ -71,7 +73,7 @@ dependencies {
     api androidx.swipe_refresh_layout
 
     // Paging
-    api paging.runtime
+//    api paging.runtime
     testImplementation paging.test_common
 
     // Annotation Processing

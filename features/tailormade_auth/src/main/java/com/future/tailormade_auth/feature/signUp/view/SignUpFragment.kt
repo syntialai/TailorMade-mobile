@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.extension.toDateString
@@ -19,6 +20,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpFragment : BaseFragment() {
 
+  companion object {
+    fun newInstance() = SignUpFragment()
+  }
+
   private val viewModel: SignUpViewModel by viewModels()
 
   private lateinit var binding: FragmentSignUpBinding
@@ -30,8 +35,10 @@ class SignUpFragment : BaseFragment() {
 
   override fun getScreenName(): String = "Sign Up"
 
+  override fun getViewModel(): BaseViewModel = viewModel
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     setupDatePicker()
 
     binding = FragmentSignUpBinding.inflate(inflater, container, false)
@@ -52,8 +59,7 @@ class SignUpFragment : BaseFragment() {
       }
 
       buttonGoToSignIn.setOnClickListener {
-        findNavController().navigate(
-            SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
+        findNavController().navigateUp()
       }
     }
 
@@ -127,10 +133,5 @@ class SignUpFragment : BaseFragment() {
     } else {
       setFormErrorMessage()
     }
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = SignUpFragment()
   }
 }

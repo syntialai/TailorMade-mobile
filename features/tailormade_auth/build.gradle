@@ -44,6 +44,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Library
     api project(":libraries:tailormade_base")
 
     // Tests
@@ -54,7 +56,6 @@ dependencies {
     androidTestImplementation androidTest.espresso
 
     // Paging
-    api paging.runtime
     testImplementation paging.test_common
 
     // Annotation Processing

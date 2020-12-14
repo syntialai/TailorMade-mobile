@@ -8,6 +8,7 @@ import android.widget.RadioButton
 import androidx.core.view.forEach
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSelectRoleBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
@@ -25,10 +26,12 @@ class SelectRoleFragment : BaseFragment() {
   override fun getLogName(): String =
       "com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
 
+  override fun getViewModel(): BaseViewModel = viewModel
+
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?): View? {
+    savedInstanceState: Bundle?): View {
     binding = FragmentSelectRoleBinding.inflate(inflater, container, false)
 
     with(binding) {
