@@ -11,6 +11,7 @@ object Action {
     private const val ACTION_OPEN_SIGN_IN = "com.future.tailormade.signIn.open"
     private const val ACTION_OPEN_PROFILE = "com.future.tailormade.editProfile.open"
     private const val ACTION_OPEN_SETTINGS = "com.future.tailormade.settings.open"
+    private const val ACTION_OPEN_SEARCH = "com.future.tailormade.search.open"
 
     /*
      * Action function
@@ -20,6 +21,8 @@ object Action {
     fun goToProfile(context: Context) = getIntent(context, ACTION_OPEN_PROFILE)
 
     fun goToSettings(context: Context) = getIntent(context, ACTION_OPEN_SETTINGS)
+
+    fun goToSearch(context: Context) = getIntent(context, ACTION_OPEN_SEARCH)
 
     private fun getIntent(context: Context, action: String) =
         Intent(action).setPackage(context.packageName)

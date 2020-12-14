@@ -2,6 +2,7 @@ package com.future.tailormade.util.extension
 
 import android.util.Patterns
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
 import com.future.tailormade.base.view.ViewState
@@ -58,16 +59,28 @@ fun EditText.debounceOnTextChanged(scope: CoroutineScope,
   }
 }
 
+fun View.hide() {
+    visibility = View.INVISIBLE
+}
+
+fun View.remove() {
+    visibility = View.GONE
+}
+
 fun View.show() {
   visibility = View.VISIBLE
 }
 
-fun View.hide() {
-  visibility = View.INVISIBLE
+fun ViewGroup.hide() {
+    this.visibility = View.INVISIBLE
 }
 
-fun View.remove() {
-  visibility = View.GONE
+fun ViewGroup.remove() {
+    this.visibility = View.GONE
+}
+
+fun ViewGroup.show() {
+    this.visibility = View.VISIBLE
 }
 
 /**
@@ -83,3 +96,18 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(this)
 
 fun Long.toDate(): Date = Date(this)
+
+/**
+ * Null handling functions
+ */
+fun <T> List<T>?.orEmptyList(): List<T> = this ?: listOf()
+
+fun Int?.orZero(): Int = this ?: 0
+
+fun Double?.orZero(): Double = this ?: 0.0
+
+fun Long?.orZero(): Long = this ?: 0L
+
+fun Boolean?.orTrue(): Boolean = this ?: true
+
+fun Boolean?.orFalse(): Boolean = this ?: false

@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <font-family xmlns:app="http://schemas.android.com/apk/res-auto">
-    <font
-        app:font="@font/lato_thin"
-        app:fontStyle="normal"
-        app:fontWeight="200" />
-
-    <font
-        app:font="@font/lato_light"
-        app:fontStyle="normal"
-        app:fontWeight="400" />
 
     <font
         app:font="@font/lato_regular"
         app:fontStyle="normal"
-        app:fontWeight="500" />
+        app:fontWeight="400" />
 
     <font
         app:font="@font/lato_bold"
