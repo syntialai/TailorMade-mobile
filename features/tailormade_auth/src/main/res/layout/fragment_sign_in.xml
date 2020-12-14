@@ -89,8 +89,8 @@
 
         <Button
             android:id="@+id/button_sign_in"
-            style="@style/Theme.TailorMade.Button.Rounded"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_48"
             android:text="@string/sign_in_label"
             app:layout_constraintEnd_toEndOf="parent"

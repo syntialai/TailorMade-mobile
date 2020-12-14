@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.future.tailormade.base.view.BaseFragment
@@ -12,6 +11,7 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_search.core.model.response.SearchDesignResponse
 import com.future.tailormade_search.databinding.FragmentSearchDesignResultBinding
+import com.future.tailormade_search.feature.filter.view.FilterDesignBottomSheetDialogFragment
 import com.future.tailormade_search.feature.search.adapter.SearchDesignGridAdapter
 import com.future.tailormade_search.feature.search.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,14 +23,19 @@ class SearchDesignResultFragment : BaseFragment() {
 
   private val viewModel: SearchViewModel by viewModels()
 
-  override fun getScreenName(): String = ""
+  override fun getScreenName(): String = "Search Design Result"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
-    binding = FragmentSearchDesignResultBinding.inflate(inflater, container, false)
+    binding = FragmentSearchDesignResultBinding.inflate(inflater, container,
+        false)
 
     with(binding) {
-      recyclerViewSearchDesignResult.layoutManager = GridLayoutManager(context, 2)
+      groupSortAndFilter.chipFilter.setOnClickListener {
+        showFilterDialog()
+      }
+      recyclerViewSearchDesignResult.layoutManager = GridLayoutManager(context,
+          2)
     }
 
     return binding.root
@@ -67,6 +72,11 @@ class SearchDesignResultFragment : BaseFragment() {
     })
   }
 
+  private fun showFilterDialog() {
+    FilterDesignBottomSheetDialogFragment.newInstance().show(
+        parentFragmentManager, getScreenName())
+  }
+
   private fun showNoDataState() {
     with(binding) {
       imageViewNoDesignDataState.show()
@@ -83,7 +93,6 @@ class SearchDesignResultFragment : BaseFragment() {
 
   companion object {
 
-    @JvmStatic
-    fun newInstance() = SearchDesignResultFragment()
+    @JvmStatic fun newInstance() = SearchDesignResultFragment()
   }
 }

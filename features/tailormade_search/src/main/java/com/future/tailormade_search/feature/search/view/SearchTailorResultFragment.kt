@@ -11,6 +11,7 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_search.core.model.response.SearchTailorResponse
 import com.future.tailormade_search.databinding.FragmentSearchTailorResultBinding
+import com.future.tailormade_search.feature.filter.view.FilterTailorBottomSheetDialogFragment
 import com.future.tailormade_search.feature.search.adapter.SearchTailorListAdapter
 import com.future.tailormade_search.feature.search.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +23,7 @@ class SearchTailorResultFragment : BaseFragment() {
 
   private val viewModel: SearchViewModel by viewModels()
 
-  override fun getScreenName(): String = ""
+  override fun getScreenName(): String = "Search Tailor Result"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
@@ -30,6 +31,10 @@ class SearchTailorResultFragment : BaseFragment() {
         false)
 
     with(binding) {
+      groupSortAndFilter.chipFilter.setOnClickListener {
+        showFilterDialog()
+      }
+
       recyclerViewSearchTailorResult.layoutManager = LinearLayoutManager(
           context)
     }
@@ -67,6 +72,11 @@ class SearchTailorResultFragment : BaseFragment() {
         showRecyclerView()
       }
     })
+  }
+
+  private fun showFilterDialog() {
+    FilterTailorBottomSheetDialogFragment.newInstance().show(
+        parentFragmentManager, getScreenName())
   }
 
   private fun showNoDataState() {

@@ -29,7 +29,6 @@ android {
     }
 
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
 
@@ -46,8 +45,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    // Feature
-    implementation project(":features:tailormade_auth")
+    // Features
+    api project(":features:tailormade_auth")
 
     // Tests
     testImplementation test.junit

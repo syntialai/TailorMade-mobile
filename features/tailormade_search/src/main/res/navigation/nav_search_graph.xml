@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_search_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_search_graph"
+    app:startDestination="@id/categoryListFragment">
 
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.future.tailormade_search.feature.filter.view.CategoryListFragment"
+        android:label="CategoryListFragment" />
+    <fragment
+        android:id="@+id/filterTailorBottomSheetDialogFragment"
+        android:name="com.future.tailormade_search.feature.filter.view.FilterTailorBottomSheetDialogFragment"
+        android:label="FilterTailorBottomSheetDialogFragment" >
+        <action
+            android:id="@+id/action_filterTailorBottomSheetDialogFragment_to_locationListFragment"
+            app:destination="@id/locationListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationListFragment"
+        android:name="com.future.tailormade_search.feature.filter.view.LocationListFragment"
+        android:label="LocationListFragment" />
+    <fragment
+        android:id="@+id/filterDesignBottomSheetDialogFragment"
+        android:name="com.future.tailormade_search.feature.filter.view.FilterDesignBottomSheetDialogFragment"
+        android:label="FilterDesignBottomSheetDialogFragment" >
+        <action
+            android:id="@+id/action_filterDesignBottomSheetDialogFragment2_to_categoryListFragment"
+            app:destination="@id/categoryListFragment" />
+        <action
+            android:id="@+id/action_filterDesignBottomSheetDialogFragment2_to_locationListFragment"
+            app:destination="@id/locationListFragment" />
+    </fragment>
 </navigation>
