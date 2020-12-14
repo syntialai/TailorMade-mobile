@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.view.BaseSwipeActionCallback
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.UserChatSession
 import com.future.tailormade_chat.databinding.FragmentChatListBinding
@@ -25,6 +26,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ChatListFragment : BaseFragment() {
+
+  companion object {
+
+    fun newInstance() = ChatListFragment()
+  }
 
   private lateinit var binding: FragmentChatListBinding
 
@@ -40,26 +46,27 @@ class ChatListFragment : BaseFragment() {
       }
 
       override fun onCancelled(error: DatabaseError) {
-        // TODO: Provide error
+        viewModel.setErrorMessage(
+            getString(R.string.load_chat_data_error_message))
       }
     }
   }
   private val deleteAlertDialog by lazy {
     context?.let {
       MaterialAlertDialogBuilder(it).setTitle(
-          resources.getString(R.string.delete_chat_alert_dialog_title))
-          .setNegativeButton(R.string.delete_chat_alert_dialog_cancel_button) { dialog, _ ->
-            dialog.dismiss()
-          }
+          resources.getString(R.string.delete_chat_alert_dialog_title)).setNegativeButton(
+          R.string.delete_chat_alert_dialog_cancel_button) { dialog, _ ->
+        dialog.dismiss()
+      }
     }
   }
+  private val adapter by lazy { ChatListAdapter() }
 
-  private var adapter = ChatListAdapter()
-
-  override fun getLogName(): String =
-      "com.future.tailormade_chat.feature.view.ChatListFragment"
+  override fun getLogName(): String = "com.future.tailormade_chat.feature.view.ChatListFragment"
 
   override fun getScreenName(): String = "Chat"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
@@ -83,16 +90,16 @@ class ChatListFragment : BaseFragment() {
 
   private fun setupDeleteSwipeCallback() {
     context?.resources?.let { res ->
-      val swipeDeleteCallback = object: BaseSwipeActionCallback(
-          res.getColor(R.color.color_red_600),
-          res.getDrawable(R.drawable.ic_delete)) {
+      val swipeDeleteCallback = object :
+          BaseSwipeActionCallback(res.getColor(R.color.color_red_600),
+              res.getDrawable(R.drawable.ic_delete)) {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
             direction: Int) {
           val position = viewHolder.adapterPosition
           val item = adapter.currentList[position]
 
-          showAlertDialogForDeleteChat(item.userId, item.userName)
+          showAlertDialogForDeleteChat(item.userId, item.userName, position)
         }
       }
 
@@ -101,29 +108,26 @@ class ChatListFragment : BaseFragment() {
     }
   }
 
-  private fun removeData(userChatId: String) {
+  private fun removeData(userChatId: String, position: Int) {
     viewModel.deleteSessionByUserChatSession(userChatId)?.addOnSuccessListener {
-      // TODO: Remove data from adapter
+      adapter.notifyItemRemoved(position)
     }?.addOnFailureListener {
-      // TODO: Show error toast
+      viewModel.setErrorMessage(getString(R.string.delete_chat_error_message))
     }
   }
 
   private fun setupListener() {
-    viewModel.getUserChatSessions()?.addValueEventListener(adapterValueEventListener)
+    viewModel.getUserChatSessions()?.addValueEventListener(
+        adapterValueEventListener)
   }
 
-  private fun showAlertDialogForDeleteChat(userChatId: String, userName: String) {
+  private fun showAlertDialogForDeleteChat(userChatId: String, userName: String,
+      position: Int) {
     deleteAlertDialog?.setMessage(resources.getString(
         R.string.delete_chat_alert_dialog_content) + userName)?.setPositiveButton(
         R.string.delete_chat_alert_dialog_delete_button) { dialog, _ ->
-      removeData(userChatId)
+      removeData(userChatId, position)
       dialog.dismiss()
     }?.show()
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = ChatListFragment()
   }
 }

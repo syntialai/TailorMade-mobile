@@ -29,7 +29,6 @@ android {
     }
 
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
 
@@ -46,14 +45,15 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
+    // Router
+    implementation project(":libraries:tailormade_router")
+
     // Features
-    implementation project(":features:tailormade_auth")
+    api project(":features:tailormade_auth")
 
     // Firebase
     implementation firebase.bom
     implementation firebase.database
-    implementation firebase.inappmessaging
-    implementation firebase.messaging
 
     // Tests
     testImplementation test.junit

@@ -14,7 +14,7 @@ import com.future.tailormade.util.extension.setVisibility
 import com.future.tailormade.util.extension.toTimeString
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.Session
-import com.future.tailormade_dls.databinding.LayoutCardChatBinding
+import com.future.tailormade_chat.databinding.LayoutCardChatBinding
 
 class ChatListAdapter :
     ListAdapter<Session, ChatListAdapter.ChatListViewHolder>(diffCallback) {

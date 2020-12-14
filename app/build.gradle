@@ -82,6 +82,7 @@ dependencies {
     // Features
     implementation project(":features:tailormade_auth")
     implementation project(":features:tailormade_profile")
+    implementation project(":features:tailormade_chat")
 
     // Tests
     testImplementation test.junit
