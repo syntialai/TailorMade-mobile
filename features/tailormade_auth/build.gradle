@@ -78,6 +78,10 @@ dependencies {
     kaptTest daggerHilt.kaptTest_compiler
     testImplementation daggerHilt.test
 
+    // Paging
+    api paging.runtime
+    testImplementation paging.test_common
+
     // Room
     kapt room.kapt_compiler
     androidTestImplementation room.androidTest
