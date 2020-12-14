@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="delete_chat_alert_dialog_title">Delete Chat?</string>
+    <string name="delete_chat_alert_dialog_content">You’ll delete all chat history with </string>
+    <string name="delete_chat_alert_dialog_cancel_button">Cancel</string>
+    <string name="delete_chat_alert_dialog_delete_button">Delete</string>
+</resources>

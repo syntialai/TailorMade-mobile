@@ -31,7 +31,7 @@ class SignUpFragment : BaseFragment() {
   override fun getScreenName(): String = "Sign Up"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     setupDatePicker()
 
     binding = FragmentSignUpBinding.inflate(inflater, container, false)

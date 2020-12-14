@@ -1,8 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -35,12 +37,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation core.kotlin
-    implementation core.legacy_support
+
+    // Features
+    implementation project(":features:tailormade_auth")
+
+    // Firebase
+    implementation firebase.bom
+    implementation firebase.database
+    implementation firebase.inappmessaging
+    implementation firebase.messaging
 
     // Tests
     testImplementation test.junit
@@ -49,16 +62,31 @@ dependencies {
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
 
-    // AndroidX
-    implementation androidx.appcompat
-    implementation androidx.core
-    implementation androidx.constraintlayout
-    implementation androidx.fragment
+    // Paging
+    testImplementation paging.test_common
 
-    // MDC
+    // Annotation Processing
+    kapt dataBinding.kapt
+
     implementation materialDesign
 
     // Glide
-    implementation glide.core
     kapt glide.kapt
+
+    // Dagger 2
+    kapt dagger.kapt_processor
+    kapt dagger.kapt_compiler
+
+    // Dagger Hilt
+    implementation daggerHilt.core
+    implementation daggerHilt.lifecycle_viewmodel
+    kapt daggerHilt.kapt_compiler
+    kapt daggerHilt.kapt_google_compiler
+    kaptTest daggerHilt.kaptTest_compiler
+    testImplementation daggerHilt.test
+
+    // Room
+    kapt room.kapt_compiler
+    androidTestImplementation room.androidTest
+    androidTestImplementation room.androidTest_arch_persistence
 }

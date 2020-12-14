@@ -25,7 +25,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
   override fun getScreenName(): String = "Set Location"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentEditProfileSetLocationBinding.inflate(inflater, container,
         false)
 
