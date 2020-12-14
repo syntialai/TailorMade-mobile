@@ -10,4 +10,7 @@
     <string name="cart_delete_alert_dialog_content">%s will be deleted from your cart.</string>
     <string name="cart_delete_alert_dialog_delete_button">Delete</string>
     <string name="cart_delete_alert_dialog_cancel_button">Cancel</string>
+    <string name="edit_measurement_label">Edit measurement</string>
+    <string name="special_instructions_label">Special Instructions</string>
+    <string name="make_order_label">Make order</string>
 </resources>

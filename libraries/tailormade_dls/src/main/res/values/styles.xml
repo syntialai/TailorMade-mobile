@@ -31,6 +31,7 @@
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_height">@dimen/dp_56</item>
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
         <item name="backgroundTint">?colorSurface</item>
     </style>
@@ -326,6 +327,10 @@
 
     <!-- Text Fields -->
     <style name="Theme.TailorMade.TextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputEditText.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxBackgroundColor">?colorSurface</item>
     </style>
 
