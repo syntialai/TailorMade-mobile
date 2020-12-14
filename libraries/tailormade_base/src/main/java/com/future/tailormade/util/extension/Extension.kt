@@ -3,6 +3,7 @@ package com.future.tailormade.util.extension
 import android.os.Build
 import android.util.Patterns
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
@@ -32,9 +33,9 @@ fun <T> Flow<T>.flowOnMain(): Flow<T> = this.flowOn(Dispatchers.Main)
 @ExperimentalCoroutinesApi
 fun <T> Flow<T>.flowWithLoadingDialog(viewModel: BaseViewModel) =
     onStart {
-      viewModel.viewState.value = ViewState.Loading(true)
+        viewModel.viewState.value = ViewState.Loading(true)
     }.onError {
-      viewModel.viewState.value = ViewState.Loading(false)
+        viewModel.viewState.value = ViewState.Loading(false)
     }
 
 @ExperimentalCoroutinesApi
@@ -51,27 +52,43 @@ fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> =
 /**
  * View extension functions
  */
-fun EditText.debounceOnTextChanged(scope: CoroutineScope,
-    listener: (String) -> Unit) {
-  doOnTextChanged { text, _, _, count ->
-    val debounce = CoroutineHelper.debounce(scope = scope,
-        destinationFunction = listener)
-    if (count >= Constants.MIN_QUERY_SEARCH_LENGTH) {
-      debounce.invoke(text.toString())
+fun EditText.debounceOnTextChanged(
+    scope: CoroutineScope,
+    listener: (String) -> Unit
+) {
+    doOnTextChanged { text, _, _, count ->
+        val debounce = CoroutineHelper.debounce(
+            scope = scope,
+            destinationFunction = listener
+        )
+        if (count >= Constants.MIN_QUERY_SEARCH_LENGTH) {
+            debounce.invoke(text.toString())
+        }
     }
-  }
-}
-
-fun View.show() {
-  visibility = View.VISIBLE
 }
 
 fun View.hide() {
-  visibility = View.INVISIBLE
+    visibility = View.INVISIBLE
 }
 
 fun View.remove() {
-  visibility = View.GONE
+    visibility = View.GONE
+}
+
+fun View.show() {
+    visibility = View.VISIBLE
+}
+
+fun ViewGroup.hide() {
+    this.visibility = View.INVISIBLE
+}
+
+fun ViewGroup.remove() {
+    this.visibility = View.GONE
+}
+
+fun ViewGroup.show() {
+    this.visibility = View.VISIBLE
 }
 
 fun View.setVisibility(value: Boolean) {
@@ -90,15 +107,32 @@ fun String.isPhoneNumberValid(): Boolean = Patterns.PHONE.matcher(this).matches(
 fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 /**
- * Date Converter
+ * Date Time Converter
  */
-fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern,
-    Locale.ENGLISH).format(this)
+fun Long.toDateString(pattern: String): String =
+    SimpleDateFormat(pattern, Locale.ENGLISH).format(this)
 
 fun Long.toDate(): Date = Date(this)
 
-fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern,
-    Locale.ENGLISH).format(this)
+fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(
+    pattern,
+    Locale.ENGLISH
+).format(this)
+
+/**
+ * Null handling functions
+ */
+fun <T> List<T>?.orEmptyList(): List<T> = this ?: listOf()
+
+fun Int?.orZero(): Int = this ?: 0
+
+fun Double?.orZero(): Double = this ?: 0.0
+
+fun Long?.orZero(): Long = this ?: 0L
+
+fun Boolean?.orTrue(): Boolean = this ?: true
+
+fun Boolean?.orFalse(): Boolean = this ?: false
 
 /**
  * Collection converter

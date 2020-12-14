@@ -11,7 +11,9 @@
         app:startDestination="@id/action_signUpFragment_to_signInFragment">
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_signUpFragment_to_selectGenderFragment"
             app:destination="@id/selectGenderFragment" />

@@ -14,35 +14,50 @@
 
         <ImageView
             android:id="@+id/image_view_profile"
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_48"
+            android:layout_width="@dimen/dp_56"
+            android:layout_height="@dimen/dp_56"
+            android:background="@drawable/drawable_avatar_background"
+            android:cropToPadding="true"
+            app:layout_constraintBottom_toBottomOf="@id/button_chat_tailor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_view_profile_name"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/text_view_notification_title"
-            style="?attr/textAppearanceBody1"
+            android:id="@+id/text_view_profile_name"
+            style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:text="@string/chat_name_label"
-            android:textColor="@color/color_black_87"
-            app:layout_constraintBottom_toTopOf="@id/text_view_notification_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:text="@string/profile_name_label"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_profile_city"
             app:layout_constraintStart_toEndOf="@id/image_view_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_view_notification_content"
-            style="?attr/textAppearanceCaption"
+            android:id="@+id/text_view_profile_city"
+            style="@style/TextAppearance.TailorMade.Caption.BlackMedium"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:text="@string/chat_content_label"
-            android:textColor="@color/color_black_60"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/profile_city_label"
+            app:layout_constraintBottom_toTopOf="@+id/button_chat_tailor"
+            app:layout_constraintStart_toEndOf="@id/image_view_profile"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_profile_name" />
+
+        <Button
+            android:id="@+id/button_chat_tailor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/chat_now_label"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_view_profile"
-            app:layout_constraintTop_toBottomOf="@id/text_view_notification_title" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_profile_city"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
