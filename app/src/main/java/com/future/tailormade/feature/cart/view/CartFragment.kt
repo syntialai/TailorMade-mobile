@@ -85,11 +85,7 @@ class CartFragment : BaseFragment() {
 	}
 
 	private fun hideState() {
-		with(binding) {
-			imageViewCartState.remove()
-			textViewCartTitleState.remove()
-			textViewCartDescriptionState.remove()
-		}
+		binding.layoutCartEmptyState.root.remove()
 	}
 
 	private fun setupRecyclerView() {
