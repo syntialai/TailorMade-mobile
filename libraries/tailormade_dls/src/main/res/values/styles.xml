@@ -334,6 +334,11 @@
         <item name="boxBackgroundColor">?colorSurface</item>
     </style>
 
+    <style name="Theme.TailorMade.TextInputEditText.Outlined.Rounded" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_16</item>
+    </style>
+
     <style name="Theme.TailorMade.TextInputEditText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?colorSurface</item>
     </style>
