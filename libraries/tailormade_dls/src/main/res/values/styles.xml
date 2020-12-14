@@ -4,7 +4,7 @@
     <!-- Bottom Navigation Style -->
     <style name="Theme.TailorMade.BottomNavigation" parent="Widget.Design.BottomNavigationView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="android:minHeight">@dimen/dp_56</item>
         <item name="android:layout_margin">@dimen/dp_16</item>
         <item name="android:background">@drawable/drawable_bottom_nav_background</item>
         <item name="labelVisibilityMode">unlabeled</item>
@@ -12,20 +12,20 @@
 
     <!-- Button Style -->
     <style name="Theme.TailorMade.Button.Rounded" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="android:minHeight">@dimen/dp_56</item>
         <item name="android:paddingTop">@dimen/dp_12</item>
         <item name="android:paddingBottom">@dimen/dp_12</item>
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Small.Rounded" parent="Theme.TailorMade.Button.Rounded">
-        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="android:minHeight">@dimen/dp_40</item>
         <item name="android:paddingTop">@dimen/dp_8</item>
         <item name="android:paddingBottom">@dimen/dp_8</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Small.Outlined.Rounded" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="android:minHeight">@dimen/dp_40</item>
         <item name="android:paddingTop">@dimen/dp_8</item>
         <item name="android:paddingBottom">@dimen/dp_8</item>
     </style>
@@ -363,6 +363,10 @@
 
     <style name="Theme.TailorMade.TextInputEditText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
     </style>
 
     <!-- Toolbar -->
