@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.view.BaseSwipeActionCallback
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.UserChatSession
 import com.future.tailormade_chat.databinding.FragmentChatListBinding
@@ -64,6 +65,8 @@ class ChatListFragment : BaseFragment() {
   override fun getLogName(): String = "com.future.tailormade_chat.feature.view.ChatListFragment"
 
   override fun getScreenName(): String = "Chat"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
