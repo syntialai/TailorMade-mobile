@@ -29,7 +29,6 @@ android {
     }
 
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
 
@@ -45,8 +44,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(":libraries:tailormade_base")
-    implementation project(":libraries:tailormade_dls")
+    api project(":libraries:tailormade_base")
 
     // Tests
     testImplementation test.junit
@@ -56,6 +54,7 @@ dependencies {
     androidTestImplementation androidTest.espresso
 
     // Paging
+    api paging.runtime
     testImplementation paging.test_common
 
     // Annotation Processing
@@ -77,10 +76,6 @@ dependencies {
     kapt daggerHilt.kapt_google_compiler
     kaptTest daggerHilt.kaptTest_compiler
     testImplementation daggerHilt.test
-
-    // Paging
-    api paging.runtime
-    testImplementation paging.test_common
 
     // Room
     kapt room.kapt_compiler
