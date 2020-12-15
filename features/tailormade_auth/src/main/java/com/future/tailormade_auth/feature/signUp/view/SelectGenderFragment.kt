@@ -29,7 +29,7 @@ class SelectGenderFragment : BaseFragment() {
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentSelectGenderBinding.inflate(inflater, container, false)
 
     with(binding) {

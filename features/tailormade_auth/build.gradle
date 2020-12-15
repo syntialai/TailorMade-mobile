@@ -44,6 +44,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Library
     api project(":libraries:tailormade_base")
 
     // Tests

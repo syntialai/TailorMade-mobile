@@ -121,10 +121,12 @@ ext {
     timber = "com.jakewharton.timber:timber:${versions.logger}"
 
     firebase = [
-            bom     : "com.google.firebase:firebase-bom:${versions.firebase}",
-            database: "com.google.firebase:firebase-database",
-            storage : "com.google.firebase:firebase-storage",
-            auth    : "com.google.firebase:firebase-auth"
+            bom           : "com.google.firebase:firebase-bom:${versions.firebase}",
+            database      : "com.google.firebase:firebase-database",
+            storage       : "com.google.firebase:firebase-storage",
+            auth          : "com.google.firebase:firebase-auth",
+            inappmessaging: "com.google.firebase:firebase-inappmessaging-display",
+            messaging     : "com.google.firebase:firebase-messaging"
     ]
 
     osm = "org.osmdroid:osmdroid-android:${versions.osm}"

@@ -8,6 +8,10 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.logger.AppLogger
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -52,6 +56,20 @@ abstract class BaseActivity : AppCompatActivity() {
       val inputManager =
         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
       inputManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+  }
+
+  fun launchCoroutineOnMain(block: () -> Unit) {
+    launchCoroutine(Dispatchers.Main, block)
+  }
+
+  fun launchCoroutineOnIO(block: () -> Unit) {
+    launchCoroutine(Dispatchers.IO, block)
+  }
+
+  private fun launchCoroutine(coroutineContext: CoroutineContext, block: () -> Unit) {
+    CoroutineScope(coroutineContext).launch {
+      block()
     }
   }
 

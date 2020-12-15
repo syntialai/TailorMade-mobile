@@ -33,7 +33,7 @@ class EditAboutFragment : BaseFragment() {
 
   @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentEditAboutBinding.inflate(inflater, container, false)
 
     with(binding) {
