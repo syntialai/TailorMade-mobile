@@ -173,6 +173,10 @@
         <item name="android:textColor">@color/color_black_87</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Headline3.BlackHigh.Bold" parent="TextAppearance.TailorMade.Headline3.BlackHigh">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Headline3.BlackMedium" parent="TextAppearance.TailorMade.Headline3">
         <item name="android:textColor">@color/color_black_60</item>
     </style>

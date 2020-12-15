@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/dp_8">
+
+    <ImageView
+        android:id="@+id/image_view_edit_measurement"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text_view_edit_measurement_label"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_4"
+        app:layout_constraintStart_toEndOf="@id/image_view_edit_measurement"
+        app:layout_constraintTop_toTopOf="@id/image_view_edit_measurement"
+        tools:text="@string/edit_measurement_label" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_edit_measurement"
+        style="@style/Theme.TailorMade.TextInputEditText.Outlined.Rounded"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_edit_measurement"
+        app:layout_constraintTop_toBottomOf="@id/text_view_edit_measurement_label">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_edit_measurement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

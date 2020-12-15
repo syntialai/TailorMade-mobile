@@ -13,4 +13,6 @@
     <string name="edit_measurement_label">Edit measurement</string>
     <string name="special_instructions_label">Special Instructions</string>
     <string name="make_order_label">Make order</string>
+    <string name="edit_measurements_label">Edit Measurements</string>
+    <string name="custom_measurement_label">Custom Measurement</string>
 </resources>
