@@ -21,7 +21,8 @@
     <string name="make_order_label">Make order</string>
     <string name="edit_measurements_label">Edit Measurements</string>
     <string name="custom_measurement_label">Custom Measurement</string>
-    
+    <string name="payment_total_label">Payment Total</string>
+
     <string-array name="edit_measurement_type_list">
         <item>Chest</item>
         <item>Waist</item>
