@@ -28,7 +28,6 @@ android {
     }
 
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
 
@@ -92,9 +91,6 @@ dependencies {
     testImplementation test.mockito
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
-
-    // Paging
-    testImplementation paging.test_common
 
     // Annotation Processing
     kapt dataBinding.kapt
