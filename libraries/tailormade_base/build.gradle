@@ -28,11 +28,6 @@ android {
         }
     }
 
-    buildFeatures {
-        dataBinding true
-        viewBinding true
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -72,10 +67,10 @@ dependencies {
     api androidx.lifecycle_livedata
     api androidx.lifecycle_viewmodel_savedstate
     api androidx.fragment
-
-    // Paging
-    api paging.runtime
-    testImplementation paging.test_common
+    api androidx.recyclerview
+    api androidx.recyclerview_selection
+    api androidx.preferences
+    api androidx.swipe_refresh_layout
 
     // Annotation Processing
     kapt dataBinding.kapt

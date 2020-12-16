@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.entity.Education
@@ -24,6 +25,8 @@ class ProfileAboutFragment : BaseFragment() {
   private lateinit var binding: FragmentProfileAboutBinding
 
   override fun getLogName() = "com.future.tailormade_profile.feature.profile.view.ProfileAboutFragment"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
