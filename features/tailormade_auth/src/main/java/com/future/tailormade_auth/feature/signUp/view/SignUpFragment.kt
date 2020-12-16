@@ -19,6 +19,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpFragment : BaseFragment() {
 
+  companion object {
+
+    fun newInstance() = SignUpFragment()
+  }
+
   private val viewModel: SignUpViewModel by viewModels()
 
   private lateinit var binding: FragmentSignUpBinding
@@ -31,7 +36,7 @@ class SignUpFragment : BaseFragment() {
   override fun getScreenName(): String = "Sign Up"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     setupDatePicker()
 
     binding = FragmentSignUpBinding.inflate(inflater, container, false)
@@ -52,8 +57,7 @@ class SignUpFragment : BaseFragment() {
       }
 
       buttonGoToSignIn.setOnClickListener {
-        findNavController().navigate(
-            SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
+        findNavController().navigateUp()
       }
     }
 
@@ -127,10 +131,5 @@ class SignUpFragment : BaseFragment() {
     } else {
       setFormErrorMessage()
     }
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = SignUpFragment()
   }
 }

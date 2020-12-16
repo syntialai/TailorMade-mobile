@@ -13,6 +13,7 @@
     <string name="notification_type_label">Notification Type</string>
     <string name="notification_time_label">Notification time</string>
     <string name="notification_title_label">Notification title</string>
+    <string name="notification_content_label">Notification content</string>
     <string name="chat_content_send_time_label">Chat sent time</string>
     <string name="chat_content_reply_time_label">Chat reply time</string>
     <string name="order_title_label">Order title</string>
@@ -45,6 +46,12 @@
     <string name="order_menu_label">Order</string>
     <string name="cart_menu_label">Cart</string>
     <string name="profile_menu_label">Profile</string>
+    <string name="profile_name_label">Profile name</string>
+    <string name="profile_location_label">Profile Location</string>
+    <string name="profile_city_label">City</string>
+    <string name="chat_now_label">Chat now</string>
+    <string name="edit_profile_label">Edit Profile</string>
+
     <string name="size_chest_label">Chest</string>
     <string name="size_waist_label">Waist</string>
     <string name="size_hips_label">Hips</string>
