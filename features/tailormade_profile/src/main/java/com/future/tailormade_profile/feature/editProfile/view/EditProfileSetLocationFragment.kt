@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_profile.databinding.FragmentEditProfileSetLocationBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,7 +14,8 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
-@AndroidEntryPoint class EditProfileSetLocationFragment : BaseFragment() {
+@AndroidEntryPoint
+class EditProfileSetLocationFragment : BaseFragment() {
 
   private val viewModel: EditProfileViewModel by viewModels()
 
@@ -24,8 +26,10 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
   override fun getScreenName(): String = "Set Location"
 
+  override fun getViewModel(): BaseViewModel = viewModel
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentEditProfileSetLocationBinding.inflate(inflater, container,
         false)
 

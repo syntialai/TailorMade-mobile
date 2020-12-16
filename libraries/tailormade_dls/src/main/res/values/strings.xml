@@ -47,6 +47,7 @@
     <string name="cart_menu_label">Cart</string>
     <string name="profile_menu_label">Profile</string>
     <string name="profile_name_label">Profile name</string>
+    <string name="profile_location_label">Profile Location</string>
     <string name="profile_city_label">City</string>
     <string name="chat_now_label">Chat now</string>
     <string name="edit_profile_label">Edit Profile</string>

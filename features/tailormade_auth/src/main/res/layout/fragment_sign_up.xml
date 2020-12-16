@@ -119,15 +119,15 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/button_submit_form"
-        style="@style/Theme.TailorMade.Button.Rounded"
-        android:layout_width="@dimen/dp_0"
-        android:layout_marginTop="@dimen/dp_40"
-        android:text="@string/next_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_confirm_password_sign_up" />
+        <Button
+            android:id="@+id/button_submit_form"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            android:text="@string/next_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_confirm_password_sign_up" />
 
     <TextView
         android:id="@+id/text_go_to_sign_in_label"

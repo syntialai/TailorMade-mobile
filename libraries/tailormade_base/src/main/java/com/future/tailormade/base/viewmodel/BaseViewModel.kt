@@ -1,16 +1,16 @@
 package com.future.tailormade.base.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.util.logger.AppLogger
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -48,8 +48,12 @@ abstract class BaseViewModel : ViewModel() {
     page.inc()
   }
 
+    fun setErrorMessage(message: String) {
+        _errorMessage.value = message
+    }
+
   fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-    return launchOnViewModelScope(block, Dispatchers.Main)
+      return launchOnViewModelScope(block, Dispatchers.Main)
   }
 
   fun <T> launchOnIOViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {

@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <font-family xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <font
-        app:fontStyle="normal"
-        app:fontWeight="200"
-        app:font="@font/lato_thin"
-        android:fontStyle="normal"
-        android:fontWeight="200"
-        android:font="@font/lato_thin" />
 
     <font
         app:fontStyle="normal"
         app:fontWeight="400"
-        app:font="@font/lato_light"
-        android:fontStyle="normal"
-        android:fontWeight="400"
-        android:font="@font/lato_light" />
-
-    <font
-        app:fontStyle="normal"
-        app:fontWeight="500"
         app:font="@font/lato_regular"
         android:fontStyle="normal"
-        android:fontWeight="500"
+        android:fontWeight="400"
         android:font="@font/lato_regular" />
 
     <font
