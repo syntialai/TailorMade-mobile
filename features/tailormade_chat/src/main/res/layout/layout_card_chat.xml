@@ -55,6 +55,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
+            android:id="@+id/layout_badge"
             layout="@layout/layout_badge"
             android:layout_width="8dp"
             android:layout_height="8dp"
