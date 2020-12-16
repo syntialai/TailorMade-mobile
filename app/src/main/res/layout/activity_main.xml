@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".feature.main.view.MainActivity">
 
+    <!-- TODO: Configure in main feature -->
     <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
     <!--            android:id="@+id/bottom_nav_main"-->
     <!--            style="@style/Theme.TailorMade.BottomNavigation"-->
