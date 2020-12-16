@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
+import java.util.Currency
 import java.util.Date
 import java.util.Locale
 
@@ -132,6 +133,8 @@ fun Double.toIndonesiaCurrencyFormat() = NumberFormat.getCurrencyInstance().appl
  * Null handling functions
  */
 fun <T> List<T>?.orEmptyList(): List<T> = this ?: listOf()
+
+fun <T> MutableList<T>?.orEmptyMutableList(): MutableList<T> = this ?: mutableListOf()
 
 fun Int?.orZero(): Int = this ?: 0
 
