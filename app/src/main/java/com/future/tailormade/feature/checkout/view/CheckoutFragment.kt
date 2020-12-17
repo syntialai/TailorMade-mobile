@@ -34,7 +34,7 @@ class CheckoutFragment : BaseFragment() {
 
 	override fun getViewModel(): BaseViewModel = viewModel
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+	@ExperimentalCoroutinesApi override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 			savedInstanceState: Bundle?): View {
 		binding = FragmentCheckoutBinding.inflate(inflater, container, false)
 		hideUnusedButton()
@@ -46,7 +46,9 @@ class CheckoutFragment : BaseFragment() {
 						viewModel::setCheckoutMeasurementDetail).show(parentFragmentManager, getLogName())
 			}
 			buttonCheckoutMakeOrder.setOnClickListener {
-				// TODO: Call view model to checkout and go to thanks page
+				viewModel.id.value?.let { id ->
+					viewModel.checkoutItem(id)
+				}
 			}
 		}
 		return binding.root
@@ -62,6 +64,9 @@ class CheckoutFragment : BaseFragment() {
 		viewModel.cartUiModel.observe(viewLifecycleOwner, {
 			setupDesignDetailData(it.design)
 			setupPaymentData(it)
+		})
+		viewModel.historyId.observe(viewLifecycleOwner, {
+			// TODO: Go to thanks for order fragment
 		})
 	}
 

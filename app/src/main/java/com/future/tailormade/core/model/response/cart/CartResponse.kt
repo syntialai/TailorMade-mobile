@@ -19,5 +19,8 @@ data class CartResponse(
 		val userId: String,
 
 		@Expose
+		val tailorName: String? = null,
+
+		@Expose
 		val userName: String? = null,
 )

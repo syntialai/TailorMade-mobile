@@ -36,10 +36,19 @@ class ThanksForOrderFragment : BaseFragment() {
 
 		hideUnusedButton()
 		binding.buttonThankYouGoToHistory.setOnClickListener {
-			// TODO: Go to history
+			// TODO: Go to history and pass history Id from view model
 		}
 
 		return binding.root
+	}
+
+	override fun setupFragmentObserver() {
+		super.setupFragmentObserver()
+
+		viewModel.cartUiModel.observe(viewLifecycleOwner, {
+			setupPaymentData(it)
+			setupDesignDetailData(it.design)
+		})
 	}
 
 	private fun hideUnusedButton() {
