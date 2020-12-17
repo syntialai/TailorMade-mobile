@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
 import com.future.tailormade.util.view.DialogHelper
 import com.future.tailormade.util.view.ToastHelper
@@ -20,7 +21,7 @@ abstract class BaseFragment : Fragment() {
 
   protected var appLogger = AppLogger.create(this.getLogName())
 
-  protected abstract fun getViewModel(): BaseViewModel
+  protected abstract fun getViewModel(): BaseViewModel?
 
   protected open var loadingDialog: Dialog? = null
 
@@ -81,7 +82,7 @@ abstract class BaseFragment : Fragment() {
   }
 
   open fun setupFragmentObserver() {
-    getViewModel().viewState.observe(viewLifecycleOwner, { state ->
+    getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
       when (state) {
         is ViewState.Loading -> onLoading(state.isLoading)
         is ViewState.Unauthorized -> onUnauthorized()
@@ -89,7 +90,7 @@ abstract class BaseFragment : Fragment() {
       }
     })
 
-    getViewModel().errorMessage.observe(viewLifecycleOwner, { error ->
+    getViewModel()?.errorMessage?.observe(viewLifecycleOwner, { error ->
       hideKeyboard()
       if (error != null && context != null && view != null) {
         ToastHelper.showErrorToast(requireContext(), requireView(), error)
@@ -115,7 +116,7 @@ abstract class BaseFragment : Fragment() {
 
   open fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
     val layoutManager: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-    return getViewModel().isStillLoading().not() &&
+    return getViewModel()?.isStillLoading()?.not().orFalse() &&
            layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition
   }
 

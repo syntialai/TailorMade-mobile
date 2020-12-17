@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchTailorResultFragment : BaseFragment() {
 
   companion object {
-
     fun newInstance() = SearchTailorResultFragment()
   }
 
@@ -36,7 +35,7 @@ class SearchTailorResultFragment : BaseFragment() {
   override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentSearchTailorResultBinding.inflate(inflater, container,
         false)
 

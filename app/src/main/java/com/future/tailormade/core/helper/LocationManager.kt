@@ -1,9 +1,7 @@
 package com.future.tailormade.core.helper
 
 import android.Manifest
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.MainThread
@@ -16,7 +14,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import java.util.concurrent.TimeUnit
 
-class MyLocationManager private constructor(private val context: Context) {
+class LocationManager private constructor(private val context: Context) {
 
   private val _receivingLocationUpdates = MutableLiveData(false)
   val receivingLocationUpdates: LiveData<Boolean>
@@ -32,6 +30,7 @@ class MyLocationManager private constructor(private val context: Context) {
     priority = LocationRequest.PRIORITY_HIGH_ACCURACY
   }
 
+  // TODO: Add this pending intent
 //  private val locationUpdatePendingIntent: PendingIntent by lazy {
 //    val intent = Intent(context, LocationUpdatesBroadcastReceiver::class.java)
 //    intent.action = LocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES
@@ -45,6 +44,7 @@ class MyLocationManager private constructor(private val context: Context) {
 
     try {
       _receivingLocationUpdates.value = true
+      // TODO: Implement this after pendingIntent
 //      fusedLocationClient.requestLocationUpdates(locationRequest,
 //          locationUpdatePendingIntent)
     } catch (permissionRevoked: SecurityException) {
@@ -56,6 +56,7 @@ class MyLocationManager private constructor(private val context: Context) {
   @MainThread
   fun stopLocationUpdates() {
     _receivingLocationUpdates.value = false
+    // TODO: Implement this after pendingIntent
 //    fusedLocationClient.removeLocationUpdates(locationUpdatePendingIntent)
   }
 
@@ -66,11 +67,11 @@ class MyLocationManager private constructor(private val context: Context) {
   }
 
   companion object {
-    @Volatile private var INSTANCE: MyLocationManager? = null
+    @Volatile private var INSTANCE: LocationManager? = null
 
-    fun getInstance(context: Context): MyLocationManager {
+    fun getInstance(context: Context): LocationManager {
       return INSTANCE ?: synchronized(this) {
-        INSTANCE ?: MyLocationManager(context).also { INSTANCE = it }
+        INSTANCE ?: LocationManager(context).also { INSTANCE = it }
       }
     }
   }

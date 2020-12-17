@@ -51,7 +51,7 @@ class DashboardAdapter :
         (data.location?.city.orEmpty() + data.location?.country?.let {
           (", $it")
         }.orEmpty()).also {
-          layoutCardTailor.textViewProfileLocation.text = it
+          layoutCardTailor.textViewProfileCity.text = it
         }
 
         data.image?.let {

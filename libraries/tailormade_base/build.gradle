@@ -72,10 +72,6 @@ dependencies {
     api androidx.preferences
     api androidx.swipe_refresh_layout
 
-    // Paging
-    api paging.runtime
-    testImplementation paging.test_common
-
     // Annotation Processing
     kapt dataBinding.kapt
 

@@ -67,11 +67,7 @@ class DashboardFragment : BaseFragment() {
   }
 
   private fun hideState() {
-    with(binding) {
-      imageViewDashboardState.remove()
-      textViewDashboardTitleState.remove()
-      textViewDashboardDescriptionState.remove()
-    }
+    binding.layoutDashboardState.root.remove()
   }
 
   private fun showRecyclerView() {
@@ -79,11 +75,7 @@ class DashboardFragment : BaseFragment() {
   }
 
   private fun showState() {
-    with(binding) {
-      imageViewDashboardState.show()
-      textViewDashboardTitleState.show()
-      textViewDashboardDescriptionState.show()
-    }
+    binding.layoutDashboardState.root.show()
   }
 
   @ExperimentalCoroutinesApi

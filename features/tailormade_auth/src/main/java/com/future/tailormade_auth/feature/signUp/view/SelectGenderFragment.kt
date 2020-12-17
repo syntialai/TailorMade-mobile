@@ -9,6 +9,7 @@ import androidx.core.view.forEach
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSelectGenderBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
@@ -19,12 +20,18 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class SelectGenderFragment : BaseFragment() {
 
+  companion object {
+    fun newInstance() = SelectGenderFragment()
+  }
+
   private val viewModel: SignUpViewModel by viewModels()
 
   private lateinit var binding: FragmentSelectGenderBinding
 
   override fun getLogName(): String =
       "com.future.tailormade_auth.feature.signUp.view.SelectGenderFragment"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
@@ -61,10 +68,5 @@ class SelectGenderFragment : BaseFragment() {
     viewModel.signUp()
     findNavController().navigate(
         SelectGenderFragmentDirections.actionSelectGenderFragmentToSelectRoleFragment())
-  }
-
-  companion object {
-
-    fun newInstance() = SelectGenderFragment()
   }
 }

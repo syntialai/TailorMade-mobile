@@ -28,7 +28,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ChatListFragment : BaseFragment() {
 
   companion object {
-
     fun newInstance() = ChatListFragment()
   }
 

@@ -50,7 +50,7 @@ abstract class BaseSwipeActionCallback(private val backgroundColor: Int,
     val deleteIconRight = itemView.right - deleteIconMargin
     val deleteIconBottom = deleteIconTop + _intrinsicHeight
 
-    actionDrawable?.apply {
+    actionDrawable.apply {
       setBounds(deleteIconLeft, deleteIconTop, deleteIconRight,
           deleteIconBottom)
       draw(canvas)
