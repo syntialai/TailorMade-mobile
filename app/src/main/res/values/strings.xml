@@ -22,6 +22,11 @@
     <string name="edit_measurements_label">Edit Measurements</string>
     <string name="custom_measurement_label">Custom Measurement</string>
     <string name="payment_total_label">Payment Total</string>
+    <string name="thank_you_for_order_label">Thank you for order!</string>
+    <string name="thank_you_for_order_content_label">"Your order has been confirmed and will be processed by the tailor soon. "</string>
+    <string name="total_discount_got_label">Total discount you got</string>
+    <string name="show_order_history_label">Show order history</string>
+    <string name="design_you_ordered_label">Design you ordered</string>
 
     <string-array name="edit_measurement_type_list">
         <item>Chest</item>
