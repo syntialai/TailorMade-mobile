@@ -4,4 +4,6 @@
     <string name="dashboard_title_state">Hello!</string>
     <string name="dashboard_description_state">Tailors near you will be shown here</string>
     <string name="preview_label">Preview</string>
+    <string name="order_id_label">Order ID</string>
+    <string name="order_date_label">Order date</string>
 </resources>
