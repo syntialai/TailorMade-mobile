@@ -28,6 +28,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
 
 	companion object {
 		private const val CART_RESPONSE = "CART_RESPONSE"
+		private const val ID = "ID"
 	}
 
 	override fun getLogName() = "com.future.tailormade.feature.checkout.viewModel.CheckoutViewModel"
@@ -47,6 +48,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
 		get() = _measurementValues
 
 	init {
+		_id = savedStateHandle.getLiveData(ID, "")
 		_cartResponse = savedStateHandle.getLiveData(CART_RESPONSE)
 	}
 
@@ -74,6 +76,10 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
 
 	fun setCheckoutMeasurementDetail(values: List<String>) {
 		_measurementValues.value = values.toMutableList()
+	}
+
+	fun setId(id: String) {
+		_id.value = id
 	}
 
 	private fun getTotal(price: Double, quantity: Int) = (price * quantity).toIndonesiaCurrencyFormat()

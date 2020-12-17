@@ -30,6 +30,8 @@ class CheckoutFragment : BaseFragment() {
 
 	override fun getLogName() = "com.future.tailormade.feature.checkout.view.CheckoutFragment"
 
+	override fun getScreenName(): String = "Checkout"
+
 	override fun getViewModel(): BaseViewModel = viewModel
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -26,6 +26,8 @@ class ThanksForOrderFragment : BaseFragment() {
 
 	override fun getLogName(): String = "com.future.tailormade.feature.checkout.view.ThanksForOrderFragment"
 
+	override fun getScreenName(): String = "Thank you!"
+
 	override fun getViewModel(): BaseViewModel = viewModel
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

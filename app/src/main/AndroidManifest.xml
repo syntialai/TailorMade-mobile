@@ -20,7 +20,13 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
 
-        <activity android:name=".feature.checkout.view.CheckoutActivity"></activity>
+        <activity android:name=".feature.checkout.view.CheckoutActivity">
+            <intent-filter>
+                <action android:name="com.future.tailormade.checkout.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".feature.main.view.MainActivity">
             <intent-filter>
