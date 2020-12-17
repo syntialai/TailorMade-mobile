@@ -112,11 +112,12 @@
 
         <include
             layout="@layout/layout_order_total"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginHorizontal="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_12"
             app:layout_constraintBottom_toTopOf="@id/button_order_again_ordered"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_view_ordered"
             app:layout_constraintTop_toBottomOf="@id/text_view_ordered_price" />
 
@@ -124,8 +125,7 @@
             android:id="@+id/button_order_again_ordered"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_16"
             android:text="@string/order_again_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

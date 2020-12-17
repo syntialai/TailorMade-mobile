@@ -2,14 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.future.tailormade">
-
     <!-- Internet access permission -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- Location access permission -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
     <application
         android:name=".TailorMadeApplication"
         android:allowBackup="true"
@@ -19,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
-
+        <activity android:name=".feature.history.view.HistoryActivity"></activity>
         <activity android:name=".feature.main.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+    </application> <!-- Location access permission -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
-    </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
