@@ -1,7 +1,6 @@
 package com.future.tailormade.feature.history.view
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.config.Constants
 import com.future.tailormade.databinding.FragmentHistoryBinding
 import com.future.tailormade.feature.history.adapter.HistoryCardItemAdapter
 import com.future.tailormade.feature.history.viewModel.HistoryViewModel
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +50,17 @@ class HistoryFragment : BaseFragment() {
 	override fun setupFragmentObserver() {
 		super.setupFragmentObserver()
 
-		// TODO: observe here
+		viewModel.orders.observe(viewLifecycleOwner, {
+			historyAdapter.submitList(it)
+			if (it.isNotEmpty()) {
+				hideState()
+				showRecyclerView()
+			} else {
+				hideRecyclerView()
+				showState()
+			}
+			binding.swipeRefreshLayoutHistory.isRefreshing = false
+		})
 	}
 
 	private fun hideRecyclerView() {
@@ -81,23 +90,21 @@ class HistoryFragment : BaseFragment() {
 				override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 					super.onScrolled(recyclerView, dx, dy)
 
-					// TODO: Uncomment after viewmodel set
-					//					if (isLastItemViewed(recyclerView, viewModel.tailors.value?.size.orZero())) {
-					//						viewModel.fetchMore()
-					//					}
+					if (isLastItemViewed(recyclerView, viewModel.orders.value?.size.orZero())) {
+						viewModel.fetchMore()
+					}
 				}
 			})
 		}
 	}
 
+	@ExperimentalCoroutinesApi
 	private fun setupSwipeRefreshLayout() {
 		binding.swipeRefreshLayoutHistory.setOnRefreshListener {
-			// TODO: call view model to fetch data
-			Handler().postDelayed({
-				if (binding.swipeRefreshLayoutHistory.isRefreshing) {
-					binding.swipeRefreshLayoutHistory.isRefreshing = false
-				}
-			}, Constants.REFRESH_DELAY_TIME)
+			viewModel.refreshFetch()
+			if (binding.swipeRefreshLayoutHistory.isRefreshing.not()) {
+				binding.swipeRefreshLayoutHistory.isRefreshing = true
+			}
 		}
 	}
 }

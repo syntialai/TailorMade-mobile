@@ -41,4 +41,7 @@ object Constants {
     const val DD_MMMM_YYYY = "dd MMMM yyyy"
     const val DD_MMM_YY = "dd MMM yyyy"
     const val HH_MM = "hh:mm"
+
+    fun generateFailedFetchError(
+        objectToFetch: String) ="$FAILED_TO fetch $objectToFetch data. Please try again."
 }

@@ -56,8 +56,14 @@ class DashboardFragment : BaseFragment() {
 
     viewModel.tailors.observe(viewLifecycleOwner, {
       dashboardAdapter.submitList(it)
-      hideState()
-      showRecyclerView()
+      if (it.isNotEmpty()) {
+        hideState()
+        showRecyclerView()
+      } else {
+        hideRecyclerView()
+        showState()
+      }
+      binding.swipeRefreshLayoutDashboard.isRefreshing = false
     })
   }
 
@@ -96,14 +102,13 @@ class DashboardFragment : BaseFragment() {
     }
   }
 
+  @ExperimentalCoroutinesApi
   private fun setupSwipeRefreshLayout() {
     binding.swipeRefreshLayoutDashboard.setOnRefreshListener {
-      // TODO: call view model to fetch data
-      Handler().postDelayed({
-        if (binding.swipeRefreshLayoutDashboard.isRefreshing) {
-          binding.swipeRefreshLayoutDashboard.isRefreshing = false
-        }
-      }, Constants.REFRESH_DELAY_TIME)
+      viewModel.refreshFetch()
+      if (binding.swipeRefreshLayoutDashboard.isRefreshing.not()) {
+        binding.swipeRefreshLayoutDashboard.isRefreshing = true
+      }
     }
   }
 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface OrderRepository {
 
-	suspend fun getOrders(userId: String): Flow<BaseListResponse<OrderResponse>>
+	suspend fun getOrders(userId: String, page: Int, itemPerPage: Int): Flow<BaseListResponse<OrderResponse>>
 
 	suspend fun getOrderDetail(
 			userId: String, id: String): Flow<BaseSingleObjectResponse<OrderDetailResponse>>
