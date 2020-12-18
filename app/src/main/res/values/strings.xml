@@ -9,4 +9,8 @@
 
     <string name="history_title_state">No History</string>
     <string name="history_description_state">Your order history will be appeared here.</string>
+    <string name="ordered_by_label">Ordered by</string>
+    <string name="payment_information_label">Payment Information</string>
+    <string name="measurement_details_label">Measurement Details</string>
+    <string name="special_instructions_label">Special Instructions</string>
 </resources>
