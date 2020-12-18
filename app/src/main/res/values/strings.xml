@@ -2,8 +2,11 @@
     <string name="app_name">TailorMade</string>
     <string name="title_dls">Design Language System for TailorMade</string>
     <string name="dashboard_title_state">Hello!</string>
-    <string name="dashboard_description_state">Tailors near you will be shown here</string>
+    <string name="dashboard_description_state">Tailors near you will be shown here.</string>
     <string name="preview_label">Preview</string>
     <string name="order_id_label">Order ID</string>
     <string name="order_date_label">Order date</string>
+
+    <string name="history_title_state">No History</string>
+    <string name="history_description_state">Your order history will be appeared here.</string>
 </resources>

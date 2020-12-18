@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.databinding.FragmentDashboardBinding
 import com.future.tailormade.feature.dashboard.adapter.DashboardAdapter
 import com.future.tailormade.feature.dashboard.viewModel.DashboardViewModel
@@ -23,8 +24,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class DashboardFragment : BaseFragment() {
 
   companion object {
-    private const val REFRESH_DELAY_TIME = 1000L
-
     fun newInstance() = DashboardFragment()
   }
 
@@ -81,7 +80,7 @@ class DashboardFragment : BaseFragment() {
   @ExperimentalCoroutinesApi
   private fun setupRecyclerView() {
     with(binding.recyclerViewTailorList) {
-      layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+      layoutManager = LinearLayoutManager(context)
       adapter = dashboardAdapter
 
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -104,7 +103,7 @@ class DashboardFragment : BaseFragment() {
         if (binding.swipeRefreshLayoutDashboard.isRefreshing) {
           binding.swipeRefreshLayoutDashboard.isRefreshing = false
         }
-      }, REFRESH_DELAY_TIME)
+      }, Constants.REFRESH_DELAY_TIME)
     }
   }
 }
