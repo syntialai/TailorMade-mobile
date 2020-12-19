@@ -13,6 +13,7 @@ object Action {
     private const val ACTION_OPEN_SETTINGS = "com.future.tailormade.settings.open"
     private const val ACTION_OPEN_SEARCH = "com.future.tailormade.search.open"
     private const val ACTION_OPEN_CHAT_ROOM = "com.future.tailormade.chatRoom.open"
+    private const val ACTION_OPEN_HISTORY = "com.future.tailormade.history.open"
 
     /**
      * Param name
@@ -33,6 +34,8 @@ object Action {
     fun goToChatRoom(context: Context, chatRoomId: String) = getIntent(context, ACTION_OPEN_CHAT_ROOM).apply {
         putExtra(PARAM_CHAT_ROOM_ID, chatRoomId)
     }
+
+    fun goToHistory(context: Context) = getIntent(context, ACTION_OPEN_HISTORY)
 
     private fun getIntent(context: Context, action: String) =
         Intent(action).setPackage(context.packageName)
