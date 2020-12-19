@@ -36,7 +36,16 @@ class HistoryDetailFragment : BaseFragment() {
 	override fun setupFragmentObserver() {
 		super.setupFragmentObserver()
 
-		// TODO: Observe data
+		viewModel.orderDetailUiModel.observe(viewLifecycleOwner, { orderDetail ->
+			setupOrderInfoData(orderDetail.id, orderDetail.orderedBy, orderDetail.orderDate)
+			setupPaymentData(orderDetail.quantity, orderDetail.totalPrice, orderDetail.totalDiscount,
+					orderDetail.paymentTotal)
+			setupDesignDetailData()
+			setupMeasurementDetailData()
+			orderDetail.specialInstructions?.let {
+				showSpecialInstruction(it)
+			}
+		})
 	}
 
 	private fun setupDesignDetailData() {
