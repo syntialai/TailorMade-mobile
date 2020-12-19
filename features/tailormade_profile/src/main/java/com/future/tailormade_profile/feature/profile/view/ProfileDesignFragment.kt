@@ -15,6 +15,7 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentProfileDesignBinding
+import com.future.tailormade_profile.feature.profile.adapter.ProfileDesignAdapter
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileDesignViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,6 +29,9 @@ class ProfileDesignFragment : BaseFragment() {
 	private lateinit var binding: FragmentProfileDesignBinding
 
 	private val viewModel: ProfileDesignViewModel by viewModels()
+	private val profileDesignAdapter by lazy {
+		ProfileDesignAdapter(::goToDesignDetailPage)
+	}
 
 	override fun getLogName() =
 			"com.future.tailormade_profile.feature.profile.view.ProfileDesignFragment"
@@ -41,10 +45,14 @@ class ProfileDesignFragment : BaseFragment() {
 		return binding.root
 	}
 
+	private fun goToDesignDetailPage(id: String) {
+		// TODO: Go to design detail page
+	}
+
 	private fun setupRecyclerView() {
 		with(binding.recyclerViewProfileDesign) {
 			layoutManager = GridLayoutManager(context, 3)
-//			adapter =
+			adapter = profileDesignAdapter
 			setPadding(resources.getDimensionPixelSize(R.dimen.dp_4))
 			clipToPadding = false
 			clipChildren = false
