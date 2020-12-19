@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
@@ -65,8 +66,11 @@ class CheckoutFragment : BaseFragment() {
 			setupDesignDetailData(it.design)
 			setupPaymentData(it)
 		})
-		viewModel.historyId.observe(viewLifecycleOwner, {
-			// TODO: Go to thanks for order fragment
+		viewModel.historyId.observe(viewLifecycleOwner, { id ->
+			viewModel.cartUiModel.value?.let {
+				findNavController().navigate(
+						CheckoutFragmentDirections.actionCheckoutFragmentToThanksForOrderFragment(id, it))
+			}
 		})
 	}
 

@@ -71,6 +71,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
 					setStartLoading()
 				}.onError {
 					setFinishLoading()
+					setErrorMessage("Failed to checkout item, please try again.")
 				}.collectLatest { response ->
 					response.data?.let {
 						setFinishLoading()
