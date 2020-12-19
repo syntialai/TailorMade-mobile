@@ -14,7 +14,7 @@ import com.future.tailormade.databinding.LayoutHistoryCardItemBinding
 import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade.util.image.ImageLoader
 
-class HistoryCardItemAdapter :
+class HistoryCardItemAdapter(private val onCardClickListener: (String) -> Unit) :
 		ListAdapter<OrderResponse, HistoryCardItemAdapter.HistoryCardItemViewHolder>(diffCallback) {
 
 	companion object {
@@ -48,6 +48,9 @@ class HistoryCardItemAdapter :
 				textViewHistoryDesignOrderedSize.text = data.design.size
 
 				ImageLoader.loadImageUrl(context, data.design.image, imageViewHistoryDesignOrdered)
+				root.setOnClickListener {
+					onCardClickListener.invoke(data.id)
+				}
 			}
 			bindPriceData(data.design)
 			bindLayoutTotalData(data)

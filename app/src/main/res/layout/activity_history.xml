@@ -20,12 +20,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- TODO: add navGraph -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_history_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/dp_16"
-        app:defaultNavHost="true" />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_history_graph" />
 </LinearLayout>

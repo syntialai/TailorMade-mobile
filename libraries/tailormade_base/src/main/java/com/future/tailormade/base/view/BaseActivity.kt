@@ -17,6 +17,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
   open fun getScreenName(): String = "BaseActivity"
 
+  protected var onNavigationIconClicked: (() -> Unit)? = null
+
   protected var toolbar: MaterialToolbar? = null
 
   protected var appLogger = AppLogger.create(this.getScreenName())
@@ -73,11 +75,17 @@ abstract class BaseActivity : AppCompatActivity() {
     }
   }
 
+  fun setupOnNavigationIconClicked(onNavigationIconClicked: () -> Unit) {
+    this.onNavigationIconClicked = onNavigationIconClicked
+  }
+
   fun setupToolbar(title: String) {
-    toolbar?.let {
-      it.title = title
-      it.setNavigationOnClickListener {
-        onBackPressed()
+    toolbar?.let { toolbar ->
+      toolbar.title = title
+      toolbar.setNavigationOnClickListener {
+        onNavigationIconClicked?.invoke() ?: run {
+          onBackPressed()
+        }
       }
     }
   }

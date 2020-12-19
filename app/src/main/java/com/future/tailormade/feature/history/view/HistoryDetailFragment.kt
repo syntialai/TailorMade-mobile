@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentHistoryDetailBinding
 import com.future.tailormade.feature.history.viewModel.HistoryDetailViewModel
 import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class HistoryDetailFragment : BaseFragment() {
@@ -21,11 +24,18 @@ class HistoryDetailFragment : BaseFragment() {
 
 	private lateinit var binding: FragmentHistoryDetailBinding
 
+	private val args: HistoryDetailFragmentArgs by navArgs()
 	private val viewModel: HistoryDetailViewModel by viewModels()
 
 	override fun getLogName() = "com.future.tailormade.feature.history.view.HistoryDetailFragment"
 
+	override fun getScreenName(): String = args.historyDetailId
+
 	override fun getViewModel(): BaseViewModel = viewModel
+
+	override fun onNavigationIconClicked() {
+		findNavController().navigateUp()
+	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 			savedInstanceState: Bundle?): View {
@@ -33,9 +43,11 @@ class HistoryDetailFragment : BaseFragment() {
 		return binding.root
 	}
 
+	@ExperimentalCoroutinesApi
 	override fun setupFragmentObserver() {
 		super.setupFragmentObserver()
 
+		viewModel.fetchHistoryDetails(args.historyDetailId)
 		viewModel.orderDetailUiModel.observe(viewLifecycleOwner, { orderDetail ->
 			setupOrderInfoData(orderDetail.id, orderDetail.orderedBy, orderDetail.orderDate)
 			setupPaymentData(orderDetail.quantity, orderDetail.totalPrice, orderDetail.totalDiscount,

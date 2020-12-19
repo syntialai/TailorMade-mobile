@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
@@ -18,8 +19,7 @@ import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@AndroidEntryPoint
-class HistoryFragment : BaseFragment() {
+@AndroidEntryPoint class HistoryFragment : BaseFragment() {
 
 	companion object {
 		fun newInstance() = HistoryFragment()
@@ -29,7 +29,7 @@ class HistoryFragment : BaseFragment() {
 
 	private val viewModel: HistoryViewModel by viewModels()
 	private val historyAdapter by lazy {
-		HistoryCardItemAdapter()
+		HistoryCardItemAdapter(::goToHistoryDetail)
 	}
 
 	override fun getLogName() = "com.future.tailormade.feature.history.view.HistoryFragment"
@@ -38,8 +38,11 @@ class HistoryFragment : BaseFragment() {
 
 	override fun getViewModel(): BaseViewModel = viewModel
 
-	@ExperimentalCoroutinesApi
-	override fun onCreateView(inflater: LayoutInflater,
+	override fun onNavigationIconClicked() {
+		findNavController().navigateUp()
+	}
+
+	@ExperimentalCoroutinesApi override fun onCreateView(inflater: LayoutInflater,
 			container: ViewGroup?, savedInstanceState: Bundle?): View {
 		binding = FragmentHistoryBinding.inflate(inflater, container, false)
 		setupRecyclerView()
@@ -63,6 +66,11 @@ class HistoryFragment : BaseFragment() {
 		})
 	}
 
+	private fun goToHistoryDetail(id: String) {
+		findNavController().navigate(
+				HistoryFragmentDirections.actionHistoryFragmentToHistoryDetailFragment(id))
+	}
+
 	private fun hideRecyclerView() {
 		binding.recyclerViewHistoryList.remove()
 	}
@@ -79,8 +87,7 @@ class HistoryFragment : BaseFragment() {
 		binding.layoutHistoryState.root.show()
 	}
 
-	@ExperimentalCoroutinesApi
-	private fun setupRecyclerView() {
+	@ExperimentalCoroutinesApi private fun setupRecyclerView() {
 		with(binding.recyclerViewHistoryList) {
 			layoutManager = LinearLayoutManager(context)
 			adapter = historyAdapter
@@ -98,8 +105,7 @@ class HistoryFragment : BaseFragment() {
 		}
 	}
 
-	@ExperimentalCoroutinesApi
-	private fun setupSwipeRefreshLayout() {
+	@ExperimentalCoroutinesApi private fun setupSwipeRefreshLayout() {
 		binding.swipeRefreshLayoutHistory.setOnRefreshListener {
 			viewModel.refreshFetch()
 			if (binding.swipeRefreshLayoutHistory.isRefreshing.not()) {
