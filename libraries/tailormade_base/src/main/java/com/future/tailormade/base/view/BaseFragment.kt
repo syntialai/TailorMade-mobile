@@ -4,10 +4,11 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
 import com.future.tailormade.util.view.DialogHelper
 import com.future.tailormade.util.view.ToastHelper
@@ -20,7 +21,7 @@ abstract class BaseFragment : Fragment() {
 
   protected var appLogger = AppLogger.create(this.getLogName())
 
-  protected open fun getViewModel(): BaseViewModel? = null
+  protected abstract fun getViewModel(): BaseViewModel?
 
   protected open var loadingDialog: Dialog? = null
 
@@ -113,6 +114,12 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
+  open fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
+    val layoutManager: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+    return getViewModel()?.isStillLoading()?.not().orFalse() &&
+           layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition
+  }
+
   fun hideToolbar() {
     activity?.let { activity ->
       (activity as BaseActivity).hideToolbar()
@@ -140,7 +147,7 @@ abstract class BaseFragment : Fragment() {
   fun hideKeyboard() {
     view?.let { view ->
       val inputManager =
-        activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+          activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
       inputManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
   }
