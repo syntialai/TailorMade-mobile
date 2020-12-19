@@ -3,7 +3,6 @@ package com.future.tailormade_profile.core.di.module
 import com.future.tailormade.di.scope.OtherApi
 import com.future.tailormade.di.scope.TailormadeApi
 import com.future.tailormade_profile.core.api.ProfileApiUrl
-import com.future.tailormade_profile.core.di.scope.ProfileScope
 import com.future.tailormade_profile.core.service.NominatimService
 import com.future.tailormade_profile.core.service.ProfileService
 import dagger.Module
@@ -14,7 +13,6 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(ApplicationComponent::class)
-@ProfileScope
 class ProfileModule {
 
   @Provides
