@@ -29,10 +29,8 @@ class SignInFragment : BaseFragment() {
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?): View {
     binding = FragmentSignInBinding.inflate(inflater, container, false)
 
     with(binding) {

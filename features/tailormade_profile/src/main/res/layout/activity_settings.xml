@@ -1,27 +1,25 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_appbar_layout_settings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/top_appbar_layout_settings"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_toolbar_settings"
+            style="@style/Theme.TailorMade.Toolbar.Back"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize" />
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/top_toolbar_settings"
-                style="@style/Theme.TailorMade.Toolbar.Back"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+    <FrameLayout
+        android:id="@+id/fl_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <FrameLayout
-            android:id="@+id/fl_settings"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-</layout>
+</LinearLayout>

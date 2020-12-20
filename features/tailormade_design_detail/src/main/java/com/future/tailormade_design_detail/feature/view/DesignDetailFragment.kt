@@ -72,11 +72,12 @@ class DesignDetailFragment : BaseFragment() {
     super.setupFragmentObserver()
 
     activity?.let { activity ->
-      val id = (activity as DesignDetailActivity).getId()
+      val id = (activity as DesignDetailActivity).designDetailId
       if (id.isNotBlank()) {
         viewModel.fetchDesignDetailData(id)
       }
     }
+
     viewModel.designDetailUiModel.observe(viewLifecycleOwner, {
       setupGeneralInfoLayout(it.title, it.tailorId, it.tailorName, it.image)
       setupGeneralInfoPrice(it.price, it.discount)

@@ -14,7 +14,7 @@ class DesignDetailActivity : BaseActivity() {
 
   private lateinit var binding: ActivityDesignDetailBinding
 
-  private var _designDetailId: String = ""
+  var designDetailId: String = ""
 
   override fun getScreenName(): String = "Design Detail Page"
 
@@ -24,12 +24,6 @@ class DesignDetailActivity : BaseActivity() {
     toolbar = binding.topToolbarDesignDetail
     setContentView(binding.root)
 
-    setDesignDetailId(intent?.getStringExtra(PARAM_DESIGN_DETAIL_ID).orEmpty())
-  }
-
-  fun getId() = _designDetailId
-
-  private fun setDesignDetailId(id: String) {
-    _designDetailId = id
+    designDetailId = intent?.getStringExtra(PARAM_DESIGN_DETAIL_ID).orEmpty()
   }
 }

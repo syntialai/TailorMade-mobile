@@ -34,9 +34,7 @@ class DesignDetailViewModel @ViewModelInject constructor(
     get() = _designDetailUiModel
 
   init {
-    savedStateHandle.get<DesignDetailUiModel>(DESIGN_DETAIL)?.let {
-      _designDetailUiModel.value = it
-    }
+    _designDetailUiModel = savedStateHandle.getLiveData(DESIGN_DETAIL, null)
   }
 
   override fun getLogName() = "com.future.tailormade_design_detail.feature.viewModel.DesignDetailViewModel"
@@ -51,9 +49,8 @@ class DesignDetailViewModel @ViewModelInject constructor(
         setErrorMessage("Failed to get data. Please try again.")
       }.collectLatest { response ->
         response.data?.let { it ->
-          val mappedDesignDetailUiModel = mapToDesignDetailUiModel(it)
-          _designDetailUiModel.value = mappedDesignDetailUiModel
-          savedStateHandle.set(DESIGN_DETAIL, mappedDesignDetailUiModel)
+          _designDetailUiModel.value = mapToDesignDetailUiModel(it)
+          savedStateHandle.set(DESIGN_DETAIL, _designDetailUiModel.value)
         }
         setFinishLoading()
       }
@@ -69,10 +66,10 @@ class DesignDetailViewModel @ViewModelInject constructor(
       category = designDetailResponse.category, color = designDetailResponse.color,
       size = setSize(designDetailResponse.size))
 
-  private fun setDiscount(price: Double, discount: Double) = if (discount == 0.0) {
-    null
-  } else {
+  private fun setDiscount(price: Double, discount: Double) = if (discount > 0.0) {
     (price - discount).toIndonesiaCurrencyFormat()
+  } else {
+    null
   }
 
   private fun setSize(sizes: List<SizeResponse>): MutableList<SizeUiModel> {

@@ -38,7 +38,7 @@ class EditProfileFragment : BaseFragment() {
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     setupDatePicker()
     binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 

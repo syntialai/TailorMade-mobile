@@ -57,6 +57,18 @@
         <item name="android:textColor">@color/color_white</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Caption.BlackHigh" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackMedium" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackMedium2" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Overline.BlackHigh" parent="TextAppearance.TailorMade.Overline">
         <item name="android:textColor">@color/color_white</item>
     </style>

@@ -29,7 +29,7 @@ abstract class BaseViewModel : ViewModel() {
 
 	fun isStillLoading() = _isLoading.value ?: false
 
-	protected fun setErrorMessage(errorMessage: String) {
+	fun setErrorMessage(errorMessage: String) {
 		_errorMessage.value = errorMessage
 	}
 
