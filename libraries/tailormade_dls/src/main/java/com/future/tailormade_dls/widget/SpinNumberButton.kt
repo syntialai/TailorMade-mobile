@@ -9,50 +9,66 @@ import com.future.tailormade_dls.databinding.LayoutSpinButtonNumberBinding
 class SpinNumberButton constructor(context: Context, attrs: AttributeSet) :
     LinearLayout(context, attrs) {
 
-    companion object {
-        const val DEFAULT_VALUE = 1
+  companion object {
+    const val DEFAULT_VALUE = 1
+  }
+
+  private val layoutInflater =
+      context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+  private val binding = LayoutSpinButtonNumberBinding.inflate(layoutInflater, this, true)
+
+  private var spinValue: Int = 0
+  private var addSpinNumberButtonListener: ((Int) -> Unit)? = null
+  private var reduceSpinNumberButtonListener: ((Int) -> Unit)? = null
+
+  init {
+    setValue(DEFAULT_VALUE)
+    disableReduceButton()
+  }
+
+  fun add() {
+    spinValue.inc()
+    setValueText()
+    addSpinNumberButtonListener?.invoke(spinValue)
+  }
+
+  fun reduce() {
+    if (spinValue > 1) {
+      spinValue.dec()
+      setValueText()
+      reduceSpinNumberButtonListener?.invoke(spinValue)
     }
+  }
 
-    private val layoutInflater =
-        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+  fun getValue(): Int = spinValue
 
-    private val binding = LayoutSpinButtonNumberBinding.inflate(layoutInflater, this, true)
+  fun setValue(value: Int) {
+    spinValue = value
+    setValueText()
+  }
 
-    private var spinValue: Int = 0
+  fun setAddSpinNumberButtonListener(listener: (Int) -> Unit) {
+    addSpinNumberButtonListener = listener
+  }
 
-    init {
-        setValue(DEFAULT_VALUE)
-        disableReduceButton()
+  fun setReduceSpinNumberButtonListener(listener: (Int) -> Unit) {
+    reduceSpinNumberButtonListener = listener
+  }
+
+  private fun setValueText() {
+    binding.spinNumberValue.text = spinValue.toString()
+    enableReduceButton()
+  }
+
+  private fun enableReduceButton() {
+    if (spinValue > 1) {
+      binding.spinButtonNumberReduce.isEnabled = true
+    } else {
+      disableReduceButton()
     }
+  }
 
-    fun add() {
-        spinValue++
-        setValueText()
-    }
-
-    fun reduce() {
-        if (spinValue > 1) {
-            spinValue--
-            setValueText()
-        }
-    }
-
-    fun getValue(): Int = spinValue
-
-    fun setValue(value: Int) {
-        spinValue = value
-        setValueText()
-    }
-
-    fun setValueText() {
-        binding.spinNumberValue.text = spinValue.toString()
-    }
-
-    fun enableReduceButton() {
-        binding.spinButtonNumberReduce.isEnabled = true
-    }
-
-    fun disableReduceButton() {
-        binding.spinButtonNumberReduce.isEnabled = false
-    }
+  private fun disableReduceButton() {
+    binding.spinButtonNumberReduce.isEnabled = false
+  }
 }

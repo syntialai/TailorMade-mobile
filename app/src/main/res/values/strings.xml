@@ -4,4 +4,10 @@
     <string name="dashboard_title_state">Hello!</string>
     <string name="dashboard_description_state">Tailors near you will be shown here</string>
     <string name="preview_label">Preview</string>
+    <string name="cart_title_state">Empty cart…</string>
+    <string name="cart_description_state">Let’s add some design to your cart!</string>
+    <string name="cart_delete_alert_dialog_title">Delete this item?</string>
+    <string name="cart_delete_alert_dialog_content">%s will be deleted from your cart.</string>
+    <string name="cart_delete_alert_dialog_delete_button">Delete</string>
+    <string name="cart_delete_alert_dialog_cancel_button">Cancel</string>
 </resources>
