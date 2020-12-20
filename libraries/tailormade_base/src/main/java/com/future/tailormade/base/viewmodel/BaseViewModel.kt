@@ -48,13 +48,13 @@ abstract class BaseViewModel : ViewModel() {
     page.inc()
   }
 
-    fun setErrorMessage(message: String) {
-        _errorMessage.value = message
-    }
+  fun setErrorMessage(message: String) {
+    _errorMessage.value = message
+  }
 
-    fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-        return launchOnViewModelScope(block, Dispatchers.Main)
-    }
+  fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
+    return launchOnViewModelScope(block, Dispatchers.Main)
+  }
 
   fun <T> launchOnIOViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
     return launchOnViewModelScope(block, Dispatchers.IO)
@@ -64,18 +64,18 @@ abstract class BaseViewModel : ViewModel() {
     return launchOnViewModelScope(block, Dispatchers.Default)
   }
 
+  fun launchViewModelScope(block: suspend () -> Unit) {
+    viewModelScope.launch {
+      block()
+    }
+  }
+
   private fun <T> launchOnViewModelScope(
       block: suspend () -> LiveData<T>,
       coroutineContext: CoroutineContext
   ): LiveData<T> {
     return liveData(viewModelScope.coroutineContext + coroutineContext) {
       emitSource(block())
-    }
-  }
-
-  fun launchViewModelScope(block: suspend () -> Unit) {
-    viewModelScope.launch {
-      block()
     }
   }
 }
