@@ -118,8 +118,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_12"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/image_view_order"
-            app:layout_constraintTop_toBottomOf="@id/text_view_order_price" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_order_price"
+            tools:visibility="visible" />
 
         <ImageButton
             android:id="@+id/button_delete_order"
@@ -127,10 +129,12 @@
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:src="@drawable/ic_delete"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/spin_button_number"
             app:layout_constraintStart_toEndOf="@id/spin_button_number"
             app:layout_constraintTop_toTopOf="@id/spin_button_number"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/button_checkout_order"
@@ -138,8 +142,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
             android:text="@string/checkout_order_label"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_delete_order" />
+            app:layout_constraintTop_toBottomOf="@id/button_delete_order"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

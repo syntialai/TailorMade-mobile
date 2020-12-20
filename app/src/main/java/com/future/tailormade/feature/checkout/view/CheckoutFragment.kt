@@ -35,10 +35,10 @@ class CheckoutFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
-  @ExperimentalCoroutinesApi override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+  @ExperimentalCoroutinesApi
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentCheckoutBinding.inflate(inflater, container, false)
-    hideUnusedButton()
 
     with(binding) {
       buttonCheckoutEditMeasurement.setOnClickListener {
@@ -72,14 +72,6 @@ class CheckoutFragment : BaseFragment() {
             CheckoutFragmentDirections.actionCheckoutFragmentToThanksForOrderFragment(id, it))
       }
     })
-  }
-
-  private fun hideUnusedButton() {
-    with(binding.layoutDesignDetail) {
-      spinButtonNumber.remove()
-      buttonDeleteOrder.remove()
-      buttonCheckoutOrder.remove()
-    }
   }
 
   private fun setupDesignDetailData(design: CartDesignUiModel) {

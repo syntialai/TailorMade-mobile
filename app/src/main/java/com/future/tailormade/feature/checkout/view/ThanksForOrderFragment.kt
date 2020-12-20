@@ -38,7 +38,6 @@ class ThanksForOrderFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentThanksForOrderBinding.inflate(inflater, container, false)
 
-    hideUnusedButton()
     binding.buttonThankYouGoToHistory.setOnClickListener {
       // TODO: Go to history and pass history Id from view model
     }
@@ -56,14 +55,6 @@ class ThanksForOrderFragment : BaseFragment() {
       setupPaymentData(it)
       setupDesignDetailData(it.design)
     })
-  }
-
-  private fun hideUnusedButton() {
-    with(binding.layoutDesignDetail) {
-      spinButtonNumber.remove()
-      buttonDeleteOrder.remove()
-      buttonCheckoutOrder.remove()
-    }
   }
 
   private fun setupDesignDetailData(design: CartDesignUiModel) {

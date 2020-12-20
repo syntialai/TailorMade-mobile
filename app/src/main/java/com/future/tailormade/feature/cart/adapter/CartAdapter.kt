@@ -65,6 +65,7 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
     }
 
     private fun bindDesignData(design: CartDesignUiModel) {
+      showCartButton()
       with(binding) {
         textViewOrderTitle.text = design.title
         textViewOrderSize.text = design.size
@@ -79,6 +80,14 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
         }
 
         ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
+      }
+    }
+
+    private fun showCartButton() {
+      with(binding){
+        spinButtonNumber.show()
+        buttonDeleteOrder.show()
+        buttonCheckoutOrder.show()
       }
     }
 
