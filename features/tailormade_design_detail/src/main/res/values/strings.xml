@@ -7,4 +7,7 @@
     <string name="description_label">Description</string>
     <string name="read_more_label">Read more</string>
     <string name="search_label">Search</string>
+    <string name="chat_label">Chat</string>
+    <string name="cart_label">Cart</string>
+    <string name="order_now_label">Order Now</string>
 </resources>

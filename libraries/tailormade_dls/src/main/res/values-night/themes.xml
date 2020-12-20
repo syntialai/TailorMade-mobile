@@ -35,8 +35,7 @@
             @style/TextAppearance.TailorMade.Headline3.Bold
         </item>
         <item name="textAppearanceSubtitle1">
-            @style/TextAppearance.TailorMade.Subtitle1
-        </item>d
+            @style/TextAppearance.TailorMade.Subtitle1</item>d
         <item name="textAppearanceSubtitle2">
             @style/TextAppearance.TailorMade.Subtitle2
         </item>
@@ -68,7 +67,7 @@
         <item name="buttonStyle">@style/Theme.TailorMade.Button.Rounded</item>
         <item name="materialButtonStyle">@style/Theme.TailorMade.Button.Rounded</item>
         <item name="materialButtonOutlinedStyle">@style/Theme.TailorMade.Button.Outlined.Rounded</item>
-        <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
+        <item name="materialCardViewStyle">@style/Theme.TailorMade.Card</item>
         <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
         <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
         <item name="floatingActionButtonStyle">
@@ -79,6 +78,12 @@
             @style/Widget.MaterialComponents.MaterialCalendar
         </item>
         <item name="textInputStyle">@style/Theme.TailorMade.TextInputEditText
+        </item>
+        <item name="autoCompleteTextViewStyle">
+            @style/Theme.TailorMade.TextInputEditText.Dropdown
+        </item>
+        <item name="bottomNavigationStyle">
+            @style/Theme.TailorMade.BottomNavigation
         </item>
     </style>
 </resources>

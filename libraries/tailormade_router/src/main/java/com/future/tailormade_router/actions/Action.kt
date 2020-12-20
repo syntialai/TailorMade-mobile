@@ -18,7 +18,7 @@ object Action {
 	private const val ACTION_OPEN_PROFILE = "com.future.tailormade.editProfile.open"
 	private const val ACTION_OPEN_SETTINGS = "com.future.tailormade.settings.open"
 	private const val ACTION_OPEN_SEARCH = "com.future.tailormade.search.open"
-	private const val ACTION_OPEN_CHAT_ROOM = "com.future.tailormade.chatRoom.open"
+  private const val ACTION_OPEN_CHAT_ROOM = "com.future.tailormade.chatRoom.open"
 	private const val ACTION_OPEN_DESIGN_DETAIL = "com.future.tailormade.designDetail.open"
 
 	/**
