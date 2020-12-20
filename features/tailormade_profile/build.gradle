@@ -49,7 +49,7 @@ dependencies {
     implementation project(":libraries:tailormade_router")
 
     // Features
-    implementation project(":features:tailormade_auth")
+    api project(":features:tailormade_auth")
 
     // OSM
     implementation osm
