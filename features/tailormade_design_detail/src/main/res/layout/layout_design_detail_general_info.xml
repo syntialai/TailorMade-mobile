@@ -24,7 +24,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/text_view_design_detail_name"
+            android:id="@+id/text_view_design_detail_title"
             style="@style/TextAppearance.TailorMade.Headline3.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,6 +101,8 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_4"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="@id/text_view_design_detail_designed_by_label"
         app:layout_constraintStart_toEndOf="@id/text_view_design_detail_designed_by_label"
         app:layout_constraintTop_toTopOf="@id/text_view_design_detail_designed_by_label"

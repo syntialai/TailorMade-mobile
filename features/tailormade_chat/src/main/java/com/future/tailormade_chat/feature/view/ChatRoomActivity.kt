@@ -41,8 +41,7 @@ class ChatRoomActivity : BaseActivity() {
       }
 
       override fun onCancelled(error: DatabaseError) {
-        viewModel.setErrorMessage(
-            getString(R.string.load_chat_data_error_message))
+        viewModel.setErrorMessage(getString(R.string.load_chat_data_error_message))
       }
     }
   }
