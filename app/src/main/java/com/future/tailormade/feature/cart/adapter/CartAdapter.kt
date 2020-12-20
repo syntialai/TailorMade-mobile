@@ -84,17 +84,12 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
     }
 
     private fun showCartButton() {
-      with(binding){
-        spinButtonNumber.show()
-        buttonDeleteOrder.show()
-        buttonCheckoutOrder.show()
-      }
+      binding.groupCartButton.show()
     }
 
     private fun showDiscount() {
       with(binding){
-        textViewOrderAfterDiscount.show()
-        textViewOrderBeforeDiscount.show()
+        groupDiscountTextView.show()
         textViewOrderPrice.remove()
       }
     }

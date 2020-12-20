@@ -13,6 +13,7 @@ import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.databinding.FragmentThanksForOrderBinding
 import com.future.tailormade.feature.checkout.viewModel.ThanksForOrderViewModel
 import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -64,6 +65,7 @@ class ThanksForOrderFragment : BaseFragment() {
       textViewOrderColor.text = design.color
 
       design.discount?.let { discount ->
+        showDiscount()
         textViewOrderBeforeDiscount.text = design.price
         textViewOrderAfterDiscount.text = discount
       } ?: run {
@@ -80,6 +82,13 @@ class ThanksForOrderFragment : BaseFragment() {
     with(binding) {
       textViewThankYouPaymentTotal.text = data.totalPayment
       textViewThankYouTotalDiscount.text = data.totalDiscount
+    }
+  }
+
+  private fun showDiscount() {
+    with(binding.layoutDesignDetail) {
+      groupDiscountTextView.show()
+      textViewOrderPrice.remove()
     }
   }
 }

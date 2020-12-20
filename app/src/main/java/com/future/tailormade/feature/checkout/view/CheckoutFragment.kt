@@ -14,6 +14,7 @@ import com.future.tailormade.databinding.FragmentCheckoutBinding
 import com.future.tailormade.feature.checkout.viewModel.CheckoutViewModel
 import com.future.tailormade.util.extension.orEmptyMutableList
 import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -81,6 +82,7 @@ class CheckoutFragment : BaseFragment() {
       textViewOrderColor.text = design.color
 
       design.discount?.let { discount ->
+        showDiscount()
         textViewOrderBeforeDiscount.text = design.price
         textViewOrderAfterDiscount.text = discount
       } ?: run {
@@ -99,6 +101,13 @@ class CheckoutFragment : BaseFragment() {
       textViewOrderQuantity.text = data.quantity.toString()
       textViewOrderTotalDiscount.text = data.totalDiscount
       textViewOrderTotalPrice.text = data.totalPrice
+    }
+  }
+
+  private fun showDiscount() {
+    with(binding.layoutDesignDetail) {
+      groupDiscountTextView.show()
+      textViewOrderPrice.remove()
     }
   }
 }
