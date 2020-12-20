@@ -21,7 +21,11 @@
         android:layout_marginBottom="@dimen/dp_8"
         android:text="@string/payment_information_label" />
 
-    <!-- TODO: include layout_payment_info -->
+    <include
+        android:id="@+id/layout_payment_info"
+        layout="@layout/layout_payment_detail_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <View
         android:id="@+id/view_history_detail_separator"
@@ -30,7 +34,11 @@
         android:layout_marginVertical="@dimen/dp_24"
         android:background="@color/color_grey_F1F1F1" />
 
-    <!-- TODO: include layout_design_detail -->
+    <include
+        android:id="@+id/layout_design_detail"
+        layout="@layout/layout_cart_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/text_view_history_detail_measurement_detail_title"
@@ -41,7 +49,11 @@
         android:layout_marginBottom="@dimen/dp_8"
         android:text="@string/measurement_details_label" />
 
-    <!-- TODO: include layout_size_information_detail -->
+    <include
+        android:id="@+id/layout_size_information_detail"
+        layout="@layout/layout_size_information_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/text_view_history_detail_special_instructions_title"
