@@ -2,7 +2,7 @@ package com.future.tailormade.core.model.ui.cart
 
 data class CartUiModel(
 
-		var id: String,
+    var id: String,
 
     var design: CartDesignUiModel,
 

@@ -144,10 +144,3 @@ fun Boolean?.orFalse(): Boolean = this ?: false
 @RequiresApi(Build.VERSION_CODES.N)
 fun <T> MutableMap<String, T>.getFirstElement() = this.entries.stream().findFirst().get()
 
-/**
- * Money Converter
- */
-fun Double.toIndonesiaCurrencyFormat() = NumberFormat.getCurrencyInstance().apply {
-  maximumFractionDigits = 0
-  currency = Currency.getInstance(Locale("in", "ID"))
-}.format(this)
