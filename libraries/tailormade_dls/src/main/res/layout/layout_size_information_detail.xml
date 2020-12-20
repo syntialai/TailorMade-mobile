@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/grid_size_information_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/cardBackgroundColor"
+    android:columnCount="2"
+    android:padding="@dimen/dp_16"
+    android:rowCount="5"
+    android:useDefaultMargins="true">
+
+    <TextView
+        android:id="@+id/text_view_chest_label"
+        style="@style/TextAppearance.TailorMade.Body2.BlackMedium"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:text="@string/size_chest_label" />
+
+    <TextView
+        android:id="@+id/text_view_chest"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        tools:text="@string/size_chest_label" />
+
+    <TextView
+        android:id="@+id/text_view_size_waist_label"
+        style="@style/TextAppearance.TailorMade.Body2.BlackMedium"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:text="@string/size_waist_label" />
+
+    <TextView
+        android:id="@+id/text_view_size_waist"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        tools:text="@string/size_waist_label" />
+
+    <TextView
+        android:id="@+id/text_view_size_hips_label"
+        style="@style/TextAppearance.TailorMade.Body2.BlackMedium"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:text="@string/size_hips_label" />
+
+    <TextView
+        android:id="@+id/text_view_size_hips"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        tools:text="@string/size_hips_label" />
+
+    <TextView
+        android:id="@+id/text_view_size_neck_to_waist_label"
+        style="@style/TextAppearance.TailorMade.Body2.BlackMedium"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:text="@string/size_neck_to_waist_label" />
+
+    <TextView
+        android:id="@+id/text_view_size_neck_to_waist"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        tools:text="@string/size_neck_to_waist_label" />
+
+    <TextView
+        android:id="@+id/text_view_size_inseam_label"
+        style="@style/TextAppearance.TailorMade.Body2.BlackMedium"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:text="@string/size_inseam_label" />
+
+    <TextView
+        android:id="@+id/text_view_size_inseam"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_row="4"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        tools:text="@string/size_inseam_label" />
+</GridLayout>
