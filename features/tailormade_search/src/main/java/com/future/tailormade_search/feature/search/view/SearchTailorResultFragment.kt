@@ -36,16 +36,14 @@ class SearchTailorResultFragment : BaseFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
-    binding = FragmentSearchTailorResultBinding.inflate(inflater, container,
-        false)
+    binding = FragmentSearchTailorResultBinding.inflate(inflater, container, false)
 
     with(binding) {
       groupSortAndFilter.chipFilter.setOnClickListener {
         showFilterDialog()
       }
 
-      recyclerViewSearchTailorResult.layoutManager = LinearLayoutManager(
-          context)
+      recyclerViewSearchTailorResult.layoutManager = LinearLayoutManager(context)
     }
 
     return binding.root

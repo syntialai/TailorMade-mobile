@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- FAB Style -->
+    <style name="Theme.TailorMade.FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:background">?colorPrimaryDark</item>
+        <item name="backgroundTint">?colorPrimaryDark</item>
+        <item name="tint">@color/color_black_87</item>
+    </style>
+
     <!-- Text Styles -->
     <style name="TextAppearance.TailorMade.Body1.BlackHigh" parent="TextAppearance.TailorMade.Body1">
         <item name="android:textColor">@color/color_white</item>
