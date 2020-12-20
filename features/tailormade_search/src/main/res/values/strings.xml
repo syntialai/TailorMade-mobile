@@ -9,8 +9,8 @@
     <string name="filter_label">Filter</string>
     <string name="sort_newest_label">Newest</string>
     <string name="sort_oldest_label">Oldest</string>
-    <string name="sort_a_to_z_label"> A to Z</string>
-    <string name="sort_z_to_a_label"> Z to A</string>
+    <string name="sort_a_to_z_label">A to Z</string>
+    <string name="sort_z_to_a_label">Z to A</string>
     <string name="filter_designs_label">Filter Designs</string>
     <string name="price_label">Price</string>
     <string name="category_label">Category</string>

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.ViewState
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
 import kotlin.coroutines.CoroutineContext
@@ -29,12 +30,12 @@ abstract class BaseViewModel : ViewModel() {
 	val isLoading: LiveData<Boolean>
 		get() = _isLoading
 
-	protected var page = 1
-	protected var itemPerPage = 10
+	protected var page = Constants.INITIAL_PAGING_PAGE
+	protected var itemPerPage = Constants.INITIAL_PAGING_ITEM_PER_PAGE
 
 	fun isStillLoading() = _isLoading.value.orFalse()
 
-	fun isFirstPage() = page == 1
+	fun isFirstPage() = page == Constants.INITIAL_PAGING_PAGE
 
 	protected fun setStartLoading() {
 		_isLoading.value = true
@@ -51,7 +52,7 @@ abstract class BaseViewModel : ViewModel() {
 
 	@ExperimentalCoroutinesApi
 	open fun refreshFetch() {
-		page = 1
+		page = Constants.INITIAL_PAGING_PAGE
 	}
 
 	fun setErrorMessage(message: String) {
