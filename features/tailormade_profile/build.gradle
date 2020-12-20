@@ -49,17 +49,13 @@ dependencies {
     implementation project(":libraries:tailormade_router")
 
     // Features
-    implementation project(":features:tailormade_auth")
+    api project(":features:tailormade_auth")
 
     // OSM
     implementation osm
 
     // Preferences
     implementation androidx.preferences
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     // Tests
     testImplementation test.junit
@@ -68,13 +64,8 @@ dependencies {
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
 
-    // Paging
-    testImplementation paging.test_common
-
     // Annotation Processing
     kapt dataBinding.kapt
-
-    implementation materialDesign
 
     // Glide
     kapt glide.kapt

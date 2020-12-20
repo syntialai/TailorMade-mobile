@@ -6,20 +6,20 @@ import com.future.tailormade_profile.core.model.entity.Occupation
 
 data class ProfileInfoUiModel(
 
-		var id: String,
+    var id: String,
 
-		var name: String,
+    var name: String,
 
-		var image: String? = null,
+    var image: String? = null,
 
-		var phoneNumber: String? = null,
+    var phoneNumber: String? = null,
 
-		var birthDate: Long = 0L,
-		
-		var address: String,
+    var birthDate: Long = 0L,
 
-		var location: Location? = null,
+    var address: String,
 
-		var occupation: Occupation? = null,
+    var location: Location? = null,
 
-		var education: Education? = null)
+    var occupation: Occupation? = null,
+
+    var education: Education? = null)

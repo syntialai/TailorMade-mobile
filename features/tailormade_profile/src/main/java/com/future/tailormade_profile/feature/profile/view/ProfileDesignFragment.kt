@@ -24,70 +24,70 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ProfileDesignFragment : BaseFragment() {
 
-	companion object {
-		fun newInstance() = ProfileDesignFragment()
-	}
+  companion object {
+    fun newInstance() = ProfileDesignFragment()
+  }
 
-	private lateinit var binding: FragmentProfileDesignBinding
+  private lateinit var binding: FragmentProfileDesignBinding
 
-	private val viewModel: ProfileDesignViewModel by viewModels()
-	private val profileDesignAdapter by lazy {
-		ProfileDesignAdapter(::goToDesignDetailPage)
-	}
+  private val viewModel: ProfileDesignViewModel by viewModels()
+  private val profileDesignAdapter by lazy {
+    ProfileDesignAdapter(::goToDesignDetailPage)
+  }
 
-	override fun getLogName() = "com.future.tailormade_profile.feature.profile.view.ProfileDesignFragment"
+  override fun getLogName() = "com.future.tailormade_profile.feature.profile.view.ProfileDesignFragment"
 
-	override fun getViewModel(): BaseViewModel = viewModel
+  override fun getViewModel(): BaseViewModel = viewModel
 
-	@ExperimentalCoroutinesApi
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-			savedInstanceState: Bundle?): View {
-		binding = FragmentProfileDesignBinding.inflate(inflater, container, false)
-		setupRecyclerView()
-		return binding.root
-	}
+  @ExperimentalCoroutinesApi
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?): View {
+    binding = FragmentProfileDesignBinding.inflate(inflater, container, false)
+    setupRecyclerView()
+    return binding.root
+  }
 
-	@ExperimentalCoroutinesApi
-	override fun setupFragmentObserver() {
-		super.setupFragmentObserver()
+  @ExperimentalCoroutinesApi
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
 
-		viewModel.fetchImages()
-		viewModel.images.observe(viewLifecycleOwner, {
-			profileDesignAdapter.submitList(it)
-		})
-	}
+    viewModel.fetchImages()
+    viewModel.images.observe(viewLifecycleOwner, {
+      profileDesignAdapter.submitList(it)
+    })
+  }
 
-	private fun goToDesignDetailPage(id: String) {
-		// TODO: Go to design detail page
-	}
+  private fun goToDesignDetailPage(id: String) {
+    // TODO: Go to design detail page
+  }
 
-	@ExperimentalCoroutinesApi
-	private fun setupRecyclerView() {
-		with(binding.recyclerViewProfileDesign) {
-			layoutManager = GridLayoutManager(context, 3)
-			adapter = profileDesignAdapter
-			setPadding(resources.getDimensionPixelSize(R.dimen.dp_4))
-			clipToPadding = false
-			clipChildren = false
+  @ExperimentalCoroutinesApi
+  private fun setupRecyclerView() {
+    with(binding.recyclerViewProfileDesign) {
+      layoutManager = GridLayoutManager(context, 3)
+      adapter = profileDesignAdapter
+      setPadding(resources.getDimensionPixelSize(R.dimen.dp_4))
+      clipToPadding = false
+      clipChildren = false
 
-			addItemDecoration(object : ItemDecoration() {
+      addItemDecoration(object : ItemDecoration() {
 
-				override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
-						state: RecyclerView.State) {
-					outRect.set(spacing, spacing, spacing, spacing)
-				}
-			})
+        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
+            state: RecyclerView.State) {
+          outRect.set(spacing, spacing, spacing, spacing)
+        }
+      })
 
-			addOnScrollListener(object : RecyclerView.OnScrollListener() {
+      addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-				override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-					super.onScrolled(recyclerView, dx, dy)
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          super.onScrolled(recyclerView, dx, dy)
 
-					if (isLastItemViewed(recyclerView, viewModel.images.value?.size.orZero())) {
-						viewModel.fetchMore()
-					}
-				}
-			})
-		}
-	}
+          if (isLastItemViewed(recyclerView, viewModel.images.value?.size.orZero())) {
+            viewModel.fetchMore()
+          }
+        }
+      })
+    }
+  }
 }
