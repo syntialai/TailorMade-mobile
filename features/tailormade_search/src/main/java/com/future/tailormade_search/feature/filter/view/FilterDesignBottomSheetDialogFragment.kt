@@ -17,7 +17,7 @@ class FilterDesignBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
   override fun getScreenName(): String = "Filter Design Bottom Sheet Dialog Fragment"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentFilterDesignBottomSheetDialogBinding.inflate(inflater,
         container, false)
 
