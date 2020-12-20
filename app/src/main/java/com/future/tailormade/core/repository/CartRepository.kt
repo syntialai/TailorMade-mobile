@@ -10,12 +10,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
 
-	suspend fun getCarts(): Flow<BaseListResponse<CartResponse>>
+  suspend fun getCarts(): Flow<BaseListResponse<CartResponse>>
 
-	suspend fun getCartById(id: String): Flow<BaseSingleObjectResponse<CartResponse>>
+  suspend fun getCartById(id: String): Flow<BaseSingleObjectResponse<CartResponse>>
 
-	suspend fun editCartItemQuantity(id: String, editQuantityRequest: CartEditQuantityRequest):
-			Flow<BaseSingleObjectResponse<CartEditQuantityResponse>>
+  suspend fun editCartItemQuantity(id: String, editQuantityRequest: CartEditQuantityRequest):
+      Flow<BaseSingleObjectResponse<CartEditQuantityResponse>>
 
-	suspend fun deleteCartItemById(id: String): Flow<BaseResponse>
+  suspend fun deleteCartItemById(id: String): Flow<BaseResponse>
 }
