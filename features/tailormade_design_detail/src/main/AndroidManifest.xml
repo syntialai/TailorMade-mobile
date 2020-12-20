@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.future.tailormade_design_detail">
+
+    <application android:theme="@style/Theme.TailorMade">
+
+        <activity android:name=".feature.view.DesignDetailActivity">
+            <intent-filter>
+                <action android:name="com.future.tailormade.designDetail.open" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
