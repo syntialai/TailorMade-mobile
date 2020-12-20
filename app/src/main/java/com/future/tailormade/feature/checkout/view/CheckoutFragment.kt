@@ -21,92 +21,92 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class CheckoutFragment : BaseFragment() {
 
-	companion object {
-		fun newInstance() = CheckoutFragment()
-	}
+  companion object {
+    fun newInstance() = CheckoutFragment()
+  }
 
-	private lateinit var binding: FragmentCheckoutBinding
+  private lateinit var binding: FragmentCheckoutBinding
 
-	private val viewModel: CheckoutViewModel by viewModels()
+  private val viewModel: CheckoutViewModel by viewModels()
 
-	override fun getLogName() = "com.future.tailormade.feature.checkout.view.CheckoutFragment"
+  override fun getLogName() = "com.future.tailormade.feature.checkout.view.CheckoutFragment"
 
-	override fun getScreenName(): String = "Checkout"
+  override fun getScreenName(): String = "Checkout"
 
-	override fun getViewModel(): BaseViewModel = viewModel
+  override fun getViewModel(): BaseViewModel = viewModel
 
-	@ExperimentalCoroutinesApi override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-			savedInstanceState: Bundle?): View {
-		binding = FragmentCheckoutBinding.inflate(inflater, container, false)
-		hideUnusedButton()
+  @ExperimentalCoroutinesApi override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?): View {
+    binding = FragmentCheckoutBinding.inflate(inflater, container, false)
+    hideUnusedButton()
 
-		with(binding) {
-			buttonCheckoutEditMeasurement.setOnClickListener {
-				CheckoutEditMeasurementBottomSheetDialogFragment.newInstance(
-						viewModel.measurementValues.value.orEmptyMutableList(),
-						viewModel::setCheckoutMeasurementDetail).show(parentFragmentManager, getLogName())
-			}
-			buttonCheckoutMakeOrder.setOnClickListener {
-				viewModel.id.value?.let { id ->
-					viewModel.checkoutItem(id)
-				}
-			}
-		}
-		return binding.root
-	}
+    with(binding) {
+      buttonCheckoutEditMeasurement.setOnClickListener {
+        CheckoutEditMeasurementBottomSheetDialogFragment.newInstance(
+            viewModel.measurementValues.value.orEmptyMutableList(),
+            viewModel::setCheckoutMeasurementDetail).show(parentFragmentManager, getLogName())
+      }
+      buttonCheckoutMakeOrder.setOnClickListener {
+        viewModel.id.value?.let { id ->
+          viewModel.checkoutItem(id)
+        }
+      }
+    }
+    return binding.root
+  }
 
-	@ExperimentalCoroutinesApi
-	override fun setupFragmentObserver() {
-		super.setupFragmentObserver()
+  @ExperimentalCoroutinesApi
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
 
-		viewModel.id.observe(viewLifecycleOwner, {
-			viewModel.getCartItemById(it)
-		})
-		viewModel.cartUiModel.observe(viewLifecycleOwner, {
-			setupDesignDetailData(it.design)
-			setupPaymentData(it)
-		})
-		viewModel.historyId.observe(viewLifecycleOwner, { id ->
-			viewModel.cartUiModel.value?.let {
-				findNavController().navigate(
-						CheckoutFragmentDirections.actionCheckoutFragmentToThanksForOrderFragment(id, it))
-			}
-		})
-	}
+    viewModel.id.observe(viewLifecycleOwner, {
+      viewModel.getCartItemById(it)
+    })
+    viewModel.cartUiModel.observe(viewLifecycleOwner, {
+      setupDesignDetailData(it.design)
+      setupPaymentData(it)
+    })
+    viewModel.historyId.observe(viewLifecycleOwner, { id ->
+      viewModel.cartUiModel.value?.let {
+        findNavController().navigate(
+            CheckoutFragmentDirections.actionCheckoutFragmentToThanksForOrderFragment(id, it))
+      }
+    })
+  }
 
-	private fun hideUnusedButton() {
-		with(binding.layoutDesignDetail) {
-			spinButtonNumber.remove()
-			buttonDeleteOrder.remove()
-			buttonCheckoutOrder.remove()
-		}
-	}
+  private fun hideUnusedButton() {
+    with(binding.layoutDesignDetail) {
+      spinButtonNumber.remove()
+      buttonDeleteOrder.remove()
+      buttonCheckoutOrder.remove()
+    }
+  }
 
-	private fun setupDesignDetailData(design: CartDesignUiModel) {
-		with(binding.layoutDesignDetail) {
-			textViewOrderTitle.text = design.title
-			textViewOrderSize.text = design.size
-			textViewOrderColor.text = design.color
+  private fun setupDesignDetailData(design: CartDesignUiModel) {
+    with(binding.layoutDesignDetail) {
+      textViewOrderTitle.text = design.title
+      textViewOrderSize.text = design.size
+      textViewOrderColor.text = design.color
 
-			design.discount?.let { discount ->
-				textViewOrderBeforeDiscount.text = design.price
-				textViewOrderAfterDiscount.text = discount
-			} ?: run {
-				textViewOrderPrice.text = design.price
-			}
+      design.discount?.let { discount ->
+        textViewOrderBeforeDiscount.text = design.price
+        textViewOrderAfterDiscount.text = discount
+      } ?: run {
+        textViewOrderPrice.text = design.price
+      }
 
-			context?.let { context ->
-				ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
-			}
-		}
-	}
+      context?.let { context ->
+        ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
+      }
+    }
+  }
 
-	private fun setupPaymentData(data: CartUiModel) {
-		binding.textViewCheckoutPaymentTotal.text = data.totalPayment
-		with(binding.layoutCheckoutTotal) {
-			textViewOrderQuantity.text = data.quantity.toString()
-			textViewOrderTotalDiscount.text = data.totalDiscount
-			textViewOrderTotalPrice.text = data.totalPrice
-		}
-	}
+  private fun setupPaymentData(data: CartUiModel) {
+    binding.textViewCheckoutPaymentTotal.text = data.totalPayment
+    with(binding.layoutCheckoutTotal) {
+      textViewOrderQuantity.text = data.quantity.toString()
+      textViewOrderTotalDiscount.text = data.totalDiscount
+      textViewOrderTotalPrice.text = data.totalPrice
+    }
+  }
 }

@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CartDesignUiModel(
 
-		var id: String,
+    var id: String,
 
     var color: String,
 
@@ -18,5 +18,4 @@ data class CartDesignUiModel(
 
     var size: String,
 
-    var title: String
-): Parcelable
+    var title: String): Parcelable

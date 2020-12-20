@@ -11,8 +11,8 @@ import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.coroutine.CoroutineHelper
-import java.text.NumberFormat
 import java.sql.Timestamp
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Currency
 import java.util.Date
@@ -145,3 +145,4 @@ fun Boolean?.orFalse(): Boolean = this ?: false
  */
 @RequiresApi(Build.VERSION_CODES.N)
 fun <T> MutableMap<String, T>.getFirstElement() = this.entries.stream().findFirst().get()
+

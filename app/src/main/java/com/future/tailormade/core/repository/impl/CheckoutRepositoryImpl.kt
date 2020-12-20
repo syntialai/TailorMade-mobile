@@ -9,11 +9,11 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
 
 class CheckoutRepositoryImpl @Inject constructor(private val checkoutService: CheckoutService) :
-		BaseRepository(), CheckoutRepository {
+    BaseRepository(), CheckoutRepository {
 
-	override fun getLogName() = "com.future.tailormade.core.repository.impl.CheckoutRepositoryImpl"
+  override fun getLogName() = "com.future.tailormade.core.repository.impl.CheckoutRepositoryImpl"
 
-	override suspend fun checkoutCartItem(id: String, checkoutRequest: CheckoutRequest) = flow {
-		emit(checkoutService.postCheckoutCartItem(id, checkoutRequest))
-	}.flowOnIO()
+  override suspend fun checkoutCartItem(id: String, checkoutRequest: CheckoutRequest) = flow {
+    emit(checkoutService.postCheckoutCartItem(id, checkoutRequest))
+  }.flowOnIO()
 }

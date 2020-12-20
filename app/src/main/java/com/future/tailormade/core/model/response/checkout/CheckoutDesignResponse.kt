@@ -14,5 +14,4 @@ data class CheckoutDesignResponse(
 
     val size: String,
 
-    val title: String
-)
+    val title: String)

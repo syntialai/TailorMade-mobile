@@ -19,76 +19,76 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ThanksForOrderFragment : BaseFragment() {
 
-	companion object {
-		fun newInstance() = ThanksForOrderFragment()
-	}
+  companion object {
+    fun newInstance() = ThanksForOrderFragment()
+  }
 
-	private lateinit var binding: FragmentThanksForOrderBinding
+  private lateinit var binding: FragmentThanksForOrderBinding
 
-	private val args: ThanksForOrderFragmentArgs by navArgs()
-	private val viewModel: ThanksForOrderViewModel by viewModels()
+  private val args: ThanksForOrderFragmentArgs by navArgs()
+  private val viewModel: ThanksForOrderViewModel by viewModels()
 
-	override fun getLogName(): String = "com.future.tailormade.feature.checkout.view.ThanksForOrderFragment"
+  override fun getLogName(): String = "com.future.tailormade.feature.checkout.view.ThanksForOrderFragment"
 
-	override fun getScreenName(): String = "Thank you!"
+  override fun getScreenName(): String = "Thank you!"
 
-	override fun getViewModel(): BaseViewModel = viewModel
+  override fun getViewModel(): BaseViewModel = viewModel
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-			savedInstanceState: Bundle?): View {
-		binding = FragmentThanksForOrderBinding.inflate(inflater, container, false)
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?): View {
+    binding = FragmentThanksForOrderBinding.inflate(inflater, container, false)
 
-		hideUnusedButton()
-		binding.buttonThankYouGoToHistory.setOnClickListener {
-			// TODO: Go to history and pass history Id from view model
-		}
+    hideUnusedButton()
+    binding.buttonThankYouGoToHistory.setOnClickListener {
+      // TODO: Go to history and pass history Id from view model
+    }
 
-		return binding.root
-	}
+    return binding.root
+  }
 
-	override fun setupFragmentObserver() {
-		super.setupFragmentObserver()
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
 
-		viewModel.setHistoryId(args.historyId)
-		viewModel.setCartUiModel(args.cartUiModel)
+    viewModel.setHistoryId(args.historyId)
+    viewModel.setCartUiModel(args.cartUiModel)
 
-		viewModel.cartUiModel.observe(viewLifecycleOwner, {
-			setupPaymentData(it)
-			setupDesignDetailData(it.design)
-		})
-	}
+    viewModel.cartUiModel.observe(viewLifecycleOwner, {
+      setupPaymentData(it)
+      setupDesignDetailData(it.design)
+    })
+  }
 
-	private fun hideUnusedButton() {
-		with(binding.layoutDesignDetail) {
-			spinButtonNumber.remove()
-			buttonDeleteOrder.remove()
-			buttonCheckoutOrder.remove()
-		}
-	}
+  private fun hideUnusedButton() {
+    with(binding.layoutDesignDetail) {
+      spinButtonNumber.remove()
+      buttonDeleteOrder.remove()
+      buttonCheckoutOrder.remove()
+    }
+  }
 
-	private fun setupDesignDetailData(design: CartDesignUiModel) {
-		with(binding.layoutDesignDetail) {
-			textViewOrderTitle.text = design.title
-			textViewOrderSize.text = design.size
-			textViewOrderColor.text = design.color
+  private fun setupDesignDetailData(design: CartDesignUiModel) {
+    with(binding.layoutDesignDetail) {
+      textViewOrderTitle.text = design.title
+      textViewOrderSize.text = design.size
+      textViewOrderColor.text = design.color
 
-			design.discount?.let { discount ->
-				textViewOrderBeforeDiscount.text = design.price
-				textViewOrderAfterDiscount.text = discount
-			} ?: run {
-				textViewOrderPrice.text = design.price
-			}
+      design.discount?.let { discount ->
+        textViewOrderBeforeDiscount.text = design.price
+        textViewOrderAfterDiscount.text = discount
+      } ?: run {
+        textViewOrderPrice.text = design.price
+      }
 
-			context?.let { context ->
-				ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
-			}
-		}
-	}
+      context?.let { context ->
+        ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
+      }
+    }
+  }
 
-	private fun setupPaymentData(data: CartUiModel) {
-		with(binding) {
-			textViewThankYouPaymentTotal.text = data.totalPayment
-			textViewThankYouTotalDiscount.text = data.totalDiscount
-		}
-	}
+  private fun setupPaymentData(data: CartUiModel) {
+    with(binding) {
+      textViewThankYouPaymentTotal.text = data.totalPayment
+      textViewThankYouTotalDiscount.text = data.totalDiscount
+    }
+  }
 }

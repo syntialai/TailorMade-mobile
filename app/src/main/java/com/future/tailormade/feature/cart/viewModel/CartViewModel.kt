@@ -19,101 +19,101 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
 class CartViewModel @ViewModelInject constructor(private val cartRepository: CartRepository,
-		@Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
+    @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
-	companion object {
-		private const val CART_UI_MODEL = "CART"
-	}
+  companion object {
+    private const val CART_UI_MODEL = "CART"
+  }
 
-	override fun getLogName(): String = "com.future.tailormade.feature.cart.viewModel.CartViewModel"
+  override fun getLogName(): String = "com.future.tailormade.feature.cart.viewModel.CartViewModel"
 
-	private var _cartUiModel = MutableLiveData<ArrayList<CartUiModel>>()
-	val cartUiModel: LiveData<ArrayList<CartUiModel>>
-		get() = _cartUiModel
+  private var _cartUiModel = MutableLiveData<ArrayList<CartUiModel>>()
+  val cartUiModel: LiveData<ArrayList<CartUiModel>>
+    get() = _cartUiModel
 
-	init {
-		_cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL, arrayListOf())
-	}
+  init {
+    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL, arrayListOf())
+  }
 
-	@ExperimentalCoroutinesApi
-	fun fetchCartData() {
-		launchViewModelScope {
-			cartRepository.getCarts().onStart {
-				setStartLoading()
-			}.onError {
-				setFinishLoading()
-				_errorMessage.value = "Failed to get your cart item. Please try again later."
-			}.collectLatest { response ->
-				response.data?.let {
-					_cartUiModel.value = mapToCartUiModel(it)
-					savedStateHandle.set(CART_UI_MODEL, _cartUiModel)
-				}
-				setFinishLoading()
-			}
-		}
-	}
+  @ExperimentalCoroutinesApi
+  fun fetchCartData() {
+    launchViewModelScope {
+      cartRepository.getCarts().onStart {
+        setStartLoading()
+      }.onError {
+        setFinishLoading()
+        _errorMessage.value = "Failed to get your cart item. Please try again later."
+      }.collectLatest { response ->
+        response.data?.let {
+          _cartUiModel.value = mapToCartUiModel(it)
+          savedStateHandle.set(CART_UI_MODEL, _cartUiModel)
+        }
+        setFinishLoading()
+      }
+    }
+  }
 
-	fun editCartItemQuantity(id: String, quantity: Int) {
-		val request = CartEditQuantityRequest(quantity)
-		launchViewModelScope {
-			cartRepository.editCartItemQuantity(id, request).onError {
-				_errorMessage.value = "Failed to update your cart item. Please try again."
-			}.collectLatest { response ->
-				response.data?.let {
-					setQuantity(it.id, it.quantity)
-				}
-			}
-		}
-	}
+  fun editCartItemQuantity(id: String, quantity: Int) {
+    val request = CartEditQuantityRequest(quantity)
+    launchViewModelScope {
+      cartRepository.editCartItemQuantity(id, request).onError {
+        _errorMessage.value = "Failed to update your cart item. Please try again."
+      }.collectLatest { response ->
+        response.data?.let {
+          setQuantity(it.id, it.quantity)
+        }
+      }
+    }
+  }
 
-	fun deleteCartItem(id: String) {
-		launchViewModelScope {
-			cartRepository.deleteCartItemById(id).onError {
-				_errorMessage.value = "Failed to delete your cart item. Please try again."
-			}.collectLatest {
-				deleteUiModelItem(id)
-			}
-		}
-	}
+  fun deleteCartItem(id: String) {
+    launchViewModelScope {
+      cartRepository.deleteCartItemById(id).onError {
+        _errorMessage.value = "Failed to delete your cart item. Please try again."
+      }.collectLatest {
+        deleteUiModelItem(id)
+      }
+    }
+  }
 
-	private fun deleteUiModelItem(id: String) {
-		val cartItemIndex = getCartItemIndex(id)
-		cartItemIndex?.let {
-			_cartUiModel.value?.removeAt(it)
-		}
-	}
+  private fun deleteUiModelItem(id: String) {
+    val cartItemIndex = getCartItemIndex(id)
+    cartItemIndex?.let {
+      _cartUiModel.value?.removeAt(it)
+    }
+  }
 
-	private fun getCartItemIndex(id: String) = _cartUiModel.value?.indexOfFirst { it.id == id }
+  private fun getCartItemIndex(id: String) = _cartUiModel.value?.indexOfFirst { it.id == id }
 
-	private fun mapToCartUiModel(carts: List<CartResponse>): ArrayList<CartUiModel> {
-		val cartUiModels = arrayListOf<CartUiModel>()
-		carts.forEach { cart ->
-			val cartUiModel = CartUiModel(cart.id, mapToCartDesignUiModel(cart.design), cart.quantity)
-			cartUiModels.add(cartUiModel)
-		}
-		return cartUiModels
-	}
+  private fun mapToCartUiModel(carts: List<CartResponse>): ArrayList<CartUiModel> {
+    val cartUiModels = arrayListOf<CartUiModel>()
+    carts.forEach { cart ->
+      val cartUiModel = CartUiModel(cart.id, mapToCartDesignUiModel(cart.design), cart.quantity)
+      cartUiModels.add(cartUiModel)
+    }
+    return cartUiModels
+  }
 
-	private fun mapToCartDesignUiModel(cartDesign: CartDesignResponse) = CartDesignUiModel(
-			id = cartDesign.id,
-			title = cartDesign.title,
-			image = cartDesign.image,
-			color = cartDesign.color,
-			size = cartDesign.size,
-			price = cartDesign.price.toIndonesiaCurrencyFormat(),
-			discount = setDiscount(cartDesign.price, cartDesign.discount)
-	)
+  private fun mapToCartDesignUiModel(cartDesign: CartDesignResponse) = CartDesignUiModel(
+      id = cartDesign.id,
+      title = cartDesign.title,
+      image = cartDesign.image,
+      color = cartDesign.color,
+      size = cartDesign.size,
+      price = cartDesign.price.toIndonesiaCurrencyFormat(),
+      discount = setDiscount(cartDesign.price, cartDesign.discount)
+  )
 
-	private fun setDiscount(price: Double, discount: Double) = if (discount == 0.0) {
-		null
-	} else {
-		(price - discount).toIndonesiaCurrencyFormat()
-	}
+  private fun setDiscount(price: Double, discount: Double) = if (discount == 0.0) {
+    null
+  } else {
+    (price - discount).toIndonesiaCurrencyFormat()
+  }
 
-	private fun setQuantity(id: String, quantity: Int) {
-		val cartItemIndex = getCartItemIndex(id)
-		cartItemIndex?.let {
-			_cartUiModel.value?.get(it)?.quantity = quantity
-		}
-	}
+  private fun setQuantity(id: String, quantity: Int) {
+    val cartItemIndex = getCartItemIndex(id)
+    cartItemIndex?.let {
+      _cartUiModel.value?.get(it)?.quantity = quantity
+    }
+  }
 }

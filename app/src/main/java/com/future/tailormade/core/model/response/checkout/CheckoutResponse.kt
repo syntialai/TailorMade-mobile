@@ -2,7 +2,7 @@ package com.future.tailormade.core.model.response.checkout
 
 data class CheckoutResponse(
 
-		val id: String,
+    val id: String,
 
     val design: CheckoutDesignResponse,
 
@@ -14,5 +14,4 @@ data class CheckoutResponse(
 
     val totalPrice: Double,
 
-    val userId: String
-)
+    val userId: String)

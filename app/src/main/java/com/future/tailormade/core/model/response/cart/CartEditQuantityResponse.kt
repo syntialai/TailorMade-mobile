@@ -4,5 +4,4 @@ data class CartEditQuantityResponse(
 
     val id: String,
 
-    val quantity: Int
-)
+    val quantity: Int)

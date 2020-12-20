@@ -16,8 +16,7 @@ data class CartDesignResponse(
 
     val size: String,
 
-		@Expose
-		val sizeDetail: CartSizeDetailResponse? = null,
+    @Expose
+    val sizeDetail: CartSizeDetailResponse? = null,
 
-    val title: String
-)
+    val title: String)

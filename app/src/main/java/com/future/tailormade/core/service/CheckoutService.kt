@@ -10,7 +10,7 @@ import retrofit2.http.Path
 
 interface CheckoutService {
 
-	@POST(AppApiUrl.WISHLISTS_ID_CHECKOUT_PATH)
-	fun postCheckoutCartItem(@Path("id") id: String,
-			@Body checkoutRequest: CheckoutRequest): BaseSingleObjectResponse<CheckoutResponse>
+  @POST(AppApiUrl.WISHLISTS_ID_CHECKOUT_PATH)
+  fun postCheckoutCartItem(@Path("id") id: String,
+      @Body checkoutRequest: CheckoutRequest): BaseSingleObjectResponse<CheckoutResponse>
 }

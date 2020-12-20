@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface CheckoutRepository {
 
-	suspend fun checkoutCartItem(id: String, checkoutRequest: CheckoutRequest):
-			Flow<BaseSingleObjectResponse<CheckoutResponse>>
+  suspend fun checkoutCartItem(id: String, checkoutRequest: CheckoutRequest):
+      Flow<BaseSingleObjectResponse<CheckoutResponse>>
 }
