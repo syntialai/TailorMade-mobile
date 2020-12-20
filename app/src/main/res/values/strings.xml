@@ -1,16 +1,47 @@
 <resources>
     <string name="app_name">TailorMade</string>
     <string name="title_dls">Design Language System for TailorMade</string>
+
+    <!-- Dashboard -->
     <string name="dashboard_title_state">Hello!</string>
     <string name="dashboard_description_state">Tailors near you will be shown here.</string>
     <string name="preview_label">Preview</string>
+
+    <!-- Cart -->
+    <string name="cart_title_state">Empty cart…</string>
+    <string name="cart_description_state">Let’s add some design to your cart!</string>
+    <string name="cart_delete_alert_dialog_title">Delete this item?</string>
+    <string name="cart_delete_alert_dialog_content">%s will be deleted from your cart.</string>
+    <string name="cart_delete_alert_dialog_delete_button">Delete</string>
+    <string name="cart_delete_alert_dialog_cancel_button">Cancel</string>
+
+    <!-- Checkout -->
+    <string name="edit_measurement_label">Edit measurement</string>
+    <string name="special_instructions_label">Special Instructions</string>
+    <string name="make_order_label">Make order</string>
+    <string name="edit_measurements_label">Edit Measurements</string>
+    <string name="custom_measurement_label">Custom Measurement</string>
+    <string name="payment_total_label">Payment Total</string>
+    <string name="thank_you_for_order_label">Thank you for order!</string>
+    <string name="thank_you_for_order_content_label">"Your order has been confirmed and will be processed by the tailor soon. "</string>
+    <string name="total_discount_got_label">Total discount you got</string>
+    <string name="show_order_history_label">Show order history</string>
+    <string name="design_you_ordered_label">Design you ordered</string>
+
+    <string-array name="edit_measurement_type_list">
+        <item>Chest</item>
+        <item>Waist</item>
+        <item>Hips</item>
+        <item>Neck to Waist</item>
+        <item>Inseam</item>
+    </string-array>
+
+    <!-- History -->
     <string name="order_id_label">Order ID</string>
     <string name="order_date_label">Order date</string>
-
     <string name="history_title_state">No History</string>
     <string name="history_description_state">Your order history will be appeared here.</string>
     <string name="ordered_by_label">Ordered by</string>
     <string name="payment_information_label">Payment Information</string>
     <string name="measurement_details_label">Measurement Details</string>
-    <string name="special_instructions_label">Special Instructions</string>
 </resources>

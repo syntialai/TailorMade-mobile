@@ -87,29 +87,33 @@
             tools:text="@string/order_price_label" />
 
         <TextView
-            android:id="@+id/text_view_order_price_discount"
+            android:id="@+id/text_view_order_after_discount"
             style="@style/TextAppearance.TailorMade.Body2.Primary.Bold"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/text_view_order_price"
             app:layout_constraintStart_toEndOf="@id/text_view_order_price"
             app:layout_constraintTop_toTopOf="@id/text_view_order_price"
-            tools:text="@string/order_price_discount_label"
-            tools:visibility="visible" />
+            tools:text="@string/order_price_discount_label" />
 
         <TextView
-            android:id="@+id/text_view_order_discount"
+            android:id="@+id/text_view_order_before_discount"
             style="@style/TextAppearance.TailorMade.Body2.BlackMedium2"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/text_view_order_price"
-            app:layout_constraintStart_toEndOf="@id/text_view_order_price_discount"
+            app:layout_constraintStart_toEndOf="@id/text_view_order_after_discount"
             app:layout_constraintTop_toTopOf="@id/text_view_order_price"
-            tools:text="@string/order_discount_label"
+            tools:text="@string/order_discount_label" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_discount_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="spin_button_number, button_delete_order, button_checkout_order"
             tools:visibility="visible" />
 
         <com.future.tailormade_dls.widget.SpinNumberButton
@@ -136,11 +140,19 @@
             android:id="@+id/button_checkout_order"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_16"
             android:text="@string/checkout_order_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_delete_order" />
+            app:layout_constraintTop_toBottomOf="@id/button_delete_order"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_cart_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="spin_button_number, button_delete_order, button_checkout_order"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

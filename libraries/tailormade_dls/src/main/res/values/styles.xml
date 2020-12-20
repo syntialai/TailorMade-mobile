@@ -31,6 +31,7 @@
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_height">@dimen/dp_56</item>
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
         <item name="backgroundTint">?colorSurface</item>
     </style>
@@ -109,10 +110,16 @@
         <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
     </style>
 
+    <!-- Card Style -->
+    <style name="Theme.TailorMade.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?cardBackgroundColor</item>
+    </style>
+
     <!-- FAB Style -->
     <style name="Theme.TailorMade.FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
-        <item name="android:background">@color/color_primary_900</item>
-        <item name="android:textColor">@color/color_primary_50</item>
+        <item name="android:background">?colorPrimaryDark</item>
+        <item name="backgroundTint">?colorPrimaryDark</item>
+        <item name="tint">@color/color_primary_50</item>
     </style>
 
     <!-- Radio Button Style -->
@@ -168,8 +175,16 @@
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Headline3.PrimaryDark.Bold" parent="TextAppearance.TailorMade.Headline3.PrimaryDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Headline3.BlackHigh" parent="TextAppearance.TailorMade.Headline3">
         <item name="android:textColor">@color/color_black_87</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackHigh.Bold" parent="TextAppearance.TailorMade.Headline3.BlackHigh">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Headline3.BlackMedium" parent="TextAppearance.TailorMade.Headline3">
@@ -248,6 +263,10 @@
         <item name="android:textColor">?colorPrimary</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Subtitle1.Primary.Bold" parent="TextAppearance.TailorMade.Subtitle1.Primary">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Subtitle1.PrimaryDark" parent="TextAppearance.TailorMade.Subtitle1">
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
@@ -312,6 +331,10 @@
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Caption.PrimaryDark.Bold" parent="TextAppearance.TailorMade.Caption.PrimaryDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Caption.BlackHigh" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">@color/color_black_87</item>
     </style>
@@ -361,6 +384,15 @@
         <item name="boxBackgroundColor">?colorSurface</item>
     </style>
 
+    <style name="Theme.TailorMade.TextInputEditText.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputEditText.Outlined.Rounded" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_16</item>
+    </style>
+
     <style name="Theme.TailorMade.TextInputEditText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?colorSurface</item>
     </style>
@@ -377,6 +409,6 @@
 
     <style name="Theme.TailorMade.Toolbar.Back" parent="Theme.TailorMade.Toolbar">
         <item name="navigationIcon">@drawable/ic_back</item>
-        <item name="navigationIconColor">?colorOnBackground</item>
+        <item name="navigationIconColor">?attr/colorControlNormal</item>
     </style>
 </resources>
