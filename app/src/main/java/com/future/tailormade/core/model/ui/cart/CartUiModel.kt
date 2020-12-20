@@ -6,5 +6,4 @@ data class CartUiModel(
 
     var design: CartDesignUiModel,
 
-    var quantity: Int = 1,
-)
+    var quantity: Int = 1)

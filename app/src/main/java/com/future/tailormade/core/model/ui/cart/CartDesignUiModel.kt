@@ -14,5 +14,4 @@ data class CartDesignUiModel(
 
     var size: String,
 
-    var title: String
-)
+    var title: String)
