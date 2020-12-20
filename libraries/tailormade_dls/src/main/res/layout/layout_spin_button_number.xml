@@ -11,9 +11,10 @@
 
         <Button
             android:id="@+id/spin_button_number_reduce"
-            style="@style/Theme.TailorMade.Button.Outlined.Rounded.Left"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@drawable/drawable_spin_number_button_left_background"
             android:text="@string/spin_number_reduce_label" />
 
         <Button
@@ -26,9 +27,10 @@
 
         <Button
             android:id="@+id/spin_button_number_add"
-            style="@style/Theme.TailorMade.Button.Outlined.Rounded.Right"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@drawable/drawable_spin_number_button_right_background"
             android:text="@string/spin_number_add_label" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
