@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.ViewState
+import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
@@ -27,11 +30,12 @@ abstract class BaseViewModel : ViewModel() {
 	val isLoading: LiveData<Boolean>
 		get() = _isLoading
 
-	fun isStillLoading() = _isLoading.value ?: false
+	protected var page = Constants.INITIAL_PAGING_PAGE
+	protected var itemPerPage = Constants.INITIAL_PAGING_ITEM_PER_PAGE
 
-	fun setErrorMessage(errorMessage: String) {
-		_errorMessage.value = errorMessage
-	}
+	fun isStillLoading() = _isLoading.value.orFalse()
+
+	fun isFirstPage() = page == Constants.INITIAL_PAGING_PAGE
 
 	protected fun setStartLoading() {
 		_isLoading.value = true
@@ -39,6 +43,20 @@ abstract class BaseViewModel : ViewModel() {
 
 	protected fun setFinishLoading() {
 		_isLoading.value = false
+	}
+
+	@ExperimentalCoroutinesApi
+	open fun fetchMore() {
+		page.inc()
+	}
+
+	@ExperimentalCoroutinesApi
+	open fun refreshFetch() {
+		page = Constants.INITIAL_PAGING_PAGE
+	}
+
+	fun setErrorMessage(message: String) {
+		_errorMessage.value = message
 	}
 
 	fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
@@ -53,10 +71,8 @@ abstract class BaseViewModel : ViewModel() {
 		return launchOnViewModelScope(block, Dispatchers.Default)
 	}
 
-	private fun <T> launchOnViewModelScope(
-			block: suspend () -> LiveData<T>,
-			coroutineContext: CoroutineContext
-	): LiveData<T> {
+	private fun <T> launchOnViewModelScope(block: suspend () -> LiveData<T>,
+			coroutineContext: CoroutineContext): LiveData<T> {
 		return liveData(viewModelScope.coroutineContext + coroutineContext) {
 			emitSource(block())
 		}
