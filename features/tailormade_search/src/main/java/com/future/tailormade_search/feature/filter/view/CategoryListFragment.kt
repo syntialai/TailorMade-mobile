@@ -26,7 +26,7 @@ class CategoryListFragment : BaseFragment() {
   override fun getScreenName(): String = "Select Category"
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+      savedInstanceState: Bundle?): View {
     binding = FragmentCategoryListBinding.inflate(inflater, container, false)
 
     with(binding) {

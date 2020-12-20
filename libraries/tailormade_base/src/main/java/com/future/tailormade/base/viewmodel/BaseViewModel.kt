@@ -1,15 +1,15 @@
 package com.future.tailormade.base.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.util.logger.AppLogger
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -23,8 +23,22 @@ abstract class BaseViewModel : ViewModel() {
   val errorMessage: LiveData<String?>
     get() = _errorMessage
 
-  fun setErrorMessage(message: String) {
-    _errorMessage.value = message
+  protected val _isLoading = MutableLiveData<Boolean>()
+  val isLoading: LiveData<Boolean>
+    get() = _isLoading
+
+  fun isStillLoading() = _isLoading.value ?: false
+
+  fun setErrorMessage(errorMessage: String) {
+    _errorMessage.value = errorMessage
+  }
+
+  protected fun setStartLoading() {
+    _isLoading.value = true
+  }
+
+  protected fun setFinishLoading() {
+    _isLoading.value = false
   }
 
   fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
