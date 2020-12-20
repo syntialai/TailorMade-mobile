@@ -65,6 +65,7 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
     }
 
     private fun bindDesignData(design: CartDesignUiModel) {
+      showCartButton()
       with(binding) {
         textViewOrderTitle.text = design.title
         textViewOrderSize.text = design.size
@@ -82,10 +83,13 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
       }
     }
 
+    private fun showCartButton() {
+      binding.groupCartButton.show()
+    }
+
     private fun showDiscount() {
       with(binding){
-        textViewOrderAfterDiscount.show()
-        textViewOrderBeforeDiscount.show()
+        groupDiscountTextView.show()
         textViewOrderPrice.remove()
       }
     }

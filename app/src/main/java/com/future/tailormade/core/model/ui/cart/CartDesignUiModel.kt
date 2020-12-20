@@ -1,5 +1,9 @@
 package com.future.tailormade.core.model.ui.cart
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class CartDesignUiModel(
 
     var id: String,
@@ -14,4 +18,4 @@ data class CartDesignUiModel(
 
     var size: String,
 
-    var title: String)
+    var title: String): Parcelable

@@ -1,6 +1,7 @@
 package com.future.tailormade.core.di.module
 
 import com.future.tailormade.core.service.CartService
+import com.future.tailormade.core.service.CheckoutService
 import com.future.tailormade.core.service.DashboardService
 import com.future.tailormade.di.module.NetworkModule
 import com.future.tailormade.di.scope.TailormadeApi
@@ -22,5 +23,10 @@ class ServiceModule {
   @Provides
   fun provideCartService(@TailormadeApi retrofit: Retrofit): CartService {
     return retrofit.create(CartService::class.java)
+  }
+
+  @Provides
+  fun provideCheckoutService(@TailormadeApi retrofit: Retrofit): CheckoutService {
+    return retrofit.create(CheckoutService::class.java)
   }
 }

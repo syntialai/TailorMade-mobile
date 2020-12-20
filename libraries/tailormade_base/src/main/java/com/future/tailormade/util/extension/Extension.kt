@@ -12,11 +12,11 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.coroutine.CoroutineHelper
 import java.sql.Timestamp
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Currency
 import java.util.Date
 import java.util.Locale
-import java.text.NumberFormat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -127,6 +127,8 @@ fun Double.toIndonesiaCurrencyFormat() = NumberFormat.getCurrencyInstance().appl
  * Null handling functions
  */
 fun <T> List<T>?.orEmptyList(): List<T> = this ?: listOf()
+
+fun <T> MutableList<T>?.orEmptyMutableList(): MutableList<T> = this ?: mutableListOf()
 
 fun Int?.orZero(): Int = this ?: 0
 

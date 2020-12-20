@@ -15,5 +15,6 @@ object AppApiUrl {
    */
   const val BASE_WISHLISTS_PATH = ApiUrl.API_PATH + "/wishlists"
   const val WISHLISTS_ID_PATH = "$BASE_WISHLISTS_PATH{id}"
+  const val WISHLISTS_ID_EDIT_QUANTITY_PATH = "$WISHLISTS_ID_PATH/_edit-quantity"
   const val WISHLISTS_ID_CHECKOUT_PATH = "$WISHLISTS_ID_PATH/_checkout"
 }

@@ -21,9 +21,8 @@ interface CartService {
   @GET(AppApiUrl.WISHLISTS_ID_PATH)
   fun getCartById(@Path("id") id: String): BaseSingleObjectResponse<CartResponse>
 
-  @PUT(AppApiUrl.WISHLISTS_ID_CHECKOUT_PATH)
-  fun putEditCartItemQuantity(@Path("id") id: String,
-      @Body cartEditQuantityRequest: CartEditQuantityRequest):
+  @PUT(AppApiUrl.WISHLISTS_ID_EDIT_QUANTITY_PATH) fun putEditCartItemQuantity(
+      @Path("id") id: String, @Body cartEditQuantityRequest: CartEditQuantityRequest):
       BaseSingleObjectResponse<CartEditQuantityResponse>
 
   @DELETE(AppApiUrl.WISHLISTS_ID_PATH)
