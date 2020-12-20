@@ -7,10 +7,9 @@ import com.google.gson.annotations.Expose
 
 data class ProfileInfoResponse(
 
-    @Expose
-    val id: String = "",
+    val id: String,
 
-    val name: String = "",
+    val name: String,
 
     val image: String? = null,
 

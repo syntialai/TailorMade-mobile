@@ -1,4 +1,4 @@
-package com.future.tailormade_profile.feature.settings
+package com.future.tailormade_profile.feature.settings.view
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
