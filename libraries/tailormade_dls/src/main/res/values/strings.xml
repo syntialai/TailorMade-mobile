@@ -51,4 +51,10 @@
     <string name="profile_city_label">City</string>
     <string name="chat_now_label">Chat now</string>
     <string name="edit_profile_label">Edit Profile</string>
+
+    <string name="size_chest_label">Chest</string>
+    <string name="size_waist_label">Waist</string>
+    <string name="size_hips_label">Hips</string>
+    <string name="size_neck_to_waist_label">Neck to Waist</string>
+    <string name="size_inseam_label">Inseam</string>
 </resources>

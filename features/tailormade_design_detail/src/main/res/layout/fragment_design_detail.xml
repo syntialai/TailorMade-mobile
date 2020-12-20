@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface2"
+    android:orientation="vertical"
+    tools:context=".feature.view.DesignDetailFragment">
+
+    <include
+        android:id="@+id/layout_design_detail_general_info"
+        layout="@layout/layout_design_detail_general_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_size_info_label"
+        style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="?attr/cardBackgroundColor"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_16"
+        android:text="@string/size_information_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_design_detail_general_info" />
+
+    <TextView
+        android:id="@+id/text_view_choose_size_label"
+        style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/cardBackgroundColor"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_12"
+        android:text="@string/choose_size_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_size_info_label" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_choose_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/cardBackgroundColor"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_12"
+        app:chipSpacingHorizontal="@dimen/dp_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_choose_size_label"
+        app:selectionRequired="true"
+        app:singleSelection="true" />
+
+    <View
+        android:id="@+id/view_size_info_separator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="?attr/colorSurface2"
+        android:paddingHorizontal="@dimen/dp_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chip_group_choose_size" />
+
+    <include
+        android:id="@+id/layout_size_information_detail"
+        layout="@layout/layout_size_information_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_size_info_separator" />
+
+    <TextView
+        android:id="@+id/text_view_available_color_label"
+        style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="?attr/cardBackgroundColor"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_16"
+        android:text="@string/available_color_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_size_information_detail" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_choose_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/cardBackgroundColor"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_12"
+        app:chipSpacingHorizontal="@dimen/dp_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_available_color_label"
+        app:selectionRequired="true"
+        app:singleSelection="true" />
+
+    <TextView
+        android:id="@+id/text_view_design_detail_description_label"
+        style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="?attr/cardBackgroundColor"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_16"
+        android:text="@string/description_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chip_group_choose_color" />
+
+    <TextView
+        android:id="@+id/text_view_design_detail_description"
+        style="@style/TextAppearance.TailorMade.Body2.BlackMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/cardBackgroundColor"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_design_detail_description_label"
+        tools:text="@string/description_label" />
+
+    <TextView
+        android:id="@+id/text_view_read_more"
+        style="@style/TextAppearance.TailorMade.Body2.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/cardBackgroundColor"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_16"
+        android:text="@string/read_more_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_design_detail_description" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_design_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom_nav_design_detail" />
+</androidx.constraintlayout.widget.ConstraintLayout>
