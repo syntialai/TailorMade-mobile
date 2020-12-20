@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.entity.Education
 import com.future.tailormade_profile.core.model.entity.Occupation
 import com.future.tailormade_profile.databinding.FragmentProfileAboutBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileAboutFragment : BaseFragment() {
 
   companion object {
@@ -24,6 +27,8 @@ class ProfileAboutFragment : BaseFragment() {
   private lateinit var binding: FragmentProfileAboutBinding
 
   override fun getLogName() = "com.future.tailormade_profile.feature.profile.view.ProfileAboutFragment"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
@@ -41,7 +46,7 @@ class ProfileAboutFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    viewModel.profileInfoResponse.observe(viewLifecycleOwner, {
+    viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
       it.location?.address?.let { address ->
         setAddressData(address)
       }

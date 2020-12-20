@@ -6,65 +6,81 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.ViewState
+import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
-  protected var appLogger = AppLogger.create(this.getLogName())
+	protected var appLogger = AppLogger.create(this.getLogName())
 
-  protected abstract fun getLogName(): String
+	protected abstract fun getLogName(): String
 
-  val viewState = MutableLiveData<ViewState>()
+	val viewState = MutableLiveData<ViewState>()
 
-  protected val _errorMessage = MutableLiveData<String?>()
-  val errorMessage: LiveData<String?>
-    get() = _errorMessage
+	protected val _errorMessage = MutableLiveData<String?>()
+	val errorMessage: LiveData<String?>
+		get() = _errorMessage
 
-  protected val _isLoading = MutableLiveData<Boolean>()
-  val isLoading: LiveData<Boolean>
-    get() = _isLoading
+	protected val _isLoading = MutableLiveData<Boolean>()
+	val isLoading: LiveData<Boolean>
+		get() = _isLoading
 
-  fun isStillLoading() = _isLoading.value ?: false
+	protected var page = Constants.INITIAL_PAGING_PAGE
+	protected var itemPerPage = Constants.INITIAL_PAGING_ITEM_PER_PAGE
 
-  fun setErrorMessage(errorMessage: String) {
-    _errorMessage.value = errorMessage
-  }
+	fun isStillLoading() = _isLoading.value.orFalse()
 
-  protected fun setStartLoading() {
-    _isLoading.value = true
-  }
+	fun isFirstPage() = page == Constants.INITIAL_PAGING_PAGE
 
-  protected fun setFinishLoading() {
-    _isLoading.value = false
-  }
+	protected fun setStartLoading() {
+		_isLoading.value = true
+	}
 
-  fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-    return launchOnViewModelScope(block, Dispatchers.Main)
-  }
+	protected fun setFinishLoading() {
+		_isLoading.value = false
+	}
 
-  fun <T> launchOnIOViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-    return launchOnViewModelScope(block, Dispatchers.IO)
-  }
+	@ExperimentalCoroutinesApi
+	open fun fetchMore() {
+		page.inc()
+	}
 
-  fun <T> launchOnDefaultViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-    return launchOnViewModelScope(block, Dispatchers.Default)
-  }
+	@ExperimentalCoroutinesApi
+	open fun refreshFetch() {
+		page = Constants.INITIAL_PAGING_PAGE
+	}
 
-  private fun <T> launchOnViewModelScope(
-      block: suspend () -> LiveData<T>,
-      coroutineContext: CoroutineContext
-  ): LiveData<T> {
-    return liveData(viewModelScope.coroutineContext + coroutineContext) {
-      emitSource(block())
-    }
-  }
+	fun setErrorMessage(message: String) {
+		_errorMessage.value = message
+	}
 
-  fun launchViewModelScope(block: suspend () -> Unit) {
-    viewModelScope.launch {
-      block()
-    }
-  }
+	fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
+		return launchOnViewModelScope(block, Dispatchers.Main)
+	}
+
+	fun <T> launchOnIOViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
+		return launchOnViewModelScope(block, Dispatchers.IO)
+	}
+
+	fun <T> launchOnDefaultViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
+		return launchOnViewModelScope(block, Dispatchers.Default)
+	}
+
+	private fun <T> launchOnViewModelScope(block: suspend () -> LiveData<T>,
+			coroutineContext: CoroutineContext): LiveData<T> {
+		return liveData(viewModelScope.coroutineContext + coroutineContext) {
+			emitSource(block())
+		}
+	}
+
+	fun launchViewModelScope(block: suspend () -> Unit) {
+		viewModelScope.launch {
+			block()
+		}
+	}
 }

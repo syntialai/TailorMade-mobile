@@ -1,13 +1,11 @@
 package com.future.tailormade_search.core.repository.impl
 
 import com.future.tailormade.util.extension.flowOnIO
-import com.future.tailormade_search.core.di.scope.SearchScope
 import com.future.tailormade_search.core.repository.SearchRepository
 import com.future.tailormade_search.core.service.SearchService
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.flow
 
-@SearchScope
 class SearchRepositoryImpl @Inject constructor(
     private val searchService: SearchService) : SearchRepository {
 
