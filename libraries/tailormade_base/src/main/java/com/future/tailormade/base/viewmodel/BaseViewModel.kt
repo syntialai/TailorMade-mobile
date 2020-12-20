@@ -13,44 +13,44 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected var appLogger = AppLogger.create(this.getLogName())
+  protected var appLogger = AppLogger.create(this.getLogName())
 
-    protected abstract fun getLogName(): String
+  protected abstract fun getLogName(): String
 
-    val viewState = MutableLiveData<ViewState>()
+  val viewState = MutableLiveData<ViewState>()
 
-    protected val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?>
-        get() = _errorMessage
+  protected val _errorMessage = MutableLiveData<String?>()
+  val errorMessage: LiveData<String?>
+    get() = _errorMessage
 
-    fun setErrorMessage(message: String) {
-        _errorMessage.value = message
+  fun setErrorMessage(message: String) {
+    _errorMessage.value = message
+  }
+
+  fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
+    return launchOnViewModelScope(block, Dispatchers.Main)
+  }
+
+  fun <T> launchOnIOViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
+    return launchOnViewModelScope(block, Dispatchers.IO)
+  }
+
+  fun <T> launchOnDefaultViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
+    return launchOnViewModelScope(block, Dispatchers.Default)
+  }
+
+  private fun <T> launchOnViewModelScope(
+      block: suspend () -> LiveData<T>,
+      coroutineContext: CoroutineContext
+  ): LiveData<T> {
+    return liveData(viewModelScope.coroutineContext + coroutineContext) {
+      emitSource(block())
     }
+  }
 
-    fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-        return launchOnViewModelScope(block, Dispatchers.Main)
+  fun launchViewModelScope(block: suspend () -> Unit) {
+    viewModelScope.launch {
+      block()
     }
-
-    fun <T> launchOnIOViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-        return launchOnViewModelScope(block, Dispatchers.IO)
-    }
-
-    fun <T> launchOnDefaultViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-        return launchOnViewModelScope(block, Dispatchers.Default)
-    }
-
-    private fun <T> launchOnViewModelScope(
-        block: suspend () -> LiveData<T>,
-        coroutineContext: CoroutineContext
-    ): LiveData<T> {
-        return liveData(viewModelScope.coroutineContext + coroutineContext) {
-            emitSource(block())
-        }
-    }
-
-    fun launchViewModelScope(block: suspend () -> Unit) {
-        viewModelScope.launch {
-            block()
-        }
-    }
+  }
 }
