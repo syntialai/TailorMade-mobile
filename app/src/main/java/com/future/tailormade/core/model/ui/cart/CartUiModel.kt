@@ -12,9 +12,9 @@ data class CartUiModel(
 
     var quantity: Int = 1,
 
-		var totalPrice: String? = null,
+    var totalPrice: String? = null,
 
-		var totalDiscount: String = "-",
+    var totalDiscount: String = "-",
 
-		var totalPayment: String? = null
+    var totalPayment: String? = null
 ): Parcelable

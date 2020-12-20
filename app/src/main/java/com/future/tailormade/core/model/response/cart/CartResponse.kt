@@ -16,10 +16,10 @@ data class CartResponse(
 
     val updatedAt: String,
 
-		val userId: String,
+    val userId: String,
 
-		@Expose
-		val tailorName: String? = null,
+    @Expose
+    val tailorName: String? = null,
 
-		@Expose
-		val userName: String? = null)
+    @Expose
+    val userName: String? = null)
