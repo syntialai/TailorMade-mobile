@@ -14,6 +14,7 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.feature.dashboard.viewModel.DashboardViewModel
 import com.future.tailormade.tailor_app.databinding.FragmentDashboardBinding
 import com.future.tailormade.tailor_app.feature.dashboard.adapter.DashboardAdapter
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,10 +53,17 @@ class DashboardFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    // TODO: Observe here
-
-    // TODO: Uncomment this when data is exist
-//    binding.swipeRefreshLayoutDashboard.isRefreshing = false
+    viewModel.designs.observe(viewLifecycleOwner, {
+      dashboardAdapter.submitList(it)
+      if (it.isEmpty()) {
+        showState()
+        hideRecyclerView()
+      } else {
+        hideState()
+        showRecyclerView()
+      }
+      binding.swipeRefreshLayoutDashboard.isRefreshing = false
+    })
   }
 
   @ExperimentalCoroutinesApi
@@ -69,18 +77,18 @@ class DashboardFragment : BaseFragment() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
           super.onScrolled(recyclerView, dx, dy)
 
-          // TODO: Add livedata to view model and uncomment this
-//          if (isLastItemViewed(recyclerView, viewModel.tailors.value?.size.orZero())) {
-//            viewModel.fetchMore()
-//          }
+          if (isLastItemViewed(recyclerView, viewModel.designs.value?.size.orZero())) {
+            viewModel.fetchMore()
+          }
         }
       })
     }
   }
 
+  @ExperimentalCoroutinesApi
   fun setupSwipeRefreshLayout() {
     binding.swipeRefreshLayoutDashboard.setOnRefreshListener {
-      // TODO: call view model to fetch data
+      viewModel.refreshFetch()
       if (binding.swipeRefreshLayoutDashboard.isRefreshing.not()) {
         binding.swipeRefreshLayoutDashboard.isRefreshing = true
       }
