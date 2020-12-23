@@ -1,20 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_16"
     android:elevation="@dimen/dp_4">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/dp_12"
-        android:orientation="horizontal">
+        android:layout_margin="@dimen/dp_12">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image_view_ordered"
+            android:id="@+id/image_view_history_design_ordered"
             android:layout_width="@dimen/dp_64"
             android:layout_height="@dimen/dp_64"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,121 +19,116 @@
             app:shapeAppearanceOverlay="@style/Theme.TailorMade.CornerRounded_16dp"
             tools:ignore="ContentDescription" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text_view_history_design_ordered_title"
+            style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12">
+            android:layout_marginStart="@dimen/dp_12"
+            app:layout_constraintStart_toEndOf="@id/image_view_history_design_ordered"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/ordered_title_label" />
 
-            <TextView
-                android:id="@+id/text_view_ordered_title"
-                style="?attr/textAppearanceBody1"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:text="@string/ordered_title_label"
-                android:textColor="@color/color_black_87"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/text_view_history_design_ordered_color_label"
+            style="@style/TextAppearance.TailorMade.Caption.BlackMedium"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/ordered_color_label"
+            app:layout_constraintStart_toEndOf="@id/image_view_history_design_ordered"
+            app:layout_constraintTop_toBottomOf="@id/text_view_history_design_ordered_title" />
 
-            <TextView
-                android:id="@+id/text_view_ordered_color_label"
-                style="?attr/textAppearanceCaption"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/ordered_color_label"
-                android:textColor="@color/color_black_60"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_ordered_title" />
+        <TextView
+            android:id="@+id/text_view_history_design_ordered_color"
+            style="@style/TextAppearance.TailorMade.Caption.BlackHigh"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_history_design_ordered_color_label"
+            app:layout_constraintStart_toEndOf="@id/text_view_history_design_ordered_color_label"
+            app:layout_constraintTop_toTopOf="@id/text_view_history_design_ordered_color_label"
+            tools:text="@string/ordered_color_value_label" />
 
-            <TextView
-                android:id="@+id/text_view_ordered_color"
-                style="?attr/textAppearanceCaption"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/ordered_color_value_label"
-                android:textColor="@color/color_black_87"
-                app:layout_constraintStart_toEndOf="@id/text_view_ordered_color_label"
-                app:layout_constraintTop_toBottomOf="@id/text_view_ordered_title" />
+        <TextView
+            android:id="@+id/text_view_history_design_ordered_size_label"
+            style="@style/TextAppearance.TailorMade.Caption.BlackMedium"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/ordered_size_label"
+            app:layout_constraintStart_toEndOf="@id/text_view_history_design_ordered_color"
+            app:layout_constraintTop_toBottomOf="@id/text_view_history_design_ordered_title" />
 
-            <TextView
-                android:id="@+id/text_view_ordered_size_label"
-                style="?attr/textAppearanceCaption"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_40"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/ordered_size_label"
-                android:textColor="@color/color_black_60"
-                app:layout_constraintStart_toEndOf="@id/text_view_ordered_color"
-                app:layout_constraintTop_toBottomOf="@id/text_view_ordered_title" />
+        <TextView
+            android:id="@+id/text_view_history_design_ordered_size"
+            style="@style/TextAppearance.TailorMade.Caption.BlackHigh"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_history_design_ordered_size_label"
+            app:layout_constraintStart_toEndOf="@id/text_view_history_design_ordered_size_label"
+            app:layout_constraintTop_toTopOf="@id/text_view_history_design_ordered_size_label"
+            tools:text="@string/ordered_size_value_label" />
 
-            <TextView
-                android:id="@+id/text_view_ordered_size"
-                style="?attr/textAppearanceCaption"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/ordered_size_value_label"
-                android:textColor="@color/color_black_87"
-                app:layout_constraintStart_toEndOf="@id/text_view_ordered_size_label"
-                app:layout_constraintTop_toBottomOf="@id/text_view_ordered_title" />
+        <TextView
+            android:id="@+id/text_view_history_design_ordered_price"
+            style="@style/TextAppearance.TailorMade.Body2.Primary"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_4"
+            app:layout_constraintStart_toEndOf="@id/image_view_history_design_ordered"
+            app:layout_constraintTop_toBottomOf="@id/text_view_history_design_ordered_color_label"
+            tools:text="@string/ordered_price_label" />
 
-            <TextView
-                android:id="@+id/text_view_ordered_price"
-                style="?attr/textAppearanceBody2"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/ordered_price_label"
-                android:textColor="?attr/colorPrimary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_ordered_color_label" />
+        <TextView
+            android:id="@+id/text_view_history_design_ordered_price_before_discount"
+            style="@style/TextAppearance.TailorMade.Body2.Primary.Bold"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_4"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/text_view_history_design_ordered_price"
+            app:layout_constraintTop_toBottomOf="@id/text_view_history_design_ordered_color_label"
+            tools:text="@string/ordered_price_discount_label"
+            tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/text_view_ordered_price_discount"
-                style="?attr/textAppearanceBody2"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/ordered_price_discount_label"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/text_view_ordered_price"
-                app:layout_constraintTop_toBottomOf="@id/text_view_ordered_color_label" />
+        <TextView
+            android:id="@+id/text_view_history_design_ordered_price_after_discount"
+            style="@style/TextAppearance.TailorMade.Body2.BlackMedium2"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_history_design_ordered_price_before_discount"
+            app:layout_constraintStart_toEndOf="@id/text_view_history_design_ordered_price_before_discount"
+            app:layout_constraintTop_toTopOf="@id/text_view_history_design_ordered_price_before_discount"
+            tools:text="@string/ordered_discount_label"
+            tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/text_view_ordered_discount"
-                style="?attr/textAppearanceBody2"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/ordered_discount_label"
-                android:textColor="@color/color_black_54"
-                app:layout_constraintStart_toEndOf="@id/text_view_ordered_price_discount"
-                app:layout_constraintTop_toBottomOf="@id/text_view_ordered_color_label" />
+        <include
+            layout="@layout/layout_ordered_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_12"
+            app:layout_constraintBottom_toTopOf="@id/button_order_again_ordered"
+            app:layout_constraintStart_toEndOf="@id/image_view_history_design_ordered"
+            app:layout_constraintTop_toBottomOf="@id/text_view_history_design_ordered_price" />
 
-            <include
-                layout="@layout/layout_order_total"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_ordered_price"
-                app:layout_constraintBottom_toTopOf="@id/button_order_again_ordered"
-                />
-
-            <Button
-                android:id="@+id/button_order_again_ordered"
-                style="?attr/buttonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_12"
-                android:text="@string/order_again_label"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/grid_order_total" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+        <Button
+            android:id="@+id/button_order_again_ordered"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_24"
+            android:text="@string/order_again_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grid_order_total" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

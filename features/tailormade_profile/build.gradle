@@ -29,7 +29,6 @@ android {
     }
 
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
 
@@ -46,10 +45,11 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    // Libraries
-    implementation project(":libraries:tailormade_base")
-    implementation project(":libraries:tailormade_dls")
-    implementation project(":features:tailormade_auth")
+    // Router
+    implementation project(":libraries:tailormade_router")
+
+    // Features
+    api project(":features:tailormade_auth")
 
     // OSM
     implementation osm
@@ -63,9 +63,6 @@ dependencies {
     testImplementation test.mockito
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
-
-    // Paging
-    testImplementation paging.test_common
 
     // Annotation Processing
     kapt dataBinding.kapt

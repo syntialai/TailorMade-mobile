@@ -8,10 +8,16 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.logger.AppLogger
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 abstract class BaseActivity : AppCompatActivity() {
 
   open fun getScreenName(): String = "BaseActivity"
+
+  protected var onNavigationIconClicked: (() -> Unit)? = null
 
   protected var toolbar: MaterialToolbar? = null
 
@@ -55,11 +61,31 @@ abstract class BaseActivity : AppCompatActivity() {
     }
   }
 
+  fun launchCoroutineOnMain(block: () -> Unit) {
+    launchCoroutine(Dispatchers.Main, block)
+  }
+
+  fun launchCoroutineOnIO(block: () -> Unit) {
+    launchCoroutine(Dispatchers.IO, block)
+  }
+
+  private fun launchCoroutine(coroutineContext: CoroutineContext, block: () -> Unit) {
+    CoroutineScope(coroutineContext).launch {
+      block()
+    }
+  }
+
+  fun setupOnNavigationIconClicked(onNavigationIconClicked: () -> Unit) {
+    this.onNavigationIconClicked = onNavigationIconClicked
+  }
+
   fun setupToolbar(title: String) {
-    toolbar?.let {
-      it.title = title
-      it.setNavigationOnClickListener {
-        onBackPressed()
+    toolbar?.let { toolbar ->
+      toolbar.title = title
+      toolbar.setNavigationOnClickListener {
+        onNavigationIconClicked?.invoke() ?: run {
+          onBackPressed()
+        }
       }
     }
   }

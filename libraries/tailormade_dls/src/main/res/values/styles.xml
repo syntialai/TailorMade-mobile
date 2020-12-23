@@ -4,7 +4,7 @@
     <!-- Bottom Navigation Style -->
     <style name="Theme.TailorMade.BottomNavigation" parent="Widget.Design.BottomNavigationView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="android:minHeight">@dimen/dp_56</item>
         <item name="android:layout_margin">@dimen/dp_16</item>
         <item name="android:background">@drawable/drawable_bottom_nav_background</item>
         <item name="labelVisibilityMode">unlabeled</item>
@@ -12,26 +12,28 @@
 
     <!-- Button Style -->
     <style name="Theme.TailorMade.Button.Rounded" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="android:minHeight">@dimen/dp_56</item>
         <item name="android:paddingTop">@dimen/dp_12</item>
         <item name="android:paddingBottom">@dimen/dp_12</item>
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Small.Rounded" parent="Theme.TailorMade.Button.Rounded">
-        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="android:minHeight">@dimen/dp_40</item>
         <item name="android:paddingTop">@dimen/dp_8</item>
         <item name="android:paddingBottom">@dimen/dp_8</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Small.Outlined.Rounded" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="android:minHeight">@dimen/dp_40</item>
         <item name="android:paddingTop">@dimen/dp_8</item>
         <item name="android:paddingBottom">@dimen/dp_8</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_height">@dimen/dp_56</item>
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+        <item name="backgroundTint">?colorSurface</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Red" parent="Theme.TailorMade.Button.Outlined.Rounded">
@@ -54,8 +56,16 @@
 
     <!-- Chip Style -->
     <style name="Theme.TailorMade.Chip" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="checkedIconVisible">false</item>
         <item name="android:checkable">true</item>
+    </style>
+
+    <style name="Theme.TailorMade.Chip.Icon" parent="Theme.TailorMade.Chip">
+        <item name="chipIconEnabled">true</item>
+        <item name="chipIconVisible">true</item>
+        <item name="chipIconTint">@color/color_black_38</item>
+        <item name="checkedIconEnabled">true</item>
+        <item name="checkedIconVisible">true</item>
+        <item name="checkedIconTint">?colorPrimary</item>
     </style>
 
     <!-- Corner Style -->
@@ -100,10 +110,16 @@
         <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
     </style>
 
+    <!-- Card Style -->
+    <style name="Theme.TailorMade.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?cardBackgroundColor</item>
+    </style>
+
     <!-- FAB Style -->
     <style name="Theme.TailorMade.FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
-        <item name="android:background">@color/color_primary_900</item>
-        <item name="android:textColor">@color/color_primary_50</item>
+        <item name="android:background">?colorPrimaryDark</item>
+        <item name="backgroundTint">?colorPrimaryDark</item>
+        <item name="tint">@color/color_primary_50</item>
     </style>
 
     <!-- Radio Button Style -->
@@ -135,12 +151,48 @@
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Headline2.BlackHigh" parent="TextAppearance.TailorMade.Headline2">
+        <item name="android:textColor">@color/color_black_87</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline2.BlackMedium" parent="TextAppearance.TailorMade.Headline2">
+        <item name="android:textColor">@color/color_black_60</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline2.BlackLight" parent="TextAppearance.TailorMade.Headline2">
+        <item name="android:textColor">@color/color_black_38</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Headline3.Primary" parent="TextAppearance.TailorMade.Headline3">
         <item name="android:textColor">?colorPrimary</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Headline3.Primary.Bold" parent="TextAppearance.TailorMade.Headline3.Primary">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Headline3.PrimaryDark" parent="TextAppearance.TailorMade.Headline3">
         <item name="android:textColor">?colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.PrimaryDark.Bold" parent="TextAppearance.TailorMade.Headline3.PrimaryDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackHigh" parent="TextAppearance.TailorMade.Headline3">
+        <item name="android:textColor">@color/color_black_87</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackHigh.Bold" parent="TextAppearance.TailorMade.Headline3.BlackHigh">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackMedium" parent="TextAppearance.TailorMade.Headline3">
+        <item name="android:textColor">@color/color_black_60</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackLight" parent="TextAppearance.TailorMade.Headline3">
+        <item name="android:textColor">@color/color_black_38</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Body1.Primary" parent="TextAppearance.TailorMade.Body1">
@@ -179,6 +231,10 @@
         <item name="android:textColor">?colorPrimary</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Body2.Primary.Bold" parent="TextAppearance.TailorMade.Body2.Primary">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Body2.PrimaryDark" parent="TextAppearance.TailorMade.Body2">
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
@@ -205,6 +261,10 @@
 
     <style name="TextAppearance.TailorMade.Subtitle1.Primary" parent="TextAppearance.TailorMade.Subtitle1">
         <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Subtitle1.Primary.Bold" parent="TextAppearance.TailorMade.Subtitle1.Primary">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Subtitle1.PrimaryDark" parent="TextAppearance.TailorMade.Subtitle1">
@@ -263,6 +323,38 @@
         <item name="android:textColor">?colorPrimary</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Caption.Primary" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.PrimaryDark" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">?colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.PrimaryDark.Bold" parent="TextAppearance.TailorMade.Caption.PrimaryDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackHigh" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_87</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackMedium" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_60</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackMedium2" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_54</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackLow" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_38</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.BlackLight" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_black_20</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Overline.PrimaryDark" parent="TextAppearance.TailorMade.Overline">
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
@@ -292,8 +384,21 @@
         <item name="boxBackgroundColor">?colorSurface</item>
     </style>
 
+    <style name="Theme.TailorMade.TextInputEditText.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputEditText.Outlined.Rounded" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_16</item>
+    </style>
+
     <style name="Theme.TailorMade.TextInputEditText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
     </style>
 
     <!-- Toolbar -->
@@ -304,6 +409,6 @@
 
     <style name="Theme.TailorMade.Toolbar.Back" parent="Theme.TailorMade.Toolbar">
         <item name="navigationIcon">@drawable/ic_back</item>
-        <item name="navigationIconColor">?colorOnBackground</item>
+        <item name="navigationIconColor">?attr/colorControlNormal</item>
     </style>
 </resources>
