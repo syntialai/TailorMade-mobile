@@ -22,7 +22,7 @@ object Action {
   private const val ACTION_OPEN_CHAT_ROOM = "com.future.tailormade.chatRoom.open"
   private const val ACTION_OPEN_DESIGN_DETAIL = "com.future.tailormade.designDetail.open"
   private const val ACTION_OPEN_CHECKOUT = "com.future.tailormade.checkout.open"
-    private const val ACTION_OPEN_HISTORY = "com.future.tailormade.history.open"
+  private const val ACTION_OPEN_HISTORY = "com.future.tailormade.history.open"
 
   /**
    * Action function
