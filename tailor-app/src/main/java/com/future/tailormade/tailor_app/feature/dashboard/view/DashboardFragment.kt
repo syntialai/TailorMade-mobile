@@ -13,6 +13,7 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.feature.dashboard.viewModel.DashboardViewModel
 import com.future.tailormade.tailor_app.databinding.FragmentDashboardBinding
+import com.future.tailormade.tailor_app.feature.dashboard.adapter.DashboardAdapter
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,9 @@ class DashboardFragment : BaseFragment() {
 
   private lateinit var binding: FragmentDashboardBinding
 
+  private val dashboardAdapter by lazy {
+    DashboardAdapter(this::goToDesignDetail)
+  }
   private val viewModel: DashboardViewModel by viewModels()
 
   override fun getLogName() =
@@ -58,7 +62,7 @@ class DashboardFragment : BaseFragment() {
   fun setupRecyclerView() {
     with(binding.recyclerViewTailorDesignsList) {
       layoutManager = GridLayoutManager(context, 2)
-      // TODO: Setup adapter here
+      adapter = dashboardAdapter
 
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -81,6 +85,10 @@ class DashboardFragment : BaseFragment() {
         binding.swipeRefreshLayoutDashboard.isRefreshing = true
       }
     }
+  }
+
+  private fun goToDesignDetail(id: String) {
+    // TODO: Route to design detail
   }
 
   private fun hideRecyclerView() {

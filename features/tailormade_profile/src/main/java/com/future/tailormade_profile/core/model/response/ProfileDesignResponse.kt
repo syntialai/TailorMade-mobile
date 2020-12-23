@@ -4,5 +4,13 @@ data class ProfileDesignResponse(
 
     val id: String,
 
-    val image: String
+    val title: String,
+
+    val image: String,
+
+    val price: Double,
+
+    val discount: Double,
+
+    val active: Boolean
 )
