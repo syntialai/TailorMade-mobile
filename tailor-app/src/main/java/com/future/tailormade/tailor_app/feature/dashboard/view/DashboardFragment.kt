@@ -1,7 +1,6 @@
 package com.future.tailormade.tailor_app.feature.dashboard.view
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
-import com.future.tailormade.tailor_app.feature.dashboard.viewModel.DashboardViewModel
 import com.future.tailormade.tailor_app.databinding.FragmentDashboardBinding
 import com.future.tailormade.tailor_app.feature.dashboard.adapter.DashboardAdapter
+import com.future.tailormade.tailor_app.feature.dashboard.viewModel.DashboardViewModel
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
