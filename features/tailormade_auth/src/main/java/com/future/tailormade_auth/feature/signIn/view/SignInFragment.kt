@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
@@ -26,6 +27,8 @@ class SignInFragment : BaseFragment() {
       "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
 
   override fun getScreenName(): String = "Sign In"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi

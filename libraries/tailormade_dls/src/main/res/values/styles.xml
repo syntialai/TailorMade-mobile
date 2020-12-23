@@ -53,6 +53,11 @@
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.Right</item>
     </style>
 
+    <style name="Theme.TailorMade.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="backgroundTint">?colorSurface</item>
+        <item name="android:padding">@dimen/dp_0</item>
+    </style>
+
     <!-- Chip Style -->
     <style name="Theme.TailorMade.Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:checkable">true</item>

@@ -11,6 +11,8 @@ object Constants {
     const val INITIAL_PAGING_PAGE = 1
     const val INITIAL_PAGING_ITEM_PER_PAGE = 10
 
+    const val TAILOR = "tailor"
+
     /**
      * Error messages
      */

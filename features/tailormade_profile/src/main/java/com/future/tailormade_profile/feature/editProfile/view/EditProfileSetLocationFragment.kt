@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_profile.databinding.FragmentEditProfileSetLocationBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +24,8 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
       "com.future.tailormade_profile.feature.editProfile.view.EditProfileSetLocationFragment"
 
   override fun getScreenName(): String = "Set Location"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {

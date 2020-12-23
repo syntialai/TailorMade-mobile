@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_search.databinding.FragmentCategoryListBinding
 import com.future.tailormade_search.feature.filter.adapter.ChooseListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,8 @@ class CategoryListFragment : BaseFragment() {
   override fun getLogName(): String = "com.future.tailormade_search.feature.filter.view.CategoryListFragment"
 
   override fun getScreenName(): String = "Select Category"
+
+  override fun getViewModel(): BaseViewModel? = null
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
