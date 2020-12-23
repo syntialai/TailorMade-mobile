@@ -110,10 +110,8 @@ fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Local
 
 fun Long.toDate(): Date = Date(this)
 
-fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(
-    pattern,
-    Locale.ENGLISH
-).format(this)
+fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH)
+		.format(this)
 
 /**
  * Money Converter
@@ -145,4 +143,3 @@ fun Boolean?.orFalse(): Boolean = this ?: false
  */
 @RequiresApi(Build.VERSION_CODES.N)
 fun <T> MutableMap<String, T>.getFirstElement() = this.entries.stream().findFirst().get()
-

@@ -4,7 +4,7 @@
 
     <!-- Dashboard -->
     <string name="dashboard_title_state">Hello!</string>
-    <string name="dashboard_description_state">Tailors near you will be shown here</string>
+    <string name="dashboard_description_state">Tailors near you will be shown here.</string>
     <string name="preview_label">Preview</string>
 
     <!-- Cart -->
@@ -35,4 +35,13 @@
         <item>Neck to Waist</item>
         <item>Inseam</item>
     </string-array>
+
+    <!-- History -->
+    <string name="order_id_label">Order ID</string>
+    <string name="order_date_label">Order date</string>
+    <string name="history_title_state">No History</string>
+    <string name="history_description_state">Your order history will be appeared here.</string>
+    <string name="ordered_by_label">Ordered by</string>
+    <string name="payment_information_label">Payment Information</string>
+    <string name="measurement_details_label">Measurement Details</string>
 </resources>

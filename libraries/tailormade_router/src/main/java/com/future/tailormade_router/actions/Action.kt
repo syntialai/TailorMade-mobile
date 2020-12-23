@@ -22,6 +22,7 @@ object Action {
   private const val ACTION_OPEN_CHAT_ROOM = "com.future.tailormade.chatRoom.open"
   private const val ACTION_OPEN_DESIGN_DETAIL = "com.future.tailormade.designDetail.open"
   private const val ACTION_OPEN_CHECKOUT = "com.future.tailormade.checkout.open"
+  private const val ACTION_OPEN_HISTORY = "com.future.tailormade.history.open"
 
   /**
    * Action function
@@ -45,6 +46,8 @@ object Action {
   fun goToCheckout(context: Context, cartItemId: String) = getIntent(context, ACTION_OPEN_CHECKOUT).apply {
     putExtra(PARAM_CART_ITEM_ID, cartItemId)
   }
+
+    fun goToHistory(context: Context) = getIntent(context, ACTION_OPEN_HISTORY)
 
   private fun getIntent(context: Context, action: String) = Intent(action).setPackage(
       context.packageName)

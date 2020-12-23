@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.future.tailormade">
 
-    <!-- Internet access permission -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <!-- Location access permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <!-- Internet access permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".TailorMadeApplication"
@@ -18,7 +18,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:theme">
+        tools:replace="android:theme"
+        tools:ignore="AllowBackup">
+
+        <activity android:name=".feature.history.view.HistoryActivity">
+            <intent-filter>
+                <action android:name="com.future.tailormade.history.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".feature.checkout.view.CheckoutActivity">
             <intent-filter>
@@ -35,7 +44,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ object Constants {
     const val MIN_DEBOUNCE_TIME = 300L
     const val MIN_PASSWORD_LENGTH = 8
     const val MIN_QUERY_SEARCH_LENGTH = 3
+    const val REFRESH_DELAY_TIME = 1000L
 
     /**
      * Error messages
@@ -38,5 +39,10 @@ object Constants {
      * Date Patterns
      */
     const val DD_MMMM_YYYY = "dd MMMM yyyy"
+    const val DD_MMM_YY = "dd MMM yyyy"
     const val HH_MM = "hh:mm"
+    const val DD_MMMM_YYYY_HH_MM_SS = "dd MMMM yyyy, hh:mm:ss"
+
+    fun generateFailedFetchError(
+        objectToFetch: String) ="$FAILED_TO get $objectToFetch data. Please try again."
 }

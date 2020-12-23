@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.core.model.response.dashboard.DashboardTailorResponse
 import com.future.tailormade.core.repository.DashboardRepository
 import com.future.tailormade.util.extension.onError
@@ -14,12 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
 class DashboardViewModel @ViewModelInject constructor(
-    private val dashboardRepository: DashboardRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
-
-  companion object {
-    private const val TAILORS = "tailors"
-  }
+    private val dashboardRepository: DashboardRepository) : BaseViewModel() {
 
   override fun getLogName() = "com.future.tailormade.feature.dashboard.viewModel.DashboardViewModel"
 
@@ -27,22 +23,17 @@ class DashboardViewModel @ViewModelInject constructor(
   val tailors: LiveData<ArrayList<DashboardTailorResponse>>
     get() = _tailors
 
-  init {
-    _tailors = savedStateHandle.getLiveData(TAILORS, arrayListOf())
-  }
-
   @ExperimentalCoroutinesApi
   fun fetchDashboardTailors(lat: Double, lon: Double) {
     launchViewModelScope {
       dashboardRepository.getDashboardTailors(lat, lon, page, itemPerPage).onError {
-        _errorMessage.value = "Failed to fetch dashboard data"
+        setErrorMessage(Constants.generateFailedFetchError("dashboard"))
         setFinishLoading()
       }.onStart {
         setStartLoading()
       }.collectLatest { response ->
         response.data?.let {
           addToList(it as ArrayList, isFirstPage())
-          savedStateHandle.set(TAILORS, _tailors)
         }
         setFinishLoading()
       }
@@ -52,7 +43,15 @@ class DashboardViewModel @ViewModelInject constructor(
   @ExperimentalCoroutinesApi
   override fun fetchMore() {
     super.fetchMore()
-    fetchDashboardTailors(10.0, 10.0)
+    // TODO: Uncomment and Change this position after LocationManager done
+//    fetchDashboardTailors(10.0, 10.0)
+  }
+
+  @ExperimentalCoroutinesApi
+  override fun refreshFetch() {
+    super.refreshFetch()
+    // TODO: Uncomment and Change this position after LocationManager done
+//    fetchDashboardTailors(10.0, 10.0)
   }
 
   private fun addToList(list: ArrayList<DashboardTailorResponse>, update: Boolean) {

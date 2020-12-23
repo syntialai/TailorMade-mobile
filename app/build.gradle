@@ -78,9 +78,11 @@ dependencies {
 
     // Features
     api project(":features:tailormade_auth")
+
     implementation project(":features:tailormade_search")
     implementation project(":features:tailormade_profile")
     implementation project(":features:tailormade_chat")
+    implementation project(":features:tailormade_design_detail")
 
     // Location
     implementation gms.location

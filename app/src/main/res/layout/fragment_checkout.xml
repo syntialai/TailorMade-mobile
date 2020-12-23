@@ -62,7 +62,7 @@
 
             <include
                 android:id="@+id/layout_checkout_total"
-                layout="@layout/layout_order_total"
+                layout="@layout/layout_ordered_total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

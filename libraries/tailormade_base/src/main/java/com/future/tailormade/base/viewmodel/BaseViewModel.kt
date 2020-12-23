@@ -48,6 +48,11 @@ abstract class BaseViewModel : ViewModel() {
     page.inc()
   }
 
+  @ExperimentalCoroutinesApi
+  open fun refreshFetch() {
+    page = 1
+  }
+
   fun setErrorMessage(message: String) {
     _errorMessage.value = message
   }
