@@ -2,4 +2,6 @@
     <string name="app_name">TailorMade</string>
     <string name="your_design_label">Your Design</string>
     <string name="add_label">Add</string>
+    <string name="dashboard_title_state">Hello, tailor!</string>
+    <string name="dashboard_description_state">Let’s start adding your designs to attract customer by tapping the button above !</string>
 </resources>
