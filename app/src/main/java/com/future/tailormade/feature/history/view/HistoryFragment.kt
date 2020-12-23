@@ -21,96 +21,96 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint class HistoryFragment : BaseFragment() {
 
-	companion object {
-		fun newInstance() = HistoryFragment()
-	}
+  companion object {
+    fun newInstance() = HistoryFragment()
+  }
 
-	private lateinit var binding: FragmentHistoryBinding
+  private lateinit var binding: FragmentHistoryBinding
 
-	private val viewModel: HistoryViewModel by viewModels()
-	private val historyAdapter by lazy {
-		HistoryCardItemAdapter(::goToHistoryDetail)
-	}
+  private val viewModel: HistoryViewModel by viewModels()
+  private val historyAdapter by lazy {
+    HistoryCardItemAdapter(::goToHistoryDetail)
+  }
 
-	override fun getLogName() = "com.future.tailormade.feature.history.view.HistoryFragment"
+  override fun getLogName() = "com.future.tailormade.feature.history.view.HistoryFragment"
 
-	override fun getScreenName(): String = "History"
+  override fun getScreenName(): String = "History"
 
-	override fun getViewModel(): BaseViewModel = viewModel
+  override fun getViewModel(): BaseViewModel = viewModel
 
-	override fun onNavigationIconClicked() {
-		findNavController().navigateUp()
-	}
+  override fun onNavigationIconClicked() {
+    findNavController().navigateUp()
+  }
 
-	@ExperimentalCoroutinesApi override fun onCreateView(inflater: LayoutInflater,
-			container: ViewGroup?, savedInstanceState: Bundle?): View {
-		binding = FragmentHistoryBinding.inflate(inflater, container, false)
-		setupRecyclerView()
-		setupSwipeRefreshLayout()
-		return binding.root
-	}
+  @ExperimentalCoroutinesApi override fun onCreateView(inflater: LayoutInflater,
+      container: ViewGroup?, savedInstanceState: Bundle?): View {
+    binding = FragmentHistoryBinding.inflate(inflater, container, false)
+    setupRecyclerView()
+    setupSwipeRefreshLayout()
+    return binding.root
+  }
 
-	override fun setupFragmentObserver() {
-		super.setupFragmentObserver()
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
 
-		viewModel.orders.observe(viewLifecycleOwner, {
-			historyAdapter.submitList(it)
-			if (it.isNotEmpty()) {
-				hideState()
-				showRecyclerView()
-			} else {
-				hideRecyclerView()
-				showState()
-			}
-			binding.swipeRefreshLayoutHistory.isRefreshing = false
-		})
-	}
+    viewModel.orders.observe(viewLifecycleOwner, {
+      historyAdapter.submitList(it)
+      if (it.isNotEmpty()) {
+        hideState()
+        showRecyclerView()
+      } else {
+        hideRecyclerView()
+        showState()
+      }
+      binding.swipeRefreshLayoutHistory.isRefreshing = false
+    })
+  }
 
-	private fun goToHistoryDetail(id: String) {
-		findNavController().navigate(
-				HistoryFragmentDirections.actionHistoryFragmentToHistoryDetailFragment(id))
-	}
+  private fun goToHistoryDetail(id: String) {
+    findNavController().navigate(
+        HistoryFragmentDirections.actionHistoryFragmentToHistoryDetailFragment(id))
+  }
 
-	private fun hideRecyclerView() {
-		binding.recyclerViewHistoryList.remove()
-	}
+  private fun hideRecyclerView() {
+    binding.recyclerViewHistoryList.remove()
+  }
 
-	private fun hideState() {
-		binding.layoutHistoryState.root.remove()
-	}
+  private fun hideState() {
+    binding.layoutHistoryState.root.remove()
+  }
 
-	private fun showRecyclerView() {
-		binding.recyclerViewHistoryList.show()
-	}
+  private fun showRecyclerView() {
+    binding.recyclerViewHistoryList.show()
+  }
 
-	private fun showState() {
-		binding.layoutHistoryState.root.show()
-	}
+  private fun showState() {
+    binding.layoutHistoryState.root.show()
+  }
 
-	@ExperimentalCoroutinesApi private fun setupRecyclerView() {
-		with(binding.recyclerViewHistoryList) {
-			layoutManager = LinearLayoutManager(context)
-			adapter = historyAdapter
+  @ExperimentalCoroutinesApi private fun setupRecyclerView() {
+    with(binding.recyclerViewHistoryList) {
+      layoutManager = LinearLayoutManager(context)
+      adapter = historyAdapter
 
-			addOnScrollListener(object : RecyclerView.OnScrollListener() {
+      addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-				override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-					super.onScrolled(recyclerView, dx, dy)
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          super.onScrolled(recyclerView, dx, dy)
 
-					if (isLastItemViewed(recyclerView, viewModel.orders.value?.size.orZero())) {
-						viewModel.fetchMore()
-					}
-				}
-			})
-		}
-	}
+          if (isLastItemViewed(recyclerView, viewModel.orders.value?.size.orZero())) {
+            viewModel.fetchMore()
+          }
+        }
+      })
+    }
+  }
 
-	@ExperimentalCoroutinesApi private fun setupSwipeRefreshLayout() {
-		binding.swipeRefreshLayoutHistory.setOnRefreshListener {
-			viewModel.refreshFetch()
-			if (binding.swipeRefreshLayoutHistory.isRefreshing.not()) {
-				binding.swipeRefreshLayoutHistory.isRefreshing = true
-			}
-		}
-	}
+  @ExperimentalCoroutinesApi private fun setupSwipeRefreshLayout() {
+    binding.swipeRefreshLayoutHistory.setOnRefreshListener {
+      viewModel.refreshFetch()
+      if (binding.swipeRefreshLayoutHistory.isRefreshing.not()) {
+        binding.swipeRefreshLayoutHistory.isRefreshing = true
+      }
+    }
+  }
 }

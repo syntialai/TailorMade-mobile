@@ -14,49 +14,49 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
 class HistoryViewModel @ViewModelInject constructor(private val orderRepository: OrderRepository,
-		private var authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
+    private var authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
 
-	override fun getLogName(): String = "com.future.tailormade.feature.history.viewModel.HistoryViewModel"
+  override fun getLogName(): String = "com.future.tailormade.feature.history.viewModel.HistoryViewModel"
 
-	private var _orders = MutableLiveData<ArrayList<OrderResponse>>()
-	val orders: LiveData<ArrayList<OrderResponse>>
-		get() = _orders
+  private var _orders = MutableLiveData<ArrayList<OrderResponse>>()
+  val orders: LiveData<ArrayList<OrderResponse>>
+    get() = _orders
 
-	@ExperimentalCoroutinesApi
-	fun fetchHistory() {
-		launchViewModelScope {
-			authSharedPrefRepository.userId?.let { userId ->
-				orderRepository.getOrders(userId, page, itemPerPage).onError {
-					setErrorMessage(Constants.generateFailedFetchError("history"))
-					setFinishLoading()
-				}.onStart {
-					setStartLoading()
-				}.collectLatest { response ->
-					response.data?.let {
-						addToList(it as ArrayList, isFirstPage())
-					}
-					setFinishLoading()
-				}
-			}
-		}
-	}
+  @ExperimentalCoroutinesApi
+  fun fetchHistory() {
+    launchViewModelScope {
+      authSharedPrefRepository.userId?.let { userId ->
+        orderRepository.getOrders(userId, page, itemPerPage).onError {
+          setErrorMessage(Constants.generateFailedFetchError("history"))
+          setFinishLoading()
+        }.onStart {
+          setStartLoading()
+        }.collectLatest { response ->
+          response.data?.let {
+            addToList(it as ArrayList, isFirstPage())
+          }
+          setFinishLoading()
+        }
+      }
+    }
+  }
 
-	@ExperimentalCoroutinesApi
-	override fun fetchMore() {
-		super.fetchMore()
-		fetchHistory()
-	}
+  @ExperimentalCoroutinesApi
+  override fun fetchMore() {
+    super.fetchMore()
+    fetchHistory()
+  }
 
-	@ExperimentalCoroutinesApi
-	override fun refreshFetch() {
-		super.refreshFetch()
-		fetchHistory()
-	}
+  @ExperimentalCoroutinesApi
+  override fun refreshFetch() {
+    super.refreshFetch()
+    fetchHistory()
+  }
 
-	private fun addToList(list: ArrayList<OrderResponse>, update: Boolean) {
-		if (update.not()) {
-			_orders.value?.clear()
-		}
-		_orders.value?.addAll(list)
-	}
+  private fun addToList(list: ArrayList<OrderResponse>, update: Boolean) {
+    if (update.not()) {
+      _orders.value?.clear()
+    }
+    _orders.value?.addAll(list)
+  }
 }

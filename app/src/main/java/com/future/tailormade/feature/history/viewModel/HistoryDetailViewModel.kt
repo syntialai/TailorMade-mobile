@@ -22,74 +22,74 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
 class HistoryDetailViewModel @ViewModelInject constructor(
-		private val orderRepository: OrderRepository,
-		private val authSharedPrefRepository: AuthSharedPrefRepository,
-		@Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
+    private val orderRepository: OrderRepository,
+    private val authSharedPrefRepository: AuthSharedPrefRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
-	companion object {
-		private const val ORDER_DETAIL = "ORDER_DETAIL"
-	}
+  companion object {
+    private const val ORDER_DETAIL = "ORDER_DETAIL"
+  }
 
-	override fun getLogName() = "com.future.tailormade.feature.history.viewModel.HistoryDetailViewModel"
+  override fun getLogName() = "com.future.tailormade.feature.history.viewModel.HistoryDetailViewModel"
 
-	private var _orderDetailUiModel: MutableLiveData<OrderDetailUiModel>
-	val orderDetailUiModel: LiveData<OrderDetailUiModel>
-		get() = _orderDetailUiModel
+  private var _orderDetailUiModel: MutableLiveData<OrderDetailUiModel>
+  val orderDetailUiModel: LiveData<OrderDetailUiModel>
+    get() = _orderDetailUiModel
 
-	init {
-		_orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL, null)
-	}
+  init {
+    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL, null)
+  }
 
-	@ExperimentalCoroutinesApi
-	fun fetchHistoryDetails(id: String) {
-		launchViewModelScope {
-			authSharedPrefRepository.userId?.let { userId ->
-				orderRepository.getOrderDetail(userId, id).onStart {
-					setStartLoading()
-				}.onError {
-					setFinishLoading()
-					setErrorMessage(Constants.generateFailedFetchError("history with id $id"))
-				}.collectLatest { response ->
-					response.data?.let { orderDetail ->
-						_orderDetailUiModel.value = mapToHistoryDetailUiModel(orderDetail)
-						savedStateHandle.set(ORDER_DETAIL, _orderDetailUiModel.value)
-					}
-				}
-			}
-		}
-	}
+  @ExperimentalCoroutinesApi
+  fun fetchHistoryDetails(id: String) {
+    launchViewModelScope {
+      authSharedPrefRepository.userId?.let { userId ->
+        orderRepository.getOrderDetail(userId, id).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
+          setErrorMessage(Constants.generateFailedFetchError("history with id $id"))
+        }.collectLatest { response ->
+          response.data?.let { orderDetail ->
+            _orderDetailUiModel.value = mapToHistoryDetailUiModel(orderDetail)
+            savedStateHandle.set(ORDER_DETAIL, _orderDetailUiModel.value)
+          }
+        }
+      }
+    }
+  }
 
-	private fun mapToHistoryDetailUiModel(orderDetail: OrderDetailResponse) = OrderDetailUiModel(
-			id = orderDetail.id,
-			orderDate = orderDetail.createdAt.toDateString(Constants.DD_MMMM_YYYY_HH_MM_SS),
-			orderedBy = orderDetail.userName,
-			quantity = orderDetail.quantity.toString(),
-			status = orderDetail.status,
-			specialInstructions = orderDetail.specialInstructions,
-			design = mapToHistoryDetailDesign(orderDetail.design),
-			measurement = mapToHistoryDetailMeasurementDetail(orderDetail.measurement),
-			// TODO: use toIndonesianCurrencyFormat extension
-			totalDiscount = orderDetail.totalDiscount.toString(),
-			totalPrice = orderDetail.totalPrice.toString(),
-			paymentTotal = (orderDetail.totalPrice - orderDetail.totalDiscount).toString(),
-	)
+  private fun mapToHistoryDetailUiModel(orderDetail: OrderDetailResponse) = OrderDetailUiModel(
+      id = orderDetail.id,
+      orderDate = orderDetail.createdAt.toDateString(Constants.DD_MMMM_YYYY_HH_MM_SS),
+      orderedBy = orderDetail.userName,
+      quantity = orderDetail.quantity.toString(),
+      status = orderDetail.status,
+      specialInstructions = orderDetail.specialInstructions,
+      design = mapToHistoryDetailDesign(orderDetail.design),
+      measurement = mapToHistoryDetailMeasurementDetail(orderDetail.measurement),
+      // TODO: use toIndonesianCurrencyFormat extension
+      totalDiscount = orderDetail.totalDiscount.toString(),
+      totalPrice = orderDetail.totalPrice.toString(),
+      paymentTotal = (orderDetail.totalPrice - orderDetail.totalDiscount).toString(),
+  )
 
-	private fun mapToHistoryDetailMeasurementDetail(measurement: OrderDetailMeasurementResponse) = OrderDetailMeasurementUiModel(
-			chest = measurement.chest.toString(),
-			waist = measurement.waist.toString(),
-			hips = measurement.hips.toString(),
-			neckToWaist = measurement.neckToWaist.toString(),
-			inseam = measurement.inseam.toString()
-	)
+  private fun mapToHistoryDetailMeasurementDetail(measurement: OrderDetailMeasurementResponse) = OrderDetailMeasurementUiModel(
+      chest = measurement.chest.toString(),
+      waist = measurement.waist.toString(),
+      hips = measurement.hips.toString(),
+      neckToWaist = measurement.neckToWaist.toString(),
+      inseam = measurement.inseam.toString()
+  )
 
-	private fun mapToHistoryDetailDesign(design: OrderDesignResponse) = OrderDesignUiModel(
-			id = design.id,
-			image = design.image,
-			title = design.title,
-			size = design.size,
-			color = design.color,
-			// TODO: use toIndonesianCurrencyFormat extension
-			price = design.price.toString(),
-			discount = design.discount.toString(),
-	)
+  private fun mapToHistoryDetailDesign(design: OrderDesignResponse) = OrderDesignUiModel(
+      id = design.id,
+      image = design.image,
+      title = design.title,
+      size = design.size,
+      color = design.color,
+      // TODO: use toIndonesianCurrencyFormat extension
+      price = design.price.toString(),
+      discount = design.discount.toString(),
+  )
 }

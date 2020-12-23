@@ -16,5 +16,5 @@ data class OrderDesignUiModel(
 
     var size: String,
 
-		var title: String
+    var title: String
 )

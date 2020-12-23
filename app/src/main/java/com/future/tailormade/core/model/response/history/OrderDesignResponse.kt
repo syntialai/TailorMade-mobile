@@ -16,11 +16,11 @@ data class OrderDesignResponse(
 
     val size: String,
 
-		@Expose
-		val tailorId: String? = null,
+    @Expose
+    val tailorId: String? = null,
 
-		@Expose
-		val tailorName: String? = null,
+    @Expose
+    val tailorName: String? = null,
 
-		val title: String
+    val title: String
 )

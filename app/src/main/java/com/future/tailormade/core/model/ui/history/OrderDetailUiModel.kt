@@ -20,7 +20,7 @@ data class OrderDetailUiModel(
 
     var totalPrice: String,
 
-		var paymentTotal: String,
+    var paymentTotal: String,
 
     var orderedBy: String
 )

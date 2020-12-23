@@ -7,12 +7,12 @@ import com.future.tailormade.databinding.ActivityHistoryBinding
 
 class HistoryActivity : BaseActivity() {
 
-	private lateinit var binding: ActivityHistoryBinding
+  private lateinit var binding: ActivityHistoryBinding
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		binding = ActivityHistoryBinding.inflate(layoutInflater)
-		toolbar = binding.topToolbarHistory
-		setContentView(binding.root)
-	}
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    binding = ActivityHistoryBinding.inflate(layoutInflater)
+    toolbar = binding.topToolbarHistory
+    setContentView(binding.root)
+  }
 }

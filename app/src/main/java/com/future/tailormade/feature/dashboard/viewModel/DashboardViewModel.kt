@@ -43,15 +43,15 @@ class DashboardViewModel @ViewModelInject constructor(
   @ExperimentalCoroutinesApi
   override fun fetchMore() {
     super.fetchMore()
-    // TODO: Change this position
-    fetchDashboardTailors(10.0, 10.0)
+    // TODO: Uncomment and Change this position after LocationManager done
+//    fetchDashboardTailors(10.0, 10.0)
   }
 
   @ExperimentalCoroutinesApi
   override fun refreshFetch() {
     super.refreshFetch()
-    // TODO: Change this position
-    fetchDashboardTailors(10.0, 10.0)
+    // TODO: Uncomment and Change this position after LocationManager done
+//    fetchDashboardTailors(10.0, 10.0)
   }
 
   private fun addToList(list: ArrayList<DashboardTailorResponse>, update: Boolean) {
