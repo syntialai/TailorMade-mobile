@@ -47,7 +47,7 @@ object Action {
     putExtra(PARAM_CART_ITEM_ID, cartItemId)
   }
 
-    fun goToHistory(context: Context) = getIntent(context, ACTION_OPEN_HISTORY)
+  fun goToHistory(context: Context) = getIntent(context, ACTION_OPEN_HISTORY)
 
   private fun getIntent(context: Context, action: String) = Intent(action).setPackage(
       context.packageName)

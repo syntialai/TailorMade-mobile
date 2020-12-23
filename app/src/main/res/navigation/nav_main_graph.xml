@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.future.tailormade.feature.dashboard.view.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.future.tailormade_chat.feature.view.ChatListFragment"
+        android:label="ChatListFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.future.tailormade.feature.cart.view.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.future.tailormade_profile.feature.profile.view.ProfileFragment"
+        android:label="ProfileFragment" />
+    <action
+        android:id="@+id/action_global_dashboardFragment"
+        app:destination="@id/dashboardFragment"
+        app:popUpTo="@id/dashboardFragment"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_chatListFragment"
+        app:destination="@id/chatListFragment"
+        app:popUpTo="@id/chatListFragment"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_cartFragment"
+        app:destination="@id/cartFragment"
+        app:popUpTo="@id/cartFragment"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"
+        app:popUpTo="@id/profileFragment"
+        app:popUpToInclusive="true" />
+</navigation>
