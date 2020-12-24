@@ -8,30 +8,29 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
-import com.future.tailormade.core.model.response.dashboard.DashboardTailorResponse
+import com.future.tailormade.core.model.ui.dashboard.DashboardTailorUiModel
 import com.future.tailormade.databinding.LayoutDashboardTailorBinding
+import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 
-class DashboardAdapter :
-    ListAdapter<DashboardTailorResponse, DashboardAdapter.DashboardViewHolder>(
-        diffCallback) {
+class DashboardAdapter(private val onClickListener: (String) -> Unit) :
+    ListAdapter<DashboardTailorUiModel, DashboardAdapter.DashboardViewHolder>(diffCallback) {
 
   companion object {
     private val diffCallback = object :
-        DiffUtil.ItemCallback<DashboardTailorResponse>() {
+        DiffUtil.ItemCallback<DashboardTailorUiModel>() {
 
-      override fun areItemsTheSame(oldItem: DashboardTailorResponse,
-          newItem: DashboardTailorResponse): Boolean = oldItem.id == newItem.id
+      override fun areItemsTheSame(oldItem: DashboardTailorUiModel,
+          newItem: DashboardTailorUiModel): Boolean = oldItem.id == newItem.id
 
-      override fun areContentsTheSame(oldItem: DashboardTailorResponse,
-          newItem: DashboardTailorResponse): Boolean = oldItem == newItem
+      override fun areContentsTheSame(oldItem: DashboardTailorUiModel,
+          newItem: DashboardTailorUiModel): Boolean = oldItem == newItem
     }
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DashboardViewHolder(
-      LayoutInflater.from(parent.context).inflate(
-          R.layout.layout_dashboard_tailor, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_dashboard_tailor, parent, true))
 
   override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
     holder.bind(getItem(position))
@@ -45,18 +44,18 @@ class DashboardAdapter :
       DashboardPreviewImageAdapter()
     }
 
-    fun bind(data: DashboardTailorResponse) {
-      with(binding) {
-        layoutCardTailor.textViewProfileName.text = data.name
-        (data.location?.city.orEmpty() + data.location?.country?.let {
-          (", $it")
-        }.orEmpty()).also {
-          layoutCardTailor.textViewProfileCity.text = it
+    fun bind(data: DashboardTailorUiModel) {
+      with(binding.layoutCardTailor) {
+        textViewProfileName.text = data.name
+
+        data.location?.let {
+          textViewProfileCity.text = it
+        } ?: run {
+          textViewProfileCity.remove()
         }
 
         data.image?.let {
-          ImageLoader.loadImageUrl(context, it,
-              layoutCardTailor.imageViewProfile)
+          ImageLoader.loadImageUrl(context, it, imageViewProfile)
         }
 
         data.designs?.let { designs ->
@@ -64,13 +63,16 @@ class DashboardAdapter :
           setupPreviewImageAdapter()
           previewImageAdapter.submitList(designs)
         }
+
+        root.setOnClickListener {
+          onClickListener.invoke(data.id)
+        }
       }
     }
 
     private fun setupPreviewImageAdapter() {
       binding.recyclerViewPreviewDesigns.apply {
-        layoutManager = LinearLayoutManager(context,
-            LinearLayoutManager.HORIZONTAL, false)
+        layoutManager = LinearLayoutManager(context)
         adapter = previewImageAdapter
       }
     }
