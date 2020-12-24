@@ -45,7 +45,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    // Router
+    // Libraries
     implementation project(":libraries:tailormade_router")
 
     // Features
