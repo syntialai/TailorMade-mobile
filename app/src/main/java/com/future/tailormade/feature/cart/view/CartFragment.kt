@@ -15,6 +15,7 @@ import com.future.tailormade.feature.cart.adapter.CartAdapter
 import com.future.tailormade.feature.cart.viewModel.CartViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade_router.actions.Action
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -69,7 +70,9 @@ class CartFragment : BaseFragment() {
   }
 
   private fun checkoutItem(id: String) {
-    // TODO: Route to checkout
+    context?.let { context ->
+      Action.goToCheckout(context, id)
+    }
   }
 
   private fun deleteItem(id: String, title: String) {

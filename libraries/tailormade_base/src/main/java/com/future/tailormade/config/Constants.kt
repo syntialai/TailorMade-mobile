@@ -39,7 +39,7 @@ object Constants {
      * Date Patterns
      */
     const val DD_MMMM_YYYY = "dd MMMM yyyy"
-    const val DD_MMM_YY = "dd MMM yyyy"
+    const val DD_MMM_YYYY = "dd MMM yyyy"
     const val HH_MM = "hh:mm"
     const val DD_MMMM_YYYY_HH_MM_SS = "dd MMMM yyyy, hh:mm:ss"
 
