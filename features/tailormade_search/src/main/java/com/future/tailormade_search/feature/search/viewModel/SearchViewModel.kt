@@ -7,6 +7,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade.util.extension.orZero
@@ -55,7 +56,7 @@ class SearchViewModel @ViewModelInject constructor(
   fun searchDesign(query: String) {
     launchViewModelScope {
       searchRepository.searchDesign(query).onError {
-        appLogger.logOnError("Error to find design:", it)
+        setErrorMessage(Constants.generateFailedFetchError("design"))
       }.collect {
         _designCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
         _listOfDesigns.value = it.data.orEmptyList()
@@ -66,7 +67,7 @@ class SearchViewModel @ViewModelInject constructor(
   fun searchTailor(query: String) {
     launchViewModelScope {
       searchRepository.searchTailor(query).onError {
-        appLogger.logOnError("Error to find tailor:", it)
+        setErrorMessage(Constants.generateFailedFetchError("tailor"))
       }.collect {
         _tailorCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
         _listOfTailors.value = it.data.orEmptyList()

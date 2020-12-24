@@ -31,12 +31,10 @@
         android:id="@+id/tab_layout_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search"
-        app:tabMode="fixed"
-        tools:visibility="visible">
+        app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_item_design"
@@ -56,14 +54,10 @@
         android:id="@+id/view_pager_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_layout_search"
-        tools:visibility="visible">
-
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintTop_toBottomOf="@id/tab_layout_search" />
 
     <!-- TODO: Add nav container graph -->
 <!--    <androidx.fragment.app.FragmentContainerView-->
@@ -111,5 +105,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_search_state" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="view_pager_search, tab_layout_search"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_search_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="image_view_search_state, text_view_search_description_state, text_view_search_state" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

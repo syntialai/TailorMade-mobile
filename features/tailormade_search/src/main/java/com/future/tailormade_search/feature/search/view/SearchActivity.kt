@@ -40,11 +40,7 @@ class SearchActivity : BaseActivity() {
   }
 
   private fun hideInitialSearchState() {
-    with(binding) {
-      imageViewSearchState.remove()
-      textViewSearchState.remove()
-      textViewSearchDescriptionState.remove()
-    }
+    binding.groupSearchState.remove()
   }
 
   private fun isQueryValid(query: String): Boolean = query.isNotBlank() && query.length >= 3
@@ -67,10 +63,7 @@ class SearchActivity : BaseActivity() {
   private fun showSearchResultView() {
     if (isSearchResultShown().not()) {
       hideInitialSearchState()
-      with(binding) {
-        tabLayoutSearch.show()
-        viewPagerSearch.show()
-      }
+      binding.groupSearchResult.remove()
     }
   }
 
