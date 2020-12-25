@@ -34,7 +34,7 @@ class ProfileViewModel @ViewModelInject constructor(
     get() = _profileInfoResponse
 
   init {
-    _profileInfoResponse = getProfileInfo()
+    _profileInfoResponse = savedStateHandle.getLiveData(PROFILE_INFO, null)
   }
 
   @InternalCoroutinesApi
@@ -42,11 +42,11 @@ class ProfileViewModel @ViewModelInject constructor(
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
         profileRepository.getProfileInfo(id).onError {
-          _errorMessage.value = Constants.FAILED_TO_GET_PROFILE_INFO
+          setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
         }.collect { response ->
           response.data?.let {
-            setProfileInfo(it)
             _profileInfoResponse.value = it
+            savedStateHandle.set(PROFILE_INFO, _profileInfoResponse.value)
           }
         }
       }
@@ -54,10 +54,4 @@ class ProfileViewModel @ViewModelInject constructor(
   }
 
   fun isUserProfile(id: String) = authSharedPrefRepository.userId == id
-
-  private fun getProfileInfo() = savedStateHandle.getLiveData<ProfileInfoResponse>(PROFILE_INFO)
-
-  private fun setProfileInfo(profileInfoResponse: ProfileInfoResponse) {
-    savedStateHandle.set(PROFILE_INFO, profileInfoResponse)
-  }
 }

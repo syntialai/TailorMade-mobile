@@ -12,7 +12,9 @@ import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_profile.databinding.LayoutCardProfileWithEditBinding
 import com.future.tailormade_profile.databinding.FragmentProfileBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
+import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
@@ -35,7 +37,9 @@ class ProfileFragment : BaseFragment() {
     fragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false)
     layoutCardProfileWithEditBinding = fragmentProfileBinding.layoutCardProfile
     layoutCardProfileWithEditBinding.buttonGoToEditProfile.setOnClickListener {
-      // TODO: Route to edit profile info
+      context?.let { context ->
+        Action.goToEditProfile(context)
+      }
     }
     layoutCardProfileWithEditBinding.layoutProfileInfo.buttonChatTailor.setOnClickListener {
       // TODO: Route to chat with tailor
@@ -43,9 +47,11 @@ class ProfileFragment : BaseFragment() {
     return fragmentProfileBinding.root
   }
 
+  @InternalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
+    viewModel.fetchProfileInfo()
     viewModel.profileInfoResponse.observe(viewLifecycleOwner, {
       val location = it.location?.city.orEmpty() + if (it.location?.province.isNullOrBlank().not()) {
         ", ${it.location?.province}"
