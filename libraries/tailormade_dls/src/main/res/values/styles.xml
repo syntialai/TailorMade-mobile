@@ -394,4 +394,10 @@
         <item name="navigationIcon">@drawable/ic_back</item>
         <item name="navigationIconColor">?attr/colorControlNormal</item>
     </style>
+
+    <style name="Theme.TailorMade.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">?attr/textAppearanceHeadline4</item>
+        <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
+        <item name="background">?attr/backgroundColor</item>
+    </style>
 </resources>

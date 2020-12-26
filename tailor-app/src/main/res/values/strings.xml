@@ -4,4 +4,6 @@
     <string name="add_label">Add</string>
     <string name="dashboard_title_state">Hello, tailor!</string>
     <string name="dashboard_description_state">Let’s start adding your designs to attract customer by tapping the button above !</string>
+    <string name="delete_menu_label">Delete</string>
+    <string name="select_all_label">Select All</string>
 </resources>
