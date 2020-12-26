@@ -6,12 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.core.model.ui.DashboardDesignUiModel
 import com.future.tailormade.tailor_app.core.repository.DashboardRepository
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade.util.extension.orFalse
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
@@ -35,6 +38,8 @@ class DashboardViewModel @ViewModelInject constructor(
   private var _selectedDesigns: MutableLiveData<ArrayList<String>>
   val selectedDesigns: LiveData<ArrayList<String>>
     get() = _selectedDesigns
+
+  private var deletedItem: Int = 0
 
   init {
     _designs = savedStateHandle.getLiveData(DESIGNS, arrayListOf())
@@ -70,9 +75,14 @@ class DashboardViewModel @ViewModelInject constructor(
     fetchTailorDesigns()
   }
 
-  fun deleteDesign() {
+  fun deleteDesigns() {
     launchViewModelScope {
-      // TODO: Call repository to delete design
+      authSharedPrefRepository.userId?.let { userId ->
+        _selectedDesigns.value?.forEach {
+          deleteDesign(userId, it)
+        }
+        _selectedDesigns.value?.clear()
+      }
     }
   }
 
@@ -91,6 +101,14 @@ class DashboardViewModel @ViewModelInject constructor(
       _selectedDesigns.value?.remove(id)
     } else {
       _selectedDesigns.value?.add(id)
+    }
+  }
+
+  private suspend fun deleteDesign(tailorId: String, id: String) {
+    dashboardRepository.deleteDashboardDesign(tailorId, id).onError {
+      setErrorMessage(Constants.generateDeleteErrorMessage("design", id))
+    }.collect {
+      deletedItem.inc()
     }
   }
 

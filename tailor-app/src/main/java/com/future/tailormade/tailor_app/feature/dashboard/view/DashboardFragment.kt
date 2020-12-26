@@ -119,7 +119,7 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     deleteDesignDialog?.setMessage(getString(R.string.delete_design_alert_dialog_content,
         viewModel.selectedDesigns.value?.size.orZero()))?.setPositiveButton(
         R.string.delete_alert_dialog_delete_button) { dialog, _ ->
-      viewModel.deleteDesign()
+      viewModel.deleteDesigns()
       dialog.dismiss()
     }?.show()
   }
