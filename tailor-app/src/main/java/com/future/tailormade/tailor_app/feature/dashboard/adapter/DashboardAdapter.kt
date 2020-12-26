@@ -11,7 +11,8 @@ import com.future.tailormade.tailor_app.core.model.ui.DashboardDesignUiModel
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_dls.databinding.LayoutCardDesignBinding
 
-class DashboardAdapter(private val onClickListener: (String) -> Unit) :
+class DashboardAdapter(private val onClickListener: (String) -> Unit,
+    private val onLongClickListener: (String) -> Unit) :
     ListAdapter<DashboardDesignUiModel, DashboardAdapter.DashboardViewHolder>(diffCallback) {
 
   companion object {
@@ -48,6 +49,12 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit) :
           root.setOnClickListener {
             onClickListener.invoke(data.id)
           }
+        }
+
+        root.setOnLongClickListener {
+          root.isChecked = !root.isChecked
+          onLongClickListener.invoke(data.id)
+          true
         }
       }
     }

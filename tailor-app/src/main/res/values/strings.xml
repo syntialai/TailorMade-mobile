@@ -6,4 +6,6 @@
     <string name="dashboard_description_state">Let’s start adding your designs to attract customer by tapping the button above !</string>
     <string name="delete_menu_label">Delete</string>
     <string name="select_all_label">Select All</string>
+    <string name="delete_design_alert_dialog_title">Are you sure?</string>
+    <string name="delete_design_alert_dialog_content">You’ll delete %d design(s)!</string>
 </resources>
