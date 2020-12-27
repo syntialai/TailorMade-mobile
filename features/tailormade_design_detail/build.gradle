@@ -50,6 +50,8 @@ dependencies {
 
     // Color Picker
     implementation color_picker
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
   // Tests
     testImplementation test.junit

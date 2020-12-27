@@ -13,7 +13,7 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
     // TODO: Add wrapped ui model of size details as param
     fun newInstance(onSubmitListener: (String) -> Unit, name: String? = null) = AddSizeBottomSheetFragment().apply {
       this.onSubmitListener = onSubmitListener
-      name?.let { this.name = it }
+      this.name = name
     }
   }
 
