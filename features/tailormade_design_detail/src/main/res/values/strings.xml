@@ -22,4 +22,6 @@
     <string name="description_design_information_label">Description Design Information</string>
     <string name="design_description_label">Description</string>
     <string name="add_size_label">Add Size</string>
+    <string name="detail_label">Detail</string>
+    <string name="cm_label">cm</string>
 </resources>

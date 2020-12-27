@@ -21,7 +21,6 @@ import com.future.tailormade_design_detail.databinding.FragmentAddOrEditDesignBi
 import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
 import com.future.tailormade_design_detail.feature.addOrEditDesign.viewModel.AddOrEditDesignViewModel
-import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +39,8 @@ class AddOrEditDesignFragment : BaseFragment() {
   override fun getLogName() =
       "com.future.tailormade_design_detail.feature.addOrEditDesign.view.AddOrEditDesignFragment"
 
+  override fun getScreenName() = "Add Design"
+
   override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +51,7 @@ class AddOrEditDesignFragment : BaseFragment() {
         openGallery()
       }
       buttonAddSize.setOnClickListener {
-        // TODO: open bottom sheet to add size
+        openAddSizeBottomSheet()
       }
       buttonAddColor.setOnClickListener {
         // TODO: open bottom sheet to add color
@@ -86,6 +87,9 @@ class AddOrEditDesignFragment : BaseFragment() {
       isCheckable = false
       setOnCloseIconClickListener {
         // TODO: Call viewmodel to remove size
+      }
+      setOnClickListener {
+        openAddSizeBottomSheet()
       }
     }
     binding.chipGroupDesignSize.addView(chipBinding.root)
@@ -124,6 +128,10 @@ class AddOrEditDesignFragment : BaseFragment() {
       type = Constants.TYPE_IMAGE_ALL
     }
     this.startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+  }
+
+  private fun openAddSizeBottomSheet(name: String? = null) {
+    AddSizeBottomSheetFragment.newInstance(::addSizeChip, name).show(parentFragmentManager, getScreenName())
   }
 
   private fun setClickable(value: Boolean) {

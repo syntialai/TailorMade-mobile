@@ -51,7 +51,7 @@ dependencies {
     // Color Picker
     implementation color_picker
 
-    // Tests
+  // Tests
     testImplementation test.junit
     testImplementation test.androidx_core
     testImplementation test.mockito
