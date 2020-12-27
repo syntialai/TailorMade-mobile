@@ -374,14 +374,29 @@
     <!-- Text Fields -->
     <style name="Theme.TailorMade.TextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundColor">?colorSurface</item>
+        <item name="materialThemeOverlay">@style/Theme.TailorMade.TextInputLayout</item>
     </style>
 
     <style name="Theme.TailorMade.TextInputEditText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?colorSurface</item>
+        <item name="materialThemeOverlay">@style/Theme.TailorMade.TextInputLayout.Dropdown</item>
     </style>
 
     <style name="Theme.TailorMade.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+        <item name="materialThemeOverlay">@style/Theme.TailorMade.TextInputLayout.OutlinedBox.Text</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="textAppearanceSubtitle1">?textAppearanceBody1</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputLayout.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="textAppearanceSubtitle1">?textAppearanceBody1</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputLayout.OutlinedBox.Text" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="textAppearanceSubtitle1">?textAppearanceBody1</item>
     </style>
 
     <!-- Toolbar -->
@@ -392,7 +407,7 @@
 
     <style name="Theme.TailorMade.Toolbar.Back" parent="Theme.TailorMade.Toolbar">
         <item name="navigationIcon">@drawable/ic_back</item>
-        <item name="navigationIconColor">?attr/colorControlNormal</item>
+        <item name="navigationIconTint">?attr/colorControlNormal</item>
     </style>
 
     <style name="Theme.TailorMade.ActionMode" parent="Widget.AppCompat.ActionMode">
