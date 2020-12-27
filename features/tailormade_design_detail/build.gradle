@@ -48,6 +48,9 @@ dependencies {
     // Libraries
     api project(":features:tailormade_auth")
 
+    // Color Picker
+    implementation color_picker
+
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core

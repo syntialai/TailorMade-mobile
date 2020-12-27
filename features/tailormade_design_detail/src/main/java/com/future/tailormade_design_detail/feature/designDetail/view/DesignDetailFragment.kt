@@ -1,4 +1,4 @@
-package com.future.tailormade_design_detail.feature.view
+package com.future.tailormade_design_detail.feature.designDetail.view
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -22,7 +22,7 @@ import com.future.tailormade_design_detail.core.model.response.ColorResponse
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
-import com.future.tailormade_design_detail.feature.viewModel.DesignDetailViewModel
+import com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,7 +43,7 @@ class DesignDetailFragment : BaseFragment() {
 
   private lateinit var binding: FragmentDesignDetailBinding
 
-  override fun getLogName(): String = "com.future.tailormade_design_detail.feature.view.DesignDetailFragment"
+  override fun getLogName(): String = "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
 
   override fun getViewModel(): BaseViewModel = viewModel
 

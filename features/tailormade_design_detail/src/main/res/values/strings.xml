@@ -10,4 +10,16 @@
     <string name="chat_label">Chat</string>
     <string name="cart_label">Cart</string>
     <string name="order_now_label">Order Now</string>
+    <string name="basic_design_information_label">Basic Design Information</string>
+    <string name="design_discount_label">Design discount</string>
+    <string name="image_label">Image</string>
+    <string name="add_design_image_label">Add a design image. Your image will be appeared here.</string>
+    <string name="change_label">Change</string>
+    <string name="size_design_information_label">Size Design Information</string>
+    <string name="color_design_information_label">Color Design Information</string>
+    <string name="add_design_label">Add Design</string>
+    <string name="add_color_label">Add Color</string>
+    <string name="description_design_information_label">Description Design Information</string>
+    <string name="design_description_label">Description</string>
+    <string name="add_size_label">Add Size</string>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface2"
     android:orientation="vertical"
-    tools:context=".feature.view.DesignDetailFragment">
+    tools:context=".feature.designDetail.view.DesignDetailFragment">
 
     <include
         android:id="@+id/layout_design_detail_general_info"

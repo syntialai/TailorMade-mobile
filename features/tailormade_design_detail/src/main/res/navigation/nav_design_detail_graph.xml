@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/designDetailFragment"
-        android:name="com.future.tailormade_design_detail.feature.view.DesignDetailFragment"
+        android:name="com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
         android:label="fragment_design_detail"
         tools:layout="@layout/fragment_design_detail" />
 </navigation>

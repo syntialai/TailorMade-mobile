@@ -1,4 +1,4 @@
-package com.future.tailormade_design_detail.feature.viewModel
+package com.future.tailormade_design_detail.feature.designDetail.viewModel
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -37,7 +37,7 @@ class DesignDetailViewModel @ViewModelInject constructor(
     _designDetailUiModel = savedStateHandle.getLiveData(DESIGN_DETAIL, null)
   }
 
-  override fun getLogName() = "com.future.tailormade_design_detail.feature.viewModel.DesignDetailViewModel"
+  override fun getLogName() = "com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel"
 
   @ExperimentalCoroutinesApi
   fun fetchDesignDetailData(id: String) {

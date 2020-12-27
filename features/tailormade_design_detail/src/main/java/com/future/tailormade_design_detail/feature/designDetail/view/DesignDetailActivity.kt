@@ -1,4 +1,4 @@
-package com.future.tailormade_design_detail.feature.view
+package com.future.tailormade_design_detail.feature.designDetail.view
 
 import android.os.Bundle
 import com.future.tailormade.base.view.BaseActivity
