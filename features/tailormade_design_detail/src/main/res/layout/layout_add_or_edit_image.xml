@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/drawable_add_image_background"
+    android:clickable="true"
+    android:focusable="true"
     android:padding="@dimen/dp_16">
 
     <ImageView

@@ -10,6 +10,7 @@ object Constants {
   const val MIN_QUERY_SEARCH_LENGTH = 3
   const val INITIAL_PAGING_PAGE = 1
   const val INITIAL_PAGING_ITEM_PER_PAGE = 10
+  const val TYPE_IMAGE_ALL = "image/*"
 
   /**
    * Error messages
