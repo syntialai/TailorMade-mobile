@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.forEach
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.ActivityMainBinding
+import com.future.tailormade.tailor_app.feature.dashboard.view.DashboardFragmentDirections
 import com.future.tailormade.tailor_app.feature.main.contract.MainDashboardView
+import com.future.tailormade_chat.feature.view.ChatListFragmentDirections
+import com.future.tailormade_profile.feature.profile.view.ProfileFragmentDirections
+import com.future.tailormade_router.actions.Action
 
 class MainActivity : BaseActivity() {
 
@@ -22,6 +27,18 @@ class MainActivity : BaseActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarMain
     setContentView(binding.root)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+    R.id.menu_search -> {
+      startActivity(Action.goToSearch(this))
+      true
+    }
+    R.id.menu_settings -> {
+      startActivity(Action.goToSettings(this))
+      true
+    }
+    else -> super.onOptionsItemSelected(item)
   }
 
   fun injectMainDashboardView(view: MainDashboardView) {
@@ -56,5 +73,52 @@ class MainActivity : BaseActivity() {
     override fun onDestroyActionMode(mode: ActionMode?) {
       actionMode = null
     }
+  }
+
+  private fun setupBottomNav() {
+    binding.bottomNavMain.setOnNavigationItemSelectedListener {
+      when (it.itemId) {
+        R.id.menu_home -> {
+          showDashboardOrOrderOptionsMenu()
+          DashboardFragmentDirections.actionGlobalDashboardFragment()
+          true
+        }
+        R.id.menu_chat -> {
+          resetOptionsMenu()
+          ChatListFragmentDirections.actionGlobalChatListFragment()
+          true
+        }
+        R.id.menu_order -> {
+          showDashboardOrOrderOptionsMenu()
+          true
+        }
+        R.id.menu_profile -> {
+          showProfileOptionsMenu()
+          ProfileFragmentDirections.actionGlobalProfileFragment()
+          true
+        }
+        else -> false
+      }
+    }
+  }
+
+  private fun showDashboardOrOrderOptionsMenu() {
+    resetOptionsMenu()
+    showOptionMenu(R.id.menu_search)
+  }
+
+  private fun showProfileOptionsMenu() {
+    resetOptionsMenu()
+    showOptionMenu(R.id.menu_settings)
+  }
+
+  private fun resetOptionsMenu() {
+    toolbar?.menu?.forEach { item ->
+      item.isVisible = false
+    }
+  }
+
+  private fun showOptionMenu(id: Int) {
+    toolbar?.menu?.findItem(id)?.isVisible = true
   }
 }
