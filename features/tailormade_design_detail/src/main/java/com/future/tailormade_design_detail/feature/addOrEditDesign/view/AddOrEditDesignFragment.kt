@@ -17,10 +17,10 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageHelper
+import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.databinding.FragmentAddOrEditDesignBinding
-import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
-import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
 import com.future.tailormade_design_detail.feature.addOrEditDesign.viewModel.AddOrEditDesignViewModel
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,38 +79,40 @@ class AddOrEditDesignFragment : BaseFragment() {
   }
 
   private fun addSizeChip(text: String) {
-    val chipBinding =
-        ItemChooseSizeChipBinding.inflate(layoutInflater, binding.chipGroupDesignSize, true)
-    with(chipBinding.chipChooseSize) {
+    val chipBinding = layoutInflater.inflate(R.layout.item_choose_size_chip,
+        binding.chipGroupDesignSize, true) as Chip
+    with(chipBinding) {
       this.text = text
       isCloseIconEnabled = true
       isCheckable = false
       setOnCloseIconClickListener {
         // TODO: Call viewmodel to remove size
+        binding.chipGroupDesignSize.removeView(this)
       }
       setOnClickListener {
         openAddSizeBottomSheet(text)
       }
     }
-    binding.chipGroupDesignSize.addView(chipBinding.root)
+    binding.chipGroupDesignSize.addView(chipBinding)
   }
 
   private fun addColorChip(text: String, color: String) {
-    val chipBinding =
-        ItemChooseColorChipBinding.inflate(layoutInflater, binding.chipGroupDesignColor, true)
-    with(chipBinding.chipChooseColor) {
+    val chipBinding = layoutInflater.inflate(R.layout.item_choose_color_chip,
+        binding.chipGroupDesignColor, false) as Chip
+    with(chipBinding) {
       this.text = text
       this.chipIconTint = ColorStateList.valueOf(Color.parseColor(color))
       isCloseIconEnabled = true
       isCheckable = false
       setOnCloseIconClickListener {
         // TODO: Call viewmodel to remove color
+        binding.chipGroupDesignColor.removeView(this)
       }
       setOnClickListener {
         openAddColorBottomSheet(text, color)
       }
     }
-    binding.chipGroupDesignColor.addView(chipBinding.root)
+    binding.chipGroupDesignColor.addView(chipBinding)
   }
 
   private fun hideImagePreview() {
@@ -139,7 +141,8 @@ class AddOrEditDesignFragment : BaseFragment() {
   }
 
   private fun openAddSizeBottomSheet(name: String? = null) {
-    AddSizeBottomSheetFragment.newInstance(::addSizeChip, name).show(parentFragmentManager, getScreenName())
+    AddSizeBottomSheetFragment.newInstance(::addSizeChip, name).show(parentFragmentManager,
+        getScreenName())
   }
 
   private fun setClickable(value: Boolean) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.future.tailormade.base.view.BaseBottomSheetDialogFragment
+import com.future.tailormade.config.Constants
 import com.future.tailormade_design_detail.databinding.FragmentAddColorBottomSheetBinding
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
@@ -37,8 +38,7 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
         dismissAllowingStateLoss()
       }
       buttonAddNewColor.setOnClickListener {
-        onSubmitListener.invoke(editTextColorName.text.toString(),
-            textViewColorPreview.text.toString())
+        validate()
       }
     }
     setupColorPickerView()
@@ -47,6 +47,8 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
     }
     return binding.root
   }
+
+  private fun getColorName() = binding.editTextColorName.text.toString()
 
   private fun setColorPickerColor(color: String) {
     val colour = Color.parseColor(color)
@@ -65,6 +67,18 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
           envelope?.hexCode?.let { textViewColorPreview.text = "#$it" }
         }
       })
+    }
+  }
+
+  private fun validate() {
+    val colorName = getColorName()
+    with(binding) {
+      if (colorName.isBlank()) {
+        textInputColorName.error = Constants.COLOR_NAME_IS_EMPTY
+      } else {
+        onSubmitListener.invoke(colorName, textViewColorPreview.text.toString())
+        dismiss()
+      }
     }
   }
 }

@@ -21,7 +21,6 @@ import com.future.tailormade_design_detail.core.model.SizeUiModel
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
-import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
 import com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel
 import com.future.tailormade_router.actions.Action
 import com.google.android.material.chip.Chip
@@ -96,24 +95,24 @@ class DesignDetailFragment : BaseFragment() {
   }
 
   private fun getChooseSizeChip(index: Int, text: String): Chip {
-    val chipBinding =
-      ItemChooseSizeChipBinding.inflate(layoutInflater, binding.chipGroupChooseSize, true)
-    with(chipBinding.chipChooseSize) {
+    val chipBinding = layoutInflater.inflate(R.layout.item_choose_size_chip,
+        binding.chipGroupChooseSize, false) as Chip
+    with(chipBinding) {
       this.id = index
       this.text = text
     }
-    return chipBinding.root
+    return chipBinding
   }
 
   private fun getChooseColorChip(index: Int, text: String, color: String): Chip {
-    val chipBinding =
-      ItemChooseColorChipBinding.inflate(layoutInflater, binding.chipGroupChooseColor, true)
-    with(chipBinding.chipChooseColor) {
+    val chipBinding = layoutInflater.inflate(R.layout.item_choose_color_chip,
+        binding.chipGroupChooseColor, false) as Chip
+    with(chipBinding) {
       this.id = index
       this.text = text
       this.chipIconTint = ColorStateList.valueOf(Color.parseColor(color))
     }
-    return chipBinding.root
+    return chipBinding
   }
 
   private fun hideCustomerFeatures() {
