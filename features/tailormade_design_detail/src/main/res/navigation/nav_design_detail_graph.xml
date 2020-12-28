@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_design_detail_graph"
-    app:startDestination="@id/designDetailFragment">
+    app:startDestination="@id/addOrEditDesignFragment">
 
     <fragment
         android:id="@+id/designDetailFragment"
         android:name="com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
         android:label="fragment_design_detail"
         tools:layout="@layout/fragment_design_detail" />
+    <fragment
+        android:id="@+id/addOrEditDesignFragment"
+        android:name="com.future.tailormade_design_detail.feature.addOrEditDesign.view.AddOrEditDesignFragment"
+        android:label="fragment_add_or_edit_design"
+        tools:layout="@layout/fragment_add_or_edit_design" />
 </navigation>

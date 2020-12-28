@@ -54,7 +54,7 @@ class AddOrEditDesignFragment : BaseFragment() {
         openAddSizeBottomSheet()
       }
       buttonAddColor.setOnClickListener {
-        // TODO: open bottom sheet to add color
+        openAddColorBottomSheet()
       }
       buttonSaveDesignInfo.setOnClickListener {
         // TODO: call view model to save design
@@ -89,7 +89,7 @@ class AddOrEditDesignFragment : BaseFragment() {
         // TODO: Call viewmodel to remove size
       }
       setOnClickListener {
-        openAddSizeBottomSheet()
+        openAddSizeBottomSheet(text)
       }
     }
     binding.chipGroupDesignSize.addView(chipBinding.root)
@@ -105,6 +105,9 @@ class AddOrEditDesignFragment : BaseFragment() {
       isCheckable = false
       setOnCloseIconClickListener {
         // TODO: Call viewmodel to remove color
+      }
+      setOnClickListener {
+        openAddColorBottomSheet(text, color)
       }
     }
     binding.chipGroupDesignColor.addView(chipBinding.root)
@@ -128,6 +131,11 @@ class AddOrEditDesignFragment : BaseFragment() {
       type = Constants.TYPE_IMAGE_ALL
     }
     this.startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+  }
+
+  private fun openAddColorBottomSheet(name: String? = null, color: String? = null) {
+    AddColorBottomSheetFragment.newInstance(::addColorChip, name, color).show(parentFragmentManager,
+        getScreenName())
   }
 
   private fun openAddSizeBottomSheet(name: String? = null) {

@@ -23,6 +23,7 @@ import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBindi
 import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
 import com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel
+import com.future.tailormade_router.actions.Action
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,7 +44,8 @@ class DesignDetailFragment : BaseFragment() {
 
   private lateinit var binding: FragmentDesignDetailBinding
 
-  override fun getLogName(): String = "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
+  override fun getLogName() =
+      "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
 
   override fun getViewModel(): BaseViewModel = viewModel
 
@@ -60,10 +62,16 @@ class DesignDetailFragment : BaseFragment() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when(item.itemId) {
       R.id.item_search -> {
-        // TODO: Go to search
+        goToSearch()
         true
       }
       else -> super.onOptionsItemSelected(item)
+    }
+  }
+
+  private fun goToSearch() {
+    context?.let { context ->
+      startActivity(Action.goToSearch(context))
     }
   }
 

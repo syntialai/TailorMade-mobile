@@ -1,11 +1,14 @@
 package com.future.tailormade_design_detail.feature.addOrEditDesign.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.future.tailormade.base.view.BaseBottomSheetDialogFragment
 import com.future.tailormade_design_detail.databinding.FragmentAddColorBottomSheetBinding
+import com.skydoves.colorpickerview.ColorEnvelope
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 
 class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
 
@@ -34,9 +37,34 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
         dismissAllowingStateLoss()
       }
       buttonAddNewColor.setOnClickListener {
-        onSubmitListener.invoke(editTextColorName.text.toString(), colorPicker.color.toString())
+        onSubmitListener.invoke(editTextColorName.text.toString(),
+            textViewColorPreview.text.toString())
       }
     }
+    setupColorPickerView()
+    color?.let {
+      setColorPickerColor(it)
+    }
     return binding.root
+  }
+
+  private fun setColorPickerColor(color: String) {
+    val colour = Color.parseColor(color)
+    binding.viewColorPicker.setInitialColor(colour)
+  }
+
+  private fun setupColorPickerView() {
+    with(binding) {
+      viewColorPicker.attachAlphaSlider(slideBarColorPickerAlpha)
+      viewColorPicker.attachBrightnessSlider(slideBarColorPickerBrightness)
+      viewColorPicker.setColorListener(object: ColorEnvelopeListener {
+        override fun onColorSelected(envelope: ColorEnvelope?, fromUser: Boolean) {
+          envelope?.color?.let { color ->
+            viewColorPreview.setBackgroundColor(color)
+          }
+          envelope?.hexCode?.let { textViewColorPreview.text = "#$it" }
+        }
+      })
+    }
   }
 }
