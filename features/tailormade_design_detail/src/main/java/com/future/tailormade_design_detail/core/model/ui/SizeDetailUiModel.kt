@@ -1,4 +1,4 @@
-package com.future.tailormade_design_detail.core.model
+package com.future.tailormade_design_detail.core.model.ui
 
 data class SizeDetailUiModel(
 
