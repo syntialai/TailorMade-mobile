@@ -3,10 +3,11 @@ package com.future.tailormade.util.image
 import android.content.ContentResolver
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.provider.OpenableColumns
-
-
-
+import androidx.annotation.RequiresApi
+import java.io.File
+import java.util.*
 
 object ImageHelper {
 
@@ -29,5 +30,17 @@ object ImageHelper {
       }
     }
     return result
+  }
+
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun encodeFile(filePath: String): String{
+    val bytes = File(filePath).readBytes()
+    return Base64.getEncoder().encodeToString(bytes)
+  }
+
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun decoder(base64Str: String, pathFile: String) {
+    val imageByteArray = Base64.getDecoder().decode(base64Str)
+    File(pathFile).writeBytes(imageByteArray)
   }
 }

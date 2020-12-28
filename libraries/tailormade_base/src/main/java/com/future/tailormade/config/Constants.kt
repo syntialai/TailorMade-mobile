@@ -34,6 +34,7 @@ object Constants {
   const val CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD = "Confirm password must be same with password"
   const val FAILED_TO_GET_PROFILE_INFO = "$FAILED_TO get profile info"
   const val FAILED_TO_UPDATE_PROFILE = "$FAILED_TO update profile"
+  const val FAILED_TO_UPDATE_DESIGN = "$FAILED_TO update design"
   const val COLOR_NAME_IS_EMPTY = "Color Name $IS_EMPTY"
   const val SIZE_NAME_IS_EMPTY = "Size Name $IS_EMPTY"
   const val CHEST_SIZE_IS_EMPTY = "Chest Size $IS_EMPTY"

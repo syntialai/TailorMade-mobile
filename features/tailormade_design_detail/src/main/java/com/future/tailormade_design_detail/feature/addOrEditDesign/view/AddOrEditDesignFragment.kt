@@ -5,11 +5,13 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.future.tailormade.base.view.BaseFragment
@@ -74,14 +76,17 @@ class AddOrEditDesignFragment : BaseFragment() {
     return binding.root
   }
 
+  @RequiresApi(Build.VERSION_CODES.O)
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
       data?.data?.let { imageUri ->
-        // TODO: call viewmodel to save image uri
-        if (isImagePreviewShown().not()) {
-          activity?.contentResolver?.let {
-            showImagePreview(imageUri, ImageHelper.getFileName(it, imageUri).orEmpty())
+        imageUri.path?.let { path ->
+          viewModel.setImage(path)
+          if (isImagePreviewShown().not()) {
+            activity?.contentResolver?.let {
+              showImagePreview(imageUri, ImageHelper.getFileName(it, imageUri).orEmpty())
+            }
           }
         }
       }
@@ -107,13 +112,14 @@ class AddOrEditDesignFragment : BaseFragment() {
       isCloseIconEnabled = true
       isCheckable = false
       setOnCloseIconClickListener {
-        // TODO: Call viewmodel to remove size
+        viewModel.removeSize(text, sizeDetail)
         binding.chipGroupDesignSize.removeView(this)
       }
       setOnClickListener {
         openAddSizeBottomSheet(text, sizeDetail)
       }
     }
+    viewModel.addSize(text, sizeDetail)
     binding.chipGroupDesignSize.addView(chipBinding)
   }
 
@@ -126,13 +132,14 @@ class AddOrEditDesignFragment : BaseFragment() {
       isCloseIconEnabled = true
       isCheckable = false
       setOnCloseIconClickListener {
-        // TODO: Call viewmodel to remove color
+        viewModel.removeColor(text, color)
         binding.chipGroupDesignColor.removeView(this)
       }
       setOnClickListener {
         openAddColorBottomSheet(text, color)
       }
     }
+    viewModel.addColor(text, color)
     binding.chipGroupDesignColor.addView(chipBinding)
   }
 
