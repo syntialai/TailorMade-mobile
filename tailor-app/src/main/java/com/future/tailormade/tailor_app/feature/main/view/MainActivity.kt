@@ -27,6 +27,7 @@ class MainActivity : BaseActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarMain
     setContentView(binding.root)
+    startActivity(Action.goToDesignDetail(this, ""))
   }
 
   override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {

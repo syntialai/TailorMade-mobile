@@ -19,6 +19,18 @@ object DesignDetailMapper {
       category = designDetailResponse.category, color = designDetailResponse.color,
       size = setSize(designDetailResponse.size))
 
+  fun mapToSizeDetailUiModel(sizeDetailResponse: SizeDetailResponse): SizeDetailUiModel {
+    val sizeDetailUiModel = SizeDetailUiModel()
+    with(sizeDetailResponse) {
+      chest?.let { sizeDetailUiModel.chest = it.toString() }
+      hips?.let { sizeDetailUiModel.hips = it.toString() }
+      waist?.let { sizeDetailUiModel.waist = it.toString() }
+      inseam?.let { sizeDetailUiModel.inseam = it.toString() }
+      neckToWaist?.let { sizeDetailUiModel.neckToWaist = it.toString() }
+    }
+    return sizeDetailUiModel
+  }
+
   private fun setDiscount(price: Double, discount: Double) = if (discount > 0.0) {
     (price - discount).toIndonesiaCurrencyFormat()
   } else {
@@ -30,22 +42,10 @@ object DesignDetailMapper {
     sizes.forEach { size ->
       val sizeUiModel = SizeUiModel(id = size.id)
       size.detail?.let {
-        sizeUiModel.detail = setSizeDetailUiModel(size.detail)
+        sizeUiModel.detail = mapToSizeDetailUiModel(size.detail)
       }
       sizesUiModel.add(sizeUiModel)
     }
     return sizesUiModel
-  }
-
-  private fun setSizeDetailUiModel(sizeDetailResponse: SizeDetailResponse): SizeDetailUiModel {
-    val sizeDetailUiModel = SizeDetailUiModel()
-    with(sizeDetailResponse) {
-      chest?.let { sizeDetailUiModel.chest = it.toString() }
-      hips?.let { sizeDetailUiModel.hips = it.toString() }
-      waist?.let { sizeDetailUiModel.waist = it.toString() }
-      inseam?.let { sizeDetailUiModel.inseam = it.toString() }
-      neckToWaist?.let { sizeDetailUiModel.neckToWaist = it.toString() }
-    }
-    return sizeDetailUiModel
   }
 }

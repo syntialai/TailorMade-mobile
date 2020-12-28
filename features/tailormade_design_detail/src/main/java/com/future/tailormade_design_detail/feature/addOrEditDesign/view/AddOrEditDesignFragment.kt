@@ -11,13 +11,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageHelper
+import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_design_detail.R
+import com.future.tailormade_design_detail.core.mapper.DesignDetailMapper
+import com.future.tailormade_design_detail.core.model.response.ColorResponse
+import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
+import com.future.tailormade_design_detail.core.model.response.SizeResponse
+import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.databinding.FragmentAddOrEditDesignBinding
 import com.future.tailormade_design_detail.feature.addOrEditDesign.viewModel.AddOrEditDesignViewModel
 import com.google.android.material.chip.Chip
@@ -34,12 +41,15 @@ class AddOrEditDesignFragment : BaseFragment() {
 
   private lateinit var binding: FragmentAddOrEditDesignBinding
 
+  private val args: AddOrEditDesignFragmentArgs by navArgs()
   private val viewModel: AddOrEditDesignViewModel by viewModels()
 
   override fun getLogName() =
       "com.future.tailormade_design_detail.feature.addOrEditDesign.view.AddOrEditDesignFragment"
 
-  override fun getScreenName() = "Add Design"
+  override fun getScreenName() = args.designDetail?.let {
+    "Edit Design"
+  } ?: "Add Design"
 
   override fun getViewModel(): BaseViewModel = viewModel
 
@@ -78,7 +88,18 @@ class AddOrEditDesignFragment : BaseFragment() {
     }
   }
 
-  private fun addSizeChip(text: String) {
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
+    args.designDetail?.let { designDetailResponse ->
+      viewModel.setDesignDetailResponse(designDetailResponse)
+    }
+    viewModel.designDetailResponse.observe(viewLifecycleOwner, {
+      setData(it)
+    })
+  }
+
+  private fun addSizeChip(text: String, sizeDetail: SizeDetailUiModel) {
     val chipBinding = layoutInflater.inflate(R.layout.item_choose_size_chip,
         binding.chipGroupDesignSize, true) as Chip
     with(chipBinding) {
@@ -90,7 +111,7 @@ class AddOrEditDesignFragment : BaseFragment() {
         binding.chipGroupDesignSize.removeView(this)
       }
       setOnClickListener {
-        openAddSizeBottomSheet(text)
+        openAddSizeBottomSheet(text, sizeDetail)
       }
     }
     binding.chipGroupDesignSize.addView(chipBinding)
@@ -140,9 +161,9 @@ class AddOrEditDesignFragment : BaseFragment() {
         getScreenName())
   }
 
-  private fun openAddSizeBottomSheet(name: String? = null) {
-    AddSizeBottomSheetFragment.newInstance(::addSizeChip, name).show(parentFragmentManager,
-        getScreenName())
+  private fun openAddSizeBottomSheet(name: String? = null, sizeDetail: SizeDetailUiModel? = null) {
+    AddSizeBottomSheetFragment.newInstance(::addSizeChip, name, sizeDetail).show(
+        parentFragmentManager, getScreenName())
   }
 
   private fun setClickable(value: Boolean) {
@@ -153,14 +174,59 @@ class AddOrEditDesignFragment : BaseFragment() {
     }
   }
 
+  private fun setData(response: DesignDetailResponse) {
+    with(binding) {
+      editTextDesignName.setText(response.title)
+      editTextDesignPrice.setText(response.price.toString())
+      editTextDesignDiscount.setText(response.discount.toString())
+      editTextDesignDescription.setText(response.description)
+    }
+    showImagePreview(response.image, response.title)
+    setSize(response.size)
+    setColor(response.color)
+  }
+
+  private fun setColor(colors: List<ColorResponse>) {
+    colors.forEach {
+      addColorChip(it.id, it.color)
+    }
+  }
+
+  private fun setSize(sizes: List<SizeResponse>) {
+    sizes.forEach { size ->
+      size.detail?.let {
+        addSizeChip(size.id, DesignDetailMapper.mapToSizeDetailUiModel(it))
+      }
+    }
+  }
+
   private fun showImagePreview(imageUri: Uri, imageName: String) {
+    showImagePreview(imageName)
+    setImage(imageUri)
+  }
+
+  private fun showImagePreview(imageUrl: String, imageName: String) {
+    showImagePreview(imageName)
+    setImage(imageUrl)
+  }
+
+  private fun showImagePreview(imageName: String) {
     with(binding.layoutAddOrEditImage) {
       groupFilledImageState.show()
       groupEmptyImageState.remove()
-
-      imageViewPreviewDesignImage.setImageURI(imageUri)
       textViewPreviewDesignImageName.text = imageName
     }
     setClickable(false)
+  }
+
+  private fun setImage(imageUrl: String) {
+    context?.let { context ->
+      ImageLoader.loadImageUrl(context, imageUrl,
+          binding.layoutAddOrEditImage.imageViewPreviewDesignImage)
+    }
+  }
+
+  private fun setImage(imageUri: Uri) {
+    binding.layoutAddOrEditImage.imageViewPreviewDesignImage.setImageURI(imageUri)
   }
 }

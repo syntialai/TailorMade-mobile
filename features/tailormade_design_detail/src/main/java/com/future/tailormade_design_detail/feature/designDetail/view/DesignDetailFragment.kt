@@ -16,9 +16,9 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_design_detail.R
+import com.future.tailormade_design_detail.core.model.response.ColorResponse
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.core.model.ui.SizeUiModel
-import com.future.tailormade_design_detail.core.model.response.ColorResponse
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
 import com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel
 import com.future.tailormade_router.actions.Action
@@ -52,7 +52,10 @@ class DesignDetailFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentDesignDetailBinding.inflate(inflater, container, false)
     binding.layoutDesignDetailGeneralInfo.buttonEditDesignDetail.setOnClickListener {
-      // TODO: go to edit design and pass design detail response
+      viewModel.designDetailResponse.value?.let { designDetailResponse ->
+        DesignDetailFragmentDirections.actionDesignDetailFragmentToAddOrEditDesignFragment(
+            designDetailResponse)
+      }
     }
     setupBottomNav()
     if (authSharedPrefRepository.userRole != 0) {

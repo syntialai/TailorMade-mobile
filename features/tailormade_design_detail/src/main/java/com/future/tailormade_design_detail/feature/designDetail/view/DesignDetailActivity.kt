@@ -1,7 +1,9 @@
 package com.future.tailormade_design_detail.feature.designDetail.view
 
 import android.os.Bundle
+import androidx.navigation.findNavController
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.databinding.ActivityDesignDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,5 +27,9 @@ class DesignDetailActivity : BaseActivity() {
     setContentView(binding.root)
 
     designDetailId = intent?.getStringExtra(PARAM_DESIGN_DETAIL_ID).orEmpty()
+    if (designDetailId.isBlank()) {
+      findNavController(R.id.nav_design_detail_graph).navigate(
+          R.id.action_global_addOrEditDesignFragment)
+    }
   }
 }

@@ -6,23 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import com.future.tailormade.base.view.BaseBottomSheetDialogFragment
 import com.future.tailormade.config.Constants
+import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.databinding.FragmentAddSizeBottomSheetBinding
 
 class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
 
   companion object {
-    // TODO: Add wrapped ui model of size details as param
-    fun newInstance(onSubmitListener: (String) -> Unit, name: String? = null) = AddSizeBottomSheetFragment().apply {
+    fun newInstance(onSubmitListener: (String, SizeDetailUiModel) -> Unit, name: String? = null,
+        sizeDetail: SizeDetailUiModel? = null) = AddSizeBottomSheetFragment().apply {
       this.onSubmitListener = onSubmitListener
       this.name = name
+      this.sizeDetail = sizeDetail
     }
   }
 
   private lateinit var binding: FragmentAddSizeBottomSheetBinding
-  private lateinit var onSubmitListener: (String) -> Unit
+  private lateinit var onSubmitListener: (String, SizeDetailUiModel) -> Unit
 
   private var name: String? = null
-  // TODO: Define size details here
+  private var sizeDetail: SizeDetailUiModel? = null
 
   override fun getScreenName() = "Add Size"
 
@@ -40,9 +42,22 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
       name?.let {
         editTextSizeName.setText(it)
       }
-      // TODO: Set size details here
+      sizeDetail?.let {
+        setSizeDetailData(it)
+      }
     }
     return binding.root
+  }
+
+  private fun getSizeDetails(): SizeDetailUiModel {
+    with(binding) {
+      val chest = editTextSizeChest.text.toString()
+      val waist = editTextSizeWaist.text.toString()
+      val hips = editTextSizeHips.text.toString()
+      val neckToWaist = editTextSizeNeckToWaist.text.toString()
+      val inseam = editTextSizeInseam.text.toString()
+      return SizeDetailUiModel(chest, waist, hips, neckToWaist, inseam)
+    }
   }
 
   private fun isDataValid(): Boolean {
@@ -53,18 +68,6 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
              && editTextSizeHips.text.toString().isNotBlank()
              && editTextSizeNeckToWaist.text.toString().isNotBlank()
              && editTextSizeInseam.text.toString().isNotBlank()
-    }
-  }
-
-  private fun getSizeDetails() {
-    with(binding) {
-      val chest = editTextSizeChest.text.toString().toDouble()
-      val waist = editTextSizeWaist.text.toString().toDouble()
-      val hips = editTextSizeHips.text.toString().toDouble()
-      val neckToWaist = editTextSizeNeckToWaist.text.toString().toDouble()
-      val inseam = editTextSizeInseam.text.toString().toDouble()
-
-      // TODO: wrap in a ui model and return the ui model
     }
   }
 
@@ -96,9 +99,19 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
     }
   }
 
+  private fun setSizeDetailData(uiModel: SizeDetailUiModel) {
+    with(binding) {
+      editTextSizeChest.setText(uiModel.chest)
+      editTextSizeWaist.setText(uiModel.waist)
+      editTextSizeHips.setText(uiModel.hips)
+      editTextSizeNeckToWaist.setText(uiModel.neckToWaist)
+      editTextSizeInseam.setText(uiModel.inseam)
+    }
+  }
+
   private fun validate() {
     if (isDataValid()) {
-      onSubmitListener.invoke(binding.editTextSizeName.text.toString())
+      onSubmitListener.invoke(binding.editTextSizeName.text.toString(), getSizeDetails())
       dismiss()
     } else {
       setErrorMessage()

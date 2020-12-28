@@ -1,5 +1,9 @@
 package com.future.tailormade_design_detail.core.model.ui
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class SizeDetailUiModel(
 
 		var chest: String = "-",
@@ -10,4 +14,4 @@ data class SizeDetailUiModel(
 
 		var neckToWaist: String = "-",
 
-		var inseam: String = "-")
+		var inseam: String = "-"): Parcelable
