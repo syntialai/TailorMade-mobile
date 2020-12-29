@@ -42,6 +42,14 @@ object Constants {
   const val HIPS_SIZE_IS_EMPTY = "Hips Size $IS_EMPTY"
   const val NECK_TO_WAIST_SIZE_IS_EMPTY = "Neck to Waist Size $IS_EMPTY"
   const val INSEAM_SIZE_IS_EMPTY = "Inseam Size $IS_EMPTY"
+  const val IMAGE_MUST_BE_ATTACHED = "Image must be attached"
+  const val SIZE_IS_EMPTY = "Size $IS_EMPTY"
+  const val COLOR_IS_EMPTY = "Color $IS_EMPTY"
+  const val DESIGN_NAME_IS_EMPTY = "Design name $IS_EMPTY"
+  const val DESIGN_PRICE_IS_EMPTY = "Design price $IS_EMPTY"
+  const val DESIGN_DISCOUNT_IS_EMPTY = "Design discount $IS_EMPTY"
+  const val DESIGN_DISCOUNT_CANT_BE_HIGHER_THAN_PRICE = "Design discount can't be higher than the normal price"
+  const val DESIGN_DESCRIPTION_IS_EMPTY = "Design description $IS_EMPTY"
 
   const val MESSAGES_TYPE_TEXT = "TEXT"
 

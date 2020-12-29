@@ -19,6 +19,7 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_design_detail.R
@@ -69,7 +70,7 @@ class AddOrEditDesignFragment : BaseFragment() {
         openAddColorBottomSheet()
       }
       buttonSaveDesignInfo.setOnClickListener {
-        // TODO: call view model to save design
+        validate()
       }
     }
     hideImagePreview()
@@ -235,5 +236,59 @@ class AddOrEditDesignFragment : BaseFragment() {
 
   private fun setImage(imageUri: Uri) {
     binding.layoutAddOrEditImage.imageViewPreviewDesignImage.setImageURI(imageUri)
+  }
+
+  private fun validate() {
+    with(binding) {
+      val name = editTextDesignName.text()
+      val price = editTextDesignPrice.text()
+      val discount = editTextDesignDiscount.text()
+      val description = editTextDesignDescription.text()
+
+      if (name.isNotBlank() && price.isNotBlank() && discount.isNotBlank() && description.isNotBlank() && viewModel.isPriceValid(
+              price, discount)) {
+        if (viewModel.validate()) {
+          addOrUpdateDesign(name, price, discount, description)
+        }
+      } else {
+        setErrorMessage(name, price, discount, description)
+      }
+    }
+  }
+
+  private fun addOrUpdateDesign(name: String, price: String, discount: String, description: String) {
+    args.designDetail?.let {
+      viewModel.updateDesign(name, price, discount, description)
+    } ?: run {
+      viewModel.addDesign(name, price, discount, description)
+    }
+  }
+
+  private fun setErrorMessage(name: String, price: String, discount: String, description: String) {
+    with(binding) {
+      editTextDesignName.error = if (name.isBlank()) {
+        Constants.DESIGN_NAME_IS_EMPTY
+      } else {
+        null
+      }
+
+      editTextDesignPrice.error = if (price.isBlank()) {
+        Constants.DESIGN_PRICE_IS_EMPTY
+      } else {
+        null
+      }
+
+      editTextDesignDiscount.error = when {
+        discount.isBlank() -> Constants.DESIGN_DISCOUNT_IS_EMPTY
+        viewModel.isPriceValid(price, discount).not() -> Constants.DESIGN_DISCOUNT_CANT_BE_HIGHER_THAN_PRICE
+        else -> null
+      }
+
+      editTextDesignDescription.error = if (description.isBlank()) {
+        Constants.DESIGN_DESCRIPTION_IS_EMPTY
+      } else {
+        null
+      }
+    }
   }
 }

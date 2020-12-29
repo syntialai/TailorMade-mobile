@@ -16,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategoryListFragment : BaseFragment() {
 
   companion object {
-
     fun newInstance() = CategoryListFragment()
   }
 

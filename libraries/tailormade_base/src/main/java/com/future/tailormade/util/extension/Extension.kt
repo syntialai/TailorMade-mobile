@@ -5,6 +5,7 @@ import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
 import com.future.tailormade.base.view.ViewState
@@ -68,6 +69,10 @@ fun EditText.debounceOnTextChanged(
         }
     }
 }
+
+fun EditText.text() = this.text.toString()
+
+fun TextView.text() = this.text.toString()
 
 fun View.hide() {
     visibility = View.INVISIBLE

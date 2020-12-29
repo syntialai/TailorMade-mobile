@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchTailorResultFragment : BaseFragment() {
 
   companion object {
-
     fun newInstance() = SearchTailorResultFragment()
   }
 
@@ -29,7 +28,7 @@ class SearchTailorResultFragment : BaseFragment() {
 
   private val viewModel: SearchViewModel by viewModels()
 
-  override fun getLogName(): String = "com.future.tailormade_search.feature.search.view.SearchTailorResultFragment"
+  override fun getLogName() = "com.future.tailormade_search.feature.search.view.SearchTailorResultFragment"
 
   override fun getScreenName(): String = "Search Tailor Result"
 
@@ -85,8 +84,7 @@ class SearchTailorResultFragment : BaseFragment() {
   }
 
   private fun showFilterDialog() {
-    FilterTailorBottomSheetDialogFragment.newInstance().show(
-        parentFragmentManager, getScreenName())
+    FilterTailorBottomSheetDialogFragment.newInstance().show(parentFragmentManager, getScreenName())
   }
 
   private fun showNoDataState() {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.future.tailormade.base.view.BaseBottomSheetDialogFragment
 import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.text
 import com.future.tailormade_design_detail.databinding.FragmentAddColorBottomSheetBinding
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
@@ -76,7 +77,7 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
       if (colorName.isBlank()) {
         textInputColorName.error = Constants.COLOR_NAME_IS_EMPTY
       } else {
-        onSubmitListener.invoke(colorName, textViewColorPreview.text.toString())
+        onSubmitListener.invoke(colorName, textViewColorPreview.text())
         dismiss()
       }
     }

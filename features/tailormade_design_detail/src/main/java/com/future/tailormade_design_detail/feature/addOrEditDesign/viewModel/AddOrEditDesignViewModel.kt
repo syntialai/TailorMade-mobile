@@ -46,6 +46,8 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
     _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE, null)
   }
 
+  fun isPriceValid(price: String, discount: String) = price.toDouble() > discount.toDouble()
+
   fun addColor(name: String, color: String) {
     colorRequest.add(getDesignColorRequest(name, color))
   }
@@ -88,11 +90,6 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
     }
   }
 
-  fun getDesignRequest(
-      title: String, price: String, discount: String, description: String) = DesignRequest(
-      title = title, price = price.toDouble(), discount = discount.toDouble(),
-      description = description, image = imageRequest, color = colorRequest, size = sizeRequest)
-
   fun removeColor(name: String, color: String) {
     colorRequest.remove(getDesignColorRequest(name, color))
   }
@@ -111,10 +108,31 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
     imageRequest = ImageHelper.encodeFile(imagePath)
   }
 
+  fun validate() = when {
+    imageRequest.isBlank() -> {
+      setErrorMessage(Constants.IMAGE_MUST_BE_ATTACHED)
+      false
+    }
+    sizeRequest.isEmpty() -> {
+      setErrorMessage(Constants.SIZE_IS_EMPTY)
+      false
+    }
+    colorRequest.isEmpty() -> {
+      setErrorMessage(Constants.COLOR_IS_EMPTY)
+      false
+    }
+    else -> true
+  }
+
   private fun getDesignColorRequest(name: String, color: String) = DesignColorRequest(name, color)
 
   private fun getDesignSizeRequest(name: String, sizeDetail: SizeDetailUiModel) = DesignSizeRequest(
       name, mapToSizeDetailRequest(sizeDetail))
+
+  private fun getDesignRequest(
+      title: String, price: String, discount: String, description: String) = DesignRequest(
+      title = title, price = price.toDouble(), discount = discount.toDouble(),
+      description = description, image = imageRequest, color = colorRequest, size = sizeRequest)
 
   private fun mapToSizeDetailRequest(sizeDetail: SizeDetailUiModel) = DesignSizeDetailRequest(
       sizeDetail.chest.toDouble(),

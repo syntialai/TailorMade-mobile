@@ -10,6 +10,7 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
+import com.future.tailormade.util.extension.text
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
 class SignInFragment : BaseFragment() {
+
+  companion object {
+    fun newInstance() = SignInFragment()
+  }
 
   private lateinit var binding: FragmentSignInBinding
 
@@ -38,10 +43,7 @@ class SignInFragment : BaseFragment() {
 
     with(binding) {
       buttonSignIn.setOnClickListener {
-        submitEmailAndPassword(
-          editTextEmailSignIn.text.toString(),
-          editTextPasswordSignIn.text.toString()
-        )
+        submitEmailAndPassword(editTextEmailSignIn.text(), editTextPasswordSignIn.text())
       }
 
       buttonGoToSignUp.setOnClickListener {
@@ -64,13 +66,13 @@ class SignInFragment : BaseFragment() {
   private fun setFormErrorMessage() {
     with(binding) {
       textInputEmailSignIn.error = when {
-        editTextEmailSignIn.text.toString().isBlank() -> Constants.EMAIL_IS_EMPTY
-        editTextEmailSignIn.text.toString().isEmailValid().not() -> Constants.EMAIL_IS_NOT_VALID
+        editTextEmailSignIn.text().isBlank() -> Constants.EMAIL_IS_EMPTY
+        editTextEmailSignIn.text().isEmailValid().not() -> Constants.EMAIL_IS_NOT_VALID
         else -> null
       }
 
       textInputPasswordSignIn.error = when {
-        editTextPasswordSignIn.text.toString().isBlank() -> Constants.PASSWORD_IS_EMPTY
+        editTextPasswordSignIn.text().isBlank() -> Constants.PASSWORD_IS_EMPTY
         else -> null
       }
     }
@@ -84,11 +86,5 @@ class SignInFragment : BaseFragment() {
     } else {
       setFormErrorMessage()
     }
-  }
-
-  companion object {
-
-    @JvmStatic
-    fun newInstance() = SignInFragment()
   }
 }
