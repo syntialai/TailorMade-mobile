@@ -12,4 +12,7 @@
     <string name="incoming_label">Incoming</string>
     <string name="order_list_title_state">No Orders, yet.</string>
     <string name="order_list_description_state">Once your customer order your designs, it will appear here.</string>
+    <string name="rejected_label">Rejected</string>
+    <string name="accepted_label">Accepted</string>
+    <string name="all_label">All</string>
 </resources>

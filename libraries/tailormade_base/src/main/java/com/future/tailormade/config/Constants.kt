@@ -11,6 +11,8 @@ object Constants {
   const val INITIAL_PAGING_PAGE = 1
   const val INITIAL_PAGING_ITEM_PER_PAGE = 10
   const val TYPE_IMAGE_ALL = "image/*"
+  const val STATUS_ACCEPTED = "accepted"
+  const val STATUS_REJECTED = "rejected"
 
   /**
    * Error messages

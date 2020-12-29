@@ -59,4 +59,5 @@
     <string name="size_inseam_label">Inseam</string>
     <string name="accept_label">Accept</string>
     <string name="reject_label">Reject</string>
+    <string name="order_total_status_label">Status</string>
 </resources>

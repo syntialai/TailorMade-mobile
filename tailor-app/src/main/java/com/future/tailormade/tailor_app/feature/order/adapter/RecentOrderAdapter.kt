@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderDesignUiModel
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderUiModel
@@ -14,9 +15,8 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 
-class IncomingOrderAdapter(private val onAcceptOrderListener: (String) -> Unit,
-    private val onRejectOrderListener: (String) -> Unit) :
-    ListAdapter<OrderUiModel, IncomingOrderAdapter.IncomingOrderViewHolder>(diffCallback) {
+class RecentOrderAdapter(private val onClickListener: (String) -> Unit) :
+    ListAdapter<OrderUiModel, RecentOrderAdapter.RecentOrderViewHolder>(diffCallback) {
 
   companion object {
     private val diffCallback = object : DiffUtil.ItemCallback<OrderUiModel>() {
@@ -28,30 +28,24 @@ class IncomingOrderAdapter(private val onAcceptOrderListener: (String) -> Unit,
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = IncomingOrderViewHolder(
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecentOrderViewHolder(
       LayoutInflater.from(parent.context).inflate(R.layout.layout_card_order_item, parent, true))
 
-  override fun onBindViewHolder(holder: IncomingOrderViewHolder, position: Int) {
+  override fun onBindViewHolder(holder: RecentOrderViewHolder, position: Int) {
     holder.bind(getItem(position))
   }
 
-  inner class IncomingOrderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+  inner class RecentOrderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     private val binding = LayoutCardOrderItemBinding.bind(itemView)
     private val context = itemView.context
 
     fun bind(data: OrderUiModel) {
-      with(binding) {
-        groupTailorButton.show()
-        buttonAcceptOrder.setOnClickListener {
-          onAcceptOrderListener.invoke(data.id)
-        }
-        buttonRejectOrder.setOnClickListener {
-          onRejectOrderListener.invoke(data.id)
-        }
+      binding.root.setOnClickListener {
+        onClickListener.invoke(data.id)
       }
       bindDesignData(data.design)
-      bindOrderTotalData(data.quantity, data.totalPrice, data.totalDiscount)
+      bindOrderTotalData(data.quantity, data.totalPrice, data.totalDiscount, data.status)
     }
 
     private fun bindDesignData(design: OrderDesignUiModel) {
@@ -74,11 +68,22 @@ class IncomingOrderAdapter(private val onAcceptOrderListener: (String) -> Unit,
       }
     }
 
-    private fun bindOrderTotalData(quantity: String, price: String, discount: String) {
+    private fun bindOrderTotalData(quantity: String, price: String, discount: String,
+        status: String) {
       with(binding.layoutOrderTotal) {
+        textViewOrderTotalStatusLabel.show()
+
         textViewOrderQuantity.text = quantity
         textViewOrderTotalPrice.text = price
         textViewOrderTotalDiscount.text = discount
+
+        if (status == Constants.STATUS_ACCEPTED) {
+          textViewOrderTotalStatusAccepted.show()
+          textViewOrderTotalStatusAccepted.text = status
+        } else {
+          textViewOrderTotalStatusRejected.show()
+          textViewOrderTotalStatusRejected.text = status
+        }
       }
     }
   }

@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.future.tailormade.tailor_app.feature.order.view.IncomingOrderFragment
+import com.future.tailormade.tailor_app.feature.order.view.RecentOrderFragment
 
 class OrderFragmentStateAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
@@ -18,7 +19,7 @@ class OrderFragmentStateAdapter(fragmentActivity: FragmentActivity) :
 
   override fun createFragment(position: Int) = when(position) {
     INCOMING_ORDER_PAGE_INDEX -> IncomingOrderFragment.newInstance()
-    RECENT_ORDER_PAGE_INDEX -> Fragment()
+    RECENT_ORDER_PAGE_INDEX -> RecentOrderFragment.newInstance()
     else -> Fragment()
   }
 }
