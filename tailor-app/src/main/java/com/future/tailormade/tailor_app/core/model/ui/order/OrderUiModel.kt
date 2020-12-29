@@ -10,8 +10,6 @@ data class OrderUiModel(
 
     var quantity: String,
 
-    var tailorId: String,
-
     var totalDiscount: String,
 
     var totalPrice: String,

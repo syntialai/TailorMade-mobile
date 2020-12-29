@@ -1,5 +1,6 @@
 package com.future.tailormade_design_detail.core.mapper
 
+import com.future.tailormade.base.mapper.BaseMapper
 import com.future.tailormade.util.extension.toIndonesiaCurrencyFormat
 import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
 import com.future.tailormade_design_detail.core.model.response.SizeDetailResponse
@@ -15,7 +16,7 @@ object DesignDetailMapper {
       description = designDetailResponse.description, tailorId = designDetailResponse.tailorId,
       tailorName = designDetailResponse.tailorName, image = designDetailResponse.image,
       price = designDetailResponse.price.toIndonesiaCurrencyFormat(),
-      discount = setDiscount(designDetailResponse.price, designDetailResponse.discount),
+      discount = BaseMapper.setDiscount(designDetailResponse.price, designDetailResponse.discount),
       category = designDetailResponse.category, color = designDetailResponse.color,
       size = setSize(designDetailResponse.size))
 
@@ -29,12 +30,6 @@ object DesignDetailMapper {
       neckToWaist?.let { sizeDetailUiModel.neckToWaist = it.toString() }
     }
     return sizeDetailUiModel
-  }
-
-  private fun setDiscount(price: Double, discount: Double) = if (discount > 0.0) {
-    (price - discount).toIndonesiaCurrencyFormat()
-  } else {
-    null
   }
 
   private fun setSize(sizes: List<SizeResponse>): MutableList<SizeUiModel> {
