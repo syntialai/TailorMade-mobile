@@ -8,4 +8,8 @@
     <string name="select_all_label">Select All</string>
     <string name="delete_design_alert_dialog_title">Are you sure?</string>
     <string name="delete_design_alert_dialog_content">You’ll delete %d design(s)!</string>
+    <string name="recent_label">Recent</string>
+    <string name="incoming_label">Incoming</string>
+    <string name="order_list_title_state">No Orders, yet.</string>
+    <string name="order_list_description_state">Once your customer order your designs, it will appear here.</string>
 </resources>

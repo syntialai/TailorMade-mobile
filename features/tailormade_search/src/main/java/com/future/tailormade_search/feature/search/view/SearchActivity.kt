@@ -35,8 +35,8 @@ class SearchActivity : BaseActivity() {
   }
 
   private fun doSearch(query: String) {
-    launchCoroutineOnMain { viewModel.searchDesign(query) }
-    launchCoroutineOnMain { viewModel.searchTailor(query) }
+    launchCoroutineOnIO { viewModel.searchDesign(query) }
+    launchCoroutineOnIO { viewModel.searchTailor(query) }
   }
 
   private fun hideInitialSearchState() {
