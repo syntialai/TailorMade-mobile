@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.tailor_app.R
-import com.future.tailormade.tailor_app.core.model.ui.DashboardDesignUiModel
+import com.future.tailormade.tailor_app.core.model.ui.dashboard.DashboardDesignUiModel
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_dls.databinding.LayoutCardDesignBinding
 

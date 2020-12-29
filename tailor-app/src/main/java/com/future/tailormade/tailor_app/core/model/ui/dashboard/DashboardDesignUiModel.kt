@@ -1,4 +1,4 @@
-package com.future.tailormade.tailor_app.core.model.ui
+package com.future.tailormade.tailor_app.core.model.ui.dashboard
 
 data class DashboardDesignUiModel(
 

@@ -92,12 +92,10 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/text_view_ordered_price"
             app:layout_constraintStart_toEndOf="@id/text_view_ordered_price"
             app:layout_constraintTop_toTopOf="@id/text_view_ordered_price"
-            tools:text="@string/ordered_price_discount_label"
-            tools:visibility="visible" />
+            tools:text="@string/ordered_price_discount_label" />
 
         <TextView
             android:id="@+id/text_view_ordered_discount"
@@ -105,19 +103,17 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/text_view_ordered_price"
             app:layout_constraintStart_toEndOf="@id/text_view_ordered_price_discount"
             app:layout_constraintTop_toTopOf="@id/text_view_ordered_price"
-            tools:text="@string/ordered_discount_label"
-            tools:visibility="visible" />
+            tools:text="@string/ordered_discount_label" />
 
         <include
-            layout="@layout/layout_order_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_8"
             android:layout_marginTop="@dimen/dp_12"
+            layout="@layout/layout_order_total"
             app:layout_constraintBottom_toTopOf="@id/button_order_again_ordered"
             app:layout_constraintStart_toEndOf="@id/image_view_ordered"
             app:layout_constraintTop_toBottomOf="@id/text_view_ordered_price" />
@@ -126,11 +122,52 @@
             android:id="@+id/button_order_again_ordered"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_16"
             android:text="@string/order_again_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/grid_order_total" />
+
+        <Button
+            android:id="@+id/button_accept_order"
+            style="@style/Theme.TailorMade.Button.Outlined.Rounded.Red"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/accept_label"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grid_order_total"
+            app:layout_constraintEnd_toStartOf="@+id/button_reject_order"
+            app:layout_constraintHorizontal_chainStyle="spread" />
+
+        <Button
+            android:id="@+id/button_reject_order"
+            style="@style/Theme.TailorMade.Button.Outlined.Rounded.Green"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/reject_label"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/button_accept_order"
+            app:layout_constraintTop_toBottomOf="@id/grid_order_total"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_tailor_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="button_accept_order, button_reject_order"
+            tools:visibility="visible" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_discount_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="text_view_ordered_discount, text_view_ordered_price_discount"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
