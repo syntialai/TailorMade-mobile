@@ -19,7 +19,14 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup"
         tools:replace="android:theme">
-        <activity android:name=".feature.orderDetail.view.OrderDetailActivity"></activity>
+
+        <activity android:name=".feature.orderDetail.view.OrderDetailActivity">
+            <intent-filter>
+                <action android:name="com.future.tailormade.orderDetail.open" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".feature.main.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

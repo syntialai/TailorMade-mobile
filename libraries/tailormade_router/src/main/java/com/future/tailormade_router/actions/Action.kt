@@ -8,7 +8,7 @@ object Action {
 	/**
 	 * Param name
 	 */
-	private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
+	private const val PARAM_CHAT_ROOM_ID = "CHAT_ROOM_ID"
 	private const val PARAM_DESIGN_DETAIL_ID = "DESIGN_DETAIL_ID"
 
 	/**
@@ -40,6 +40,5 @@ object Action {
 		id?.let { putExtra(PARAM_DESIGN_DETAIL_ID, it) }
 	}
 
-	private fun getIntent(context: Context, action: String) = Intent(action).setPackage(
-      context.packageName)
+	fun getIntent(context: Context, action: String) = Intent(action).setPackage(context.packageName)
 }
