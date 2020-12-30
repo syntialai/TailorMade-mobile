@@ -10,7 +10,7 @@ data class OrderResponse(
 
     val quantity: Int,
 
-    val specialInstructions: String,
+    val specialInstructions: String? = null,
 
     val status: String,
 

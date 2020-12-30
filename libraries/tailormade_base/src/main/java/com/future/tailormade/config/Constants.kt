@@ -56,12 +56,14 @@ object Constants {
   const val FAILED_TO_REJECT_ORDER = "Failed to reject order. Please try again later."
   const val FAILED_TO_FETCH_INCOMING_ORDER = "Failed to fetch incoming orders. Please try again later."
   const val FAILED_TO_FETCH_RECENT_ORDER = "Failed to fetch recent orders. Please try again later."
+  const val FAILED_TO_FETCH_ORDER_DETAIL = "Failed to fetch order detail. Please try again later."
 
   const val MESSAGES_TYPE_TEXT = "TEXT"
 
   /*
    * Date Patterns
    */
+  const val DD_MMMM_YYYY_HH_MM_SS = "dd MMMM yyyy, hh:mm:ss"
   const val DD_MMMM_YYYY = "dd MMMM yyyy"
   const val DD_MMM_YYYY = "dd MMM yyyy"
   const val HH_MM = "hh:mm"

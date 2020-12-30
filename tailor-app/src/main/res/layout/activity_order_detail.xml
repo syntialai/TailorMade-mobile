@@ -10,7 +10,17 @@
         android:orientation="vertical"
         tools:context=".feature.orderDetail.view.OrderDetailActivity">
 
-        <!-- TODO: Toolbar -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_appbar_layout_order_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/top_toolbar_order_detail"
+                style="@style/Theme.TailorMade.Toolbar.Back"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <include
             android:id="@+id/layout_card_order_detail_order_info"
