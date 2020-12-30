@@ -131,6 +131,8 @@ fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(
  */
 fun <T> List<T>?.orEmptyList(): List<T> = this ?: listOf()
 
+fun <T> ArrayList<T>?.orEmptyList(): List<T> = this ?: arrayListOf()
+
 fun Int?.orZero(): Int = this ?: 0
 
 fun Double?.orZero(): Double = this ?: 0.0

@@ -11,6 +11,8 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.tailor_app.databinding.FragmentIncomingOrderBinding
 import com.future.tailormade.tailor_app.feature.order.adapter.IncomingOrderAdapter
 import com.future.tailormade.tailor_app.feature.order.viewModel.IncomingOrderViewModel
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,12 +41,41 @@ class IncomingOrderFragment : BaseFragment() {
     return binding.root
   }
 
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
+    viewModel.fetchIncomingOrders()
+    viewModel.incomingOrders.observe(viewLifecycleOwner, {
+      incomingOrderAdapter.submitList(it)
+      if (it.isEmpty()) {
+        hideRecyclerView()
+        showEmptyState()
+      } else {
+        showRecyclerView()
+        hideEmptyState()
+      }
+    })
+    viewModel.hasOrderResponded.observe(viewLifecycleOwner, {
+      if (it) {
+        viewModel.fetchIncomingOrders()
+      }
+    })
+  }
+
+  private fun hideEmptyState() {
+    binding.layoutIncomingOrderState.root.remove()
+  }
+
+  private fun hideRecyclerView() {
+    binding.recyclerViewIncomingOrder.remove()
+  }
+
   private fun onAcceptOrder(id: String) {
-    // TODO: Call viewmodel to accept order
+    viewModel.acceptOrder(id)
   }
 
   private fun onRejectOrder(id: String) {
-    // TODO: Call viewmodel to reject order
+    viewModel.rejectOrder(id)
   }
 
   private fun setupRecyclerView() {
@@ -52,5 +83,13 @@ class IncomingOrderFragment : BaseFragment() {
       layoutManager = LinearLayoutManager(context)
       adapter = incomingOrderAdapter
     }
+  }
+
+  private fun showEmptyState() {
+    binding.layoutIncomingOrderState.root.show()
+  }
+
+  private fun showRecyclerView() {
+    binding.recyclerViewIncomingOrder.show()
   }
 }

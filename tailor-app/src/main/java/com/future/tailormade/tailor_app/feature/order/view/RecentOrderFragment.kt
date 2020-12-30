@@ -11,6 +11,8 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.tailor_app.databinding.FragmentRecentOrderBinding
 import com.future.tailormade.tailor_app.feature.order.adapter.RecentOrderAdapter
 import com.future.tailormade.tailor_app.feature.order.viewModel.RecentOrderViewModel
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,22 +39,38 @@ class RecentOrderFragment : BaseFragment() {
     binding = FragmentRecentOrderBinding.inflate(inflater, container, false)
     with(binding) {
       chipFilterAllOrder.setOnClickListener {
-        // TODO: Call viewmodel to filter data
+        viewModel.filterAllOrders()
         chipFilterAllOrder.isChecked = true
       }
 
       chipFilterAcceptedOrder.setOnClickListener {
-        // TODO: Call viewmodel to filter data
+        viewModel.filterAcceptedOrders()
         chipFilterAcceptedOrder.isChecked = true
       }
 
       chipFilterRejectedOrder.setOnClickListener {
-        // TODO: Call viewmodel to filter data
+        viewModel.filterRejectedOrders()
         chipFilterRejectedOrder.isChecked = true
       }
     }
     setupRecyclerView()
     return binding.root
+  }
+
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
+    viewModel.fetchIncomingOrders()
+    viewModel.recentOrders.observe(viewLifecycleOwner, {
+      recentOrderAdapter.submitList(it)
+      if (it.isEmpty()) {
+        hideRecyclerView()
+        showEmptyState()
+      } else {
+        showRecyclerView()
+        hideEmptyState()
+      }
+    })
   }
 
   private fun goToOrderDetail(id: String) {
@@ -61,10 +79,26 @@ class RecentOrderFragment : BaseFragment() {
     }
   }
 
+  private fun hideEmptyState() {
+    binding.layoutRecentOrderState.root.remove()
+  }
+
+  private fun hideRecyclerView() {
+    binding.recyclerViewRecentOrder.remove()
+  }
+
   private fun setupRecyclerView() {
     with(binding.recyclerViewRecentOrder) {
       layoutManager = LinearLayoutManager(context)
       adapter = recentOrderAdapter
     }
+  }
+
+  private fun showEmptyState() {
+    binding.layoutRecentOrderState.root.show()
+  }
+
+  private fun showRecyclerView() {
+    binding.recyclerViewRecentOrder.show()
   }
 }

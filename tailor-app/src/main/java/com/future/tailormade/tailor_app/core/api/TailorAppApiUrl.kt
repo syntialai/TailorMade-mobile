@@ -14,4 +14,6 @@ object TailorAppApiUrl {
    */
   const val BASE_TAILORS_ID_ORDERS_PATH = ProfileApiUrl.TAILORS_ID_PATH + "/orders"
   const val TAILORS_ID_ORDERS_ID_PATH = "$BASE_TAILORS_ID_ORDERS_PATH/{id}"
+  const val TAILORS_ID_ORDERS_ID_ACCEPT_PATH = "$TAILORS_ID_ORDERS_ID_PATH/_accept"
+  const val TAILORS_ID_ORDERS_ID_REJECT_PATH = "$TAILORS_ID_ORDERS_ID_PATH/_reject"
 }
