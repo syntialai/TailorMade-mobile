@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_8"
             android:layout_marginTop="@dimen/dp_12"
-            layout="@layout/layout_order_total"
+            layout="@layout/layout_ordered_total"
             app:layout_constraintStart_toEndOf="@id/image_view_ordered"
             app:layout_constraintTop_toBottomOf="@id/text_view_ordered_price" />
 

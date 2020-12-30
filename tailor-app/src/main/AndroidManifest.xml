@@ -4,8 +4,9 @@
     package="com.future.tailormade.tailor_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"  />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -16,9 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:theme"
-        tools:ignore="AllowBackup">
-
+        tools:ignore="AllowBackup"
+        tools:replace="android:theme">
+        <activity android:name=".feature.orderDetail.view.OrderDetailActivity"></activity>
         <activity android:name=".feature.main.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,4 +28,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
