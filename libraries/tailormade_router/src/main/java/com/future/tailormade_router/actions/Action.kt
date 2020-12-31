@@ -9,7 +9,7 @@ object Action {
    * Param name
    */
   private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
-  private const val PARAM_DESIGN_DETAIL_ID = "DESIGN_DETAIL_ID"
+  private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
   private const val PARAM_CART_ITEM_ID = "PARAM_CART_ITEM_ID"
 
   /**

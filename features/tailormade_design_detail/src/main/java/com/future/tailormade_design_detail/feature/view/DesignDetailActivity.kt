@@ -9,7 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DesignDetailActivity : BaseActivity() {
 
   companion object {
-    private const val PARAM_DESIGN_DETAIL_ID = "DESIGN_DETAIL_ID"
+    private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
   }
 
   private lateinit var binding: ActivityDesignDetailBinding
