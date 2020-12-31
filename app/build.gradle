@@ -69,6 +69,8 @@ android {
         unitTests.includeAndroidResources = true
         unitTests.returnDefaultValues = true
     }
+
+    dynamicFeatures = [':tailormade_face_swap']
 }
 
 dependencies {
