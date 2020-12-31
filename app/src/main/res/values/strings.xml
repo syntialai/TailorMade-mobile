@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TailorMade</string>
     <string name="title_dls">Design Language System for TailorMade</string>
+    <string name="title_tailormade_face_swap">Face Swap</string>
 </resources>

@@ -69,14 +69,15 @@ android {
         unitTests.includeAndroidResources = true
         unitTests.returnDefaultValues = true
     }
+
+    dynamicFeatures = [':features:tailormade_face_swap']
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
 
     // Libraries
-    implementation project(":libraries:tailormade_dls")
-    implementation project(":libraries:tailormade_base")
+    api project(":libraries:tailormade_base")
     implementation project(":libraries:tailormade_router")
 
     // Features
@@ -84,6 +85,9 @@ dependencies {
     implementation project(":features:tailormade_search")
     implementation project(":features:tailormade_profile")
     implementation project(":features:tailormade_chat")
+
+    // Dynamic feature support
+    implementation play_core
 
     // Tests
     testImplementation test.junit
