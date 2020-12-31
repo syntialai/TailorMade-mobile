@@ -12,5 +12,6 @@ include ':features:tailormade_face_swap'
 include ':libraries:tailormade_base'
 include ':libraries:tailormade_dls'
 include ':libraries:tailormade_router'
+include ':libraries:opencv_sdk'
 
 rootProject.name = "TailorMade"
