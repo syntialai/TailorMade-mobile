@@ -8,9 +8,13 @@ class FaceSwapActivity : BaseActivity() {
 
   private lateinit var binding: ActivityFaceSwapBinding
 
+  override fun getScreenName() = "Face Swap"
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityFaceSwapBinding.inflate(layoutInflater)
+    toolbar = binding.topToolbarFaceSwap
     setContentView(binding.root)
+    setupToolbar(getScreenName())
   }
 }
