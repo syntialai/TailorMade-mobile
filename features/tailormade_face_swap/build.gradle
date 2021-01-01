@@ -41,7 +41,10 @@ android {
 
 dependencies {
   implementation project(":app")
+
+  // Face swap libraries
   implementation project(":libraries:opencv_sdk")
+  implementation project(":libraries:dlib")
 
   implementation materialDesign
 
