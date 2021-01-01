@@ -13,5 +13,6 @@ include ':libraries:tailormade_base'
 include ':libraries:tailormade_dls'
 include ':libraries:tailormade_router'
 include ':libraries:opencv_sdk'
+include ':libraries:dlib'
 
 rootProject.name = "TailorMade"
