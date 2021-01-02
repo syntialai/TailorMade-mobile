@@ -44,9 +44,13 @@ class DesignDetailFragment : BaseFragment() {
 
   private lateinit var binding: FragmentDesignDetailBinding
 
-  override fun getLogName(): String = "com.future.tailormade_design_detail.feature.view.DesignDetailFragment"
+  override fun getLogName() = "com.future.tailormade_design_detail.feature.view.DesignDetailFragment"
 
   override fun getViewModel(): BaseViewModel = viewModel
+
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentDashboardBinding
@@ -34,7 +35,7 @@ class DashboardFragment : BaseFragment() {
 
   override fun getLogName() = "com.future.tailormade.feature.dashboard.view.DashboardFragment"
 
-  override fun getScreenName(): String = "Home"
+  override fun getScreenName(): String = getString(R.string.app_name)
 
   override fun getViewModel(): BaseViewModel = viewModel
 

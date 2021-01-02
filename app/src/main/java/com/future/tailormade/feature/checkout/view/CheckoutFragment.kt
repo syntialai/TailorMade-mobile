@@ -36,6 +36,10 @@ class CheckoutFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
+
   @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {

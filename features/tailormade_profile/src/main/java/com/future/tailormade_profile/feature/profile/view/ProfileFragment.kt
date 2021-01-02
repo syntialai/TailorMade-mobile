@@ -52,14 +52,16 @@ class ProfileFragment : BaseFragment() {
     super.setupFragmentObserver()
 
     viewModel.fetchProfileInfo()
-    viewModel.profileInfoResponse.observe(viewLifecycleOwner, {
-      val location = it.location?.city.orEmpty() + if (it.location?.province.isNullOrBlank().not()) {
-        ", ${it.location?.province}"
-      } else {
-        ""
+    viewModel.profileInfoResponse.observe(viewLifecycleOwner, { profileInfo ->
+      profileInfo?.let {
+        val location = it.location?.city.orEmpty() + if (it.location?.province.isNullOrBlank().not()) {
+          ", ${it.location?.province}"
+        } else {
+          ""
+        }
+        setButtonVisibility(it.id)
+        setProfileData(it.name, location, it.image.orEmpty())
       }
-      setButtonVisibility(it.id)
-      setProfileData(it.name, location, it.image.orEmpty())
     })
   }
 

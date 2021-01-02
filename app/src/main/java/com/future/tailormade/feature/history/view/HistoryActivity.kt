@@ -15,5 +15,6 @@ class HistoryActivity : BaseActivity() {
     binding = ActivityHistoryBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarHistory
     setContentView(binding.root)
+    setSupportActionBar(toolbar)
   }
 }

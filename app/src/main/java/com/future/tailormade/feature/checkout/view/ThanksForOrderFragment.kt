@@ -36,6 +36,10 @@ class ThanksForOrderFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentThanksForOrderBinding.inflate(inflater, container, false)

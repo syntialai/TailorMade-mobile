@@ -15,5 +15,9 @@ class EditProfileActivity : BaseActivity() {
     binding = ActivityEditProfileBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarProfile
     setContentView(binding.root)
+    setSupportActionBar(toolbar)
+    setupOnNavigationIconClicked {
+      finish()
+    }
   }
 }

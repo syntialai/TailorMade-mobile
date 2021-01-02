@@ -43,7 +43,7 @@ abstract class BaseFragment : Fragment() {
 
     activity?.let { activity ->
       (activity as BaseActivity).setupOnNavigationIconClicked(::onNavigationIconClicked)
-      (activity as BaseActivity).setupToolbar(getScreenName())
+      activity.setupToolbar(getScreenName())
     }
 
     setupFragmentObserver()

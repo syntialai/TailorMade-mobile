@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_profile.databinding.FragmentEditProfileSetLocationBinding
@@ -27,6 +28,10 @@ class EditProfileSetLocationFragment : BaseFragment() {
   override fun getScreenName(): String = "Set Location"
 
   override fun getViewModel(): BaseViewModel = viewModel
+
+  override fun onNavigationIconClicked() {
+    findNavController().navigateUp()
+  }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {

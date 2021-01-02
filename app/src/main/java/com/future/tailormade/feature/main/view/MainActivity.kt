@@ -31,11 +31,11 @@ class MainActivity : BaseActivity() {
     setSupportActionBar(toolbar)
     setupNavController()
     setupBottomNav()
-    setDashboardOptionMenu()
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_top_nav_main, menu)
+    setDashboardOptionMenu()
     return true
   }
 
