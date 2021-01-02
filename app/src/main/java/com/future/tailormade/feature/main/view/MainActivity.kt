@@ -1,8 +1,11 @@
 package com.future.tailormade.feature.main.view
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.forEach
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.databinding.ActivityMainBinding
@@ -18,12 +21,22 @@ class MainActivity : BaseActivity() {
 
   private lateinit var binding: ActivityMainBinding
 
+  private lateinit var navController: NavController
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityMainBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarMain
     setContentView(binding.root)
+    setSupportActionBar(toolbar)
+    setupNavController()
     setupBottomNav()
+    setDashboardOptionMenu()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_top_nav_main, menu)
+    return true
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -48,23 +61,20 @@ class MainActivity : BaseActivity() {
     binding.bottomNavMain.setOnNavigationItemSelectedListener {
       when (it.itemId) {
         R.id.menu_home -> {
-          showDashboardOptionsMenu()
-          DashboardFragmentDirections.actionGlobalDashboardFragment()
+          goToDashboard()
           true
         }
         R.id.menu_chat -> {
           resetOptionsMenu()
-          ChatListFragmentDirections.actionGlobalChatListFragment()
+          navController.navigate(ChatListFragmentDirections.actionGlobalChatListFragment())
           true
         }
         R.id.menu_cart -> {
-          showCartOptionsMenu()
-          CartFragmentDirections.actionGlobalCartFragment()
+          goToCart()
           true
         }
         R.id.menu_profile -> {
-          showProfileOptionsMenu()
-          ProfileFragmentDirections.actionGlobalProfileFragment()
+          goToProfile()
           true
         }
         else -> false
@@ -72,19 +82,31 @@ class MainActivity : BaseActivity() {
     }
   }
 
-  private fun showCartOptionsMenu() {
-    resetOptionsMenu()
-    showOptionMenu(R.id.menu_order)
+  private fun setupNavController() {
+    val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_main_fragment) as NavHostFragment
+    navController = hostFragment.navController
   }
 
-  private fun showDashboardOptionsMenu() {
+  private fun goToCart() {
+    resetOptionsMenu()
+    showOptionMenu(R.id.menu_order)
+    navController.navigate(CartFragmentDirections.actionGlobalCartFragment())
+  }
+
+  private fun goToDashboard() {
+    setDashboardOptionMenu()
+    navController.navigate(DashboardFragmentDirections.actionGlobalDashboardFragment())
+  }
+
+  private fun setDashboardOptionMenu() {
     resetOptionsMenu()
     showOptionMenu(R.id.menu_search)
   }
 
-  private fun showProfileOptionsMenu() {
+  private fun goToProfile() {
     resetOptionsMenu()
     showOptionMenu(R.id.menu_settings)
+    navController.navigate(ProfileFragmentDirections.actionGlobalProfileFragment())
   }
 
   private fun resetOptionsMenu() {
