@@ -1,6 +1,5 @@
 package com.future.tailormade_face_swap.util
 
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Point
 import com.future.tailormade.util.extension.orEmptyList
@@ -10,11 +9,9 @@ import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils.bitmapToMat
 import org.opencv.android.Utils.matToBitmap
 import org.opencv.core.Mat
-
 import org.opencv.imgproc.Imgproc
 
-class FaceSwap(private val resources: Resources, private val bitmap1: Bitmap,
-    private val bitmap2: Bitmap) {
+class FaceSwap(private val bitmap1: Bitmap, private val bitmap2: Bitmap) {
 
   private var landmarks1: ArrayList<ArrayList<Point>>? = null
   private var landmarks2: ArrayList<ArrayList<Point>>? = null

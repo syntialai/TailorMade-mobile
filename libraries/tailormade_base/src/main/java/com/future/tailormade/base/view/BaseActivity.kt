@@ -8,10 +8,11 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.logger.AppLogger
 import com.google.android.material.appbar.MaterialToolbar
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -63,12 +64,14 @@ abstract class BaseActivity : AppCompatActivity() {
     launchCoroutine(Dispatchers.Main, block)
   }
 
-  fun launchCoroutineOnIO(block: () -> Unit) {
-    launchCoroutine(Dispatchers.IO, block)
+  fun launchCoroutineOnIO(block: () -> Unit, delayTime: Long? = null) {
+    launchCoroutine(Dispatchers.IO, block, delayTime)
   }
 
-  private fun launchCoroutine(coroutineContext: CoroutineContext, block: () -> Unit) {
+  private fun launchCoroutine(coroutineContext: CoroutineContext, block: () -> Unit,
+      delayTime: Long? = null) {
     CoroutineScope(coroutineContext).launch {
+      delayTime?.let { delay(it) }
       block()
     }
   }

@@ -1,13 +1,26 @@
 package com.future.tailormade_face_swap.util
 
+import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Matrix
+import android.net.Uri
 import com.bumptech.glide.Glide
+import com.future.tailormade.config.Constants
 
 object BitmapHelper {
+
+  fun compressImage(contentResolver: ContentResolver, image: Bitmap, imageUri: Uri) {
+    try {
+      val outputStream = contentResolver.openOutputStream(imageUri)
+      image.compress(Bitmap.CompressFormat.JPEG, Constants.COMPRESS_IMAGE_QUALITY, outputStream)
+      outputStream?.close()
+    } catch (e: Exception) {
+      System.err.println(e.toString())
+    }
+  }
 
   fun convertByteArrayToBitmap(byteArray: ByteArray): Bitmap = BitmapFactory.decodeByteArray(
       byteArray, 0, byteArray.size)
