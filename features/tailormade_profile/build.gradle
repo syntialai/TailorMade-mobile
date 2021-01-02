@@ -67,8 +67,6 @@ dependencies {
     // Annotation Processing
     kapt dataBinding.kapt
 
-    implementation materialDesign
-
     // Glide
     kapt glide.kapt
 

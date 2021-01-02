@@ -8,7 +8,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_appbar_layout_search"
-        android:layout_width="@dimen/dp_0"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,8 @@
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/view_search_field"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:iconifiedByDefault="false" />
 
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -34,21 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search"
-        app:tabMode="fixed">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_item_design"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/design_label" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_item_tailor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tailor_label" />
-
-    </com.google.android.material.tabs.TabLayout>
+        app:tabMode="fixed" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_search"
@@ -58,19 +45,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tab_layout_search" />
-
-    <!-- TODO: Add nav container graph -->
-<!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:id="@+id/nav_host_fragment"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:visibility="gone"-->
-<!--        app:defaultNavHost="true"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_search"-->
-<!--        app:navGraph="@navigation/nav_search_graph" />-->
 
     <ImageView
         android:id="@+id/image_view_search_state"

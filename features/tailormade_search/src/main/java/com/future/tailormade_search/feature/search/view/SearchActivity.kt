@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.util.extension.remove
-import com.future.tailormade.util.extension.show
+import com.future.tailormade_search.R
 import com.future.tailormade_search.databinding.ActivitySearchBinding
-import com.future.tailormade_search.feature.filter.view.FilterDesignBottomSheetDialogFragment
-import com.future.tailormade_search.feature.filter.view.FilterTailorBottomSheetDialogFragment
 import com.future.tailormade_search.feature.search.adapter.SearchPagerAdapter
 import com.future.tailormade_search.feature.search.viewModel.SearchViewModel
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,8 +42,6 @@ class SearchActivity : BaseActivity() {
     binding.groupSearchState.remove()
   }
 
-  private fun isQueryValid(query: String): Boolean = query.isNotBlank() && query.length >= 3
-
   private fun isSearchResultShown() = binding.viewPagerSearch.isShown
 
   private fun setupObserver() {
@@ -58,6 +55,20 @@ class SearchActivity : BaseActivity() {
   private fun setupPagerAdapter() {
     binding.viewPagerSearch.adapter = SearchPagerAdapter(supportFragmentManager,
         lifecycle)
+    setupTabLayout()
+  }
+
+  private fun setupTabLayout() {
+    with(binding) {
+      TabLayoutMediator(tabLayoutSearch, viewPagerSearch) { tab, position ->
+        tab.text = when (position) {
+          SearchPagerAdapter.DESIGN_FRAGMENT_INDEX -> getString(R.string.design_label)
+          SearchPagerAdapter.TAILOR_FRAGMENT_INDEX -> getString(R.string.tailor_label)
+          else -> ""
+        }
+        viewPagerSearch.setCurrentItem(tab.position, true)
+      }.attach()
+    }
   }
 
   private fun showSearchResultView() {
@@ -68,7 +79,7 @@ class SearchActivity : BaseActivity() {
   }
 
   private fun validateQuery(query: String) {
-    if (isQueryValid(query)) {
+    if (viewModel.isQueryValid(query)) {
       doSearch(query)
     }
   }

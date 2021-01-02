@@ -74,4 +74,6 @@ class SearchViewModel @ViewModelInject constructor(
       }
     }
   }
+
+  fun isQueryValid(query: String) = query.isNotBlank() && query.length >= 3
 }
