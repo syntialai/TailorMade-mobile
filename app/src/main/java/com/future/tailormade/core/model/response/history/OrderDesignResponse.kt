@@ -22,5 +22,10 @@ data class OrderDesignResponse(
     @Expose
     val tailorName: String? = null,
 
-    val title: String
-)
+    val title: String) {
+
+  fun getMockResponse() = this.copy(id = "DESIGN_1",
+      image = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png",
+      color = "Blue", discount = 0.0, price = 50000.0, size = "S",
+      title = "Design 1", tailorId = "TAILOR_1", tailorName = "Syntia")
+}

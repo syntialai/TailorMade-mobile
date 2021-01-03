@@ -9,6 +9,18 @@
     </style>
 
     <!-- Text Styles -->
+    <style name="TextAppearance.TailorMade.Headline2.BlackHigh" parent="TextAppearance.TailorMade.Headline2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline2.BlackMedium" parent="TextAppearance.TailorMade.Headline2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline2.BlackLight" parent="TextAppearance.TailorMade.Headline2">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Body1.BlackHigh" parent="TextAppearance.TailorMade.Body1">
         <item name="android:textColor">@color/color_white</item>
     </style>

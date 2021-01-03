@@ -8,6 +8,7 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.core.model.ui.history.OrderUiModel
 import com.future.tailormade.core.repository.OrderRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -32,7 +33,7 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
         }.onStart {
           setStartLoading()
         }.collectLatest { orders ->
-          addToList(orders, isFirstPage())
+          addToList(orders)
           setFinishLoading()
         }
       }
@@ -51,10 +52,12 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
     fetchHistory()
   }
 
-  private fun addToList(list: ArrayList<OrderUiModel>, update: Boolean) {
-    if (update.not()) {
-      _orders.value?.clear()
+  private fun addToList(list: ArrayList<OrderUiModel>) {
+    val orders = arrayListOf<OrderUiModel>()
+    if (isFirstPage()) {
+      orders.addAll(_orders.value.orEmptyList())
     }
-    _orders.value?.addAll(list)
+    orders.addAll(list)
+    _orders.value = orders
   }
 }

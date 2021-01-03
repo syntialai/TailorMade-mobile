@@ -9,6 +9,7 @@ object Constants {
     const val MIN_PASSWORD_LENGTH = 8
     const val MIN_QUERY_SEARCH_LENGTH = 3
     const val REFRESH_DELAY_TIME = 1000L
+    const val INDONESIA_TIME_ZONE = "Asia/Jakarta"
 
     /**
      * Error messages

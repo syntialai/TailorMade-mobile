@@ -64,10 +64,10 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit) :
           setupPreviewImageAdapter()
           previewImageAdapter.submitList(designs)
         }
+      }
 
-        root.setOnClickListener {
-          onClickListener.invoke(data.id)
-        }
+      binding.root.setOnClickListener {
+        onClickListener.invoke(data.id)
       }
     }
 

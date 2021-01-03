@@ -16,14 +16,15 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/top_toolbar_search"
+            style="@style/Theme.TailorMade.Toolbar.Back"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
-            <androidx.appcompat.widget.SearchView
+            <SearchView
                 android:id="@+id/view_search_field"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:iconifiedByDefault="false" />
+                android:searchIcon="@null" />
 
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>

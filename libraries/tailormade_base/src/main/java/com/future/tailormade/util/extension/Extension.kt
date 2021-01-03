@@ -14,9 +14,7 @@ import com.future.tailormade.util.coroutine.CoroutineHelper
 import java.sql.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.util.Currency
-import java.util.Date
-import java.util.Locale
+import java.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,51 +46,51 @@ fun <T> Flow<T>.flowOnMainWithLoadingDialog(viewModel: BaseViewModel) = flowWith
     viewModel).flowOnMain()
 
 fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> = catch { error ->
-	block(error)
+  block(error)
 }
 
 /**
  * View extension functions
  */
 fun EditText.debounceOnTextChanged(scope: CoroutineScope, listener: (String) -> Unit) {
-	doOnTextChanged { text, _, _, count ->
-		val debounce = CoroutineHelper.debounce(scope = scope, destinationFunction = listener)
-		if (count >= Constants.MIN_QUERY_SEARCH_LENGTH) {
-			debounce.invoke(text.toString())
-		}
-	}
+  doOnTextChanged { text, _, _, count ->
+    val debounce = CoroutineHelper.debounce(scope = scope, destinationFunction = listener)
+    if (count >= Constants.MIN_QUERY_SEARCH_LENGTH) {
+      debounce.invoke(text.toString())
+    }
+  }
 }
 
 fun View.hide() {
-	visibility = View.INVISIBLE
+  visibility = View.INVISIBLE
 }
 
 fun View.remove() {
-	visibility = View.GONE
+  visibility = View.GONE
 }
 
 fun View.show() {
-    visibility = View.VISIBLE
+  visibility = View.VISIBLE
 }
 
 fun ViewGroup.hide() {
-    this.visibility = View.INVISIBLE
+  this.visibility = View.INVISIBLE
 }
 
 fun ViewGroup.remove() {
-    this.visibility = View.GONE
+  this.visibility = View.GONE
 }
 
 fun ViewGroup.show() {
-    this.visibility = View.VISIBLE
+  this.visibility = View.VISIBLE
 }
 
 fun View.setVisibility(value: Boolean) {
-    if (value) {
-        this.show()
-    } else {
-        this.remove()
-    }
+  if (value) {
+    this.show()
+  } else {
+    this.remove()
+  }
 }
 
 /**
@@ -105,18 +103,19 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 /**
  * Date Time Converter
  */
-fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(
-    this)
+fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).apply {
+  this.timeZone = TimeZone.getTimeZone(Constants.INDONESIA_TIME_ZONE)
+}.format(this.toDate())
 
 fun Long.toDate(): Date = Date(this)
 
-fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH)
-		.format(this)
+fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(
+    this)
 
 /**
  * Money Converter
  */
-fun Double.toIndonesiaCurrencyFormat() = NumberFormat.getCurrencyInstance().apply {
+fun Double.toIndonesiaCurrencyFormat(): String = NumberFormat.getCurrencyInstance().apply {
   maximumFractionDigits = 0
   currency = Currency.getInstance(Locale("in", "ID"))
 }.format(this)

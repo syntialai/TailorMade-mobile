@@ -52,9 +52,11 @@ class HistoryFragment : BaseFragment() {
     return binding.root
   }
 
+  @ExperimentalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
+    viewModel.fetchHistory()
     viewModel.orders.observe(viewLifecycleOwner, {
       historyAdapter.submitList(it)
       if (it.isNotEmpty()) {

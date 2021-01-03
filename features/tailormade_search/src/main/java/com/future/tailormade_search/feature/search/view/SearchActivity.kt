@@ -18,14 +18,18 @@ class SearchActivity : BaseActivity() {
 
   private val viewModel: SearchViewModel by viewModels()
 
+  override fun getScreenName(): String = ""
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivitySearchBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    setupToolbar()
 
-    with(binding) {
-      viewSearchField.setOnSearchClickListener {
-        validateQuery(viewSearchField.query.toString())
+    with(binding.viewSearchField) {
+      isIconifiedByDefault = false
+      setOnSearchClickListener {
+        validateQuery(query.toString())
       }
     }
 
@@ -34,8 +38,8 @@ class SearchActivity : BaseActivity() {
   }
 
   private fun doSearch(query: String) {
-    launchCoroutineOnMain { viewModel.searchDesign(query) }
-    launchCoroutineOnMain { viewModel.searchTailor(query) }
+    launchCoroutineOnIO { viewModel.searchDesign(query) }
+    launchCoroutineOnIO { viewModel.searchTailor(query) }
   }
 
   private fun hideInitialSearchState() {
@@ -69,6 +73,15 @@ class SearchActivity : BaseActivity() {
         viewPagerSearch.setCurrentItem(tab.position, true)
       }.attach()
     }
+  }
+
+  private fun setupToolbar() {
+    toolbar = binding.topToolbarSearch
+    setSupportActionBar(toolbar)
+    setupOnNavigationIconClicked {
+      finish()
+    }
+    setupToolbar(getScreenName())
   }
 
   private fun showSearchResultView() {
