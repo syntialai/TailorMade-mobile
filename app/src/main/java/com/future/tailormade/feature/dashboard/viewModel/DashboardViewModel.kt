@@ -52,8 +52,8 @@ class DashboardViewModel @ViewModelInject constructor(
 
   private fun addToList(list: ArrayList<DashboardTailorUiModel>, update: Boolean) {
     if (update.not()) {
-      _tailors.value?.clear()
+      _tailors.value = arrayListOf()
     }
-    _tailors.value = list
+    _tailors.value?.addAll(list)
   }
 }

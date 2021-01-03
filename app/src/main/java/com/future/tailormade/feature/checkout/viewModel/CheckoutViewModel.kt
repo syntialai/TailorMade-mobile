@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.core.model.request.checkout.CheckoutDesignRequest
 import com.future.tailormade.core.model.request.checkout.CheckoutMeasurementRequest
 import com.future.tailormade.core.model.request.checkout.CheckoutRequest
@@ -89,7 +90,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
         setStartLoading()
       }.onError {
         setFinishLoading()
-        setErrorMessage("Failed to get data. Please try again later.")
+        setErrorMessage(Constants.generateFailedFetchError("cart"))
       }.collectLatest { response ->
         response.data?.let {
           _cartResponse.value = it
