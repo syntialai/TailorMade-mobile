@@ -8,6 +8,7 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.core.model.ui.dashboard.DashboardTailorUiModel
 import com.future.tailormade.core.repository.DashboardRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
@@ -30,7 +31,7 @@ class DashboardViewModel @ViewModelInject constructor(
       }.onStart {
         setStartLoading()
       }.collectLatest {
-        addToList(it, isFirstPage())
+        addToList(it)
         setFinishLoading()
       }
     }
@@ -50,10 +51,12 @@ class DashboardViewModel @ViewModelInject constructor(
 //    fetchDashboardTailors(10.0, 10.0)
   }
 
-  private fun addToList(list: ArrayList<DashboardTailorUiModel>, update: Boolean) {
-    if (update.not()) {
-      _tailors.value = arrayListOf()
+  private fun addToList(list: ArrayList<DashboardTailorUiModel>) {
+    val tailors = arrayListOf<DashboardTailorUiModel>()
+    if (isFirstPage()) {
+      tailors.addAll(_tailors.value.orEmptyList())
     }
-    _tailors.value?.addAll(list)
+    tailors.addAll(list)
+    _tailors.value = tailors
   }
 }
