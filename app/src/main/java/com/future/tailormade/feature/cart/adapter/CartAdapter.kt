@@ -30,7 +30,7 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CartViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_cart_item, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_cart_item, parent, false))
 
   override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
     holder.bind(getItem(position), position)

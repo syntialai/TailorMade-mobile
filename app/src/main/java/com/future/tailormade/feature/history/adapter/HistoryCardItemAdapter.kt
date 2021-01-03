@@ -29,7 +29,7 @@ class HistoryCardItemAdapter(private val onCardClickListener: (String) -> Unit) 
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = HistoryCardItemViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_history_card_item, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_history_card_item, parent, false))
 
   override fun onBindViewHolder(holder: HistoryCardItemViewHolder, position: Int) {
     holder.bind(getItem(position))

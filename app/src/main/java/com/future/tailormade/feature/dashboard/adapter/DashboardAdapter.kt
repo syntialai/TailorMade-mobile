@@ -30,7 +30,7 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit) :
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DashboardViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_dashboard_tailor, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_dashboard_tailor, parent, false))
 
   override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
     holder.bind(getItem(position))
@@ -47,6 +47,7 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit) :
     fun bind(data: DashboardTailorUiModel) {
       with(binding.layoutCardTailor) {
         textViewProfileName.text = data.name
+        buttonChatTailor.show()
 
         data.location?.let {
           textViewProfileCity.text = it

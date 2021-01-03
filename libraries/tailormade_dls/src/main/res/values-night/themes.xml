@@ -9,7 +9,7 @@
         <item name="colorAccent">@color/color_primary_600</item>
 
         <item name="android:colorBackground">@color/color_black</item>
-        <item name="colorSurface">@color/color_black</item>
+        <item name="colorSurface">@color/color_black_93</item>
         <item name="colorSurface2">@color/color_black</item>
         <item name="colorError">@color/color_red_400</item>
 

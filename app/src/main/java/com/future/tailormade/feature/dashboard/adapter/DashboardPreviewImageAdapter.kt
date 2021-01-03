@@ -29,7 +29,7 @@ class DashboardPreviewImageAdapter :
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DashboardPreviewImageViewHolder(
       LayoutInflater.from(parent.context).inflate(
-          R.layout.layout_dashboard_preview_image, parent, true))
+          R.layout.layout_dashboard_preview_image, parent, false))
 
   override fun onBindViewHolder(
       holderPreviewImage: DashboardPreviewImageViewHolder, position: Int) {

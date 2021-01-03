@@ -54,6 +54,6 @@ class DashboardViewModel @ViewModelInject constructor(
     if (update.not()) {
       _tailors.value?.clear()
     }
-    _tailors.value?.addAll(list)
+    _tailors.value = list
   }
 }
