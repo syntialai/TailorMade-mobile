@@ -13,11 +13,16 @@ import com.future.tailormade_design_detail.databinding.FragmentAddSizeBottomShee
 class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
 
   companion object {
+    private const val PARAM_SIZE_NAME = "SIZE_NAME"
+    private const val PARAM_SIZE_DETAIL = "SIZE_DETAIL"
+
     fun newInstance(onSubmitListener: (String, SizeDetailUiModel) -> Unit, name: String? = null,
         sizeDetail: SizeDetailUiModel? = null) = AddSizeBottomSheetFragment().apply {
       this.onSubmitListener = onSubmitListener
-      this.name = name
-      this.sizeDetail = sizeDetail
+      this.arguments = Bundle().apply {
+        putString(PARAM_SIZE_NAME, name)
+        putParcelable(PARAM_SIZE_DETAIL, sizeDetail)
+      }
     }
   }
 
@@ -39,7 +44,7 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
       buttonAddNewSize.setOnClickListener {
         validate()
       }
-
+      setupData()
       name?.let {
         editTextSizeName.setText(it)
       }
@@ -107,6 +112,13 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
       editTextSizeHips.setText(uiModel.hips)
       editTextSizeNeckToWaist.setText(uiModel.neckToWaist)
       editTextSizeInseam.setText(uiModel.inseam)
+    }
+  }
+
+  private fun setupData() {
+    arguments?.let {
+      name = it.getString(PARAM_SIZE_NAME)
+      sizeDetail = it.getParcelable(PARAM_SIZE_DETAIL)
     }
   }
 

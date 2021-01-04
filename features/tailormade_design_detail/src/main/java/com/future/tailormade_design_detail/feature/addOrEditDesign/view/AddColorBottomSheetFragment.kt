@@ -15,11 +15,16 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
 
   companion object {
+    private const val PARAM_COLOR = "COLOR"
+    private const val PARAM_COLOR_NAME = "COLOR_NAME"
+
     fun newInstance(onSubmitListener: (String, String) -> Unit, colorName: String? = null,
         color: String? = null) = AddColorBottomSheetFragment().apply {
       this.onSubmitListener = onSubmitListener
-      this.colorName = colorName
-      this.color = color
+      this.arguments = Bundle().apply {
+        putString(PARAM_COLOR, color)
+        putString(PARAM_COLOR_NAME, colorName)
+      }
     }
   }
 
@@ -43,6 +48,7 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
       }
     }
     setupColorPickerView()
+    setupData()
     color?.let {
       setColorPickerColor(it)
     }
@@ -57,17 +63,24 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
   }
 
   private fun setupColorPickerView() {
-    with(binding) {
-      viewColorPicker.attachAlphaSlider(slideBarColorPickerAlpha)
-      viewColorPicker.attachBrightnessSlider(slideBarColorPickerBrightness)
-      viewColorPicker.setColorListener(object: ColorEnvelopeListener {
+    with(binding.viewColorPicker) {
+      attachAlphaSlider(binding.slideBarColorPickerAlpha)
+      attachBrightnessSlider(binding.slideBarColorPickerBrightness)
+      setColorListener(object : ColorEnvelopeListener {
         override fun onColorSelected(envelope: ColorEnvelope?, fromUser: Boolean) {
           envelope?.color?.let { color ->
-            viewColorPreview.setBackgroundColor(color)
+            setBackgroundColor(color)
           }
-          envelope?.hexCode?.let { textViewColorPreview.text = "#$it" }
+          envelope?.hexCode?.let { binding.textViewColorPreview.text = "#$it" }
         }
       })
+    }
+  }
+
+  private fun setupData() {
+    arguments?.let {
+      color = it.getString(PARAM_COLOR)
+      colorName = it.getString(PARAM_COLOR_NAME)
     }
   }
 
