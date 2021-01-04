@@ -4,11 +4,16 @@
 
     <application android:theme="@style/Theme.TailorMade">
 
-        <activity android:name=".feature.view.ChatRoomActivity">
+        <activity
+            android:name=".feature.view.ChatRoomActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.chatRoom.open" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
     </application>
 </manifest>
