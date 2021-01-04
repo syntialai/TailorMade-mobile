@@ -1,6 +1,5 @@
 package com.future.tailormade_face_swap.util
 
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Point
 import com.future.tailormade.util.extension.orEmptyList
@@ -10,14 +9,12 @@ import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils.bitmapToMat
 import org.opencv.android.Utils.matToBitmap
 import org.opencv.core.Mat
-
 import org.opencv.imgproc.Imgproc
 
-class FaceSwap(private val resources: Resources, private val bitmap1: Bitmap,
-    private val bitmap2: Bitmap) {
+class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: Bitmap) {
 
-  private var landmarks1: ArrayList<ArrayList<Point>>? = null
-  private var landmarks2: ArrayList<ArrayList<Point>>? = null
+  private var landmarksDestination: ArrayList<ArrayList<Point>>? = null
+  private var landmarksSource: ArrayList<ArrayList<Point>>? = null
   private var landmarks: ArrayList<ArrayList<Point>>? = null
   private var bitmap: Bitmap? = null
 
@@ -33,11 +30,11 @@ class FaceSwap(private val resources: Resources, private val bitmap1: Bitmap,
   @Throws(FaceSwapException::class)
   fun prepareSelfieSwapping() {
     val landmarkDetector = FacialLandmarkDetector()
-    landmarks1 = landmarkDetector.detectPeopleAndLandmarks(bitmap1)
-    landmarks2 = landmarkDetector.detectPeopleAndLandmarks(bitmap2)
+    landmarksDestination = landmarkDetector.detectPeopleAndLandmarks(bitmapDestination)
+    landmarksSource = landmarkDetector.detectPeopleAndLandmarks(bitmapSource)
 
-    if (landmarks1?.size.orZero() <= 1) throw FaceSwapException("Face(s) missing")
-    if (landmarks2?.size.orZero() <= 1) throw FaceSwapException("Face(s) missing")
+    if (landmarksDestination?.size.orZero() <= 1) throw FaceSwapException("Face(s) missing")
+    if (landmarksSource?.size.orZero() <= 1) throw FaceSwapException("Face(s) missing")
   }
 
   @Throws(FaceSwapException::class)
@@ -50,12 +47,12 @@ class FaceSwap(private val resources: Resources, private val bitmap1: Bitmap,
   }
 
   fun selfieSwap(): Bitmap {
-    val pts1: ArrayList<Point> = landmarks1?.get(0).orEmptyList()
-    val pts2: ArrayList<Point> = landmarks2?.get(1).orEmptyList()
-    return swap(bitmap1, bitmap2, pts1, pts2)
+    val pointsDestination: ArrayList<Point> = landmarksDestination?.get(0).orEmptyList()
+    val pointsSource: ArrayList<Point> = landmarksSource?.get(1).orEmptyList()
+    return swap(bitmapDestination, bitmapSource, pointsDestination, pointsSource)
   }
 
-  private fun swap(bmp1: Bitmap, bmp2: Bitmap, points1: ArrayList<Point>, points2: ArrayList<Point>): Bitmap {
+  private fun swap(bitmap1: Bitmap, bitmap2: Bitmap, points1: ArrayList<Point>, points2: ArrayList<Point>): Bitmap {
     var X1: IntArray
     var Y1: IntArray
     var X2: IntArray
@@ -71,15 +68,16 @@ class FaceSwap(private val resources: Resources, private val bitmap1: Bitmap,
     }
 
     val img1 = Mat()
-    bitmapToMat(bmp1, img1)
     val img2 = Mat()
-    bitmapToMat(bmp2, img2)
+    bitmapToMat(bitmap1, img1)
+    bitmapToMat(bitmap2, img2)
     Imgproc.cvtColor(img1, img1, Imgproc.COLOR_BGRA2BGR)
     Imgproc.cvtColor(img2, img2, Imgproc.COLOR_BGRA2BGR)
+
     val swapped = Mat()
     portraitSwapNative(img1.nativeObjAddr, img2.nativeObjAddr, X1, Y1, X2, Y2,
         swapped.nativeObjAddr)
-    val bmp = Bitmap.createBitmap(bmp1.width, bmp1.height, Bitmap.Config.ARGB_8888)
+    val bmp = Bitmap.createBitmap(bitmap1.width, bitmap1.height, Bitmap.Config.ARGB_8888)
     matToBitmap(swapped, bmp)
     return bmp
   }

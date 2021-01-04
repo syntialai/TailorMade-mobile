@@ -6,21 +6,28 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Matrix
 import com.bumptech.glide.Glide
+import java.io.File
 
 object BitmapHelper {
 
   fun convertByteArrayToBitmap(byteArray: ByteArray): Bitmap = BitmapFactory.decodeByteArray(
       byteArray, 0, byteArray.size)
 
+  fun convertFilePathToBitmap(filePath: String): Bitmap? = if (File(filePath).exists()) {
+    BitmapFactory.decodeFile(filePath)
+  } else {
+    null
+  }
+
   fun convertUrlToBitmap(context: Context, url: String): Bitmap = Glide.with(context).asBitmap().load(
       url).submit().get()
 
-  fun getAdjustedBitmapSize(bitmap1: Bitmap, bitmap2: Bitmap): Pair<Bitmap, Bitmap> {
-    val maxWidth = maxOf(bitmap1.width, bitmap2.width)
-    val maxHeight = maxOf(bitmap1.height, bitmap2.height)
+  fun getAdjustedBitmapSize(bitmapDestination: Bitmap, bitmapSource: Bitmap): Pair<Bitmap, Bitmap> {
+    val maxWidth = maxOf(bitmapDestination.width, bitmapSource.width)
+    val maxHeight = maxOf(bitmapDestination.height, bitmapSource.height)
 
-    val overlayBitmap1 = getOverlayImage(maxWidth, maxHeight, bitmap1)
-    val overlayBitmap2 = getOverlayImage(maxWidth, maxHeight, bitmap2)
+    val overlayBitmap1 = getOverlayImage(maxWidth, maxHeight, bitmapDestination)
+    val overlayBitmap2 = getOverlayImage(maxWidth, maxHeight, bitmapSource)
 
     return Pair(overlayBitmap1, overlayBitmap2)
   }
