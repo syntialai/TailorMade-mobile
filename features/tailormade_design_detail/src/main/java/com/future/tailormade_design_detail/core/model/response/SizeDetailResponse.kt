@@ -6,13 +6,13 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class SizeDetailResponse(
 
-    val chest: Double? = null,
+    val chest: Float? = null,
 
-    val waist: Double? = null,
+    val waist: Float? = null,
 
-    val hips: Double? = null,
+    val hips: Float? = null,
 
-    val neckToWaist: Double? = null,
+    val neckToWaist: Float? = null,
 
-    val inseam: Double? = null,
+    val inseam: Float? = null,
 ): Parcelable

@@ -97,7 +97,7 @@ class AddOrEditDesignFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    args.designDetail?.let { designDetailResponse ->
+    args.designDetail.let { designDetailResponse ->
       viewModel.setDesignDetailResponse(designDetailResponse)
     }
     viewModel.designDetailResponse.observe(viewLifecycleOwner, {
@@ -245,19 +245,20 @@ class AddOrEditDesignFragment : BaseFragment() {
       val discount = editTextDesignDiscount.text()
       val description = editTextDesignDescription.text()
 
-      if (name.isNotBlank() && price.isNotBlank() && discount.isNotBlank() && description.isNotBlank() && viewModel.isPriceValid(
-              price, discount)) {
-        if (viewModel.validate()) {
-          addOrUpdateDesign(name, price, discount, description)
-        }
+      if (isDataValid(name, price, discount, description) && viewModel.validate()) {
+        addOrUpdateDesign(name, price, discount, description)
       } else {
         setErrorMessage(name, price, discount, description)
       }
     }
   }
 
+  private fun isDataValid(name: String, price: String, discount: String, description: String) =
+      name.isNotBlank() && price.isNotBlank() && discount.isNotBlank() && description.isNotBlank()
+      && viewModel.isPriceValid(price, discount)
+
   private fun addOrUpdateDesign(name: String, price: String, discount: String, description: String) {
-    args.designDetail?.let {
+    args.designDetail.let {
       viewModel.updateDesign(name, price, discount, description)
     } ?: run {
       viewModel.addDesign(name, price, discount, description)

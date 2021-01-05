@@ -2,13 +2,13 @@ package com.future.tailormade_design_detail.core.model.request
 
 data class DesignSizeDetailRequest(
     
-    val chest: Double,
+    val chest: Float,
     
-    val hips: Double,
+    val hips: Float,
     
-    val inseam: Double,
+    val inseam: Float,
     
-    val neckToWaist: Double,
+    val neckToWaist: Float,
     
-    val waist: Double
+    val waist: Float
 )

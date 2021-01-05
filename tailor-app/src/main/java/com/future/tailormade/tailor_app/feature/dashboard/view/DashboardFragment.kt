@@ -116,13 +116,16 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   }
 
   override fun showConfirmDeleteDialog() {
-    deleteDesignDialog?.setMessage(getString(R.string.delete_design_alert_dialog_content,
-        viewModel.selectedDesigns.value?.size.orZero()))?.setPositiveButton(
+    deleteDesignDialog?.setMessage(
+        getDialogMessage(viewModel.selectedDesigns.value?.size.orZero()))?.setPositiveButton(
         R.string.delete_alert_dialog_delete_button) { dialog, _ ->
       viewModel.deleteDesigns()
       dialog.dismiss()
     }?.show()
   }
+
+  private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
+      R.plurals.delete_design_alert_dialog_content, quantity, quantity)
 
   private fun goToDesignDetail(id: String) {
     context?.let { context ->
