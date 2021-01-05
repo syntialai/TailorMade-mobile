@@ -52,9 +52,8 @@ class ChatListFragment : BaseFragment() {
   }
   private val deleteAlertDialog by lazy {
     context?.let {
-      MaterialAlertDialogBuilder(it).setTitle(
-          resources.getString(R.string.delete_chat_alert_dialog_title)).setNegativeButton(
-          R.string.delete_chat_alert_dialog_cancel_button) { dialog, _ ->
+      MaterialAlertDialogBuilder(it).setTitle(R.string.delete_chat_alert_dialog_title).setNegativeButton(
+          R.string.delete_alert_dialog_cancel_button) { dialog, _ ->
         dialog.dismiss()
       }
     }
@@ -124,7 +123,7 @@ class ChatListFragment : BaseFragment() {
       position: Int) {
     deleteAlertDialog?.setMessage(resources.getString(
         R.string.delete_chat_alert_dialog_content) + userName)?.setPositiveButton(
-        R.string.delete_chat_alert_dialog_delete_button) { dialog, _ ->
+        R.string.delete_alert_dialog_delete_button) { dialog, _ ->
       removeData(userChatId, position)
       dialog.dismiss()
     }?.show()

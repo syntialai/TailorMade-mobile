@@ -53,6 +53,11 @@
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.Right</item>
     </style>
 
+    <style name="Theme.TailorMade.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="backgroundTint">?colorSurface</item>
+        <item name="android:padding">@dimen/dp_0</item>
+    </style>
+
     <!-- Chip Style -->
     <style name="Theme.TailorMade.Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:checkable">true</item>
@@ -388,5 +393,11 @@
     <style name="Theme.TailorMade.Toolbar.Back" parent="Theme.TailorMade.Toolbar">
         <item name="navigationIcon">@drawable/ic_back</item>
         <item name="navigationIconColor">?attr/colorControlNormal</item>
+    </style>
+
+    <style name="Theme.TailorMade.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">?attr/textAppearanceHeadline4</item>
+        <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
+        <item name="background">?attr/backgroundColor</item>
     </style>
 </resources>

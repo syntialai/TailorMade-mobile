@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.debounceOnTextChanged
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.entity.Education
@@ -30,6 +31,8 @@ class EditAboutFragment : BaseFragment() {
       "com.future.tailormade_profile.feature.editAbout.view.EditAboutFragment"
 
   override fun getScreenName(): String = "Edit About"
+
+  override fun getViewModel(): BaseViewModel = editAboutViewModel
 
   @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

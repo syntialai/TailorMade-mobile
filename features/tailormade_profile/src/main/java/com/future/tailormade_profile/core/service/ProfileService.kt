@@ -22,8 +22,8 @@ interface ProfileService {
 
   @GET(ProfileApiUrl.TAILORS_ID_DESIGNS_PATH)
   suspend fun getProfileTailorDesigns(
-      @Path("id") id: String, @Query("page") page: Int, @Query("itemPerPage") itemPerPage: Int):
-      BaseListResponse<ProfileDesignResponse>
+      @Path("tailorId") id: String, @Query("page") page: Int,
+      @Query("itemPerPage") itemPerPage: Int): BaseListResponse<ProfileDesignResponse>
 
   @PUT(ProfileApiUrl.USERS_ID_UPDATE_BASIC_INFO_PATH)
   suspend fun updateProfileInfo(@Path("id") id: String,
