@@ -55,6 +55,7 @@ dependencies {
     testImplementation test.junit
     testImplementation test.androidx_core
     testImplementation test.mockito
+    testImplementation test.mockito_kotlin
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
 
@@ -102,7 +103,10 @@ dependencies {
     testImplementation daggerHilt.test
 
     // Coroutine
-    api coroutine
+    api coroutine.core
+    api coroutine.android
+    testImplementation coroutine.test
+    androidTestImplementation coroutine.test
 
     // Room
     api room.runtime

@@ -59,13 +59,15 @@ dependencies {
     testImplementation test.junit
     testImplementation test.androidx_core
     testImplementation test.mockito
+    testImplementation test.mockito_kotlin
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
 
+    // Coroutine
+    testImplementation coroutine.test
+
     // Annotation Processing
     kapt dataBinding.kapt
-
-    implementation materialDesign
 
     // Glide
     kapt glide.kapt

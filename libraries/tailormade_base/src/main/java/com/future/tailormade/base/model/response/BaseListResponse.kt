@@ -5,8 +5,8 @@ import com.google.gson.annotations.Expose
 data class BaseListResponse<T>(
 
     @Expose
-    val data: List<T>? = null,
+    var data: List<T>? = null,
 
     @Expose
-    val paging: BasePagingResponse? = null
+    var paging: BasePagingResponse? = null
 ) : BaseResponse()

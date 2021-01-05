@@ -4,6 +4,7 @@ import com.future.tailormade.base.repository.BaseRepository
 import com.future.tailormade.core.mapper.OrderMapper
 import com.future.tailormade.core.model.response.history.OrderDesignResponse
 import com.future.tailormade.core.model.response.history.OrderResponse
+import com.future.tailormade.core.model.ui.history.OrderUiModel
 import com.future.tailormade.core.repository.OrderRepository
 import com.future.tailormade.core.service.OrderService
 import com.future.tailormade.util.extension.flowOnIO
@@ -16,14 +17,11 @@ class OrderRepositoryImpl @Inject constructor(private val orderService: OrderSer
   override fun getLogName() = "com.future.tailormade.core.repository.impl.OrderRepositoryImpl"
 
   override suspend fun getOrders(userId: String, page: Int, itemPerPage: Int) = flow {
-//    val orders = orderService.getUserOrders(userId, page, itemPerPage).data
-//    emit(orders?.map {
-//      OrderMapper.mapToHistoryUiModel(it)
-//    } as ArrayList)
-    val orderResponse = OrderResponse(0,
-        OrderDesignResponse("", 0.0, "", "", 0.0, "", "", "", "").getMockResponse(), "", 1, "", "",
-        0.0, 0.0, 0, "").getMockResponse()
-    emit(arrayListOf(OrderMapper.mapToHistoryUiModel(orderResponse)))
+    val orders = orderService.getUserOrders(userId, page, itemPerPage).data
+    emit(orders?.map {
+      OrderMapper.mapToHistoryUiModel(it)
+    } as ArrayList)
+//    emit(getOrdersMock())
   }.flowOnIO()
 
   override suspend fun getOrderDetail(userId: String, id: String) = flow {
@@ -32,4 +30,11 @@ class OrderRepositoryImpl @Inject constructor(private val orderService: OrderSer
       emit(OrderMapper.mapToHistoryDetailUiModel(it))
     }
   }.flowOnIO()
+
+//  private fun getOrdersMock(): ArrayList<OrderUiModel> {
+//    val orderResponse = OrderResponse(0,
+//        OrderDesignResponse("", 0.0, "", "", 0.0, "", "", "", "").getMockResponse(), "", 1, "", "",
+//        0.0, 0.0, 0, "").getMockResponse()
+//    return arrayListOf(OrderMapper.mapToHistoryUiModel(orderResponse))
+//  }
 }
