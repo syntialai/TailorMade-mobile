@@ -13,6 +13,7 @@ import com.future.tailormade_profile.core.model.entity.Education
 import com.future.tailormade_profile.core.model.entity.Occupation
 import com.future.tailormade_profile.databinding.FragmentProfileAboutBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
+import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +37,9 @@ class ProfileAboutFragment : BaseFragment() {
 
     with(binding) {
       textViewEditAbout.setOnClickListener {
-        // TODO: Go to edit about
+        context?.let {
+          Action.goToProfile(it)
+        }
       }
     }
 

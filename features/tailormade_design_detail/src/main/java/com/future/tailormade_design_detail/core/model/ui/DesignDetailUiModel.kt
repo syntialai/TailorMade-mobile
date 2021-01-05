@@ -1,7 +1,10 @@
-package com.future.tailormade_design_detail.core.model
+package com.future.tailormade_design_detail.core.model.ui
 
+import android.os.Parcelable
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class DesignDetailUiModel(
 
 		var id: String,
@@ -24,4 +27,4 @@ data class DesignDetailUiModel(
 
 		var color: List<ColorResponse>,
 
-		var category: List<String>)
+		var category: List<String>): Parcelable

@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchDesignResultFragment : BaseFragment() {
 
   companion object {
-
     fun newInstance() = SearchDesignResultFragment()
   }
 
@@ -45,8 +44,7 @@ class SearchDesignResultFragment : BaseFragment() {
       groupSortAndFilter.chipFilter.setOnClickListener {
         showFilterDialog()
       }
-      recyclerViewSearchDesignResult.layoutManager = GridLayoutManager(context,
-          2)
+      recyclerViewSearchDesignResult.layoutManager = GridLayoutManager(context, 2)
     }
 
     return binding.root
@@ -86,8 +84,7 @@ class SearchDesignResultFragment : BaseFragment() {
   }
 
   private fun showFilterDialog() {
-    FilterDesignBottomSheetDialogFragment.newInstance().show(
-        parentFragmentManager, getScreenName())
+    FilterDesignBottomSheetDialogFragment.newInstance().show(parentFragmentManager, getScreenName())
   }
 
   private fun showNoDataState() {

@@ -10,6 +10,7 @@ object Constants {
   const val MIN_QUERY_SEARCH_LENGTH = 3
   const val INITIAL_PAGING_PAGE = 1
   const val INITIAL_PAGING_ITEM_PER_PAGE = 10
+  const val TYPE_IMAGE_ALL = "image/*"
 
   /**
    * Error messages
@@ -33,6 +34,22 @@ object Constants {
   const val CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD = "Confirm password must be same with password"
   const val FAILED_TO_GET_PROFILE_INFO = "$FAILED_TO get profile info"
   const val FAILED_TO_UPDATE_PROFILE = "$FAILED_TO update profile"
+  const val FAILED_TO_UPDATE_DESIGN = "$FAILED_TO update design"
+  const val COLOR_NAME_IS_EMPTY = "Color Name $IS_EMPTY"
+  const val SIZE_NAME_IS_EMPTY = "Size Name $IS_EMPTY"
+  const val CHEST_SIZE_IS_EMPTY = "Chest Size $IS_EMPTY"
+  const val WAIST_SIZE_IS_EMPTY = "Waist Size $IS_EMPTY"
+  const val HIPS_SIZE_IS_EMPTY = "Hips Size $IS_EMPTY"
+  const val NECK_TO_WAIST_SIZE_IS_EMPTY = "Neck to Waist Size $IS_EMPTY"
+  const val INSEAM_SIZE_IS_EMPTY = "Inseam Size $IS_EMPTY"
+  const val IMAGE_MUST_BE_ATTACHED = "Image must be attached"
+  const val SIZE_IS_EMPTY = "Size $IS_EMPTY"
+  const val COLOR_IS_EMPTY = "Color $IS_EMPTY"
+  const val DESIGN_NAME_IS_EMPTY = "Design name $IS_EMPTY"
+  const val DESIGN_PRICE_IS_EMPTY = "Design price $IS_EMPTY"
+  const val DESIGN_DISCOUNT_IS_EMPTY = "Design discount $IS_EMPTY"
+  const val DESIGN_DISCOUNT_CANT_BE_HIGHER_THAN_PRICE = "Design discount can't be higher than the normal price"
+  const val DESIGN_DESCRIPTION_IS_EMPTY = "Design description $IS_EMPTY"
 
   const val MESSAGES_TYPE_TEXT = "TEXT"
 

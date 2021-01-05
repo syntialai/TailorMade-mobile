@@ -46,7 +46,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // Libraries
+    implementation project(":libraries:tailormade_router")
     api project(":features:tailormade_auth")
+
+    // Color Picker
+    implementation color_picker
 
     // Tests
     testImplementation test.junit

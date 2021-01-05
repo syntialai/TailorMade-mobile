@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.util.extension.text
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.ChatRoom
@@ -75,9 +76,8 @@ class ChatRoomActivity : BaseActivity() {
 
   @RequiresApi(Build.VERSION_CODES.O)
   private fun sendMessage() {
-    if (binding.layoutInputTextChatRoom.editTextMessageChatRoom.text.isNullOrBlank().not()) {
-      viewModel.sendMessage(
-          binding.layoutInputTextChatRoom.editTextMessageChatRoom.text.toString())
+    if (binding.layoutInputTextChatRoom.editTextMessageChatRoom.text().isBlank().not()) {
+      viewModel.sendMessage(binding.layoutInputTextChatRoom.editTextMessageChatRoom.text())
     }
   }
 

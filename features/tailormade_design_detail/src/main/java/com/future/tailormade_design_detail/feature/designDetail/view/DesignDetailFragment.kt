@@ -1,4 +1,4 @@
-package com.future.tailormade_design_detail.feature.view
+package com.future.tailormade_design_detail.feature.designDetail.view
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.remove
@@ -16,17 +17,18 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_design_detail.R
-import com.future.tailormade_design_detail.core.model.SizeDetailUiModel
-import com.future.tailormade_design_detail.core.model.SizeUiModel
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
+import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
+import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
+import com.future.tailormade_design_detail.core.model.ui.SizeUiModel
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
-import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
-import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
-import com.future.tailormade_design_detail.feature.viewModel.DesignDetailViewModel
+import com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel
+import com.future.tailormade_router.actions.Action
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
 class DesignDetailFragment : BaseFragment() {
@@ -41,9 +43,12 @@ class DesignDetailFragment : BaseFragment() {
 
   private val viewModel: DesignDetailViewModel by viewModels()
 
+  private var designDetailResponse: DesignDetailResponse? = null
+
   private lateinit var binding: FragmentDesignDetailBinding
 
-  override fun getLogName(): String = "com.future.tailormade_design_detail.feature.view.DesignDetailFragment"
+  override fun getLogName() =
+      "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
 
   override fun getViewModel(): BaseViewModel = viewModel
 
@@ -60,13 +65,20 @@ class DesignDetailFragment : BaseFragment() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when(item.itemId) {
       R.id.item_search -> {
-        // TODO: Go to search
+        goToSearch()
         true
       }
       else -> super.onOptionsItemSelected(item)
     }
   }
 
+  private fun goToSearch() {
+    context?.let { context ->
+      startActivity(Action.goToSearch(context))
+    }
+  }
+
+  @InternalCoroutinesApi
   @ExperimentalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
@@ -85,33 +97,37 @@ class DesignDetailFragment : BaseFragment() {
       setupChooseColorChips(it.color)
       setupDescription(it.description)
     })
+    viewModel.designDetailResponse.observe(viewLifecycleOwner, {
+      designDetailResponse = it
+    })
   }
 
   private fun getChooseSizeChip(index: Int, text: String): Chip {
-    val chipBinding =
-      ItemChooseSizeChipBinding.inflate(layoutInflater, binding.chipGroupChooseSize, true)
-    with(chipBinding.chipChooseSize) {
+    val chipBinding = layoutInflater.inflate(R.layout.item_choose_size_chip,
+        binding.chipGroupChooseSize, false) as Chip
+    with(chipBinding) {
       this.id = index
       this.text = text
     }
-    return chipBinding.root
+    return chipBinding
   }
 
   private fun getChooseColorChip(index: Int, text: String, color: String): Chip {
-    val chipBinding =
-      ItemChooseColorChipBinding.inflate(layoutInflater, binding.chipGroupChooseColor, true)
-    with(chipBinding.chipChooseColor) {
+    val chipBinding = layoutInflater.inflate(R.layout.item_choose_color_chip,
+        binding.chipGroupChooseColor, false) as Chip
+    with(chipBinding) {
       this.id = index
       this.text = text
       this.chipIconTint = ColorStateList.valueOf(Color.parseColor(color))
     }
-    return chipBinding.root
+    return chipBinding
   }
 
   private fun hideCustomerFeatures() {
     with(binding) {
       bottomNavDesignDetail.remove()
       layoutDesignDetailGeneralInfo.buttonSwapFace.remove()
+      layoutDesignDetailGeneralInfo.buttonEditDesignDetail.show()
     }
   }
 
@@ -188,7 +204,11 @@ class DesignDetailFragment : BaseFragment() {
         // TODO: Go to face swap
       }
       buttonEditDesignDetail.setOnClickListener {
-        // TODO: Go to edit design detail
+        designDetailResponse?.let { designDetailResponse ->
+          findNavController().navigate(
+              DesignDetailFragmentDirections.actionDesignDetailFragmentToAddOrEditDesignFragment(
+                  designDetailResponse))
+        }
       }
       textViewDesignDetailDesignedBy.setOnClickListener {
         // TODO: Go to tailor profile

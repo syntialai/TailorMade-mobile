@@ -14,11 +14,11 @@ ext {
             logger                : "4.7.1",
             room                  : "2.2.5",
             room_arch_persistence : "1.1.1",
-            coroutine             : "1.3.9-native-mt-2",
+            coroutine             : "1.4.2",
             glide                 : "4.11.0",
             gson                  : "2.8.6",
             retrofit              : "2.9.0",
-            material              : "1.3.0-alpha03",
+            material              : "1.3.0-beta01",
             constraint_layout     : "2.0.2",
             appcompat             : "1.2.0",
             core                  : "1.3.2",
@@ -27,6 +27,7 @@ ext {
             legacy                : "1.0.0",
             firebase              : "26.0.0",
             osm                   : "6.1.8",
+            color_picker          : "2.2.2",
             test_junit            : "4.13",
             test_core             : "1.3.0",
             test_mockito          : "3.5.13",
@@ -127,4 +128,6 @@ ext {
     ]
 
     osm = "org.osmdroid:osmdroid-android:${versions.osm}"
+
+    color_picker = "com.github.skydoves:colorpickerview:${versions.color_picker}"
 }

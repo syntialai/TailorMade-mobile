@@ -36,8 +36,8 @@ object Action {
 		putExtra(PARAM_CHAT_ROOM_ID, chatRoomId)
 	}
 
-	fun goToDesignDetail(context: Context, id: String) = getIntent(context, ACTION_OPEN_DESIGN_DETAIL).apply {
-		putExtra(PARAM_DESIGN_DETAIL_ID, id)
+	fun goToDesignDetail(context: Context, id: String? = null) = getIntent(context, ACTION_OPEN_DESIGN_DETAIL).apply {
+		id?.let { putExtra(PARAM_DESIGN_DETAIL_ID, it) }
 	}
 
 	private fun getIntent(context: Context, action: String) = Intent(action).setPackage(
