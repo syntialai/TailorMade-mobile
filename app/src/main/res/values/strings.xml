@@ -44,4 +44,5 @@
     <string name="ordered_by_label">Ordered by</string>
     <string name="payment_information_label">Payment Information</string>
     <string name="measurement_details_label">Measurement Details</string>
+    <string name="apply_label">Apply</string>
 </resources>

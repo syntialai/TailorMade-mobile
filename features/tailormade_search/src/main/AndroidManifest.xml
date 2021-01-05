@@ -4,12 +4,16 @@
 
     <application android:theme="@style/Theme.TailorMade">
 
-        <activity android:name="com.future.tailormade_search.feature.search.view.SearchActivity">
+        <activity
+            android:name="com.future.tailormade_search.feature.search.view.SearchActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.search.open" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
 </manifest>

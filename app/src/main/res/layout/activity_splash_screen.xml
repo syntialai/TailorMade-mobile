@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_primary_800"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:context=".feature.splash.view.SplashScreenActivity">
+
+    <ImageView
+        android:id="@+id/image_view_logo"
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_200"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_tailormade"
+        tools:ignore="ContentDescription" />
+</LinearLayout>

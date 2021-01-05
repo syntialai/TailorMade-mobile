@@ -21,7 +21,10 @@
         tools:replace="android:theme"
         tools:ignore="AllowBackup">
 
-        <activity android:name=".feature.history.view.HistoryActivity">
+        <activity
+            android:name=".feature.history.view.HistoryActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.history.open" />
 
@@ -29,7 +32,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".feature.checkout.view.CheckoutActivity">
+        <activity
+            android:name=".feature.checkout.view.CheckoutActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.checkout.open" />
 
@@ -37,7 +43,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".feature.main.view.MainActivity">
+        <activity
+            android:name=".feature.main.view.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".feature.splash.view.SplashScreenActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

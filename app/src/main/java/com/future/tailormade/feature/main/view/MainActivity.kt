@@ -15,7 +15,5 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        startActivity(Action.goToSettings(this))
     }
 }
