@@ -52,34 +52,36 @@ class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: 
     return swap(bitmapDestination, bitmapSource, pointsDestination, pointsSource)
   }
 
-  private fun swap(bitmap1: Bitmap, bitmap2: Bitmap, points1: ArrayList<Point>, points2: ArrayList<Point>): Bitmap {
+  private fun swap(bitmapDestination: Bitmap, bitmapSource: Bitmap,
+      pointsDestination: ArrayList<Point>, pointsSource: ArrayList<Point>): Bitmap {
     var X1: IntArray
     var Y1: IntArray
     var X2: IntArray
     var Y2: IntArray
 
-    mapToSimpleIntArray(points1).apply {
+    mapToSimpleIntArray(pointsDestination).apply {
       X1 = first
       Y1 = second
     }
-    mapToSimpleIntArray(points2).apply {
+    mapToSimpleIntArray(pointsSource).apply {
       X2 = first
       Y2 = second
     }
 
-    val img1 = Mat()
-    val img2 = Mat()
-    bitmapToMat(bitmap1, img1)
-    bitmapToMat(bitmap2, img2)
-    Imgproc.cvtColor(img1, img1, Imgproc.COLOR_BGRA2BGR)
-    Imgproc.cvtColor(img2, img2, Imgproc.COLOR_BGRA2BGR)
+    val imageDestination = Mat()
+    val imageSource = Mat()
+    bitmapToMat(bitmapDestination, imageDestination)
+    bitmapToMat(bitmapSource, imageSource)
+    Imgproc.cvtColor(imageDestination, imageDestination, Imgproc.COLOR_BGRA2BGR)
+    Imgproc.cvtColor(imageSource, imageSource, Imgproc.COLOR_BGRA2BGR)
 
     val swapped = Mat()
-    portraitSwapNative(img1.nativeObjAddr, img2.nativeObjAddr, X1, Y1, X2, Y2,
+    portraitSwapNative(imageDestination.nativeObjAddr, imageSource.nativeObjAddr, X1, Y1, X2, Y2,
         swapped.nativeObjAddr)
-    val bmp = Bitmap.createBitmap(bitmap1.width, bitmap1.height, Bitmap.Config.ARGB_8888)
-    matToBitmap(swapped, bmp)
-    return bmp
+    val bitmapSwapped = Bitmap.createBitmap(bitmapDestination.width, bitmapDestination.height,
+        Bitmap.Config.ARGB_8888)
+    matToBitmap(swapped, bitmapSwapped)
+    return bitmapSwapped
   }
 
   private fun mapToSimpleIntArray(points: ArrayList<Point>): Pair<IntArray, IntArray> {

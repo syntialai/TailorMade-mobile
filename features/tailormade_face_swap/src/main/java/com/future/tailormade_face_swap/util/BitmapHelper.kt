@@ -19,8 +19,8 @@ object BitmapHelper {
     null
   }
 
-  fun convertUrlToBitmap(context: Context, url: String): Bitmap = Glide.with(context).asBitmap().load(
-      url).submit().get()
+  fun convertUrlToBitmap(context: Context, imageUrl: String): Bitmap = Glide.with(context).asBitmap().load(
+      imageUrl).submit().get()
 
   fun getAdjustedBitmapSize(bitmapDestination: Bitmap, bitmapSource: Bitmap): Pair<Bitmap, Bitmap> {
     val maxWidth = maxOf(bitmapDestination.width, bitmapSource.width)
@@ -38,11 +38,12 @@ object BitmapHelper {
     return overlayBitmap(newBitmap, originalImage)
   }
 
-  private fun overlayBitmap(bitmap1: Bitmap, bitmap2: Bitmap): Bitmap {
-    val bmOverlay = Bitmap.createBitmap(bitmap1.width, bitmap1.height, bitmap1.config)
-    val canvas = Canvas(bmOverlay)
-    canvas.drawBitmap(bitmap1, Matrix(), null)
-    canvas.drawBitmap(bitmap2, Matrix(), null)
-    return bmOverlay
+  private fun overlayBitmap(bitmapDestination: Bitmap, bitmapSource: Bitmap): Bitmap {
+    val bitmapOverlay = Bitmap.createBitmap(bitmapDestination.width, bitmapDestination.height,
+        bitmapDestination.config)
+    val canvas = Canvas(bitmapOverlay)
+    canvas.drawBitmap(bitmapDestination, Matrix(), null)
+    canvas.drawBitmap(bitmapSource, Matrix(), null)
+    return bitmapOverlay
   }
 }
