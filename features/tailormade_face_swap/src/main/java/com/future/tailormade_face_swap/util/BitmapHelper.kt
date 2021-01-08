@@ -9,6 +9,7 @@ import android.graphics.Matrix
 import android.net.Uri
 import com.bumptech.glide.Glide
 import com.future.tailormade.config.Constants
+import java.io.File
 
 object BitmapHelper {
 
@@ -25,17 +26,23 @@ object BitmapHelper {
   fun convertByteArrayToBitmap(byteArray: ByteArray): Bitmap = BitmapFactory.decodeByteArray(
       byteArray, 0, byteArray.size)
 
-  fun convertUrlToBitmap(context: Context, url: String): Bitmap = Glide.with(context).asBitmap().load(
-      url).submit().get()
+  fun convertFilePathToBitmap(filePath: String): Bitmap? = if (File(filePath).exists()) {
+    BitmapFactory.decodeFile(filePath)
+  } else {
+    null
+  }
 
-  fun getAdjustedBitmapSize(bitmap1: Bitmap, bitmap2: Bitmap): Pair<Bitmap, Bitmap> {
-    val maxWidth = maxOf(bitmap1.width, bitmap2.width)
-    val maxHeight = maxOf(bitmap1.height, bitmap2.height)
+  fun convertUrlToBitmap(context: Context, imageUrl: String): Bitmap = Glide.with(context).asBitmap().load(
+      imageUrl).submit().get()
 
-    val overlayBitmap1 = getOverlayImage(maxWidth, maxHeight, bitmap1)
-    val overlayBitmap2 = getOverlayImage(maxWidth, maxHeight, bitmap2)
+  fun getAdjustedBitmapSize(bitmapDestination: Bitmap, bitmapSource: Bitmap): Pair<Bitmap, Bitmap> {
+    val maxWidth = maxOf(bitmapDestination.width, bitmapSource.width)
+    val maxHeight = maxOf(bitmapDestination.height, bitmapSource.height)
 
-    return Pair(overlayBitmap1, overlayBitmap2)
+    val overlayBitmapDestination = getOverlayImage(maxWidth, maxHeight, bitmapDestination)
+    val overlayBitmapSource = getOverlayImage(maxWidth, maxHeight, bitmapSource)
+
+    return Pair(overlayBitmapDestination, overlayBitmapSource)
   }
 
   private fun getOverlayImage(width: Int, height: Int, originalImage: Bitmap): Bitmap {
@@ -44,11 +51,12 @@ object BitmapHelper {
     return overlayBitmap(newBitmap, originalImage)
   }
 
-  private fun overlayBitmap(bitmap1: Bitmap, bitmap2: Bitmap): Bitmap {
-    val bmOverlay = Bitmap.createBitmap(bitmap1.width, bitmap1.height, bitmap1.config)
-    val canvas = Canvas(bmOverlay)
-    canvas.drawBitmap(bitmap1, Matrix(), null)
-    canvas.drawBitmap(bitmap2, Matrix(), null)
-    return bmOverlay
+  private fun overlayBitmap(bitmapDestination: Bitmap, bitmapSource: Bitmap): Bitmap {
+    val bitmapOverlay = Bitmap.createBitmap(bitmapDestination.width, bitmapDestination.height,
+        bitmapDestination.config)
+    val canvas = Canvas(bitmapOverlay)
+    canvas.drawBitmap(bitmapDestination, Matrix(), null)
+    canvas.drawBitmap(bitmapSource, Matrix(), null)
+    return bitmapOverlay
   }
 }
