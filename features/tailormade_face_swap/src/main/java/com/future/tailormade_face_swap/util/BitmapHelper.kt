@@ -26,10 +26,10 @@ object BitmapHelper {
     val maxWidth = maxOf(bitmapDestination.width, bitmapSource.width)
     val maxHeight = maxOf(bitmapDestination.height, bitmapSource.height)
 
-    val overlayBitmap1 = getOverlayImage(maxWidth, maxHeight, bitmapDestination)
-    val overlayBitmap2 = getOverlayImage(maxWidth, maxHeight, bitmapSource)
+    val overlayBitmapDestination = getOverlayImage(maxWidth, maxHeight, bitmapDestination)
+    val overlayBitmapSource = getOverlayImage(maxWidth, maxHeight, bitmapSource)
 
-    return Pair(overlayBitmap1, overlayBitmap2)
+    return Pair(overlayBitmapDestination, overlayBitmapSource)
   }
 
   private fun getOverlayImage(width: Int, height: Int, originalImage: Bitmap): Bitmap {
