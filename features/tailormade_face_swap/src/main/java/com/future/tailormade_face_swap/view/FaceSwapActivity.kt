@@ -38,8 +38,10 @@ class FaceSwapActivity : BaseActivity() {
     setupToolbar(getScreenName())
     getImage()
 
-    if (bitmapDesignImage != null && bitmapImage != null) {
-      startSwapFace(bitmapDesignImage!!, bitmapImage!!)
+    bitmapDesignImage?.let { bitmapDestination ->
+      bitmapImage?.let { bitmapSource ->
+        startSwapFace(bitmapDestination, bitmapSource)
+      }
     }
   }
 
@@ -52,15 +54,15 @@ class FaceSwapActivity : BaseActivity() {
     }
   }
 
-  private fun startSwapFace(bitmap1: Bitmap, bitmap2: Bitmap) {
-    val adjustedBitmap = BitmapHelper.getAdjustedBitmapSize(bitmap1, bitmap2)
-    val finalBitmap1 = adjustedBitmap.first
-    val finalBitmap2 = adjustedBitmap.second
+  private fun startSwapFace(bitmapDestination: Bitmap, bitmapSource: Bitmap) {
+    val adjustedBitmap = BitmapHelper.getAdjustedBitmapSize(bitmapDestination, bitmapSource)
+    val finalBitmapDestination = adjustedBitmap.first
+    val finalBitmapSource = adjustedBitmap.second
 
     showToast(getString(R.string.swapping_face))
 
     launchCoroutineOnIO({
-      val faceSwap = FaceSwap(finalBitmap1, finalBitmap2)
+      val faceSwap = FaceSwap(finalBitmapDestination, finalBitmapSource)
 
       try {
         faceSwap.prepareSelfieSwapping()
