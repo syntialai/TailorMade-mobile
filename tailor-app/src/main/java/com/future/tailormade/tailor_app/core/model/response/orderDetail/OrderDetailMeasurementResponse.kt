@@ -2,13 +2,13 @@ package com.future.tailormade.tailor_app.core.model.response.orderDetail
 
 data class OrderDetailMeasurementResponse(
 
-    val chest: Int,
+    val chest: Float,
 
-    val waist: Int,
+    val waist: Float,
 
-    val hips: Int,
+    val hips: Float,
 
-    val neckToWaist: Int,
+    val neckToWaist: Float,
 
-    val inseam: Int
+    val inseam: Float
 )
