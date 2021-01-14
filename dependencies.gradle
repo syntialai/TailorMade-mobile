@@ -1,130 +1,133 @@
 ext {
-    versions = [
-            jvm                   : "1.8",
-            kotlin                : "1.4.10",
-            android_plugin        : "3.5.2",
-            navigation            : "2.3.0",
-            lifecycle             : "2.2.0",
-            fragment              : "1.2.5",
-            preferences           : "1.1.1",
-            dagger                : "2.29.1",
-            hilt                  : "2.29.1-alpha",
-            hilt_viewmodel        : "1.0.0-alpha02",
-            paging                : "2.1.2",
-            logger                : "4.7.1",
-            room                  : "2.2.5",
-            room_arch_persistence : "1.1.1",
-            coroutine             : "1.3.9-native-mt-2",
-            glide                 : "4.11.0",
-            gson                  : "2.8.6",
-            retrofit              : "2.9.0",
-            material              : "1.3.0-alpha03",
-            constraint_layout     : "2.0.2",
-            appcompat             : "1.2.0",
-            core                  : "1.3.2",
-            recyclerview          : "1.1.0",
-            recyclerview_selection: "1.1.0-rc03",
-            legacy                : "1.0.0",
-            firebase              : "26.0.0",
-            osm                   : "6.1.8",
-            test_junit            : "4.13",
-            test_core             : "1.3.0",
-            test_mockito          : "3.5.13",
-            androidTest_junit     : "1.1.2",
-            androidTest_espresso  : "3.3.0"
-    ]
+  versions = [
+      jvm                   : "1.8",
+      kotlin                : "1.4.21",
+      android_plugin        : "3.5.2",
+      navigation            : "2.3.0",
+      lifecycle             : "2.2.0",
+      fragment              : "1.2.5",
+      preferences           : "1.1.1",
+      dagger                : "2.29.1",
+      hilt                  : "2.29.1-alpha",
+      hilt_viewmodel        : "1.0.0-alpha02",
+      paging                : "2.1.2",
+      logger                : "4.7.1",
+      room                  : "2.2.5",
+      room_arch_persistence : "1.1.1",
+      coroutine             : "1.3.9-native-mt-2",
+      glide                 : "4.11.0",
+      gson                  : "2.8.6",
+      retrofit              : "2.9.0",
+      material              : "1.3.0-alpha03",
+      constraint_layout     : "2.0.2",
+      appcompat             : "1.2.0",
+      core                  : "1.3.2",
+      recyclerview          : "1.1.0",
+      recyclerview_selection: "1.1.0-rc03",
+      legacy                : "1.0.0",
+      firebase              : "26.0.0",
+      osm                   : "6.1.8",
+      play_core             : "1.9.0",
+      test_junit            : "4.13",
+      test_core             : "1.3.0",
+      test_mockito          : "3.5.13",
+      androidTest_junit     : "1.1.2",
+      androidTest_espresso  : "3.3.0"
+  ]
 
-    core = [
-            kotlin        : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
-            legacy_support: "androidx.legacy:legacy-support-v4:${versions.legacy}"
-    ]
+  core = [
+      kotlin        : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+      legacy_support: "androidx.legacy:legacy-support-v4:${versions.legacy}"
+  ]
 
-    androidx = [
-            appcompat                           : "androidx.appcompat:appcompat:${versions.appcompat}",
-            core                                : "androidx.core:core-ktx:${versions.core}",
-            constraintlayout                    : "androidx.constraintlayout:constraintlayout:${versions.constraint_layout}",
-            navigation_fragment                 : "androidx.navigation:navigation-fragment-ktx:${versions.navigation}",
-            navigation_ui                       : "androidx.navigation:navigation-ui-ktx:${versions.navigation}",
-            navigation_dynamic_features_fragment: "androidx.navigation:navigation-dynamic-features-fragment:${versions.navigation}",
-            lifecycle_extensions                : "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
-            lifecycle_viewmodel                 : "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}",
-            lifecycle_livedata                  : "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}",
-            lifecycle_viewmodel_savedstate      : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.lifecycle}",
-            fragment                            : "androidx.fragment:fragment-ktx:${versions.fragment}",
-            recyclerview                        : "androidx.recyclerview:recyclerview:${versions.recyclerview}",
-            recyclerview_selection              : "androidx.recyclerview:recyclerview-selection:${versions.recyclerview_selection}",
-            preferences                         : "androidx.preference:preference-ktx:${versions.preferences}"
-    ]
+  androidx = [
+      appcompat                           : "androidx.appcompat:appcompat:${versions.appcompat}",
+      core                                : "androidx.core:core-ktx:${versions.core}",
+      constraintlayout                    : "androidx.constraintlayout:constraintlayout:${versions.constraint_layout}",
+      navigation_fragment                 : "androidx.navigation:navigation-fragment-ktx:${versions.navigation}",
+      navigation_ui                       : "androidx.navigation:navigation-ui-ktx:${versions.navigation}",
+      navigation_dynamic_features_fragment: "androidx.navigation:navigation-dynamic-features-fragment:${versions.navigation}",
+      lifecycle_extensions                : "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
+      lifecycle_viewmodel                 : "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}",
+      lifecycle_livedata                  : "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}",
+      lifecycle_viewmodel_savedstate      : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.lifecycle}",
+      fragment                            : "androidx.fragment:fragment-ktx:${versions.fragment}",
+      recyclerview                        : "androidx.recyclerview:recyclerview:${versions.recyclerview}",
+      recyclerview_selection              : "androidx.recyclerview:recyclerview-selection:${versions.recyclerview_selection}",
+      preferences                         : "androidx.preference:preference-ktx:${versions.preferences}"
+  ]
 
-    test = [
-            junit        : "junit:junit:${versions.test_junit}",
-            androidx_core: "androidx.test:core:${versions.test_core}",
-            mockito      : "org.mockito:mockito-core:${versions.test_mockito}"
-    ]
+  test = [
+      junit        : "junit:junit:${versions.test_junit}",
+      androidx_core: "androidx.test:core:${versions.test_core}",
+      mockito      : "org.mockito:mockito-core:${versions.test_mockito}"
+  ]
 
-    androidTest = [
-            junit   : "androidx.test.ext:junit:${versions.androidTest_junit}",
-            espresso: "androidx.test.espresso:espresso-core:${versions.androidTest_espresso}"
-    ]
+  androidTest = [
+      junit   : "androidx.test.ext:junit:${versions.androidTest_junit}",
+      espresso: "androidx.test.espresso:espresso-core:${versions.androidTest_espresso}"
+  ]
 
-    materialDesign = "com.google.android.material:material:${versions.material}"
+  materialDesign = "com.google.android.material:material:${versions.material}"
 
-    glide = [
-            core: "com.github.bumptech.glide:glide:${versions.glide}",
-            kapt: "com.github.bumptech.glide:compiler:${versions.glide}"
-    ]
+  glide = [
+      core: "com.github.bumptech.glide:glide:${versions.glide}",
+      kapt: "com.github.bumptech.glide:compiler:${versions.glide}"
+  ]
 
-    retrofit = [
-            gson     : "com.google.code.gson:gson:${versions.gson}",
-            core     : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
-            converter: "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
-    ]
+  retrofit = [
+      gson     : "com.google.code.gson:gson:${versions.gson}",
+      core     : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+      converter: "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+  ]
 
-    dagger = [
-            android       : "com.google.dagger:dagger-android:${versions.dagger}",
-            support       : "com.google.dagger:dagger-android-support:${versions.dagger}",
-            kapt_processor: "com.google.dagger:dagger-android-processor:${versions.dagger}",
-            kapt_compiler : "com.google.dagger:dagger-compiler:${versions.dagger}"
-    ]
+  dagger = [
+      android       : "com.google.dagger:dagger-android:${versions.dagger}",
+      support       : "com.google.dagger:dagger-android-support:${versions.dagger}",
+      kapt_processor: "com.google.dagger:dagger-android-processor:${versions.dagger}",
+      kapt_compiler : "com.google.dagger:dagger-compiler:${versions.dagger}"
+  ]
 
-    daggerHilt = [
-            core                : "com.google.dagger:hilt-android:${versions.hilt}",
-            lifecycle_viewmodel : "androidx.hilt:hilt-lifecycle-viewmodel:${versions.hilt_viewmodel}",
-            kapt_compiler       : "androidx.hilt:hilt-compiler:${versions.hilt_viewmodel}",
-            kapt_google_compiler: "com.google.dagger:hilt-android-compiler:${versions.hilt}",
-            kaptTest_compiler   : "com.google.dagger:hilt-android-compiler:${versions.hilt}",
-            test                : "com.google.dagger:hilt-android-testing:${versions.hilt}"
-    ]
+  daggerHilt = [
+      core                : "com.google.dagger:hilt-android:${versions.hilt}",
+      lifecycle_viewmodel : "androidx.hilt:hilt-lifecycle-viewmodel:${versions.hilt_viewmodel}",
+      kapt_compiler       : "androidx.hilt:hilt-compiler:${versions.hilt_viewmodel}",
+      kapt_google_compiler: "com.google.dagger:hilt-android-compiler:${versions.hilt}",
+      kaptTest_compiler   : "com.google.dagger:hilt-android-compiler:${versions.hilt}",
+      test                : "com.google.dagger:hilt-android-testing:${versions.hilt}"
+  ]
 
-    coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}"
+  coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}"
 
-    room = [
-            runtime                     : "androidx.room:room-runtime:${versions.room}",
-            core                        : "androidx.room:room-ktx:${versions.room}",
-            kapt_compiler               : "androidx.room:room-compiler:${versions.room}",
-            androidTest                 : "androidx.room:room-testing:${versions.room}",
-            androidTest_arch_persistence: "android.arch.persistence.room:testing:${versions.room_arch_persistence}"
-    ]
+  room = [
+      runtime                     : "androidx.room:room-runtime:${versions.room}",
+      core                        : "androidx.room:room-ktx:${versions.room}",
+      kapt_compiler               : "androidx.room:room-compiler:${versions.room}",
+      androidTest                 : "androidx.room:room-testing:${versions.room}",
+      androidTest_arch_persistence: "android.arch.persistence.room:testing:${versions.room_arch_persistence}"
+  ]
 
-    dataBinding = [
-            kapt: "com.android.databinding:compiler:${versions.android_plugin}"
-    ]
+  dataBinding = [
+      kapt: "com.android.databinding:compiler:${versions.android_plugin}"
+  ]
 
-    paging = [
-            runtime    : "androidx.paging:paging-runtime-ktx:${versions.paging}",
-            test_common: "androidx.paging:paging-common-ktx:${versions.paging}"
-    ]
+  paging = [
+      runtime    : "androidx.paging:paging-runtime-ktx:${versions.paging}",
+      test_common: "androidx.paging:paging-common-ktx:${versions.paging}"
+  ]
 
-    timber = "com.jakewharton.timber:timber:${versions.logger}"
+  timber = "com.jakewharton.timber:timber:${versions.logger}"
 
-    firebase = [
-            bom           : "com.google.firebase:firebase-bom:${versions.firebase}",
-            database      : "com.google.firebase:firebase-database",
-            storage       : "com.google.firebase:firebase-storage",
-            auth          : "com.google.firebase:firebase-auth",
-            inappmessaging: "com.google.firebase:firebase-inappmessaging-display",
-            messaging     : "com.google.firebase:firebase-messaging"
-    ]
+  firebase = [
+      bom           : "com.google.firebase:firebase-bom:${versions.firebase}",
+      database      : "com.google.firebase:firebase-database",
+      storage       : "com.google.firebase:firebase-storage",
+      auth          : "com.google.firebase:firebase-auth",
+      inappmessaging: "com.google.firebase:firebase-inappmessaging-display",
+      messaging     : "com.google.firebase:firebase-messaging"
+  ]
 
-    osm = "org.osmdroid:osmdroid-android:${versions.osm}"
+  osm = "org.osmdroid:osmdroid-android:${versions.osm}"
+
+  play_core = "com.google.android.play:core:${versions.play_core}"
 }
