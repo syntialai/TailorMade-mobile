@@ -8,6 +8,8 @@ import com.google.android.material.snackbar.Snackbar
 
 object ToastHelper {
 
+    fun showToast(view: View, message: String) = shortToast(view, message).show()
+
     fun showErrorToast(context: Context, view: View, message: String) {
         shortToast(view, message)
             .setBackgroundTint(ContextCompat.getColor(context, R.color.color_red_600))
