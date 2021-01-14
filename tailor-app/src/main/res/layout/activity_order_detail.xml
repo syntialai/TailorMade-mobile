@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".feature.orderDetail.view.OrderDetailActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_appbar_layout_order_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/top_toolbar_order_detail"
+                style="@style/Theme.TailorMade.Toolbar.Back"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <include
+            android:id="@+id/layout_card_order_detail_order_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            layout="@layout/layout_card_order_info" />
+
+        <TextView
+            android:id="@+id/text_view_order_detail_payment_info_title"
+            style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@string/payment_information_label" />
+
+        <include
+            android:id="@+id/layout_payment_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            layout="@layout/layout_payment_detail_card" />
+
+        <View
+            android:id="@+id/view_order_detail_separator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginVertical="@dimen/dp_24"
+            android:background="@color/color_grey_F1F1F1" />
+
+        <include
+            android:id="@+id/layout_design_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            layout="@layout/layout_card_order" />
+
+        <TextView
+            android:id="@+id/text_view_order_detail_measurement_detail_title"
+            style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@string/measurement_details_label" />
+
+        <include
+            android:id="@+id/layout_size_information_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            layout="@layout/layout_size_information_detail" />
+
+        <TextView
+            android:id="@+id/text_view_order_detail_special_instructions_title"
+            style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@string/special_instructions_label"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/text_view_order_detail_special_instructions"
+            style="@style/TextAppearance.TailorMade.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:visibility="gone"
+            tools:text="@string/special_instructions_label"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+</ScrollView>

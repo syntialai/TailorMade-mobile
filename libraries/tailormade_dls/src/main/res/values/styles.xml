@@ -36,12 +36,12 @@
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Red" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="android:strokeColor">@color/color_red_600</item>
+        <item name="strokeColor">@color/color_red_600</item>
         <item name="android:textColor">@color/color_red_600</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Green" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="android:strokeColor">@color/color_green_600</item>
+        <item name="strokeColor">@color/color_green_600</item>
         <item name="android:textColor">@color/color_green_600</item>
     </style>
 
@@ -327,6 +327,10 @@
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Caption.PrimaryDark.Bold" parent="TextAppearance.TailorMade.Caption.PrimaryDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Caption.BlackHigh" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">@color/color_black_87</item>
     </style>
@@ -345,6 +349,16 @@
 
     <style name="TextAppearance.TailorMade.Caption.BlackLight" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">@color/color_black_20</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.Red" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_red_600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.Green" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_green_600</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Overline.PrimaryDark" parent="TextAppearance.TailorMade.Overline">

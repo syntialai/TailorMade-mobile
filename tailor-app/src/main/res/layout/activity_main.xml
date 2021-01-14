@@ -16,9 +16,9 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/top_toolbar_main"
+            style="@style/Theme.TailorMade.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            style="@style/Theme.TailorMade.Toolbar"
             app:menu="@menu/menu_top_nav_main" />
     </com.google.android.material.appbar.AppBarLayout>
 

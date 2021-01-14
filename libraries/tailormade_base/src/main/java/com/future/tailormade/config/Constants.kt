@@ -11,6 +11,8 @@ object Constants {
   const val INITIAL_PAGING_PAGE = 1
   const val INITIAL_PAGING_ITEM_PER_PAGE = 10
   const val TYPE_IMAGE_ALL = "image/*"
+  const val STATUS_ACCEPTED = "accepted"
+  const val STATUS_REJECTED = "rejected"
 
   /**
    * Error messages
@@ -50,13 +52,20 @@ object Constants {
   const val DESIGN_DISCOUNT_IS_EMPTY = "Design discount $IS_EMPTY"
   const val DESIGN_DISCOUNT_CANT_BE_HIGHER_THAN_PRICE = "Design discount can't be higher than the normal price"
   const val DESIGN_DESCRIPTION_IS_EMPTY = "Design description $IS_EMPTY"
+  const val FAILED_TO_ACCEPT_ORDER = "Failed to accept order. Please try again later."
+  const val FAILED_TO_REJECT_ORDER = "Failed to reject order. Please try again later."
+  const val FAILED_TO_FETCH_INCOMING_ORDER = "Failed to fetch incoming orders. Please try again later."
+  const val FAILED_TO_FETCH_RECENT_ORDER = "Failed to fetch recent orders. Please try again later."
+  const val FAILED_TO_FETCH_ORDER_DETAIL = "Failed to fetch order detail. Please try again later."
 
   const val MESSAGES_TYPE_TEXT = "TEXT"
 
   /*
    * Date Patterns
    */
+  const val DD_MMMM_YYYY_HH_MM_SS = "dd MMMM yyyy, hh:mm:ss"
   const val DD_MMMM_YYYY = "dd MMMM yyyy"
+  const val DD_MMM_YYYY = "dd MMM yyyy"
   const val HH_MM = "hh:mm"
 
   fun generateDeleteErrorMessage(

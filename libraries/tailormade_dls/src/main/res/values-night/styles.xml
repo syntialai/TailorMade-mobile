@@ -69,6 +69,16 @@
         <item name="android:textColor">@color/color_white</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Caption.Red" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_red_400</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.Green" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_green_400</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Overline.BlackHigh" parent="TextAppearance.TailorMade.Overline">
         <item name="android:textColor">@color/color_white</item>
     </style>

@@ -60,8 +60,7 @@ android {
     }
 
     sourceSets {
-        androidTest.assets.srcDirs +=
-                files("$projectDir/schemas".toString())
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 
     testOptions {
@@ -74,7 +73,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
 
     // Libraries
-    implementation project(":libraries:tailormade_dls")
+    api project(":libraries:tailormade_dls")
     implementation project(":libraries:tailormade_base")
     implementation project(":libraries:tailormade_router")
 
@@ -84,6 +83,9 @@ dependencies {
     implementation project(":features:tailormade_profile")
     implementation project(":features:tailormade_chat")
     implementation project(":features:tailormade_design_detail")
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     // Tests
     testImplementation test.junit
