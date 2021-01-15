@@ -9,8 +9,8 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade_profile.databinding.LayoutCardProfileWithEditBinding
 import com.future.tailormade_profile.databinding.FragmentProfileBinding
+import com.future.tailormade_profile.databinding.LayoutCardProfileWithEditBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,12 +46,8 @@ class ProfileFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    viewModel.profileInfoResponse.observe(viewLifecycleOwner, {
-      val location = it.location?.city.orEmpty() + if (it.location?.province.isNullOrBlank().not()) {
-        ", ${it.location?.province}"
-      } else {
-        ""
-      }
+    viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
+      val location = it.address
       setButtonVisibility(it.id)
       setProfileData(it.name, location, it.image.orEmpty())
     })

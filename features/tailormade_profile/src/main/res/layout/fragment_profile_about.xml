@@ -21,6 +21,8 @@
         style="@style/TextAppearance.TailorMade.Overline.BlackHigh"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/edit_label"
         app:layout_constraintBottom_toBottomOf="@id/text_view_about_title"
         app:layout_constraintEnd_toEndOf="parent"

@@ -13,7 +13,9 @@ import com.future.tailormade_profile.core.model.entity.Education
 import com.future.tailormade_profile.core.model.entity.Occupation
 import com.future.tailormade_profile.databinding.FragmentProfileAboutBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileAboutFragment : BaseFragment() {
 
   companion object {
@@ -44,7 +46,7 @@ class ProfileAboutFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    viewModel.profileInfoResponse.observe(viewLifecycleOwner, {
+    viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
       it.location?.address?.let { address ->
         setAddressData(address)
       }

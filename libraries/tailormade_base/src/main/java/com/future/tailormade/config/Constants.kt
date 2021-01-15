@@ -6,9 +6,16 @@ object Constants {
      * Static data
      */
     const val MIN_DEBOUNCE_TIME = 300L
+    const val DEBOUNCE_TIME_500 = 500L
     const val MIN_PASSWORD_LENGTH = 8
     const val MIN_QUERY_SEARCH_LENGTH = 3
     const val REFRESH_DELAY_TIME = 1000L
+    const val INITIAL_PAGING_PAGE = 1
+    const val INITIAL_PAGING_ITEM_PER_PAGE = 10
+    const val COMPRESS_IMAGE_QUALITY = 100
+    const val TYPE_IMAGE_ALL = "image/*"
+    const val TYPE_IMAGE_JPEG = "image/jpeg"
+    const val TYPE_IMAGE_PNG = "image/png"
 
     /**
      * Error messages

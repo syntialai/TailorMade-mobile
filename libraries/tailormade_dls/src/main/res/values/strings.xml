@@ -58,4 +58,6 @@
     <string name="size_hips_label">Hips</string>
     <string name="size_neck_to_waist_label">Neck to Waist</string>
     <string name="size_inseam_label">Inseam</string>
+
+    <string name="action_close">Close</string>
 </resources>
