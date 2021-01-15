@@ -7,8 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application android:theme="@style/Theme.TailorMade">
+
         <activity
-            android:name=".feature.settings.SettingsActivity">
+            android:name=".feature.settings.SettingsActivity"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="com.future.tailormade.settings.open" />
@@ -16,7 +18,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.editProfile.view.EditProfileActivity">
+
+        <activity
+            android:name=".feature.editProfile.view.EditProfileActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.editProfile.open" />
 
@@ -24,5 +30,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

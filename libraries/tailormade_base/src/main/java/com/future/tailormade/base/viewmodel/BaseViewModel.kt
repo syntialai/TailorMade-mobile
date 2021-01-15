@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.ViewState
+import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
@@ -28,12 +30,12 @@ abstract class BaseViewModel : ViewModel() {
   val isLoading: LiveData<Boolean>
     get() = _isLoading
 
-  protected var page = 1
-  protected var itemPerPage = 10
+  protected var page = Constants.INITIAL_PAGING_PAGE
+  protected var itemPerPage = Constants.INITIAL_PAGING_ITEM_PER_PAGE
 
-  fun isStillLoading() = _isLoading.value ?: false
+  fun isStillLoading() = _isLoading.value.orFalse()
 
-  fun isFirstPage() = page == 1
+  fun isFirstPage() = page == Constants.INITIAL_PAGING_PAGE
 
   protected fun setStartLoading() {
     _isLoading.value = true
@@ -44,13 +46,13 @@ abstract class BaseViewModel : ViewModel() {
   }
 
   @ExperimentalCoroutinesApi
-  open fun fetchMore() {
+	open fun fetchMore() {
     page.inc()
   }
 
   @ExperimentalCoroutinesApi
-  open fun refreshFetch() {
-    page = 1
+	open fun refreshFetch() {
+    page = Constants.INITIAL_PAGING_PAGE
   }
 
   fun setErrorMessage(message: String) {
@@ -69,18 +71,16 @@ abstract class BaseViewModel : ViewModel() {
     return launchOnViewModelScope(block, Dispatchers.Default)
   }
 
-  fun launchViewModelScope(block: suspend () -> Unit) {
-    viewModelScope.launch {
-      block()
+  private fun <T> launchOnViewModelScope(block: suspend () -> LiveData<T>,
+			coroutineContext: CoroutineContext): LiveData<T> {
+    return liveData(viewModelScope.coroutineContext + coroutineContext) {
+      emitSource(block())
     }
   }
 
-  private fun <T> launchOnViewModelScope(
-      block: suspend () -> LiveData<T>,
-      coroutineContext: CoroutineContext
-  ): LiveData<T> {
-    return liveData(viewModelScope.coroutineContext + coroutineContext) {
-      emitSource(block())
+  fun launchViewModelScope(block: suspend () -> Unit) {
+    viewModelScope.launch {
+      block()
     }
   }
 }

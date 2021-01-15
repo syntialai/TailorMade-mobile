@@ -2,6 +2,9 @@
     <string name="app_name">TailorMade</string>
     <string name="title_dls">Design Language System for TailorMade</string>
 
+    <!-- Swap face -->
+    <string name="title_tailormade_face_swap">Face Swap</string>
+
     <!-- Dashboard -->
     <string name="dashboard_title_state">Hello!</string>
     <string name="dashboard_description_state">Tailors near you will be shown here.</string>
@@ -44,5 +47,6 @@
     <string name="ordered_by_label">Ordered by</string>
     <string name="payment_information_label">Payment Information</string>
     <string name="measurement_details_label">Measurement Details</string>
+    <string name="apply_label">Apply</string>
     <string name="history_label">History</string>
 </resources>

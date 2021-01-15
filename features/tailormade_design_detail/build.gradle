@@ -50,6 +50,7 @@ dependencies {
 
     // Features
     api project(":features:tailormade_auth")
+    implementation project(":libraries:opencv_sdk")
 
     // Tests
     testImplementation test.junit

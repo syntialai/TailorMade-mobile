@@ -125,6 +125,8 @@ fun Double.toIndonesiaCurrencyFormat(): String = NumberFormat.getCurrencyInstanc
  */
 fun <T> List<T>?.orEmptyList(): List<T> = this ?: listOf()
 
+fun <T> ArrayList<T>?.orEmptyList(): ArrayList<T> = this ?: arrayListOf()
+
 fun <T> MutableList<T>?.orEmptyMutableList(): MutableList<T> = this ?: mutableListOf()
 
 fun Int?.orZero(): Int = this ?: 0
