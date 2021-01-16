@@ -63,13 +63,13 @@ class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFr
       val editMeasurementUiModel = EditMeasurementFieldUiModel(images[index], label)
       editMeasurementList.add(editMeasurementUiModel)
     }
-    editMeasurementAdapter.submitList(editMeasurementList)
   }
 
   private fun insertAdapterValue(values: MutableList<String>) {
     editMeasurementList.forEachIndexed { index, editMeasurement ->
       editMeasurement.value = values[index]
     }
+    editMeasurementAdapter.submitList(editMeasurementList)
   }
 
   private fun setupRecyclerView() {

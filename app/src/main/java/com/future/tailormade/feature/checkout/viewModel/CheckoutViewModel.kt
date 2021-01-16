@@ -68,7 +68,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
           setErrorMessage(Constants.FAILED_TO_CHECKOUT_ITEM)
         }.collectLatest {
           setFinishLoading()
-          _historyId.value = it.id
+          _historyId.value = it?.id
         }
       }
     }

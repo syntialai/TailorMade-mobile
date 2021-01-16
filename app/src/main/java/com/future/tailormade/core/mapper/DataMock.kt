@@ -3,6 +3,8 @@ package com.future.tailormade.core.mapper
 import com.future.tailormade.core.model.response.cart.CartDesignResponse
 import com.future.tailormade.core.model.response.cart.CartResponse
 import com.future.tailormade.core.model.response.cart.CartSizeDetailResponse
+import com.future.tailormade.core.model.response.checkout.CheckoutDesignResponse
+import com.future.tailormade.core.model.response.checkout.CheckoutResponse
 import com.future.tailormade.core.model.response.dashboard.DashboardDesignResponse
 import com.future.tailormade.core.model.response.dashboard.DashboardLocationResponse
 import com.future.tailormade.core.model.response.dashboard.DashboardTailorResponse
@@ -36,6 +38,9 @@ object DataMock {
       image = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png",
       color = "Blue", discount = DISCOUNT, price = PRICE, size = "S", title = "Design 1",
       sizeDetail = cartSizeDetailMock)
+  private val checkoutDesignMock = CheckoutDesignResponse(id = DESIGN_ID,
+      image = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png",
+      color = "Blue", discount = DISCOUNT, price = PRICE, size = "S", title = "Design 1")
   private val orderDesignMock = OrderDesignResponse(id = DESIGN_ID,
       image = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png",
       color = "Blue", discount = DISCOUNT, price = PRICE, size = "S", title = "Design 1",
@@ -58,6 +63,9 @@ object DataMock {
         tailorName = TAILOR_NAME, userName = USER_NAME, design = cartDesignMock)
     return CartMapper.mapToCartUiModel(cartUiModel)
   }
+
+  fun getCheckoutMock() = CheckoutResponse(id = ORDER_ID, quantity = 1, tailorId = TAILOR_ID,
+      userId = USER_ID, totalPrice = PRICE, totalDiscount = DISCOUNT, design = checkoutDesignMock)
 
   fun getOrdersMock(): ArrayList<OrderUiModel> {
     val orderResponse = OrderResponse(id = ORDER_ID, createdAt = 1609644391, updatedAt = 160964500,
