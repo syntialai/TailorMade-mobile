@@ -2,6 +2,7 @@ package com.future.tailormade.core.mapper
 
 import com.future.tailormade.core.model.response.cart.CartDesignResponse
 import com.future.tailormade.core.model.response.cart.CartResponse
+import com.future.tailormade.core.model.response.cart.CartSizeDetailResponse
 import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.util.extension.toIndonesiaCurrencyFormat
@@ -27,6 +28,14 @@ object CartMapper {
           cartResponse.design.price - cartResponse.design.discount, cartResponse.quantity)
   )
 
+  fun mapToMeasurementDetail(sizeDetail: CartSizeDetailResponse) = mutableListOf(
+      sizeDetail.chest.toString(),
+      sizeDetail.waist.toString(),
+      sizeDetail.hips.toString(),
+      sizeDetail.neckToWaist.toString(),
+      sizeDetail.inseam.toString()
+  )
+
   private fun mapToCartDesignUiModel(design: CartDesignResponse) = CartDesignUiModel(
       id = design.id,
       color = design.color,
@@ -34,6 +43,7 @@ object CartMapper {
       image = design.image,
       price = design.price.toIndonesiaCurrencyFormat(),
       size = design.size,
+      sizeDetail = design.sizeDetail,
       title = design.title
   )
 

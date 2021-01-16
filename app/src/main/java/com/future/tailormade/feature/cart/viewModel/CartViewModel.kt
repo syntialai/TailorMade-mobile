@@ -6,19 +6,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.core.model.request.cart.CartEditQuantityRequest
-import com.future.tailormade.core.model.response.cart.CartDesignResponse
-import com.future.tailormade.core.model.response.cart.CartResponse
-import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.core.repository.CartRepository
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade.util.extension.toIndonesiaCurrencyFormat
+import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
 class CartViewModel @ViewModelInject constructor(private val cartRepository: CartRepository,
+    private val authSharedPrefRepository: AuthSharedPrefRepository,
     @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
   companion object {
@@ -38,16 +37,16 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   @ExperimentalCoroutinesApi
   fun fetchCartData() {
     launchViewModelScope {
-      cartRepository.getCarts().onStart {
-        setStartLoading()
-      }.onError {
-        setFinishLoading()
-        _errorMessage.value = "Failed to get your cart item. Please try again later."
-      }.collectLatest { response ->
-        response.data?.let {
-          _cartUiModel.value = mapToCartUiModel(it)
+      authSharedPrefRepository.userId?.let { userId ->
+        cartRepository.getCarts(userId).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
+          setErrorMessage(Constants.FAILED_TO_GET_YOUR_CART_ITEM)
+        }.collectLatest {
+          _cartUiModel.value = it
+          setFinishLoading()
         }
-        setFinishLoading()
       }
     }
   }
@@ -55,11 +54,13 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   fun editCartItemQuantity(id: String, quantity: Int) {
     val request = CartEditQuantityRequest(quantity)
     launchViewModelScope {
-      cartRepository.editCartItemQuantity(id, request).onError {
-        _errorMessage.value = "Failed to update your cart item. Please try again."
-      }.collectLatest { response ->
-        response.data?.let {
-          setQuantity(it.id, it.quantity)
+      authSharedPrefRepository.userId?.let { userId ->
+        cartRepository.editCartItemQuantity(userId, id, request).onError {
+          setErrorMessage(Constants.FAILED_TO_UPDATE_YOUR_CART_ITEM)
+        }.collectLatest { response ->
+          response.data?.let {
+            setQuantity(it.id, it.quantity)
+          }
         }
       }
     }
@@ -67,10 +68,12 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
 
   fun deleteCartItem(id: String) {
     launchViewModelScope {
-      cartRepository.deleteCartItemById(id).onError {
-        _errorMessage.value = "Failed to delete your cart item. Please try again."
-      }.collectLatest {
-        deleteUiModelItem(id)
+      authSharedPrefRepository.userId?.let { userId ->
+        cartRepository.deleteCartItemById(userId, id).onError {
+          setErrorMessage(Constants.FAILED_TO_DELETE_CART_ITEM)
+        }.collectLatest {
+          deleteUiModelItem(id)
+        }
       }
     }
   }
@@ -83,31 +86,6 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   }
 
   private fun getCartItemIndex(id: String) = _cartUiModel.value?.indexOfFirst { it.id == id }
-
-  private fun mapToCartUiModel(carts: List<CartResponse>): ArrayList<CartUiModel> {
-    val cartUiModels = arrayListOf<CartUiModel>()
-    carts.forEach { cart ->
-      val cartUiModel = CartUiModel(cart.id, mapToCartDesignUiModel(cart.design), cart.quantity)
-      cartUiModels.add(cartUiModel)
-    }
-    return cartUiModels
-  }
-
-  private fun mapToCartDesignUiModel(cartDesign: CartDesignResponse) = CartDesignUiModel(
-      id = cartDesign.id,
-      title = cartDesign.title,
-      image = cartDesign.image,
-      color = cartDesign.color,
-      size = cartDesign.size,
-      price = cartDesign.price.toIndonesiaCurrencyFormat(),
-      discount = setDiscount(cartDesign.price, cartDesign.discount)
-  )
-
-  private fun setDiscount(price: Double, discount: Double) = if (discount == 0.0) {
-    null
-  } else {
-    (price - discount).toIndonesiaCurrencyFormat()
-  }
 
   private fun setQuantity(id: String, quantity: Int) {
     val cartItemIndex = getCartItemIndex(id)
