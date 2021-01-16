@@ -65,8 +65,9 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
     }
 
     private fun bindDesignData(design: CartDesignUiModel) {
-      showCartButton()
       with(binding) {
+        groupCartButton.show()
+
         textViewOrderTitle.text = design.title
         textViewOrderSize.text = design.size
         textViewOrderColor.text = design.color
@@ -81,10 +82,6 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
 
         ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
       }
-    }
-
-    private fun showCartButton() {
-      binding.groupCartButton.show()
     }
 
     private fun showDiscount() {

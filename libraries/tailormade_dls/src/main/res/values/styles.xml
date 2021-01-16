@@ -49,10 +49,16 @@
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Left" parent="Theme.TailorMade.Button.Outlined.Rounded">
         <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.Left</item>
+        <item name="minWidth">@dimen/dp_0</item>
+        <item name="android:minWidth">@dimen/dp_0</item>
+        <item name="android:paddingHorizontal">@dimen/dp_16</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Right" parent="Theme.TailorMade.Button.Outlined.Rounded">
         <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.Right</item>
+        <item name="minWidth">@dimen/dp_0</item>
+        <item name="android:minWidth">@dimen/dp_0</item>
+        <item name="android:paddingHorizontal">@dimen/dp_16</item>
     </style>
 
     <!-- Chip Style -->

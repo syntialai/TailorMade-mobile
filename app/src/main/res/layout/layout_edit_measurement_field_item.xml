@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_4"
+        app:suffixText="@string/cm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_view_edit_measurement"
         app:layout_constraintTop_toBottomOf="@id/text_view_edit_measurement_label">
@@ -39,7 +40,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_edit_measurement"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

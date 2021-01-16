@@ -71,7 +71,7 @@ class CartFragment : BaseFragment() {
 
   private fun checkoutItem(id: String) {
     context?.let { context ->
-      Action.goToCheckout(context, id)
+      startActivity(Action.goToCheckout(context, id))
     }
   }
 

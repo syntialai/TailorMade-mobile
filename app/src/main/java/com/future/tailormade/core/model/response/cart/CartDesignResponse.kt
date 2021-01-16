@@ -19,10 +19,4 @@ data class CartDesignResponse(
     @Expose
     val sizeDetail: CartSizeDetailResponse? = null,
 
-    val title: String) {
-
-    fun getMockResponse() = this.copy(id = "DESIGN_1",
-        image = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png",
-        color = "Blue", discount = 500.0, price = 50000.0, size = "S",
-        sizeDetail = CartSizeDetailResponse().getMockResponse(), title = "Design 1")
-}
+    val title: String)

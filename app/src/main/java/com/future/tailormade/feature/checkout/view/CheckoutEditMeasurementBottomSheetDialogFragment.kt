@@ -17,13 +17,13 @@ class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFr
     fun newInstance(values: MutableList<String>, onSubmitListener: (List<String>) -> Unit) =
         CheckoutEditMeasurementBottomSheetDialogFragment().apply {
           this.onSubmitListener = onSubmitListener
-          this.initAdapter()
-          this.insertAdapterValue(values)
+          this.adapterValues = values
         }
   }
 
   private lateinit var binding: FragmentCheckoutEditMeasurementBottomSheetDialogBinding
   private lateinit var onSubmitListener: (List<String>) -> Unit
+  private lateinit var adapterValues: MutableList<String>
 
   private val editMeasurementAdapter by lazy {
     EditMeasurementFieldAdapter()
@@ -48,6 +48,7 @@ class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFr
         dismiss()
       }
     }
+    insertAdapterValue(adapterValues)
     initAdapter()
     setupRecyclerView()
     return binding.root
@@ -55,7 +56,9 @@ class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFr
 
   private fun initAdapter() {
     val labels = resources.getStringArray(R.array.edit_measurement_type_list)
-    val images = arrayListOf<Int>() // TODO: Add static resource
+    val images = arrayListOf(R.drawable.measurement_chest, R.drawable.measurement_waist,
+        R.drawable.measurement_hip, R.drawable.measurement_neck_to_waist,
+        R.drawable.measurement_inseam)
     labels.forEachIndexed { index, label ->
       val editMeasurementUiModel = EditMeasurementFieldUiModel(images[index], label)
       editMeasurementList.add(editMeasurementUiModel)
