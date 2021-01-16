@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -86,10 +87,10 @@ class ChatListFragment : BaseFragment() {
   }
 
   private fun setupDeleteSwipeCallback() {
-    context?.resources?.let { res ->
+    context?.let { context ->
       val swipeDeleteCallback = object :
-          BaseSwipeActionCallback(res.getColor(R.color.color_red_600),
-              res.getDrawable(R.drawable.ic_delete)) {
+          BaseSwipeActionCallback(context.getColor(R.color.color_red_600),
+              ContextCompat.getDrawable(context, R.drawable.ic_delete)) {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
             direction: Int) {

@@ -105,7 +105,7 @@ class DashboardViewModel @ViewModelInject constructor(
 
   private suspend fun deleteDesign(tailorId: String, id: String) {
     dashboardRepository.deleteDashboardDesign(tailorId, id).onError {
-      setErrorMessage(Constants.generateDeleteErrorMessage("design", id))
+      setErrorMessage(Constants.FAILED_TO_DELETE_DESIGN)
     }.collect {
       deletedItem.inc()
     }

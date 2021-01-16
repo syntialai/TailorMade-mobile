@@ -12,8 +12,7 @@ class ChooseListAdapter(private val list: List<Pair<Any, Boolean>>,
     RecyclerView.Adapter<ChooseListAdapter.ChooseListViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ChooseListViewHolder(
-      LayoutInflater.from(parent.context).inflate(
-          R.layout.layout_checkable_text, parent, false))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_checkable_text, parent, false))
 
   override fun onBindViewHolder(holder: ChooseListViewHolder, position: Int) {
     holder.bind(list[position], position)

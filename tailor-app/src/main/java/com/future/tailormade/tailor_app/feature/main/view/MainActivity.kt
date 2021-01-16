@@ -27,16 +27,16 @@ class MainActivity : BaseActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarMain
     setContentView(binding.root)
-    startActivity(Action.goToDesignDetail(this, ""))
+    Action.goToDesignDetail(this, "")
   }
 
   override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
     R.id.menu_search -> {
-      startActivity(Action.goToSearch(this))
+      Action.goToSearch(this)
       true
     }
     R.id.menu_settings -> {
-      startActivity(Action.goToSettings(this))
+      Action.goToSettings(this)
       true
     }
     else -> super.onOptionsItemSelected(item)

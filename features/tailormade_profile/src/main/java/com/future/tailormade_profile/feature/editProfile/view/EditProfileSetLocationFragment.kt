@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_profile.databinding.FragmentEditProfileSetLocationBinding
@@ -14,7 +15,12 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
-@AndroidEntryPoint class EditProfileSetLocationFragment : BaseFragment() {
+@AndroidEntryPoint
+class EditProfileSetLocationFragment : BaseFragment() {
+
+  companion object {
+    fun newInstance() = EditProfileSetLocationFragment()
+  }
 
   private val viewModel: EditProfileViewModel by viewModels()
 
@@ -26,6 +32,10 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
   override fun getScreenName(): String = "Set Location"
 
   override fun getViewModel(): BaseViewModel = viewModel
+
+  override fun onNavigationIconClicked() {
+    findNavController().navigateUp()
+  }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
@@ -61,10 +71,5 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
       }
       binding.mapViewEditProfile.overlays.add(myLocationOverlay)
     }
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = EditProfileSetLocationFragment()
   }
 }

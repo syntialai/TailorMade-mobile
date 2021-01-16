@@ -14,11 +14,9 @@ class SearchTailorListAdapter(
     RecyclerView.Adapter<SearchTailorListAdapter.SearchTailorListViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SearchTailorListViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_profile,
-          parent, false))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_profile, parent, false))
 
-  override fun onBindViewHolder(holder: SearchTailorListViewHolder,
-      position: Int) {
+  override fun onBindViewHolder(holder: SearchTailorListViewHolder, position: Int) {
     holder.bind(tailorList[position])
   }
 

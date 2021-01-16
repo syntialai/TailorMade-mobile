@@ -40,6 +40,7 @@
     <string name="order_total_discount_value_label">-</string>
     <string name="order_total_price_label">Total Price</string>
     <string name="order_total_price_value_label">0</string>
+    <string name="payment_total_label">Payment Total</string>
 
     <string name="home_menu_label">Home</string>
     <string name="chat_menu_label">Chat</string>
@@ -60,5 +61,6 @@
     <string name="accept_label">Accept</string>
     <string name="reject_label">Reject</string>
     <string name="order_total_status_label">Status</string>
-    <string name="payment_total_label">Payment Total</string>
+
+    <string name="action_close">Close</string>
 </resources>

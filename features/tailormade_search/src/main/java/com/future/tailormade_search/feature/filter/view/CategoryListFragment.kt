@@ -34,13 +34,11 @@ class CategoryListFragment : BaseFragment() {
     with(binding) {
       recyclerViewCategoryList.layoutManager = LinearLayoutManager(context)
     }
-
-    // TODO: show toolbar
+    showToolbar()
 
     return binding.root
   }
 
-  // TODO: call onBackPressed for back button in toolbar
   private fun onBackPressed() {
     findNavController().navigateUp()
   }

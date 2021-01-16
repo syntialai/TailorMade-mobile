@@ -20,6 +20,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class SelectGenderFragment : BaseFragment() {
 
+  companion object {
+    fun newInstance() = SelectGenderFragment()
+  }
+
   private val viewModel: SignUpViewModel by viewModels()
 
   private lateinit var binding: FragmentSelectGenderBinding
@@ -64,10 +68,5 @@ class SelectGenderFragment : BaseFragment() {
     viewModel.signUp()
     findNavController().navigate(
         SelectGenderFragmentDirections.actionSelectGenderFragmentToSelectRoleFragment())
-  }
-
-  companion object {
-
-    fun newInstance() = SelectGenderFragment()
   }
 }

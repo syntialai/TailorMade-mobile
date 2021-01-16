@@ -6,14 +6,15 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.future.tailormade.util.extension.orZero
 
 abstract class BaseSwipeActionCallback(private val backgroundColor: Int,
-    private var actionDrawable: Drawable) : ItemTouchHelper.Callback() {
+    private var actionDrawable: Drawable?) : ItemTouchHelper.Callback() {
 
   private val _clearPaint = Paint()
   private val _background = ColorDrawable()
-  private val _intrinsicWidth = actionDrawable.intrinsicWidth
-  private val _intrinsicHeight = actionDrawable.intrinsicHeight
+  private val _intrinsicWidth = actionDrawable?.intrinsicWidth.orZero()
+  private val _intrinsicHeight = actionDrawable?.intrinsicHeight.orZero()
 
   override fun getMovementFlags(recyclerView: RecyclerView,
       viewHolder: RecyclerView.ViewHolder): Int {
@@ -50,7 +51,7 @@ abstract class BaseSwipeActionCallback(private val backgroundColor: Int,
     val deleteIconRight = itemView.right - deleteIconMargin
     val deleteIconBottom = deleteIconTop + _intrinsicHeight
 
-    actionDrawable.apply {
+    actionDrawable?.apply {
       setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
       draw(canvas)
     }

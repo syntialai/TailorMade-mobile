@@ -97,7 +97,7 @@ class AddOrEditDesignFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    args.designDetail.let { designDetailResponse ->
+    args.designDetail?.let { designDetailResponse ->
       viewModel.setDesignDetailResponse(designDetailResponse)
     }
     viewModel.designDetailResponse.observe(viewLifecycleOwner, {
