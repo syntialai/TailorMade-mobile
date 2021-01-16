@@ -33,7 +33,7 @@
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_height">@dimen/dp_56</item>
-        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+        <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.All</item>
         <item name="backgroundTint">?colorSurface</item>
     </style>
 
@@ -48,11 +48,11 @@
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Left" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.Left</item>
+        <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.Left</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Right" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.Right</item>
+        <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.Right</item>
     </style>
 
     <!-- Chip Style -->
@@ -70,13 +70,13 @@
     </style>
 
     <!-- Corner Style -->
-    <style name="Theme.TailorMade.CornerRounded">
+    <style name="Theme.TailorMade.CornerRounded" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/dp_0</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.All" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSize">@dimen/dp_200</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded_16dp">
@@ -84,31 +84,31 @@
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.Top" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSizeTopLeft">@dimen/dp_200</item>
-        <item name="cornerSizeTopRight">@dimen/dp_200</item>
+        <item name="cornerSizeTopLeft">50%</item>
+        <item name="cornerSizeTopRight">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.Bottom" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
-        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+        <item name="cornerSizeBottomLeft">50%</item>
+        <item name="cornerSizeBottomRight">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.Left" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSizeTopLeft">@dimen/dp_200</item>
-        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+        <item name="cornerSizeTopLeft">50%</item>
+        <item name="cornerSizeBottomLeft">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.Right" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSizeTopRight">@dimen/dp_200</item>
-        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+        <item name="cornerSizeTopRight">50%</item>
+        <item name="cornerSizeBottomRight">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.TopLeft" parent="Theme.TailorMade.CornerRounded.Left">
-        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+        <item name="cornerSizeBottomRight">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.TopRight" parent="Theme.TailorMade.CornerRounded.Right">
-        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+        <item name="cornerSizeBottomLeft">50%</item>
     </style>
 
     <!-- Card Style -->

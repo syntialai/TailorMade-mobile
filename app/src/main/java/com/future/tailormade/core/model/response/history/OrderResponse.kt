@@ -21,9 +21,4 @@ data class OrderResponse(
     val updatedAt: Long,
 
     val userId: String
-) {
-
-  fun getMockResponse() = this.copy(id = "HISTORY_1", createdAt = 1609644391, updatedAt = 160964500,
-      quantity = 1, status = "Accepted", tailorId = "TAILOR_1", userId = "USER_1",
-      totalPrice = 50000.0, totalDiscount = 0.0, design = this.design)
-}
+)

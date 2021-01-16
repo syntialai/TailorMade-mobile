@@ -98,7 +98,6 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
           _measurementValues.value = it.design.sizeDetail?.let { sizeDetail ->
             mapToMeasurementDetail(sizeDetail)
           }
-          savedStateHandle.set(CART_RESPONSE, it)
           setFinishLoading()
         }
       }
@@ -117,14 +116,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
     CheckoutRequest(
         design = getCheckoutDesignRequest(cartResponse),
         measurement = getCheckoutMeasurementRequest(),
-        quantity = cartResponse.quantity,
-        specialInstructions = "",
-        tailorId = cartResponse.tailorId,
-        tailorName = cartResponse.tailorName.orEmpty(),
-        totalDiscount = getTotal(cartResponse.design.discount, cartResponse.quantity),
-        totalPrice = getTotal(cartResponse.design.price, cartResponse.quantity),
-        userId = authSharedPrefRepository.userId.orEmpty(),
-        userName = authSharedPrefRepository.username.orEmpty()
+        specialInstructions = ""
     )
   }
 

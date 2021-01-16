@@ -45,7 +45,6 @@ class HistoryDetailViewModel @ViewModelInject constructor(
           setErrorMessage(Constants.generateFailedFetchError("history with id $id"))
         }.collectLatest { orderDetail ->
           _orderDetailUiModel.value = orderDetail
-          savedStateHandle.set(ORDER_DETAIL, _orderDetailUiModel.value)
         }
       }
     }

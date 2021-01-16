@@ -1,77 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".feature.history.view.HistoryDetailFragment">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/layout_card_history_detail_order_info"
-        layout="@layout/layout_card_history_detail_order_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/text_view_history_detail_payment_info_title"
-        style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_24"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:text="@string/payment_information_label" />
+        android:orientation="vertical"
+        tools:context=".feature.history.view.HistoryDetailFragment">
 
-    <include
-        android:id="@+id/layout_payment_info"
-        layout="@layout/layout_payment_detail_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/layout_card_history_detail_order_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_card_history_detail_order_info" />
 
-    <View
-        android:id="@+id/view_history_detail_separator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:layout_marginVertical="@dimen/dp_24"
-        android:background="@color/color_grey_F1F1F1" />
+        <TextView
+            android:id="@+id/text_view_history_detail_payment_info_title"
+            style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@string/payment_information_label" />
 
-    <include
-        android:id="@+id/layout_design_detail"
-        layout="@layout/layout_cart_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/layout_payment_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_payment_detail_card" />
 
-    <TextView
-        android:id="@+id/text_view_history_detail_measurement_detail_title"
-        style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_24"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:text="@string/measurement_details_label" />
+        <View
+            android:id="@+id/view_history_detail_separator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginVertical="@dimen/dp_24"
+            android:background="@color/color_grey_F1F1F1" />
 
-    <include
-        android:id="@+id/layout_size_information_detail"
-        layout="@layout/layout_size_information_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/layout_design_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_cart_item" />
 
-    <TextView
-        android:id="@+id/text_view_history_detail_special_instructions_title"
-        style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_24"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:text="@string/special_instructions_label"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        <TextView
+            android:id="@+id/text_view_history_detail_measurement_detail_title"
+            style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@string/measurement_details_label" />
 
-    <TextView
-        android:id="@+id/text_view_history_detail_special_instructions"
-        style="@style/TextAppearance.TailorMade.Body2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:text="@string/special_instructions_label"
-        tools:visibility="visible" />
-</LinearLayout>
+        <include
+            android:id="@+id/layout_size_information_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_size_information_detail" />
+
+        <TextView
+            android:id="@+id/text_view_history_detail_special_instructions_title"
+            style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@string/special_instructions_label"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/text_view_history_detail_special_instructions"
+            style="@style/TextAppearance.TailorMade.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:text="@string/special_instructions_label"
+            tools:visibility="visible" />
+    </LinearLayout>
+</ScrollView>

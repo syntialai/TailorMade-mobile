@@ -39,11 +39,11 @@ object OrderMapper {
   )
 
   private fun mapToHistoryDetailMeasurementDetail(measurement: OrderDetailMeasurementResponse) = OrderDetailMeasurementUiModel(
-      chest = measurement.chest.toString(),
-      waist = measurement.waist.toString(),
-      hips = measurement.hips.toString(),
-      neckToWaist = measurement.neckToWaist.toString(),
-      inseam = measurement.inseam.toString()
+      chest = measurement.chest.toString() + "cm",
+      waist = measurement.waist.toString() + "cm",
+      hips = measurement.hips.toString() + "cm",
+      neckToWaist = measurement.neckToWaist.toString() + "cm",
+      inseam = measurement.inseam.toString() + "cm"
   )
 
   private fun mapToHistoryDetailDesign(design: OrderDesignResponse) = OrderDesignUiModel(

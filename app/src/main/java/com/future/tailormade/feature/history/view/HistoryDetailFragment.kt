@@ -52,14 +52,16 @@ class HistoryDetailFragment : BaseFragment() {
     super.setupFragmentObserver()
 
     viewModel.fetchHistoryDetails(args.historyDetailId)
-    viewModel.orderDetailUiModel.observe(viewLifecycleOwner, { orderDetail ->
-      setupOrderInfoData(orderDetail.id, orderDetail.orderedBy, orderDetail.orderDate)
-      setupPaymentData(orderDetail.quantity, orderDetail.totalPrice, orderDetail.totalDiscount,
-          orderDetail.paymentTotal)
-      setupDesignDetailData(orderDetail.design)
-      setupMeasurementDetailData(orderDetail.measurement)
-      orderDetail.specialInstructions?.let {
-        showSpecialInstruction(it)
+    viewModel.orderDetailUiModel.observe(viewLifecycleOwner, {
+      it?.let { orderDetail ->
+        setupOrderInfoData(orderDetail.id, orderDetail.orderedBy, orderDetail.orderDate)
+        setupPaymentData(orderDetail.quantity, orderDetail.totalPrice, orderDetail.totalDiscount,
+            orderDetail.paymentTotal)
+        setupDesignDetailData(orderDetail.design)
+        setupMeasurementDetailData(orderDetail.measurement)
+        orderDetail.specialInstructions?.let { instruction ->
+          showSpecialInstruction(instruction)
+        }
       }
     })
   }

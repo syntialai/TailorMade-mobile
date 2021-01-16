@@ -10,8 +10,4 @@ data class OrderDetailMeasurementResponse(
 
     val neckToWaist: Float,
 
-    val waist: Float) {
-
-  fun getMockResponse() = this.copy(chest = 98.4f, hips = 40f, inseam = 50.0f, neckToWaist = 48f,
-      waist = 70.5f)
-}
+    val waist: Float)

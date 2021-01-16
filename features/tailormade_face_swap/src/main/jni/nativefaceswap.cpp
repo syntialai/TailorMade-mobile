@@ -1,9 +1,5 @@
-//
-// Created by alexander on 2016-06-29.
-//
-
 #include <jni.h>
-#include <stdio.h>
+#include <cstdio>
 #include <opencv2/opencv.hpp>
 #include "opencv2/core/core.hpp"
 #include <opencv2/highgui/highgui.hpp>

@@ -3,6 +3,7 @@ package com.future.tailormade_search.feature.search.view
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade_search.R
 import com.future.tailormade_search.databinding.ActivitySearchBinding
@@ -38,8 +39,12 @@ class SearchActivity : BaseActivity() {
   }
 
   private fun doSearch(query: String) {
-    launchCoroutineOnIO { viewModel.searchDesign(query) }
-    launchCoroutineOnIO { viewModel.searchTailor(query) }
+    launchCoroutineOnIO ({
+      viewModel.searchDesign(query)
+    }, Constants.REFRESH_DELAY_TIME)
+    launchCoroutineOnIO ({
+      viewModel.searchTailor(query)
+    }, Constants.REFRESH_DELAY_TIME)
   }
 
   private fun hideInitialSearchState() {

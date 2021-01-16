@@ -6,19 +6,5 @@ data class CheckoutRequest(
 
     val measurement: CheckoutMeasurementRequest,
 
-    val quantity: Int,
-
-    val specialInstructions: String = "",
-
-    val tailorId: String,
-
-    val tailorName: String,
-
-    val totalDiscount: Double,
-
-    val totalPrice: Double,
-
-    val userId: String,
-
-    val userName: String
+    val specialInstructions: String = ""
 )

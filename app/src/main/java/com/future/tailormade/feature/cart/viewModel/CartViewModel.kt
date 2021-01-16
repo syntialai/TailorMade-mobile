@@ -46,7 +46,6 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
       }.collectLatest { response ->
         response.data?.let {
           _cartUiModel.value = mapToCartUiModel(it)
-          savedStateHandle.set(CART_UI_MODEL, _cartUiModel)
         }
         setFinishLoading()
       }

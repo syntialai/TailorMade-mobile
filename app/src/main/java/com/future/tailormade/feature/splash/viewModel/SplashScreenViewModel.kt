@@ -21,6 +21,14 @@ class SplashScreenViewModel @ViewModelInject constructor(
   val isTokenExpired: LiveData<Boolean>
     get() = _isTokenExpired
 
+  init {
+    with(authSharedPrefRepository) {
+      refreshToken = "Refresh token"
+      name = "Syntia"
+      userId = "IDKU"
+    }
+  }
+
   fun validateToken() {
     launchViewModelScope {
       authSharedPrefRepository.refreshToken?.let { refreshToken ->
