@@ -1,17 +1,17 @@
 package com.future.tailormade.core.model.response.cart
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class CartSizeDetailResponse(
 
-    val chest: Double? = null,
+    val chest: Float? = null,
 
-    val waist: Double? = null,
+    val waist: Float? = null,
 
-    val hips: Double? = null,
+    val hips: Float? = null,
 
-    val neckToWaist: Double? = null,
+    val neckToWaist: Float? = null,
 
-    val inseam: Double? = null) {
-
-  fun getMockResponse() = this.copy(chest = 100.0, waist = 150.0, hips = 20.0, neckToWaist = 50.0,
-      inseam = 75.0)
-}
+    val inseam: Float? = null): Parcelable
