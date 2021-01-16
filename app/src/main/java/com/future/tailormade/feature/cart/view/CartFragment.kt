@@ -29,7 +29,8 @@ class CartFragment : BaseFragment() {
 
   private val viewModel: CartViewModel by viewModels()
   private val cartAdapter by lazy {
-    CartAdapter(this::deleteItem, this::checkoutItem, this::editItemQuantityListener)
+    CartAdapter(this::deleteItem, this::checkoutItem, this::editItemQuantityListener,
+        this::goToDesignDetail)
   }
   private val deleteAlertDialog by lazy {
     context?.let {
@@ -71,7 +72,7 @@ class CartFragment : BaseFragment() {
 
   private fun checkoutItem(id: String) {
     context?.let { context ->
-      startActivity(Action.goToCheckout(context, id))
+      Action.goToCheckout(context, id)
     }
   }
 
@@ -85,6 +86,12 @@ class CartFragment : BaseFragment() {
 
   private fun editItemQuantityListener(id: String, quantity: Int) {
     viewModel.editCartItemQuantity(id, quantity)
+  }
+
+  private fun goToDesignDetail(id: String) {
+    context?.let {
+      Action.goToDesignDetail(it, id)
+    }
   }
 
   private fun hideState() {

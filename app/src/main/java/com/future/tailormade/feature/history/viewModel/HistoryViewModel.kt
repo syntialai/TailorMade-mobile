@@ -54,7 +54,7 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
 
   private fun addToList(list: ArrayList<OrderUiModel>) {
     val orders = arrayListOf<OrderUiModel>()
-    if (isFirstPage()) {
+    if (isFirstPage().not()) {
       orders.addAll(_orders.value.orEmptyList())
     }
     orders.addAll(list)

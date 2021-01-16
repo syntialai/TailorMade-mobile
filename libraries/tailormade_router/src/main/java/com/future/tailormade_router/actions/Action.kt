@@ -27,27 +27,30 @@ object Action {
   /**
    * Action function
    */
-  fun goToSignIn(context: Context) = getIntent(context, ACTION_OPEN_SIGN_IN)
+  fun goToSignIn(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SIGN_IN))
 
-  fun goToEditProfile(context: Context) = getIntent(context, ACTION_OPEN_EDIT_PROFILE)
+  fun goToEditProfile(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_EDIT_PROFILE))
 
-  fun goToSettings(context: Context) = getIntent(context, ACTION_OPEN_SETTINGS)
+  fun goToSettings(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SETTINGS))
 
-  fun goToSearch(context: Context) = getIntent(context, ACTION_OPEN_SEARCH)
+  fun goToSearch(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SEARCH))
 
-  fun goToChatRoom(context: Context, chatRoomId: String) = getIntent(context, ACTION_OPEN_CHAT_ROOM).apply {
-    putExtra(PARAM_CHAT_ROOM_ID, chatRoomId)
-  }
+  fun goToChatRoom(context: Context, chatRoomId: String) = context.startActivity(
+      getIntent(context, ACTION_OPEN_CHAT_ROOM).apply {
+        putExtra(PARAM_CHAT_ROOM_ID, chatRoomId)
+      })
 
-  fun goToDesignDetail(context: Context, id: String) = getIntent(context, ACTION_OPEN_DESIGN_DETAIL).apply {
-    putExtra(PARAM_DESIGN_DETAIL_ID, id)
-  }
+  fun goToDesignDetail(context: Context, id: String) = context.startActivity(
+      getIntent(context, ACTION_OPEN_DESIGN_DETAIL).apply {
+        putExtra(PARAM_DESIGN_DETAIL_ID, id)
+      })
 
-  fun goToCheckout(context: Context, cartItemId: String) = getIntent(context, ACTION_OPEN_CHECKOUT).apply {
-    putExtra(PARAM_CART_ITEM_ID, cartItemId)
-  }
+  fun goToCheckout(context: Context, cartItemId: String) = context.startActivity(
+      getIntent(context, ACTION_OPEN_CHECKOUT).apply {
+        putExtra(PARAM_CART_ITEM_ID, cartItemId)
+      })
 
-  fun goToHistory(context: Context) = getIntent(context, ACTION_OPEN_HISTORY)
+  fun goToHistory(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_HISTORY))
 
   private fun getIntent(context: Context, action: String) = Intent(action).setPackage(
       context.packageName)

@@ -42,15 +42,15 @@ class MainActivity : BaseActivity() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       R.id.menu_search -> {
-        startActivity(Action.goToSearch(this))
+        Action.goToSearch(this)
         true
       }
       R.id.menu_order -> {
-        startActivity(Action.goToHistory(this))
+        Action.goToHistory(this)
         true
       }
       R.id.menu_settings -> {
-        startActivity(Action.goToSettings(this))
+        Action.goToSettings(this)
         true
       }
       else -> super.onOptionsItemSelected(item)

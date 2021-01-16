@@ -16,7 +16,8 @@ import com.future.tailormade.util.image.ImageLoader
 
 class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
     private val checkoutCartItemListener: (String) -> Unit,
-    private val editItemQuantityListener: (String, Int) -> Unit) :
+    private val editItemQuantityListener: (String, Int) -> Unit,
+    private val goToDesignDetail: (String) -> Unit) :
     ListAdapter<CartUiModel, CartAdapter.CartViewHolder>(diffCallback) {
 
   companion object {
@@ -81,6 +82,10 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
         }
 
         ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
+
+        root.setOnClickListener {
+          goToDesignDetail.invoke(design.id)
+        }
       }
     }
 
