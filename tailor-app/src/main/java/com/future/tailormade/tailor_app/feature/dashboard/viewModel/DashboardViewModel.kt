@@ -53,10 +53,9 @@ class DashboardViewModel @ViewModelInject constructor(
           setStartLoading()
         }.onError {
           setFinishLoading()
-          setErrorMessage("Failed to fetch your designs data.")
+          setErrorMessage(Constants.FAILED_TO_GET_YOUR_DESIGN)
         }.collectLatest {
           _designs.value = it
-          savedStateHandle.set(DESIGNS, _designs.value)
         }
       }
     }

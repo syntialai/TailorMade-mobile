@@ -448,7 +448,7 @@
 
     <style name="Theme.TailorMade.Toolbar.Back" parent="Theme.TailorMade.Toolbar">
         <item name="navigationIcon">@drawable/ic_back</item>
-        <item name="navigationIconColor">?attr/colorControlNormal</item>
+        <item name="navigationIconTint">?attr/colorControlNormal</item>
     </style>
 
     <style name="Theme.TailorMade.ActionMode" parent="Widget.AppCompat.ActionMode">

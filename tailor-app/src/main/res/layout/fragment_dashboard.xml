@@ -16,13 +16,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_view_add_design"
-        style="@style/TextAppearance.TailorMade.Overline.Primary"
+    <Button
+        android:id="@+id/button_add_design"
+        style="@style/Theme.TailorMade.Button.TextButton"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
+        android:minWidth="@dimen/dp_0"
+        android:minHeight="@dimen/dp_0"
         android:text="@string/add_label"
         app:layout_constraintBottom_toBottomOf="@id/text_view_your_design_label"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,9 +47,9 @@
 
     <include
         android:id="@+id/layout_dashboard_state"
-        layout="@layout/layout_dashboard_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        layout="@layout/layout_dashboard_state"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

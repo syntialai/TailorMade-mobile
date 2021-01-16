@@ -48,6 +48,8 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   override fun getLogName() =
       "com.future.tailormade.tailor_app.feature.dashboard.view.DashboardFragment"
 
+  override fun getScreenName(): String = getString(R.string.app_name)
+
   override fun getViewModel(): BaseViewModel = viewModel
 
   @ExperimentalCoroutinesApi
@@ -56,10 +58,8 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     (activity as MainActivity).injectMainDashboardView(this)
 
     binding = FragmentDashboardBinding.inflate(inflater, container, false)
-    with(binding) {
-      textViewAddDesign.setOnClickListener {
-        // TODO: Go to add design page
-      }
+    binding.buttonAddDesign.setOnClickListener {
+      goToDesignDetail()
     }
     setupRecyclerView()
     setupSwipeRefreshLayout()
@@ -127,7 +127,7 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
       R.plurals.delete_design_alert_dialog_content, quantity, quantity)
 
-  private fun goToDesignDetail(id: String) {
+  private fun goToDesignDetail(id: String? = null) {
     context?.let { context ->
       Action.goToDesignDetail(context, id)
     }

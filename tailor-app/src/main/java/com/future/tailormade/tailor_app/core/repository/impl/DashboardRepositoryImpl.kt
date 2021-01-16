@@ -1,6 +1,5 @@
 package com.future.tailormade.tailor_app.core.repository.impl
 
-import com.future.tailormade.base.model.response.BaseResponse
 import com.future.tailormade.base.repository.BaseRepository
 import com.future.tailormade.tailor_app.core.mapper.DashboardMapper
 import com.future.tailormade.tailor_app.core.repository.DashboardRepository
@@ -8,7 +7,6 @@ import com.future.tailormade.tailor_app.core.service.DashboardService
 import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_profile.core.service.ProfileService
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class DashboardRepositoryImpl @Inject constructor(private val profileService: ProfileService,

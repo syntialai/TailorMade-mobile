@@ -5,20 +5,27 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.forEach
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.ActivityMainBinding
 import com.future.tailormade.tailor_app.feature.dashboard.view.DashboardFragmentDirections
 import com.future.tailormade.tailor_app.feature.main.contract.MainDashboardView
+import com.future.tailormade.tailor_app.feature.order.view.OrderListFragmentDirections
 import com.future.tailormade_chat.feature.view.ChatListFragmentDirections
 import com.future.tailormade_profile.feature.profile.view.ProfileFragmentDirections
 import com.future.tailormade_router.actions.Action
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
   private var mainDashboardView: MainDashboardView? = null
 
   private lateinit var binding: ActivityMainBinding
+
+  private lateinit var navController: NavController
 
   private var actionMode: ActionMode? = null
 
@@ -27,10 +34,18 @@ class MainActivity : BaseActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarMain
     setContentView(binding.root)
-    Action.goToDesignDetail(this, "")
+    setSupportActionBar(toolbar)
+    setupNavController()
+    setupBottomNav()
   }
 
-  override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_top_nav_main, menu)
+    showDashboardOrOrderOptionsMenu()
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
     R.id.menu_search -> {
       Action.goToSearch(this)
       true
@@ -80,27 +95,49 @@ class MainActivity : BaseActivity() {
     binding.bottomNavMain.setOnNavigationItemSelectedListener {
       when (it.itemId) {
         R.id.menu_home -> {
-          showDashboardOrOrderOptionsMenu()
-          DashboardFragmentDirections.actionGlobalDashboardFragment()
+          goToDashboard()
           true
         }
         R.id.menu_chat -> {
-          resetOptionsMenu()
-          ChatListFragmentDirections.actionGlobalChatListFragment()
+          goToChatList()
           true
         }
         R.id.menu_order -> {
-          showDashboardOrOrderOptionsMenu()
+          goToOrderList()
           true
         }
         R.id.menu_profile -> {
-          showProfileOptionsMenu()
-          ProfileFragmentDirections.actionGlobalProfileFragment()
+          goToProfile()
           true
         }
         else -> false
       }
     }
+  }
+
+  private fun goToDashboard() {
+    showDashboardOrOrderOptionsMenu()
+    navController.navigate(DashboardFragmentDirections.actionGlobalDashboardFragment())
+  }
+
+  private fun goToChatList() {
+    resetOptionsMenu()
+    navController.navigate(ChatListFragmentDirections.actionGlobalChatListFragment())
+  }
+
+  private fun goToOrderList() {
+    showDashboardOrOrderOptionsMenu()
+    navController.navigate(OrderListFragmentDirections.actionGlobalOrderListFragment())
+  }
+
+  private fun goToProfile() {
+    showProfileOptionsMenu()
+    navController.navigate(ProfileFragmentDirections.actionGlobalProfileFragment())
+  }
+
+  private fun setupNavController() {
+    val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_main_fragment) as NavHostFragment
+    navController = hostFragment.navController
   }
 
   private fun showDashboardOrOrderOptionsMenu() {

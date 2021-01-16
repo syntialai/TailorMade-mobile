@@ -44,7 +44,7 @@ object Action {
         putExtra(PARAM_CHAT_ROOM_ID, chatRoomId)
       })
 
-  fun goToDesignDetail(context: Context, id: String) = context.startActivity(
+  fun goToDesignDetail(context: Context, id: String? = null) = context.startActivity(
       getIntent(context, ACTION_OPEN_DESIGN_DETAIL).apply {
 				id?.let { putExtra(PARAM_DESIGN_DETAIL_ID, it) }
       })

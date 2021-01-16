@@ -112,7 +112,7 @@ fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Local
   this.timeZone = TimeZone.getTimeZone(Constants.INDONESIA_TIME_ZONE)
 }.format(this.toDate())
 
-fun Long.toDate(): Date = Date(this)
+fun Long.toDate(): Date = Date(this * 1000)
 
 fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(
     this)

@@ -82,6 +82,7 @@ object Constants {
   val FAILED_TO_DELETE_CART_ITEM = generateFailedDeleteError("your cart item", true)
 
   val FAILED_TO_DELETE_DESIGN = generateFailedDeleteError("design")
+  val FAILED_TO_GET_YOUR_DESIGN = generateFailedFetchError("your designs")
 
   fun generateFailedFetchError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
       "get", objectToFetch, isNotData)

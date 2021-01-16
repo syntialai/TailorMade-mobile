@@ -11,8 +11,8 @@ class OrderFragmentStateAdapter(fragmentActivity: FragmentActivity) :
 
   companion object {
     const val ORDER_PAGER_COUNT = 2
-    private const val INCOMING_ORDER_PAGE_INDEX = 0
-    private const val RECENT_ORDER_PAGE_INDEX = 1
+    const val INCOMING_ORDER_PAGE_INDEX = 0
+    const val RECENT_ORDER_PAGE_INDEX = 1
   }
 
   override fun getItemCount() = ORDER_PAGER_COUNT

@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.FragmentOrderListBinding
 import com.future.tailormade.tailor_app.feature.order.adapter.OrderFragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrderListFragment : BaseFragment() {
 
   companion object {
@@ -19,6 +22,8 @@ class OrderListFragment : BaseFragment() {
   private lateinit var binding: FragmentOrderListBinding
 
   override fun getLogName() = "com.future.tailormade.tailor_app.feature.order.view.OrderListFragment"
+
+  override fun getScreenName(): String = "Orders"
 
   override fun getViewModel(): BaseViewModel? = null
 
@@ -32,8 +37,12 @@ class OrderListFragment : BaseFragment() {
 
   private fun setupTabLayout() {
     with(binding) {
-      TabLayoutMediator(tabLayoutOrders, viewPagerOrders) { _, position ->
-        viewPagerOrders.currentItem = position
+      TabLayoutMediator(tabLayoutOrders, viewPagerOrders) { tab, position ->
+        tab.text = when (position) {
+          OrderFragmentStateAdapter.INCOMING_ORDER_PAGE_INDEX -> getString(R.string.incoming_label)
+          OrderFragmentStateAdapter.RECENT_ORDER_PAGE_INDEX -> getString(R.string.recent_label)
+          else -> null
+        }
       }.attach()
     }
   }
