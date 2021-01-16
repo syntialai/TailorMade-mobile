@@ -10,7 +10,8 @@ import com.future.tailormade_profile.databinding.ActivityEditProfileBinding
 import com.future.tailormade_profile.feature.editAbout.view.EditAboutFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint class EditProfileActivity : BaseActivity() {
+@AndroidEntryPoint
+class EditProfileActivity : BaseActivity() {
 
   companion object {
     private const val PARAM_EDIT_PROFILE_TYPE = "PARAM_EDIT_PROFILE_TYPE"
@@ -30,11 +31,13 @@ import dagger.hilt.android.AndroidEntryPoint
     setupOnNavigationIconClicked {
       finish()
     }
+    setupToolbar(getScreenName())
     setupNavController()
     intent.getStringExtra(PARAM_EDIT_PROFILE_TYPE)?.let {
       if (it == Constants.TYPE_PROFILE) {
         navController.navigate(EditProfileFragmentDirections.actionGlobalEditProfileFragment())
       } else if (it == Constants.TYPE_ABOUT) {
+        navController.popBackStack()
         navController.navigate(EditAboutFragmentDirections.actionGlobalEditAboutFragment())
       }
     }

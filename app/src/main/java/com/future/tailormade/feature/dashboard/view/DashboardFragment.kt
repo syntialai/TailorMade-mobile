@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseFragment
@@ -13,9 +13,6 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentDashboardBinding
 import com.future.tailormade.feature.dashboard.adapter.DashboardAdapter
 import com.future.tailormade.feature.dashboard.viewModel.DashboardViewModel
-import com.future.tailormade.util.extension.orZero
-import com.future.tailormade.util.extension.remove
-import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -69,7 +66,10 @@ class DashboardFragment : BaseFragment() {
   }
 
   private fun goToTailorProfile(tailorId: String) {
-    // TODO: Route to tailor profile
+    context?.let {
+      findNavController().navigate(
+          DashboardFragmentDirections.actionDashboardFragmentToProfileFragment(tailorId))
+    }
   }
 
   private fun hideRecyclerView() {

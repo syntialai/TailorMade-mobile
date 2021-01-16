@@ -20,7 +20,8 @@ import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileVi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@AndroidEntryPoint class EditAboutFragment : BaseFragment() {
+@AndroidEntryPoint
+class EditAboutFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = EditAboutFragment()

@@ -9,7 +9,16 @@
         android:id="@+id/dashboardFragment"
         android:name="com.future.tailormade.feature.dashboard.view.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popUpToInclusive="true"
+            app:popEnterAnim="@anim/fragment_close_exit"
+            app:popExitAnim="@anim/fragment_close_enter" />
+    </fragment>
     <fragment
         android:id="@+id/chatListFragment"
         android:name="com.future.tailormade_chat.feature.view.ChatListFragment"
@@ -22,7 +31,13 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.future.tailormade_profile.feature.profile.view.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <argument
+            android:name="tailor_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+    </fragment>
     <action
         android:id="@+id/action_global_dashboardFragment"
         app:destination="@id/dashboardFragment"
