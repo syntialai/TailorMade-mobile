@@ -18,6 +18,8 @@ object Constants {
   const val TYPE_IMAGE_JPEG = "image/jpeg"
   const val TYPE_IMAGE_PNG = "image/png"
   const val MESSAGES_TYPE_TEXT = "TEXT"
+  const val TYPE_ABOUT = "ABOUT"
+  const val TYPE_PROFILE = "PROFILE"
 
   /*
    * Date Patterns

@@ -11,6 +11,7 @@ object Action {
   private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
   private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
   private const val PARAM_CART_ITEM_ID = "PARAM_CART_ITEM_ID"
+  private const val PARAM_EDIT_PROFILE_TYPE = "PARAM_EDIT_PROFILE_TYPE"
 
   /**
    * Action name
@@ -29,7 +30,10 @@ object Action {
    */
   fun goToSignIn(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SIGN_IN))
 
-  fun goToEditProfile(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_EDIT_PROFILE))
+  fun goToEditProfile(context: Context, type: String) = context.startActivity(
+      getIntent(context, ACTION_OPEN_EDIT_PROFILE).apply {
+        putExtra(PARAM_EDIT_PROFILE_TYPE, type)
+      })
 
   fun goToSettings(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SETTINGS))
 

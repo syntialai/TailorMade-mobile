@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.entity.Education
 import com.future.tailormade_profile.core.model.entity.Occupation
 import com.future.tailormade_profile.databinding.FragmentProfileAboutBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
+import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +38,9 @@ class ProfileAboutFragment : BaseFragment() {
 
     with(binding) {
       textViewEditAbout.setOnClickListener {
-        // TODO: Go to edit about
+        context?.let {
+          Action.goToEditProfile(it, Constants.TYPE_ABOUT)
+        }
       }
     }
 
@@ -47,17 +51,17 @@ class ProfileAboutFragment : BaseFragment() {
     super.setupFragmentObserver()
 
     viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
-      it.location?.address?.let { address ->
+      it?.location?.address?.let { address ->
         setAddressData(address)
       }
 
-      it.occupation?.let { occupation ->
+      it?.occupation?.let { occupation ->
         if (occupation.company.isNullOrBlank().not() || occupation.job.isNullOrBlank().not()) {
           setOccupationData(occupation)
         }
       }
 
-      it.education?.let { education ->
+      it?.education?.let { education ->
         if (education.school.isNullOrBlank().not() || education.major.isNullOrBlank().not()) {
           setEducationData(education)
         }
