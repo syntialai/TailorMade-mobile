@@ -18,9 +18,9 @@
         <ImageView
             android:id="@+id/image_view_design_detail"
             android:layout_width="match_parent"
-            android:src="@drawable/drawable_gender_male"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_400"
             android:layout_marginBottom="@dimen/dp_28"
+            android:src="@drawable/drawable_gender_male"
             tools:ignore="ContentDescription" />
 
         <TextView

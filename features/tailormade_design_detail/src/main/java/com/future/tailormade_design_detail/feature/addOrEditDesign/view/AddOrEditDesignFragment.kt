@@ -17,6 +17,9 @@ import androidx.navigation.fragment.navArgs
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_design_detail.R
@@ -110,7 +113,7 @@ class AddOrEditDesignFragment : BaseFragment() {
 
   private fun addSizeChip(text: String, sizeDetail: SizeDetailUiModel) {
     val chipBinding = layoutInflater.inflate(R.layout.item_choose_size_chip,
-        binding.chipGroupDesignSize, true) as Chip
+        binding.chipGroupDesignSize, false) as Chip
     with(chipBinding) {
       this.text = text
       isCloseIconEnabled = true

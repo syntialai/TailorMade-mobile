@@ -3,13 +3,18 @@ package com.future.tailormade_design_detail.feature.designDetail.view
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
@@ -177,6 +182,7 @@ class DesignDetailFragment : BaseFragment() {
 
   private fun setupChooseColorChips(colors: List<ColorResponse>) {
     with(binding.chipGroupChooseColor) {
+      this.removeAllViews()
       colors.forEachIndexed { index, color ->
         addView(getChooseColorChip(index, color.id, color.color))
       }
@@ -185,6 +191,7 @@ class DesignDetailFragment : BaseFragment() {
 
   private fun setupChooseSizeChips(sizes: List<SizeUiModel>) {
     with(binding.chipGroupChooseSize) {
+      this.removeAllViews()
       sizes.forEachIndexed { index, size ->
         addView(getChooseSizeChip(index, size.id))
       }

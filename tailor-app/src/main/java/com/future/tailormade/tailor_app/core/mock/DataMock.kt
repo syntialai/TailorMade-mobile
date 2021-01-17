@@ -18,7 +18,6 @@ object DataMock {
   private const val TAILOR_NAME = "TAILOR_NAME"
   private const val ORDER_ID = "ORDER_ID"
   private const val DESIGN_ID = "DESIGN_ID"
-  private const val CART_ID = "CART_ID"
   private const val DISCOUNT = 0.0
   private const val PRICE = 50000.0
 

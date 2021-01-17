@@ -5,6 +5,7 @@ import com.future.tailormade.base.model.response.BaseSingleObjectResponse
 import com.future.tailormade.base.repository.BaseRepository
 import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_design_detail.core.mapper.DesignDetailMapper
+import com.future.tailormade_design_detail.core.mock.DataMock
 import com.future.tailormade_design_detail.core.model.request.DesignRequest
 import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
 import com.future.tailormade_design_detail.core.repository.DesignDetailRepository
@@ -20,7 +21,8 @@ class DesignDetailRepositoryImpl @Inject constructor(
   override fun getLogName() = "com.future.tailormade_design_detail.core.repository.impl.DesignDetailRepositoryImpl"
 
   override suspend fun getDesignDetailById(id: String) = flow {
-    val designDetailResponse = designDetailService.getDesignDetailById(id).data
+//    val designDetailResponse = designDetailService.getDesignDetailById(id).data
+    val designDetailResponse = DataMock.getDesignDetailMock()
     designDetailResponse?.let { data ->
       val designDetailUiModel = DesignDetailMapper.mapToDesignDetailUiModel(data)
       emit(BaseMapperModel(data, designDetailUiModel))
