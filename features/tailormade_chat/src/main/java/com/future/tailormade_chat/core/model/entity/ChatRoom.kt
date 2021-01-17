@@ -1,8 +1,11 @@
 package com.future.tailormade_chat.core.model.entity
 
+import com.google.firebase.database.IgnoreExtraProperties
+
+@IgnoreExtraProperties
 data class ChatRoom(
 
-    val users: MutableMap<String, User>,
+    var users: MutableMap<String, User>? = null,
 
-    val chats: MutableMap<String, Chat>
+    var chats: MutableMap<String, Chat>? = null
 )

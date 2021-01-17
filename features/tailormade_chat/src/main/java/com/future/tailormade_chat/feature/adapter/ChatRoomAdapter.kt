@@ -65,8 +65,8 @@ class ChatRoomAdapter(private val userId: String) :
     @RequiresApi(Build.VERSION_CODES.N)
     fun bind(data: Chat) {
       with(sendBinding) {
-        textViewChatContentSendText.text = data.text.body
-        textViewChatContentSendTime.text = data.createdDate.toTimeString(
+        textViewChatContentSendText.text = data.text?.body
+        textViewChatContentSendTime.text = data.createdDate?.toTimeString(
             Constants.HH_MM)
       }
     }
@@ -80,8 +80,8 @@ class ChatRoomAdapter(private val userId: String) :
     @RequiresApi(Build.VERSION_CODES.N)
     fun bind(data: Chat) {
       with(replyBinding) {
-        textViewChatContentReplyText.text = data.text.body
-        textViewChatContentReplyTime.text = data.createdDate.toTimeString(
+        textViewChatContentReplyText.text = data.text?.body
+        textViewChatContentReplyTime.text = data.createdDate?.toTimeString(
             Constants.HH_MM)
       }
     }

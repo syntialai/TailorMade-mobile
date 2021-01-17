@@ -9,21 +9,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.orTrue
 import com.future.tailormade.util.extension.setVisibility
 import com.future.tailormade.util.extension.toTimeString
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_chat.databinding.LayoutCardChatBinding
 
-class ChatListAdapter :
-    ListAdapter<Session, ChatListAdapter.ChatListViewHolder>(diffCallback) {
+class ChatListAdapter(private val onClickListener: (String, String) -> Unit) :
+    ListAdapter<Pair<String, Session>, ChatListAdapter.ChatListViewHolder>(diffCallback) {
 
   companion object {
-    private val diffCallback = object : DiffUtil.ItemCallback<Session>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<Pair<String, Session>>() {
 
-      override fun areItemsTheSame(oldItem: Session, newItem: Session) = oldItem.userId == newItem.userId
+      override fun areItemsTheSame(
+          oldItem: Pair<String, Session>, newItem: Pair<String, Session>) = oldItem.first == newItem.first
 
-      override fun areContentsTheSame(oldItem: Session, newItem: Session) = oldItem == newItem
+      override fun areContentsTheSame(
+          oldItem: Pair<String, Session>, newItem: Pair<String, Session>) = oldItem == newItem
     }
   }
 
@@ -41,15 +44,23 @@ class ChatListAdapter :
     private val context = view.context
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun bind(data: Session) {
+    fun bind(data: Pair<String, Session>) {
       with(binding) {
-        textViewChatName.text = data.userId
-        textViewChatTime.text = data.updatedDate.toTimeString(Constants.HH_MM)
-        textViewChatContent.text = data.chat.text.body
+        with(data.second) {
+          textViewChatName.text = userId
+          textViewChatTime.text = updatedDate?.toTimeString(Constants.HH_MM)
+          textViewChatContent.text = chat?.text?.body
 
-        layoutBadge.viewBadge.setVisibility(data.hasBeenRead)
+          layoutBadge.viewBadge.setVisibility(hasBeenRead.orTrue())
 
-        // TODO: Bind image view
+          // TODO: Bind image view
+        }
+
+        root.setOnClickListener {
+          data.second.userName?.let { name ->
+            onClickListener.invoke(data.first, name)
+          }
+        }
       }
     }
   }

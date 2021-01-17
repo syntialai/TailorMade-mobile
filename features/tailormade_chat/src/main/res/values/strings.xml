@@ -10,4 +10,8 @@
 
     <string name="delete_alert_dialog_cancel_button">Cancel</string>
     <string name="delete_alert_dialog_delete_button">Delete</string>
+
+    <string name="chat_list_title_state">No Messages, yet.</string>
+    <string name="chat_list_description_user_state">Let’s start chatting with a tailor!</string>
+    <string name="chat_list_description_tailor_state">Once your customer send messages to you, it will appear here.</string>
 </resources>

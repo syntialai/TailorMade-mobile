@@ -25,7 +25,7 @@ class SplashScreenViewModel @ViewModelInject constructor(
     with(authSharedPrefRepository) {
       refreshToken = "Refresh token"
       name = "Syntia"
-      userId = "IDKU"
+      userId = "USER-ID"
     }
   }
 

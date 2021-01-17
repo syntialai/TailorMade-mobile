@@ -1,16 +1,20 @@
 package com.future.tailormade_chat.core.model.entity
 
+import com.google.firebase.database.IgnoreExtraProperties
 import java.sql.Timestamp
 
+@IgnoreExtraProperties
 data class Session(
 
-    val updatedDate: Timestamp,
+    var id: String? = null,
 
-    val userId: String,
+    var updatedDate: Timestamp? = null,
 
-    val userName: String,
+    var userId: String? = null,
 
-    val chat: Chat,
+    var userName: String? = null,
 
-    val hasBeenRead: Boolean
+    var chat: Chat? = null,
+
+    var hasBeenRead: Boolean? = null
 )

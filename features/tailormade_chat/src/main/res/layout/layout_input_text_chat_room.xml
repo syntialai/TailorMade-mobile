@@ -11,6 +11,7 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"
+        app:hintEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button_send_message"
         app:layout_constraintStart_toStartOf="parent">
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/chat_input_message_label"
             android:inputType="textMultiLine"
+            android:maxLines="5"
             android:paddingHorizontal="@dimen/dp_8" />
 
     </com.google.android.material.textfield.TextInputLayout>

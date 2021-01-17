@@ -23,6 +23,7 @@ class ChatRoomActivity : BaseActivity() {
 
   companion object {
     private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
+    private const val PARAM_CHAT_ROOM_USER_NAME = "PARAM_CHAT_ROOM_USER_NAME"
   }
 
   @Inject
@@ -37,8 +38,10 @@ class ChatRoomActivity : BaseActivity() {
 
       @RequiresApi(Build.VERSION_CODES.N)
       override fun onDataChange(snapshot: DataSnapshot) {
-        val chatRoom = snapshot.value as ChatRoom
-        adapter.submitList(chatRoom.chats.values.toList())
+        val chatRoom = snapshot.getValue(ChatRoom::class.java)
+        chatRoom?.chats?.values?.let {
+          adapter.submitList(it.toList())
+        }
       }
 
       override fun onCancelled(error: DatabaseError) {
@@ -50,24 +53,21 @@ class ChatRoomActivity : BaseActivity() {
     ChatRoomAdapter(authSharedPrefRepository.userId.orEmpty())
   }
 
+  override fun getScreenName(): String = "Chat"
+
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityChatRoomBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarChatRoom
-
-    with(binding) {
-      layoutInputTextChatRoom.buttonSendMessage.setOnClickListener {
-        sendMessage()
-      }
-    }
-
     setContentView(binding.root)
     setSupportActionBar(toolbar)
     setupOnNavigationIconClicked {
       finish()
     }
-
+    binding.layoutInputTextChatRoom.buttonSendMessage.setOnClickListener {
+      sendMessage()
+    }
     getIntentData()
     setupObserver()
   }
@@ -76,6 +76,7 @@ class ChatRoomActivity : BaseActivity() {
     intent.getStringExtra(PARAM_CHAT_ROOM_ID)?.let { chatRoomId ->
       viewModel.setChatRoomId(chatRoomId)
     }
+    setupToolbar(intent.getStringExtra(PARAM_CHAT_ROOM_USER_NAME) ?: getScreenName())
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
