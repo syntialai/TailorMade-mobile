@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.util.extension.text
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
@@ -40,7 +41,7 @@ class ChatRoomActivity : BaseActivity() {
       override fun onDataChange(snapshot: DataSnapshot) {
         val chatRoom = snapshot.getValue(ChatRoom::class.java)
         chatRoom?.chats?.values?.let {
-          adapter.submitList(it.toList())
+          chatRoomAdapter.submitList(it.toList())
         }
       }
 
@@ -49,7 +50,7 @@ class ChatRoomActivity : BaseActivity() {
       }
     }
   }
-  private val adapter by lazy {
+  private val chatRoomAdapter by lazy {
     ChatRoomAdapter(authSharedPrefRepository.userId.orEmpty())
   }
 
@@ -68,6 +69,7 @@ class ChatRoomActivity : BaseActivity() {
     binding.layoutInputTextChatRoom.buttonSendMessage.setOnClickListener {
       sendMessage()
     }
+    setupRecyclerView()
     getIntentData()
     setupObserver()
   }
@@ -94,5 +96,13 @@ class ChatRoomActivity : BaseActivity() {
     viewModel.chatRoomContent.observe(this, {
       it.addValueEventListener(adapterValueEventListener)
     })
+  }
+
+  private fun setupRecyclerView() {
+    with(binding.recyclerViewChatRoom) {
+      layoutManager = LinearLayoutManager(this@ChatRoomActivity, LinearLayoutManager.VERTICAL,
+          false)
+      adapter = chatRoomAdapter
+    }
   }
 }

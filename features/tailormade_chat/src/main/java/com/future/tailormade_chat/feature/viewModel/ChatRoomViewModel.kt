@@ -29,8 +29,7 @@ class ChatRoomViewModel @ViewModelInject constructor(
   val chatRoomContent: LiveData<Query>
     get() = _chatRoomContent
 
-  override fun getLogName(): String =
-      "com.future.tailormade_chat.feature.viewModel.ChatRoomViewModel"
+  override fun getLogName(): String = "com.future.tailormade_chat.feature.viewModel.ChatRoomViewModel"
 
   fun fetchChatRoomData() {
     _chatRoomId.value?.let {
@@ -45,11 +44,11 @@ class ChatRoomViewModel @ViewModelInject constructor(
   @RequiresApi(Build.VERSION_CODES.O)
   fun sendMessage(text: String) {
     authSharedPrefRepository.userId?.let { userId ->
-      val chat = Chat(
-          Timestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)), userId,
-          false, Constants.MESSAGES_TYPE_TEXT, Text(text))
-      realtimeDbRepository.updateChatRoom("", chat)
-      // TODO: Add on successs and failure listener
+      _chatRoomId.value?.let {
+        val chat = Chat(Timestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)), userId, false,
+            Constants.MESSAGES_TYPE_TEXT, Text(text))
+        realtimeDbRepository.updateChatRoom(it, chat)
+      }
     }
   }
 }

@@ -17,6 +17,16 @@ class ChatListViewModel @ViewModelInject constructor(
 
   fun getChatRooms() = realtimeDbRepository.getChatRooms()
 
+  fun getChatRoomId(userChatId: String): String? {
+    return authSharedPrefRepository.userId?.let {
+      return@let if (authSharedPrefRepository.userRole == 0) {
+        "${it}_$userChatId"
+      } else {
+        "${userChatId}_${it}"
+      }
+    }
+  }
+
   fun getUserChatSessions(): Query? = authSharedPrefRepository.userId?.let { userId ->
     realtimeDbRepository.getUserChatSessionById(userId)
   }
