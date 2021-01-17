@@ -1,5 +1,9 @@
 package com.future.tailormade.tailor_app.core.model.ui.dashboard
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class DashboardDesignUiModel(
 
     var id: String,
@@ -10,5 +14,4 @@ data class DashboardDesignUiModel(
 
     var price: String,
 
-    var active: Boolean
-)
+    var active: Boolean) : Parcelable

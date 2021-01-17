@@ -17,9 +17,6 @@ import androidx.navigation.fragment.navArgs
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
-import com.future.tailormade.util.extension.remove
-import com.future.tailormade.util.extension.show
-import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_design_detail.R
@@ -43,6 +40,10 @@ class AddOrEditDesignFragment : BaseFragment() {
   }
 
   private lateinit var binding: FragmentAddOrEditDesignBinding
+
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
 
   private val args: AddOrEditDesignFragmentArgs by navArgs()
   private val viewModel: AddOrEditDesignViewModel by viewModels()
@@ -101,7 +102,9 @@ class AddOrEditDesignFragment : BaseFragment() {
       viewModel.setDesignDetailResponse(designDetailResponse)
     }
     viewModel.designDetailResponse.observe(viewLifecycleOwner, {
-      setData(it)
+      it?.let { designDetail ->
+        setData(designDetail)
+      }
     })
   }
 

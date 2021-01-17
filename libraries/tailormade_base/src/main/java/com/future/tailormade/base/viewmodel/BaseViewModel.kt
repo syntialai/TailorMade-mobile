@@ -26,7 +26,7 @@ abstract class BaseViewModel : ViewModel() {
   val errorMessage: LiveData<String?>
     get() = _errorMessage
 
-  protected val _isLoading = MutableLiveData<Boolean>()
+  private val _isLoading = MutableLiveData<Boolean>()
   val isLoading: LiveData<Boolean>
     get() = _isLoading
 

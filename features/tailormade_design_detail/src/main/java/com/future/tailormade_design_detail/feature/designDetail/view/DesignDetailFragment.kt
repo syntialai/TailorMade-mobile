@@ -3,18 +3,13 @@ package com.future.tailormade_design_detail.feature.designDetail.view
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.util.extension.remove
-import com.future.tailormade.util.extension.show
-import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
@@ -39,7 +34,8 @@ class DesignDetailFragment : BaseFragment() {
     fun newInstance() = DesignDetailFragment()
   }
 
-  @Inject lateinit var authSharedPrefRepository: AuthSharedPrefRepository
+  @Inject
+  lateinit var authSharedPrefRepository: AuthSharedPrefRepository
 
   private val viewModel: DesignDetailViewModel by viewModels()
 
@@ -49,6 +45,8 @@ class DesignDetailFragment : BaseFragment() {
 
   override fun getLogName() =
       "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
+
+  override fun getScreenName(): String = "Design Detail"
 
   override fun getViewModel(): BaseViewModel = viewModel
 
@@ -63,6 +61,7 @@ class DesignDetailFragment : BaseFragment() {
     if (authSharedPrefRepository.userRole != 0) {
       hideCustomerFeatures()
     }
+
     return binding.root
   }
 

@@ -13,6 +13,7 @@ import com.future.tailormade.tailor_app.feature.order.adapter.RecentOrderAdapter
 import com.future.tailormade.tailor_app.feature.order.viewModel.RecentOrderViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade_router.actions.TailorAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -75,7 +76,7 @@ class RecentOrderFragment : BaseFragment() {
 
   private fun goToOrderDetail(id: String) {
     context?.let { context ->
-      // TODO: Call router and go to order detail
+      TailorAction.goToOrderDetail(context, id)
     }
   }
 

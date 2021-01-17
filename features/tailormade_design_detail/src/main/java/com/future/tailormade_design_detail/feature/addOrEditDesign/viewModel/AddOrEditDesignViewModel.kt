@@ -43,7 +43,7 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
   private var sizeRequest: MutableList<DesignSizeRequest> = mutableListOf()
 
   init {
-    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE, null)
+    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE)
   }
 
   fun isPriceValid(price: String, discount: String) = price.toDouble() > discount.toDouble()
@@ -100,7 +100,6 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
 
   fun setDesignDetailResponse(response: DesignDetailResponse) {
     _designDetailResponse.value = response
-    savedStateHandle.set(DESIGN_DETAIL_RESPONSE, _designDetailResponse.value)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)

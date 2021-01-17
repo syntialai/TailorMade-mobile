@@ -1,5 +1,8 @@
-package com.future.tailormade.core.mapper
+package com.future.tailormade.core.mock
 
+import com.future.tailormade.core.mapper.CartMapper
+import com.future.tailormade.core.mapper.DashboardMapper
+import com.future.tailormade.core.mapper.OrderMapper
 import com.future.tailormade.core.model.response.cart.CartDesignResponse
 import com.future.tailormade.core.model.response.cart.CartResponse
 import com.future.tailormade.core.model.response.cart.CartSizeDetailResponse
@@ -18,15 +21,15 @@ import com.future.tailormade.core.model.ui.history.OrderUiModel
 
 object DataMock {
 
-  const val USER_ID = "USER_ID"
-  const val USER_NAME = "USER_NAME"
-  const val TAILOR_ID = "TAILOR_ID"
-  const val TAILOR_NAME = "TAILOR_NAME"
-  const val ORDER_ID = "ORDER_ID"
-  const val DESIGN_ID = "DESIGN_ID"
-  const val CART_ID = "CART_ID"
-  const val DISCOUNT = 0.0
-  const val PRICE = 50000.0
+  private const val USER_ID = "USER_ID"
+  private const val USER_NAME = "USER_NAME"
+  private const val TAILOR_ID = "TAILOR_ID"
+  private const val TAILOR_NAME = "TAILOR_NAME"
+  private const val ORDER_ID = "ORDER_ID"
+  private const val DESIGN_ID = "DESIGN_ID"
+  private const val CART_ID = "CART_ID"
+  private const val DISCOUNT = 0.0
+  private const val PRICE = 50000.0
 
   private val dashboardLocationMock = DashboardLocationResponse(city = "Medan",
       country = "Indonesia")

@@ -66,9 +66,11 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     return binding.root
   }
 
+  @ExperimentalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
+    viewModel.fetchTailorDesigns()
     viewModel.designs.observe(viewLifecycleOwner, {
       dashboardAdapter.submitList(it)
       if (it.isEmpty()) {

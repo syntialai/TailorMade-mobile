@@ -39,14 +39,16 @@ class OrderDetailActivity : BaseActivity() {
     orderDetailId?.let { id ->
       viewModel.fetchOrderDetail(id)
     }
-    viewModel.orderDetailUiModel.observe(this, { orderDetail ->
-      setupOrderInfoData(orderDetail.id, orderDetail.orderedBy, orderDetail.orderDate)
-      setupPaymentData(orderDetail.quantity, orderDetail.totalPrice, orderDetail.totalDiscount,
-          orderDetail.paymentTotal)
-      setupDesignDetailData(orderDetail.design)
-      setupMeasurementDetailData(orderDetail.measurement)
-      orderDetail.specialInstructions?.let {
-        showSpecialInstruction(it)
+    viewModel.orderDetailUiModel.observe(this, {
+      it?.let { orderDetail ->
+        setupOrderInfoData(orderDetail.id, orderDetail.orderedBy, orderDetail.orderDate)
+        setupPaymentData(orderDetail.quantity, orderDetail.totalPrice, orderDetail.totalDiscount,
+            orderDetail.paymentTotal)
+        setupDesignDetailData(orderDetail.design)
+        setupMeasurementDetailData(orderDetail.measurement)
+        orderDetail.specialInstructions?.let { instruction ->
+          showSpecialInstruction(instruction)
+        }
       }
     })
   }

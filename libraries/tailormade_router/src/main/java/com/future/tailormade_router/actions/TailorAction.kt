@@ -18,10 +18,11 @@ object TailorAction {
   /**
    * Action function
    */
-  fun goToOrderDetail(context: Context, orderDetailId: String) = Action.getIntent(context,
-      ACTION_OPEN_ORDER_DETAIL).apply {
-    putExtra(PARAM_ORDER_DETAIL_ID, orderDetailId)
-  }
+  fun goToOrderDetail(context: Context, orderDetailId: String) = context.startActivity(
+      Action.getIntent(context, ACTION_OPEN_ORDER_DETAIL).apply {
+        putExtra(PARAM_ORDER_DETAIL_ID, orderDetailId)
+      })
 
-  fun goToMain(context: Context) = Action.getIntent(context, ACTION_OPEN_MAIN)
+  fun goToMain(context: Context) = context.startActivity(
+      Action.getIntent(context, ACTION_OPEN_MAIN))
 }

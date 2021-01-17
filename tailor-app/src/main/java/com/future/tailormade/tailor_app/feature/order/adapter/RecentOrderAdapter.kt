@@ -29,7 +29,7 @@ class RecentOrderAdapter(private val onClickListener: (String) -> Unit) :
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RecentOrderViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_order_item, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_order_item, parent, false))
 
   override fun onBindViewHolder(holder: RecentOrderViewHolder, position: Int) {
     holder.bind(getItem(position))

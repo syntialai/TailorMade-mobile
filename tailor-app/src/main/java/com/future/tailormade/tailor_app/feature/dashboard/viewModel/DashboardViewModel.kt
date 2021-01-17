@@ -41,8 +41,11 @@ class DashboardViewModel @ViewModelInject constructor(
   private var deletedItem: Int = 0
 
   init {
-    _designs = savedStateHandle.getLiveData(DESIGNS, arrayListOf())
-    _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS, arrayListOf())
+    _designs = savedStateHandle.getLiveData(DESIGNS)
+    _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS)
+
+    authSharedPrefRepository.userId = "TAILOR_ID"
+    authSharedPrefRepository.userRole = 1
   }
 
   @ExperimentalCoroutinesApi
@@ -56,6 +59,7 @@ class DashboardViewModel @ViewModelInject constructor(
           setErrorMessage(Constants.FAILED_TO_GET_YOUR_DESIGN)
         }.collectLatest {
           _designs.value = it
+          appLogger.logApiOnSuccess("", _designs.value.toString())
         }
       }
     }

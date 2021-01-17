@@ -1,7 +1,7 @@
 package com.future.tailormade.core.repository.impl
 
 import com.future.tailormade.base.repository.BaseRepository
-import com.future.tailormade.core.mapper.DataMock
+import com.future.tailormade.core.mock.DataMock
 import com.future.tailormade.core.model.request.checkout.CheckoutRequest
 import com.future.tailormade.core.repository.CheckoutRepository
 import com.future.tailormade.core.service.CheckoutService

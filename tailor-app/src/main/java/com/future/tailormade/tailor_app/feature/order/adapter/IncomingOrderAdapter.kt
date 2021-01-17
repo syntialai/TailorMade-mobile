@@ -29,7 +29,7 @@ class IncomingOrderAdapter(private val onAcceptOrderListener: (String) -> Unit,
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = IncomingOrderViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_order_item, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_order_item, parent, false))
 
   override fun onBindViewHolder(holder: IncomingOrderViewHolder, position: Int) {
     holder.bind(getItem(position))

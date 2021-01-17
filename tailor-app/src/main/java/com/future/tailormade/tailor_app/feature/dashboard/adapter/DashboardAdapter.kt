@@ -19,15 +19,15 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
     private val diffCallback = object : DiffUtil.ItemCallback<DashboardDesignUiModel>() {
 
       override fun areItemsTheSame(oldItem: DashboardDesignUiModel,
-          newItem: DashboardDesignUiModel) = oldItem.id == newItem.id
+          newItem: DashboardDesignUiModel) = oldItem == newItem
 
       override fun areContentsTheSame(oldItem: DashboardDesignUiModel,
-          newItem: DashboardDesignUiModel) = oldItem == newItem
+          newItem: DashboardDesignUiModel) = oldItem.id == newItem.id
     }
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DashboardViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_design, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_design, parent, false))
 
   override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
     holder.bind(getItem(position))
