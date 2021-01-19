@@ -24,6 +24,7 @@ import com.future.tailormade_design_detail.core.model.ui.SizeUiModel
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
 import com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.UserAction
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -115,7 +116,7 @@ class DesignDetailFragment : BaseFragment() {
 
   private fun checkoutItem(id: String) {
     context?.let {
-      Action.goToCheckout(it, id)
+      UserAction.goToCheckout(it, id)
     }
   }
 

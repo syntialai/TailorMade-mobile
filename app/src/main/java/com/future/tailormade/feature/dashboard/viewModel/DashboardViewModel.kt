@@ -53,7 +53,7 @@ class DashboardViewModel @ViewModelInject constructor(
 
   private fun addToList(list: ArrayList<DashboardTailorUiModel>) {
     val tailors = arrayListOf<DashboardTailorUiModel>()
-    if (isFirstPage()) {
+    if (isFirstPage().not()) {
       tailors.addAll(_tailors.value.orEmptyList())
     }
     tailors.addAll(list)

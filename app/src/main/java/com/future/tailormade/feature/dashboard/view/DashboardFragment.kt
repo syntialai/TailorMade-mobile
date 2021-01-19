@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
@@ -17,6 +16,7 @@ import com.future.tailormade.feature.dashboard.viewModel.DashboardViewModel
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -71,8 +71,7 @@ class DashboardFragment : BaseFragment() {
 
   private fun goToTailorProfile(tailorId: String) {
     context?.let {
-      findNavController().navigate(
-          DashboardFragmentDirections.actionDashboardFragmentToProfileFragment(tailorId))
+      UserAction.goToTailorProfile(it, tailorId)
     }
   }
 

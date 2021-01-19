@@ -106,9 +106,9 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
       measurement = getCheckoutMeasurementRequest(), specialInstructions = specialInstruction)
 
   private fun getCheckoutMeasurementRequest(): CheckoutMeasurementRequest {
-    val measurements = arrayListOf<Double>()
+    val measurements = arrayListOf<Float>()
     _measurementValues.value?.forEach {
-      measurements.add(it.toDouble())
+      measurements.add(it.toFloat())
     }
     return CheckoutMeasurementRequest(measurements[0], measurements[1], measurements[2],
         measurements[3], measurements[4])

@@ -34,17 +34,19 @@ class EditProfileActivity : BaseActivity() {
     setupToolbar(getScreenName())
     setupNavController()
     intent.getStringExtra(PARAM_EDIT_PROFILE_TYPE)?.let {
-      if (it == Constants.TYPE_PROFILE) {
-        navController.navigate(EditProfileFragmentDirections.actionGlobalEditProfileFragment())
-      } else if (it == Constants.TYPE_ABOUT) {
-        navController.popBackStack()
-        navController.navigate(EditAboutFragmentDirections.actionGlobalEditAboutFragment())
+      when (it) {
+        Constants.TYPE_PROFILE -> navController.navigate(
+            EditProfileFragmentDirections.actionGlobalEditProfileFragment())
+        Constants.TYPE_ABOUT -> {
+          navController.popBackStack()
+          navController.navigate(EditAboutFragmentDirections.actionGlobalEditAboutFragment())
+        }
       }
     }
   }
 
   private fun setupNavController() {
-    navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_profile_fragment) as NavHostFragment
+    navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_tailor_profile_fragment) as NavHostFragment
     navController = navHostFragment.navController
   }
 }

@@ -2,13 +2,13 @@ package com.future.tailormade.core.model.request.checkout
 
 data class CheckoutMeasurementRequest(
 		
-    val chest: Double,
+    val chest: Float,
 
-    val hips: Double,
+    val hips: Float,
 
-    val inseam: Double,
+    val inseam: Float,
 
-    val neckToWaist: Double,
+    val neckToWaist: Float,
 
-    val waist: Double
+    val waist: Float
 )

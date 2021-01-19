@@ -15,7 +15,7 @@ import com.future.tailormade.feature.checkout.viewModel.ThanksForOrderViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,9 +45,7 @@ class ThanksForOrderFragment : BaseFragment() {
     binding = FragmentThanksForOrderBinding.inflate(inflater, container, false)
 
     binding.buttonThankYouGoToHistory.setOnClickListener {
-      context?.let { context ->
-        Action.goToHistory(context)
-      }
+      goToHistory()
     }
 
     return binding.root
@@ -63,6 +61,12 @@ class ThanksForOrderFragment : BaseFragment() {
       setupPaymentData(it)
       setupDesignDetailData(it.design)
     })
+  }
+
+  private fun goToHistory() {
+    context?.let { context ->
+      UserAction.goToHistory(context)
+    }
   }
 
   private fun setupDesignDetailData(design: CartDesignUiModel) {

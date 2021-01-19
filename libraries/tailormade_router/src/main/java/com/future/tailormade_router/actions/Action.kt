@@ -11,7 +11,6 @@ object Action {
   private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
   private const val PARAM_CHAT_ROOM_USER_NAME = "PARAM_CHAT_ROOM_USER_NAME"
   private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
-  private const val PARAM_CART_ITEM_ID = "PARAM_CART_ITEM_ID"
   private const val PARAM_EDIT_PROFILE_TYPE = "PARAM_EDIT_PROFILE_TYPE"
 
   /**
@@ -23,8 +22,6 @@ object Action {
   private const val ACTION_OPEN_SEARCH = "com.future.tailormade.search.open"
   private const val ACTION_OPEN_CHAT_ROOM = "com.future.tailormade.chatRoom.open"
   private const val ACTION_OPEN_DESIGN_DETAIL = "com.future.tailormade.designDetail.open"
-  private const val ACTION_OPEN_CHECKOUT = "com.future.tailormade.checkout.open"
-  private const val ACTION_OPEN_HISTORY = "com.future.tailormade.history.open"
 
   /**
    * Action function
@@ -50,13 +47,6 @@ object Action {
       getIntent(context, ACTION_OPEN_DESIGN_DETAIL).apply {
 				id?.let { putExtra(PARAM_DESIGN_DETAIL_ID, it) }
       })
-
-  fun goToCheckout(context: Context, cartItemId: String) = context.startActivity(
-      getIntent(context, ACTION_OPEN_CHECKOUT).apply {
-        putExtra(PARAM_CART_ITEM_ID, cartItemId)
-      })
-
-  fun goToHistory(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_HISTORY))
 
   fun getIntent(context: Context, action: String) = Intent(action).setPackage(
       context.packageName)
