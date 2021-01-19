@@ -15,7 +15,7 @@ object UserAction {
    */
   private const val ACTION_OPEN_CHECKOUT = "com.future.tailormade.checkout.open"
   private const val ACTION_OPEN_HISTORY = "com.future.tailormade.history.open"
-  private const val ACTION_OPEN_TAILOR_PROFILE = "com.future.tailormade.profile.open"
+  private const val ACTION_OPEN_TAILOR_PROFILE = "com.future.tailormade.tailorProfile.open"
 
   /**
    * Action function

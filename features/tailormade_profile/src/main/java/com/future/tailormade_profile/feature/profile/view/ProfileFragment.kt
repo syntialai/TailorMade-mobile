@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
-import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_profile.databinding.FragmentProfileBinding
 import com.future.tailormade_profile.databinding.LayoutCardProfileWithEditBinding
@@ -41,12 +40,7 @@ class ProfileFragment : BaseFragment() {
     fragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false)
     layoutCardProfileWithEditBinding = fragmentProfileBinding.layoutCardProfile
     layoutCardProfileWithEditBinding.buttonGoToEditProfile.setOnClickListener {
-      context?.let {
-        Action.goToEditProfile(it, Constants.TYPE_PROFILE)
-      }
-    }
-    layoutCardProfileWithEditBinding.layoutProfileInfo.buttonChatTailor.setOnClickListener {
-      // TODO: Route to chat with tailor
+      goToEditProfile()
     }
     return fragmentProfileBinding.root
   }
@@ -65,10 +59,15 @@ class ProfileFragment : BaseFragment() {
     viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
       it?.let { profileInfo ->
         val location = profileInfo.address
-        setButtonVisibility(profileInfo.id)
         setProfileData(profileInfo.name, location, profileInfo.image.orEmpty())
       }
     })
+  }
+
+  private fun goToEditProfile() {
+    context?.let {
+      Action.goToEditProfile(it, Constants.TYPE_PROFILE)
+    }
   }
 
   private fun inflateFragment() {
@@ -76,16 +75,6 @@ class ProfileFragment : BaseFragment() {
       val fragmentTransaction = parentFragmentManager.beginTransaction()
       fragmentTransaction.replace(this.id, ProfileAboutFragment.newInstance())
       fragmentTransaction.commit()
-    }
-  }
-
-  private fun setButtonVisibility(userId: String) {
-    with(layoutCardProfileWithEditBinding) {
-      if (viewModel.isUserProfile(userId)) {
-        buttonGoToEditProfile.show()
-      } else {
-        layoutProfileInfo.buttonChatTailor.show()
-      }
     }
   }
 
