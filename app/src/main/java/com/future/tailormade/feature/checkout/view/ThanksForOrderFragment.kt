@@ -36,9 +36,7 @@ class ThanksForOrderFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
-  override fun onNavigationIconClicked() {
-    activity?.finish()
-  }
+  override fun onNavigationIconClicked() = goToMain()
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
@@ -66,6 +64,14 @@ class ThanksForOrderFragment : BaseFragment() {
   private fun goToHistory() {
     context?.let { context ->
       UserAction.goToHistory(context)
+      activity?.finishAndRemoveTask()
+    }
+  }
+
+  private fun goToMain() {
+    context?.let { context ->
+      UserAction.goToMain(context)
+      activity?.finish()
     }
   }
 

@@ -16,12 +16,17 @@ import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 class EditProfileViewModel @ViewModelInject constructor(
     private val profileRepository: ProfileRepository,
     private val authSharedPrefRepository: AuthSharedPrefRepository,
     @Assisted private val savedStateHandle: SavedStateHandle) :
     BaseViewModel() {
+
+  companion object {
+    private const val PROFILE_INFO = "PROFILE_INFO"
+  }
 
   override fun getLogName(): String =
       "com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel"
@@ -35,6 +40,7 @@ class EditProfileViewModel @ViewModelInject constructor(
     get() = _listOfLocations
 
   init {
+    _profileInfo = savedStateHandle.getLiveData(PROFILE_INFO)
     getBasicInfo()
   }
 
@@ -43,10 +49,8 @@ class EditProfileViewModel @ViewModelInject constructor(
       authSharedPrefRepository.userId?.let { id ->
         profileRepository.getProfileInfo(id).onError {
           _errorMessage.postValue(Constants.FAILED_TO_GET_PROFILE_INFO)
-        }.collect { response ->
-          response.data?.let {
-            _profileInfo.postValue(it)
-          }
+        }.collectLatest { data ->
+          _profileInfo.value = data.response
         }
       }
     }
@@ -63,10 +67,8 @@ class EditProfileViewModel @ViewModelInject constructor(
             this).onError {
           _errorMessage.postValue(Constants.FAILED_TO_UPDATE_PROFILE)
           appLogger.logOnError(Constants.FAILED_TO_UPDATE_PROFILE, it)
-        }.collect { response ->
-          response.data?.let {
-            _profileInfo.postValue(it)
-          }
+        }.collectLatest { response ->
+          _profileInfo.value = response
         }
       }
     }
@@ -76,7 +78,7 @@ class EditProfileViewModel @ViewModelInject constructor(
   fun updateLocations(query: String) {
     launchViewModelScope {
       profileRepository.searchLocation(query).onError {
-        _errorMessage.value = it.toString()
+        setErrorMessage(it.message.orEmpty())
       }.collect {
         val response = it.map { item ->
           appLogger.logOnEvent(it.toString())

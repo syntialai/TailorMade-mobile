@@ -1,6 +1,7 @@
 package com.future.tailormade_router.actions
 
 import android.content.Context
+import android.content.Intent
 
 object UserAction {
 
@@ -15,6 +16,7 @@ object UserAction {
    */
   private const val ACTION_OPEN_CHECKOUT = "com.future.tailormade.checkout.open"
   private const val ACTION_OPEN_HISTORY = "com.future.tailormade.history.open"
+  private const val ACTION_OPEN_MAIN = "android.intent.action.MAIN"
   private const val ACTION_OPEN_TAILOR_PROFILE = "com.future.tailormade.tailorProfile.open"
 
   /**
@@ -27,6 +29,12 @@ object UserAction {
 
   fun goToHistory(context: Context) = context.startActivity(
       Action.getIntent(context, ACTION_OPEN_HISTORY))
+
+  fun goToMain(context: Context) = context.startActivity(
+      Action.getIntent(context, ACTION_OPEN_MAIN).apply {
+        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      })
 
   fun goToTailorProfile(context: Context, tailorId: String) = context.startActivity(
       Action.getIntent(context, ACTION_OPEN_TAILOR_PROFILE).apply {

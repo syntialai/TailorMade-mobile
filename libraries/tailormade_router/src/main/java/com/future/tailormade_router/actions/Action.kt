@@ -26,14 +26,19 @@ object Action {
   /**
    * Action function
    */
-  fun goToSignIn(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SIGN_IN))
+  fun goToSignIn(context: Context) = context.startActivity(
+      getIntent(context, ACTION_OPEN_SIGN_IN).apply {
+        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      })
 
   fun goToEditProfile(context: Context, type: String) = context.startActivity(
       getIntent(context, ACTION_OPEN_EDIT_PROFILE).apply {
         putExtra(PARAM_EDIT_PROFILE_TYPE, type)
       })
 
-  fun goToSettings(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SETTINGS))
+  fun goToSettings(context: Context) = context.startActivity(
+      getIntent(context, ACTION_OPEN_SETTINGS))
 
   fun goToSearch(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SEARCH))
 
@@ -45,9 +50,8 @@ object Action {
 
   fun goToDesignDetail(context: Context, id: String? = null) = context.startActivity(
       getIntent(context, ACTION_OPEN_DESIGN_DETAIL).apply {
-				id?.let { putExtra(PARAM_DESIGN_DETAIL_ID, it) }
+        id?.let { putExtra(PARAM_DESIGN_DETAIL_ID, it) }
       })
 
-  fun getIntent(context: Context, action: String) = Intent(action).setPackage(
-      context.packageName)
+  fun getIntent(context: Context, action: String) = Intent(action).setPackage(context.packageName)
 }

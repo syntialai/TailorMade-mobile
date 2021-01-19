@@ -1,6 +1,7 @@
 package com.future.tailormade_router.actions
 
 import android.content.Context
+import android.content.Intent
 
 object TailorAction {
 
@@ -24,5 +25,8 @@ object TailorAction {
       })
 
   fun goToMain(context: Context) = context.startActivity(
-      Action.getIntent(context, ACTION_OPEN_MAIN))
+      Action.getIntent(context, ACTION_OPEN_MAIN).apply {
+        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      })
 }

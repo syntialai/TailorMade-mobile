@@ -1,12 +1,12 @@
-package com.future.tailormade.feature.splash.view
+package com.future.tailormade.tailor_app.feature.splash.view
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.future.tailormade.base.view.BaseActivity
-import com.future.tailormade.databinding.ActivitySplashScreenBinding
 import com.future.tailormade.feature.splash.viewModel.SplashScreenViewModel
+import com.future.tailormade.tailor_app.databinding.ActivitySplashScreenBinding
 import com.future.tailormade_router.actions.Action
-import com.future.tailormade_router.actions.UserAction
+import com.future.tailormade_router.actions.TailorAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +26,7 @@ class SplashScreenActivity : BaseActivity() {
   }
 
   private fun goToMain() {
-    UserAction.goToMain(this)
+    TailorAction.goToMain(this)
   }
 
   private fun goToSignIn() {

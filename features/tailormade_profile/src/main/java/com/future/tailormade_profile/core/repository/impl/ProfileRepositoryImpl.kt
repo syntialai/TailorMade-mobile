@@ -1,9 +1,11 @@
 package com.future.tailormade_profile.core.repository.impl
 
+import com.future.tailormade.base.model.BaseMapperModel
 import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_profile.core.mapper.ProfileMapper
 import com.future.tailormade_profile.core.model.request.UpdateProfileAboutRequest
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
+import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
 import com.future.tailormade_profile.core.repository.ProfileRepository
 import com.future.tailormade_profile.core.service.NominatimService
@@ -18,8 +20,9 @@ class ProfileRepositoryImpl @Inject constructor(
 
   override suspend fun getProfileInfo(id: String) = flow {
     val data = profileService.getProfileInfo(id).data
-    data?.let {
-      emit(ProfileMapper.mapToProfileInfoUiModel(it))
+    data?.let { response ->
+      val uiModel = ProfileMapper.mapToProfileInfoUiModel(response)
+      emit(BaseMapperModel(response, uiModel))
     }
   }.flowOnIO()
 
@@ -44,7 +47,9 @@ class ProfileRepositoryImpl @Inject constructor(
   }
 
   override suspend fun updateProfileInfo(id: String,
-      updateProfileRequest: UpdateProfileRequest) = flow {
-    emit(profileService.updateProfileInfo(id, updateProfileRequest))
+      updateProfileRequest: UpdateProfileRequest): Flow<ProfileInfoResponse> = flow {
+    profileService.updateProfileInfo(id, updateProfileRequest).data?.let {
+      emit(it)
+    }
   }
 }

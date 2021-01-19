@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -28,7 +28,7 @@ class CheckoutFragment : BaseFragment() {
 
   private lateinit var binding: FragmentCheckoutBinding
 
-  private val viewModel: CheckoutViewModel by viewModels()
+  private val viewModel: CheckoutViewModel by activityViewModels()
 
   override fun getLogName() = "com.future.tailormade.feature.checkout.view.CheckoutFragment"
 
