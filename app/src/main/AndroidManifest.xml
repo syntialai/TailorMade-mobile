@@ -49,7 +49,14 @@
 
         <activity
             android:name=".feature.main.view.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.future.tailormade.main.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".feature.splash.view.SplashScreenActivity"

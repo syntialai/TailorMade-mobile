@@ -15,6 +15,7 @@ import com.future.tailormade.feature.checkout.viewModel.ThanksForOrderViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade_router.actions.Action
 import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,18 +62,28 @@ class ThanksForOrderFragment : BaseFragment() {
     })
   }
 
+  private fun goToDesignDetail(id: String) {
+    context?.let { context ->
+      Action.goToDesignDetail(context, id)
+      removeActivityStack()
+    }
+  }
+
   private fun goToHistory() {
     context?.let { context ->
       UserAction.goToHistory(context)
-      activity?.finishAndRemoveTask()
+      removeActivityStack()
     }
   }
 
   private fun goToMain() {
     context?.let { context ->
       UserAction.goToMain(context)
-      activity?.finish()
     }
+  }
+
+  private fun removeActivityStack() {
+    activity?.finishAndRemoveTask()
   }
 
   private fun setupDesignDetailData(design: CartDesignUiModel) {
@@ -91,6 +102,10 @@ class ThanksForOrderFragment : BaseFragment() {
 
       context?.let { context ->
         ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
+      }
+
+      root.setOnClickListener {
+        goToDesignDetail(design.id)
       }
     }
   }

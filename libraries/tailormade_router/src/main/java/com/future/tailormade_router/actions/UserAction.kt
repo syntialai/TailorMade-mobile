@@ -16,7 +16,7 @@ object UserAction {
    */
   private const val ACTION_OPEN_CHECKOUT = "com.future.tailormade.checkout.open"
   private const val ACTION_OPEN_HISTORY = "com.future.tailormade.history.open"
-  private const val ACTION_OPEN_MAIN = "android.intent.action.MAIN"
+  private const val ACTION_OPEN_MAIN = "com.future.tailormade.main.open"
   private const val ACTION_OPEN_TAILOR_PROFILE = "com.future.tailormade.tailorProfile.open"
 
   /**

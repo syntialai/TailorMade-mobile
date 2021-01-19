@@ -14,7 +14,7 @@ object TailorAction {
    * Action name
    */
   private const val ACTION_OPEN_ORDER_DETAIL = "com.future.tailormade.orderDetail.open"
-  private const val ACTION_OPEN_MAIN = "android.intent.action.MAIN"
+  private const val ACTION_OPEN_MAIN = "com.future.tailormade.main.open"
 
   /**
    * Action function

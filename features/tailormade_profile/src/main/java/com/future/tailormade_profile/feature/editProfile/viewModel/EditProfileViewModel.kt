@@ -15,7 +15,6 @@ import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 class EditProfileViewModel @ViewModelInject constructor(
@@ -65,8 +64,7 @@ class EditProfileViewModel @ViewModelInject constructor(
       authSharedPrefRepository.userId?.let { id ->
         profileRepository.updateProfileInfo(id, request).flowOnIOwithLoadingDialog(
             this).onError {
-          _errorMessage.postValue(Constants.FAILED_TO_UPDATE_PROFILE)
-          appLogger.logOnError(Constants.FAILED_TO_UPDATE_PROFILE, it)
+          setErrorMessage(Constants.FAILED_TO_UPDATE_PROFILE)
         }.collectLatest { response ->
           _profileInfo.value = response
         }
@@ -79,9 +77,8 @@ class EditProfileViewModel @ViewModelInject constructor(
     launchViewModelScope {
       profileRepository.searchLocation(query).onError {
         setErrorMessage(it.message.orEmpty())
-      }.collect {
+      }.collectLatest {
         val response = it.map { item ->
-          appLogger.logOnEvent(it.toString())
           item.display_name.orEmpty()
         }
         _listOfLocations.value = response
