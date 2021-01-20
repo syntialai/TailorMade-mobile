@@ -15,16 +15,19 @@ import retrofit2.http.Path
 
 interface CartService {
 
-  @GET(AppApiUrl.BASE_WISHLISTS_PATH)
-  fun getCarts(): BaseListResponse<CartResponse>
+  @GET(AppApiUrl.USERS_ID_WISHLISTS_PATH)
+  fun getCarts(@Path("userId") userId: String): BaseListResponse<CartResponse>
 
-  @GET(AppApiUrl.WISHLISTS_ID_PATH)
-  fun getCartById(@Path("id") id: String): BaseSingleObjectResponse<CartResponse>
+  @GET(AppApiUrl.USERS_ID_WISHLISTS_ID_PATH)
+  fun getCartById(@Path("userId") userId: String,
+      @Path("id") id: String): BaseSingleObjectResponse<CartResponse>
 
-  @PUT(AppApiUrl.WISHLISTS_ID_EDIT_QUANTITY_PATH) fun putEditCartItemQuantity(
-      @Path("id") id: String, @Body cartEditQuantityRequest: CartEditQuantityRequest):
+  @PUT(AppApiUrl.USERS_ID_WISHLISTS_ID_EDIT_QUANTITY_PATH) fun putEditCartItemQuantity(
+      @Path("userId") userId: String, @Path("id") id: String,
+      @Body cartEditQuantityRequest: CartEditQuantityRequest):
       BaseSingleObjectResponse<CartEditQuantityResponse>
 
-  @DELETE(AppApiUrl.WISHLISTS_ID_PATH)
-  fun deleteCartItemById(@Path("id") id: String): BaseResponse
+  @DELETE(AppApiUrl.USERS_ID_WISHLISTS_ID_PATH)
+  fun deleteCartItemById(
+      @Path("userId") userId: String, @Path("id") id: String): BaseResponse
 }

@@ -28,7 +28,7 @@ class EditMeasurementFieldAdapter :
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = EditMeasurementViewHolder(
       LayoutInflater.from(parent.context).inflate(R.layout.layout_edit_measurement_field_item,
-          parent, true))
+          parent, false))
 
   override fun onBindViewHolder(holder: EditMeasurementViewHolder, position: Int) {
     holder.bind(getItem(position))

@@ -48,4 +48,6 @@
     <string name="payment_information_label">Payment Information</string>
     <string name="measurement_details_label">Measurement Details</string>
     <string name="apply_label">Apply</string>
+    <string name="history_label">History</string>
+    <string name="cm">cm</string>
 </resources>

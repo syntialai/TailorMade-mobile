@@ -16,7 +16,8 @@
             android:id="@+id/top_toolbar_history"
             style="@style/Theme.TailorMade.Toolbar.Back"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/history_label" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

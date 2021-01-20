@@ -7,27 +7,29 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
-import com.future.tailormade.config.Constants
-import com.future.tailormade.core.model.response.history.OrderDesignResponse
-import com.future.tailormade.core.model.response.history.OrderResponse
+import com.future.tailormade.core.model.ui.history.OrderDesignUiModel
+import com.future.tailormade.core.model.ui.history.OrderUiModel
 import com.future.tailormade.databinding.LayoutHistoryCardItemBinding
-import com.future.tailormade.util.extension.toDateString
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 
 class HistoryCardItemAdapter(private val onCardClickListener: (String) -> Unit) :
-    ListAdapter<OrderResponse, HistoryCardItemAdapter.HistoryCardItemViewHolder>(diffCallback) {
+    ListAdapter<OrderUiModel, HistoryCardItemAdapter.HistoryCardItemViewHolder>(diffCallback) {
 
   companion object {
-    private val diffCallback = object : DiffUtil.ItemCallback<OrderResponse>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<OrderUiModel>() {
 
-      override fun areItemsTheSame(oldItem: OrderResponse, newItem: OrderResponse): Boolean = oldItem.id == newItem.id
+      override fun areItemsTheSame(
+          oldItem: OrderUiModel, newItem: OrderUiModel) = oldItem.id == newItem.id
 
-      override fun areContentsTheSame(oldItem: OrderResponse, newItem: OrderResponse): Boolean = oldItem == newItem
+      override fun areContentsTheSame(
+          oldItem: OrderUiModel, newItem: OrderUiModel) = oldItem == newItem
     }
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = HistoryCardItemViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_history_card_item, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_history_card_item, parent, false))
 
   override fun onBindViewHolder(holder: HistoryCardItemViewHolder, position: Int) {
     holder.bind(getItem(position))
@@ -38,10 +40,10 @@ class HistoryCardItemAdapter(private val onCardClickListener: (String) -> Unit) 
     private val binding = LayoutHistoryCardItemBinding.bind(itemView)
     private val context = itemView.context
 
-    fun bind(data: OrderResponse) {
+    fun bind(data: OrderUiModel) {
       with(binding) {
         textViewHistoryOrderId.text = data.id
-        textViewHistoryOrderDate.text = data.createdAt.toDateString(Constants.DD_MMM_YY)
+        textViewHistoryOrderDate.text = data.orderDate
 
         textViewHistoryDesignOrderedTitle.text = data.design.title
         textViewHistoryDesignOrderedColor.text = data.design.color
@@ -56,26 +58,31 @@ class HistoryCardItemAdapter(private val onCardClickListener: (String) -> Unit) 
       bindLayoutTotalData(data)
     }
 
-    private fun bindLayoutTotalData(data: OrderResponse) {
-      // TODO: Convert with .toIndonesianCurrencyFormat() extension
+    private fun bindLayoutTotalData(data: OrderUiModel) {
       with(binding.layoutHistoryOrderedTotal) {
-        textViewOrderQuantity.text = data.quantity.toString()
-        textViewOrderTotalPrice.text = data.totalPrice.toString()
-        textViewOrderTotalDiscount.text = data.totalDiscount.toString()
+        textViewOrderQuantity.text = data.quantity
+        textViewOrderTotalPrice.text = data.totalPrice
+        textViewOrderTotalDiscount.text = data.totalDiscount
       }
     }
 
-    private fun bindPriceData(design: OrderDesignResponse) {
+    private fun bindPriceData(design: OrderDesignUiModel) {
       with(binding) {
-        if (design.discount > 0.0) {
-          // TODO: Convert with .toIndonesianCurrencyFormat() extension
-          textViewHistoryDesignOrderedPriceBeforeDiscount.text = design.price.toString()
-          textViewHistoryDesignOrderedPriceAfterDiscount.text =
-              (design.price - design.discount).toString()
-        }	else {
-          // TODO: Convert with .toIndonesianCurrencyFormat() extension
-          textViewHistoryDesignOrderedPrice.text = design.price.toString()
+        design.discount?.let {
+          showDiscount()
+          textViewHistoryDesignOrderedPriceBeforeDiscount.text = design.price
+          textViewHistoryDesignOrderedPriceAfterDiscount.text = it
+        } ?: run {
+          textViewHistoryDesignOrderedPrice.text = design.price
         }
+      }
+    }
+
+    private fun showDiscount() {
+      with(binding) {
+        textViewHistoryDesignOrderedPriceBeforeDiscount.show()
+        textViewHistoryDesignOrderedPriceAfterDiscount.show()
+        textViewHistoryDesignOrderedPrice.remove()
       }
     }
   }

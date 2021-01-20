@@ -4,5 +4,4 @@ data class DashboardLocationResponse(
 
     val city: String? = null,
 
-    val country: String? = null
-)
+    val country: String? = null)

@@ -22,5 +22,4 @@ data class OrderDesignResponse(
     @Expose
     val tailorName: String? = null,
 
-    val title: String
-)
+    val title: String)

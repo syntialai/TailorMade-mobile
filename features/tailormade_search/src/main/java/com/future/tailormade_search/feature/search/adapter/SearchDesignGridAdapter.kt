@@ -14,8 +14,7 @@ class SearchDesignGridAdapter(
     RecyclerView.Adapter<SearchDesignGridAdapter.SearchDesignGridViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SearchDesignGridViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_design,
-          parent, false))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_design, parent, false))
 
   override fun onBindViewHolder(holder: SearchDesignGridViewHolder,
       position: Int) {

@@ -15,6 +15,7 @@ import com.future.tailormade.feature.checkout.viewModel.ThanksForOrderViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,12 +36,18 @@ class ThanksForOrderFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentThanksForOrderBinding.inflate(inflater, container, false)
 
     binding.buttonThankYouGoToHistory.setOnClickListener {
-      // TODO: Go to history and pass history Id from view model
+      context?.let { context ->
+        Action.goToHistory(context)
+      }
     }
 
     return binding.root

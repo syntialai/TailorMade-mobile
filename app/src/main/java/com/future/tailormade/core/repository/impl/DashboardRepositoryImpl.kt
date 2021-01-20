@@ -1,25 +1,24 @@
 package com.future.tailormade.core.repository.impl
 
-import com.future.tailormade.base.model.response.BaseListResponse
 import com.future.tailormade.base.repository.BaseRepository
-import com.future.tailormade.core.model.response.dashboard.DashboardTailorResponse
+import com.future.tailormade.core.mapper.DataMock
 import com.future.tailormade.core.repository.DashboardRepository
 import com.future.tailormade.core.service.DashboardService
 import com.future.tailormade.util.extension.flowOnIO
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.flow
 
-class DashboardRepositoryImpl @Inject constructor(
-    private val dashboardService: DashboardService,
-    private val authSharedPrefRepository: AuthSharedPrefRepository) :
+class DashboardRepositoryImpl @Inject constructor(private val dashboardService: DashboardService) :
     BaseRepository(), DashboardRepository {
 
   override fun getLogName() = "com.future.tailormade.core.repository.impl.DashboardRepositoryImpl"
 
-  override suspend fun getDashboardTailors(lat: Double, lon: Double, page: Int,
-      itemPerPage: Int): Flow<BaseListResponse<DashboardTailorResponse>> = flow {
-    emit(dashboardService.getDashboardTailors(lat, lon, page, itemPerPage))
+  override suspend fun getDashboardTailors(
+      lat: Double, lon: Double, page: Int, itemPerPage: Int) = flow {
+//    val tailors = dashboardService.getDashboardTailors(lat, lon, page, itemPerPage).data
+//    emit(tailors?.map {
+//      DashboardMapper.mapToDashboardTailorUiModel(it)
+//    } as ArrayList)
+    emit(DataMock.getDashboardTailorsMock())
   }.flowOnIO()
 }

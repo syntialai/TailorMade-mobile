@@ -5,9 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
-import com.future.tailormade.core.model.response.history.OrderResponse
+import com.future.tailormade.core.model.ui.history.OrderUiModel
 import com.future.tailormade.core.repository.OrderRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -18,8 +19,8 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
 
   override fun getLogName(): String = "com.future.tailormade.feature.history.viewModel.HistoryViewModel"
 
-  private var _orders = MutableLiveData<ArrayList<OrderResponse>>()
-  val orders: LiveData<ArrayList<OrderResponse>>
+  private var _orders = MutableLiveData<ArrayList<OrderUiModel>>()
+  val orders: LiveData<ArrayList<OrderUiModel>>
     get() = _orders
 
   @ExperimentalCoroutinesApi
@@ -31,10 +32,8 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
           setFinishLoading()
         }.onStart {
           setStartLoading()
-        }.collectLatest { response ->
-          response.data?.let {
-            addToList(it as ArrayList, isFirstPage())
-          }
+        }.collectLatest { orders ->
+          addToList(orders)
           setFinishLoading()
         }
       }
@@ -53,10 +52,12 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
     fetchHistory()
   }
 
-  private fun addToList(list: ArrayList<OrderResponse>, update: Boolean) {
-    if (update.not()) {
-      _orders.value?.clear()
+  private fun addToList(list: ArrayList<OrderUiModel>) {
+    val orders = arrayListOf<OrderUiModel>()
+    if (isFirstPage().not()) {
+      orders.addAll(_orders.value.orEmptyList())
     }
-    _orders.value?.addAll(list)
+    orders.addAll(list)
+    _orders.value = orders
   }
 }

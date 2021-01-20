@@ -18,6 +18,7 @@ import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentProfileDesignBinding
 import com.future.tailormade_profile.feature.profile.adapter.ProfileDesignAdapter
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileDesignViewModel
+import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -58,7 +59,9 @@ class ProfileDesignFragment : BaseFragment() {
   }
 
   private fun goToDesignDetailPage(id: String) {
-    // TODO: Go to design detail page
+    context?.let {
+      Action.goToDesignDetail(it, id)
+    }
   }
 
   @ExperimentalCoroutinesApi

@@ -35,7 +35,7 @@ class ProfileViewModel @ViewModelInject constructor(
     get() = _profileInfoUiModel
 
   init {
-    _profileInfoUiModel = savedStateHandle.getLiveData(PROFILE_INFO, null)
+    _profileInfoUiModel = savedStateHandle.getLiveData(PROFILE_INFO)
   }
 
   @ExperimentalCoroutinesApi
@@ -51,7 +51,6 @@ class ProfileViewModel @ViewModelInject constructor(
         }.collectLatest { response ->
           response.data?.let {
             _profileInfoUiModel.value = mapToProfileInfoUiModel(it)
-            savedStateHandle.set(PROFILE_INFO, _profileInfoUiModel.value)
           }
         }
       }

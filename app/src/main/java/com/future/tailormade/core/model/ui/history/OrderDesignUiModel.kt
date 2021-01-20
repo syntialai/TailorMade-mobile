@@ -1,7 +1,9 @@
 package com.future.tailormade.core.model.ui.history
 
-import com.google.gson.annotations.Expose
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class OrderDesignUiModel(
 
     var color: String,
@@ -17,4 +19,4 @@ data class OrderDesignUiModel(
     var size: String,
 
     var title: String
-)
+): Parcelable

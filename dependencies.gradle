@@ -1,7 +1,7 @@
 ext {
   versions = [
       jvm                   : "1.8",
-      kotlin                : "1.4.10",
+      kotlin                : "1.4.21",
       android_plugin        : "3.5.2",
       navigation            : "2.3.0",
       lifecycle             : "2.2.0",
@@ -14,7 +14,7 @@ ext {
       logger                : "4.7.1",
       room                  : "2.2.5",
       room_arch_persistence : "1.1.1",
-      coroutine             : "1.3.9-native-mt-2",
+      coroutine             : "1.4.2",
       glide                 : "4.11.0",
       gson                  : "2.8.6",
       retrofit              : "2.9.0",
@@ -33,6 +33,7 @@ ext {
       test_junit            : "4.13",
       test_core             : "1.3.0",
       test_mockito          : "3.5.13",
+      test_mockito_kotlin   : "2.2.0",
       androidTest_junit     : "1.1.2",
       androidTest_espresso  : "3.3.0"
   ]
@@ -61,9 +62,10 @@ ext {
   ]
 
   test = [
-      junit        : "junit:junit:${versions.test_junit}",
-      androidx_core: "androidx.test:core:${versions.test_core}",
-      mockito      : "org.mockito:mockito-core:${versions.test_mockito}"
+      junit         : "junit:junit:${versions.test_junit}",
+      androidx_core : "androidx.test:core:${versions.test_core}",
+      mockito       : "org.mockito:mockito-core:${versions.test_mockito}",
+      mockito_kotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.test_mockito_kotlin}"
   ]
 
   androidTest = [
@@ -100,7 +102,11 @@ ext {
       test                : "com.google.dagger:hilt-android-testing:${versions.hilt}"
   ]
 
-  coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}"
+  coroutine = [
+      core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutine}",
+      android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}",
+      test   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutine}"
+  ]
 
   room = [
       runtime                     : "androidx.room:room-runtime:${versions.room}",

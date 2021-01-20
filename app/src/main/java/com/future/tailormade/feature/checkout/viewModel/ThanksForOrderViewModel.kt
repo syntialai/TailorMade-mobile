@@ -23,21 +23,17 @@ class ThanksForOrderViewModel @ViewModelInject constructor(
     get() = _cartUiModel
 
   private var _historyId: MutableLiveData<String>
-  val historyId: LiveData<String>
-    get() = _historyId
 
   init {
-    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL, null)
-    _historyId = savedStateHandle.getLiveData(HISTORY_ID, "")
+    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL)
+    _historyId = savedStateHandle.getLiveData(HISTORY_ID)
   }
 
   fun setCartUiModel(cartUiModel: CartUiModel) {
     _cartUiModel.value = cartUiModel
-    savedStateHandle.set(CART_UI_MODEL, _cartUiModel.value)
   }
 
   fun setHistoryId(id: String) {
     _historyId.value = id
-    savedStateHandle.set(HISTORY_ID, _historyId.value)
   }
 }

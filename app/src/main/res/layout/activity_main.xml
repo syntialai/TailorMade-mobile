@@ -3,15 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".feature.main.view.MainActivity">
 
-    <!-- TODO: Configure in main feature -->
-    <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--            android:id="@+id/bottom_nav_main"-->
-    <!--            style="@style/Theme.TailorMade.BottomNavigation"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--            app:layout_constraintRight_toRightOf="parent"-->
-    <!--            app:menu="@menu/menu_bottom_nav_main" />-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_appbar_layout_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            style="@style/Theme.TailorMade.Toolbar"
+            app:menu="@menu/menu_top_nav_main" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_main_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_appbar_layout_main"
+        app:navGraph="@navigation/nav_main_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_main"
+        style="@style/Theme.TailorMade.BottomNavigation"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/menu_bottom_nav_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

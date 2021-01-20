@@ -19,10 +19,15 @@ import com.future.tailormade.util.extension.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@AndroidEntryPoint class HistoryFragment : BaseFragment() {
+@AndroidEntryPoint
+class HistoryFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = HistoryFragment()
+  }
+
+  override fun onNavigationIconClicked() {
+    activity?.finish()
   }
 
   private lateinit var binding: FragmentHistoryBinding
@@ -38,11 +43,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
   override fun getViewModel(): BaseViewModel = viewModel
 
-  override fun onNavigationIconClicked() {
-    findNavController().navigateUp()
-  }
-
-  @ExperimentalCoroutinesApi override fun onCreateView(inflater: LayoutInflater,
+  @ExperimentalCoroutinesApi
+  override fun onCreateView(inflater: LayoutInflater,
       container: ViewGroup?, savedInstanceState: Bundle?): View {
     binding = FragmentHistoryBinding.inflate(inflater, container, false)
     setupRecyclerView()
@@ -50,9 +52,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     return binding.root
   }
 
+  @ExperimentalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
+    viewModel.fetchHistory()
     viewModel.orders.observe(viewLifecycleOwner, {
       historyAdapter.submitList(it)
       if (it.isNotEmpty()) {

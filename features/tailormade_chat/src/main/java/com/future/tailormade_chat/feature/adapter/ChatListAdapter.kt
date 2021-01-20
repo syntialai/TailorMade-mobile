@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.config.Constants
@@ -29,8 +28,7 @@ class ChatListAdapter :
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ChatListViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_chat,
-          parent, false))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_chat, parent, false))
 
   @RequiresApi(Build.VERSION_CODES.N)
   override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {

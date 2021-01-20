@@ -103,8 +103,9 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 /**
  * Date Time Converter
  */
-fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(
-    this)
+fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).apply {
+  this.timeZone = TimeZone.getTimeZone(Constants.INDONESIA_TIME_ZONE)
+}.format(this.toDate())
 
 fun Long.toDate(): Date = Date(this)
 
@@ -114,7 +115,7 @@ fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern, 
 /**
  * Money Converter
  */
-fun Double.toIndonesiaCurrencyFormat() = NumberFormat.getCurrencyInstance().apply {
+fun Double.toIndonesiaCurrencyFormat(): String = NumberFormat.getCurrencyInstance().apply {
   maximumFractionDigits = 0
   currency = Currency.getInstance(Locale("in", "ID"))
 }.format(this)

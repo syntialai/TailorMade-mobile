@@ -13,13 +13,14 @@
 
         <include
             android:id="@+id/group_sort_and_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             layout="@layout/layout_sort_and_filter" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_search_design_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/group_sort_and_filter" />
@@ -29,13 +30,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/illustration_no_data"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:visibility="visible" />
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/text_view_no_design_data_state"
@@ -44,12 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_24"
             android:text="@string/search_design_empty_state_title"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/text_view_no_design_data_description_state"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_no_design_data_state"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@+id/image_view_no_design_data_state" />
 
         <TextView
             android:id="@+id/text_view_no_design_data_description_state"
@@ -58,10 +55,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
             android:text="@string/search_design_empty_state"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_no_design_data_state"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_no_design_data_state" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_search_design_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="image_view_no_design_data_state, text_view_no_design_data_description_state, text_view_no_design_data_state"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,8 @@ import com.future.tailormade.util.image.ImageLoader
 
 class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
     private val checkoutCartItemListener: (String) -> Unit,
-    private val editItemQuantityListener: (String, Int) -> Unit) :
+    private val editItemQuantityListener: (String, Int) -> Unit,
+    private val goToDesignDetail: (String) -> Unit) :
     ListAdapter<CartUiModel, CartAdapter.CartViewHolder>(diffCallback) {
 
   companion object {
@@ -30,7 +31,7 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CartViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_cart_item, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_cart_item, parent, false))
 
   override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
     holder.bind(getItem(position), position)
@@ -65,8 +66,9 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
     }
 
     private fun bindDesignData(design: CartDesignUiModel) {
-      showCartButton()
       with(binding) {
+        groupCartButton.show()
+
         textViewOrderTitle.text = design.title
         textViewOrderSize.text = design.size
         textViewOrderColor.text = design.color
@@ -80,11 +82,11 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
         }
 
         ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
-      }
-    }
 
-    private fun showCartButton() {
-      binding.groupCartButton.show()
+        root.setOnClickListener {
+          goToDesignDetail.invoke(design.id)
+        }
+      }
     }
 
     private fun showDiscount() {

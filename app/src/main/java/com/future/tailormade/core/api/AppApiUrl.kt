@@ -14,10 +14,10 @@ object AppApiUrl {
   /**
    * Cart/Wishlist API url
    */
-  const val BASE_WISHLISTS_PATH = ApiUrl.API_PATH + "/wishlists"
-  const val WISHLISTS_ID_PATH = "$BASE_WISHLISTS_PATH{id}"
-  const val WISHLISTS_ID_EDIT_QUANTITY_PATH = "$WISHLISTS_ID_PATH/_edit-quantity"
-  const val WISHLISTS_ID_CHECKOUT_PATH = "$WISHLISTS_ID_PATH/_checkout"
+  const val USERS_ID_WISHLISTS_PATH = "${AuthApiUrl.BASE_USERS_PATH}/{userId}/wishlists"
+  const val USERS_ID_WISHLISTS_ID_PATH = "$USERS_ID_WISHLISTS_PATH{id}"
+  const val USERS_ID_WISHLISTS_ID_EDIT_QUANTITY_PATH = "$USERS_ID_WISHLISTS_ID_PATH/_edit-quantity"
+  const val USERS_ID_WISHLISTS_ID_CHECKOUT_PATH = "$USERS_ID_WISHLISTS_ID_PATH/_checkout"
 
   /**
    * Order API url

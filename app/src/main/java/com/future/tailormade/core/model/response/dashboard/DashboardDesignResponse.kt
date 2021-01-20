@@ -4,5 +4,4 @@ data class DashboardDesignResponse(
 
     val id: String,
 
-    val image: String
-)
+    val image: String)

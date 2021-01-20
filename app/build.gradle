@@ -60,8 +60,7 @@ android {
     }
 
     sourceSets {
-        androidTest.assets.srcDirs +=
-                files("$projectDir/schemas".toString())
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 
     testOptions {
@@ -69,7 +68,7 @@ android {
         unitTests.returnDefaultValues = true
     }
 
-    dynamicFeatures = [':features:tailormade_face_swap']
+//    dynamicFeatures = [':features:tailormade_face_swap']
 }
 
 dependencies {
@@ -96,6 +95,7 @@ dependencies {
     testImplementation test.junit
     testImplementation test.androidx_core
     testImplementation test.mockito
+    testImplementation test.mockito_kotlin
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
 
@@ -104,6 +104,9 @@ dependencies {
 
     // Glide
     kapt glide.kapt
+
+    // Coroutine
+    testImplementation coroutine.test
 
     // Dagger 2
     kapt dagger.kapt_processor
