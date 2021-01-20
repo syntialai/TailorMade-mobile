@@ -5,10 +5,10 @@ package org.opencv.features2d;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.opencv.core.Algorithm;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDMatch;
-import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.utils.Converters;
 
 // C++: class DescriptorMatcher

@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.debounceOnTextChanged
 import com.future.tailormade.util.extension.isPhoneNumberValid
@@ -23,6 +24,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class EditProfileFragment : BaseFragment() {
 
+  companion object {
+    fun newInstance() = EditProfileFragment()
+  }
+
   private val viewModel: EditProfileViewModel by viewModels()
 
   private var birthDate: Long = 0L
@@ -34,6 +39,8 @@ class EditProfileFragment : BaseFragment() {
       "com.future.tailormade_profile.feature.editProfile.view.EditProfileFragment"
 
   override fun getScreenName(): String = "Edit Profile"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
@@ -138,10 +145,5 @@ class EditProfileFragment : BaseFragment() {
     } else {
       setFormErrorMessage()
     }
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = EditProfileFragment()
   }
 }

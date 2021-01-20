@@ -3,9 +3,6 @@
 //
 package org.opencv.features2d;
 
-import org.opencv.features2d.Feature2D;
-import org.opencv.features2d.KAZE;
-
 // C++: class KAZE
 /**
  * Class implementing the KAZE keypoint detector and descriptor extractor, described in CITE: ABD12 .

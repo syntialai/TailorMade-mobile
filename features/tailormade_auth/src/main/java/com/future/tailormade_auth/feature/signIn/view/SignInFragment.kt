@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
@@ -18,6 +19,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class SignInFragment : BaseFragment() {
 
+  companion object {
+    fun newInstance() = SignInFragment()
+  }
+
   private lateinit var binding: FragmentSignInBinding
 
   private val viewModel: SignInViewModel by viewModels()
@@ -26,6 +31,8 @@ class SignInFragment : BaseFragment() {
       "com.future.tailormade_auth.feature.signIn.view.SignInFragment"
 
   override fun getScreenName(): String = "Sign In"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
@@ -81,11 +88,5 @@ class SignInFragment : BaseFragment() {
     } else {
       setFormErrorMessage()
     }
-  }
-
-  companion object {
-
-    @JvmStatic
-    fun newInstance() = SignInFragment()
   }
 }

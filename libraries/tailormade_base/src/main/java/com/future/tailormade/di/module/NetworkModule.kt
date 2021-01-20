@@ -1,6 +1,5 @@
 package com.future.tailormade.di.module
 
-import android.util.Log
 import com.future.tailormade.di.scope.FirebaseApi
 import com.future.tailormade.di.scope.OtherApi
 import com.future.tailormade.di.scope.TailormadeApi
@@ -8,12 +7,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Singleton
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)

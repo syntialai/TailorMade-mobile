@@ -10,11 +10,11 @@ ext {
       dagger                : "2.29.1",
       hilt                  : "2.29.1-alpha",
       hilt_viewmodel        : "1.0.0-alpha02",
-      paging                : "2.1.2",
+      paging                : "3.0.0",
       logger                : "4.7.1",
       room                  : "2.2.5",
       room_arch_persistence : "1.1.1",
-      coroutine             : "1.3.9-native-mt-2",
+      coroutine             : "1.4.2",
       glide                 : "4.11.0",
       gson                  : "2.8.6",
       retrofit              : "2.9.0",
@@ -24,13 +24,16 @@ ext {
       core                  : "1.3.2",
       recyclerview          : "1.1.0",
       recyclerview_selection: "1.1.0-rc03",
+      swipe_refresh_layout  : "1.1.0",
       legacy                : "1.0.0",
       firebase              : "26.0.0",
       osm                   : "6.1.8",
       play_core             : "1.9.0",
+      gms_location          : "17.0.0",
       test_junit            : "4.13",
       test_core             : "1.3.0",
       test_mockito          : "3.5.13",
+      test_mockito_kotlin   : "2.2.0",
       androidTest_junit     : "1.1.2",
       androidTest_espresso  : "3.3.0"
   ]
@@ -54,13 +57,15 @@ ext {
       fragment                            : "androidx.fragment:fragment-ktx:${versions.fragment}",
       recyclerview                        : "androidx.recyclerview:recyclerview:${versions.recyclerview}",
       recyclerview_selection              : "androidx.recyclerview:recyclerview-selection:${versions.recyclerview_selection}",
-      preferences                         : "androidx.preference:preference-ktx:${versions.preferences}"
+      preferences                         : "androidx.preference:preference-ktx:${versions.preferences}",
+      swipe_refresh_layout                : "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe_refresh_layout}"
   ]
 
   test = [
-      junit        : "junit:junit:${versions.test_junit}",
-      androidx_core: "androidx.test:core:${versions.test_core}",
-      mockito      : "org.mockito:mockito-core:${versions.test_mockito}"
+      junit         : "junit:junit:${versions.test_junit}",
+      androidx_core : "androidx.test:core:${versions.test_core}",
+      mockito       : "org.mockito:mockito-core:${versions.test_mockito}",
+      mockito_kotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.test_mockito_kotlin}"
   ]
 
   androidTest = [
@@ -97,7 +102,11 @@ ext {
       test                : "com.google.dagger:hilt-android-testing:${versions.hilt}"
   ]
 
-  coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}"
+  coroutine = [
+      core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutine}",
+      android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}",
+      test   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutine}"
+  ]
 
   room = [
       runtime                     : "androidx.room:room-runtime:${versions.room}",
@@ -130,4 +139,8 @@ ext {
   osm = "org.osmdroid:osmdroid-android:${versions.osm}"
 
   play_core = "com.google.android.play:core:${versions.play_core}"
+
+  gms = [
+      location: "com.google.android.gms:play-services-location:${versions.gms_location}"
+  ]
 }

@@ -3,9 +3,6 @@
 //
 package org.opencv.features2d;
 
-import org.opencv.features2d.Feature2D;
-import org.opencv.features2d.SimpleBlobDetector;
-
 // C++: class SimpleBlobDetector
 /**
  * Class for extracting blobs from an image. :

@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchTailorResultFragment : BaseFragment() {
 
   companion object {
-
     fun newInstance() = SearchTailorResultFragment()
   }
 
@@ -51,11 +50,7 @@ class SearchTailorResultFragment : BaseFragment() {
   }
 
   private fun hideNoDataState() {
-    with(binding) {
-      imageViewNoTailorDataState.remove()
-      textViewNoTailorDataState.remove()
-      textViewNoTailorDataDescriptionState.remove()
-    }
+    binding.groupSearchTailorState.remove()
   }
 
   private fun hideRecyclerView() {
@@ -85,16 +80,11 @@ class SearchTailorResultFragment : BaseFragment() {
   }
 
   private fun showFilterDialog() {
-    FilterTailorBottomSheetDialogFragment.newInstance().show(
-        parentFragmentManager, getScreenName())
+    FilterTailorBottomSheetDialogFragment.newInstance().show(parentFragmentManager, getScreenName())
   }
 
   private fun showNoDataState() {
-    with(binding) {
-      imageViewNoTailorDataState.show()
-      textViewNoTailorDataState.show()
-      textViewNoTailorDataDescriptionState.show()
-    }
+    binding.groupSearchTailorState.show()
     hideRecyclerView()
   }
 

@@ -3,11 +3,10 @@
 //
 package org.opencv.photo;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-import org.opencv.photo.AlignExposures;
 import org.opencv.utils.Converters;
 
 // C++: class AlignMTB

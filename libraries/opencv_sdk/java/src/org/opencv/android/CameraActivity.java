@@ -1,17 +1,14 @@
 package org.opencv.android;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.util.AttributeSet;
-import android.view.View;
+import static android.Manifest.permission.CAMERA;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.Manifest.permission.CAMERA;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
 
 public class CameraActivity extends Activity {
 

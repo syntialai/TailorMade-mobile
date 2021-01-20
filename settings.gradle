@@ -6,7 +6,7 @@ include ':features:tailormade_profile'
 include ':features:tailormade_search'
 include ':features:tailormade_chat'
 include ':features:tailormade_design_detail'
-include ':features:tailormade_face_swap'
+//include ':features:tailormade_face_swap'
 
 // Libraries
 include ':libraries:tailormade_base'

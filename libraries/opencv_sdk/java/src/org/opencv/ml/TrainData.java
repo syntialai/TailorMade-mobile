@@ -3,11 +3,9 @@
 //
 package org.opencv.ml;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import org.opencv.core.Mat;
-import org.opencv.ml.TrainData;
-import org.opencv.utils.Converters;
 
 // C++: class TrainData
 /**

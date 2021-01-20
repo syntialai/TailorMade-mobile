@@ -3,13 +3,8 @@
 //
 package org.opencv.core;
 
-import java.util.ArrayList;
 import java.util.List;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfDouble;
-import org.opencv.core.MatOfInt;
-import org.opencv.core.Scalar;
-import org.opencv.core.TermCriteria;
+
 import org.opencv.utils.Converters;
 
 // C++: class Core

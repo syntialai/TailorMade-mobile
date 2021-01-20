@@ -3,8 +3,8 @@
 //
 package org.opencv.dnn;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfFloat;
@@ -13,7 +13,6 @@ import org.opencv.core.MatOfRect2d;
 import org.opencv.core.MatOfRotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.dnn.Net;
 import org.opencv.utils.Converters;
 
 // C++: class Dnn

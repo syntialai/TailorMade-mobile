@@ -5,8 +5,6 @@ package org.opencv.ml;
 
 import org.opencv.core.Mat;
 import org.opencv.core.TermCriteria;
-import org.opencv.ml.DTrees;
-import org.opencv.ml.RTrees;
 
 // C++: class RTrees
 /**

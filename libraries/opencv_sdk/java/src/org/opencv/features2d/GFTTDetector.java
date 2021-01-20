@@ -3,9 +3,6 @@
 //
 package org.opencv.features2d;
 
-import org.opencv.features2d.Feature2D;
-import org.opencv.features2d.GFTTDetector;
-
 // C++: class GFTTDetector
 /**
  * Wrapping class for feature detection using the goodFeaturesToTrack function. :

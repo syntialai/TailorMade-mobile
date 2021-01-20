@@ -3,9 +3,6 @@
 //
 package org.opencv.features2d;
 
-import org.opencv.features2d.AgastFeatureDetector;
-import org.opencv.features2d.Feature2D;
-
 // C++: class AgastFeatureDetector
 /**
  * Wrapping class for feature detection using the AGAST method. :

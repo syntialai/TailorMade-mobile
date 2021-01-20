@@ -5,9 +5,6 @@ package org.opencv.ml;
 
 import org.opencv.core.Mat;
 import org.opencv.core.TermCriteria;
-import org.opencv.ml.ParamGrid;
-import org.opencv.ml.SVM;
-import org.opencv.ml.StatModel;
 
 // C++: class SVM
 /**

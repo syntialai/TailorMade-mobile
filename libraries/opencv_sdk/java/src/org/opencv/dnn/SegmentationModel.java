@@ -4,8 +4,6 @@
 package org.opencv.dnn;
 
 import org.opencv.core.Mat;
-import org.opencv.dnn.Model;
-import org.opencv.dnn.Net;
 
 // C++: class SegmentationModel
 /**

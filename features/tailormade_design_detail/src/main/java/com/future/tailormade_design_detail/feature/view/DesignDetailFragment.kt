@@ -23,6 +23,7 @@ import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBindi
 import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
 import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
 import com.future.tailormade_design_detail.feature.viewModel.DesignDetailViewModel
+import com.future.tailormade_router.actions.Action
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,9 +44,13 @@ class DesignDetailFragment : BaseFragment() {
 
   private lateinit var binding: FragmentDesignDetailBinding
 
-  override fun getLogName(): String = "com.future.tailormade_design_detail.feature.view.DesignDetailFragment"
+  override fun getLogName() = "com.future.tailormade_design_detail.feature.view.DesignDetailFragment"
 
   override fun getViewModel(): BaseViewModel = viewModel
+
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
@@ -60,7 +65,9 @@ class DesignDetailFragment : BaseFragment() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when(item.itemId) {
       R.id.item_search -> {
-        // TODO: Go to search
+        context?.let {
+          Action.goToSearch(it)
+        }
         true
       }
       else -> super.onOptionsItemSelected(item)
@@ -79,12 +86,21 @@ class DesignDetailFragment : BaseFragment() {
     }
 
     viewModel.designDetailUiModel.observe(viewLifecycleOwner, {
-      setupGeneralInfoLayout(it.title, it.tailorId, it.tailorName, it.image)
-      setupGeneralInfoPrice(it.price, it.discount)
-      setupChooseSizeChips(it.size)
-      setupChooseColorChips(it.color)
-      setupDescription(it.description)
+      it?.let { designDetailUiModel ->
+        setupGeneralInfoLayout(designDetailUiModel.id, designDetailUiModel.tailorId,
+            designDetailUiModel.tailorName, designDetailUiModel.image)
+        setupGeneralInfoPrice(designDetailUiModel.price, designDetailUiModel.discount)
+        setupChooseSizeChips(designDetailUiModel.size)
+        setupChooseColorChips(designDetailUiModel.color)
+        setupDescription(designDetailUiModel.description)
+      }
     })
+  }
+
+  private fun checkoutItem(id: String) {
+    context?.let {
+      Action.goToCheckout(it, id)
+    }
   }
 
   private fun getChooseSizeChip(index: Int, text: String): Chip {
@@ -126,8 +142,8 @@ class DesignDetailFragment : BaseFragment() {
   }
 
   private fun setupBottomNav() {
-    binding.bottomNavDesignDetail.setOnNavigationItemSelectedListener {
-      when(it.itemId) {
+    binding.bottomNavDesignDetail.setOnNavigationItemSelectedListener { item ->
+      when(item.itemId) {
         R.id.item_chat_tailor -> {
           // TODO: Go to chat
           true
@@ -137,7 +153,9 @@ class DesignDetailFragment : BaseFragment() {
           true
         }
         R.id.item_button_order_now -> {
-          // TODO: Go to checkout page
+          viewModel.designDetailUiModel.value?.id?.let {
+            checkoutItem(it)
+          }
           true
         }
         else -> false

@@ -3,9 +3,6 @@
 //
 package org.opencv.features2d;
 
-import org.opencv.features2d.Feature2D;
-import org.opencv.features2d.ORB;
-
 // C++: class ORB
 /**
  * Class implementing the ORB (*oriented BRIEF*) keypoint detector and descriptor extractor

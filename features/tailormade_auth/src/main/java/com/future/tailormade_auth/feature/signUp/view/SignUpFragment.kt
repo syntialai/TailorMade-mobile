@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.extension.toDateString
@@ -20,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignUpFragment : BaseFragment() {
 
   companion object {
-
     fun newInstance() = SignUpFragment()
   }
 
@@ -34,6 +34,8 @@ class SignUpFragment : BaseFragment() {
       "com.future.tailormade_auth.feature.signUp.view.SignUpFragment"
 
   override fun getScreenName(): String = "Sign Up"
+
+  override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {

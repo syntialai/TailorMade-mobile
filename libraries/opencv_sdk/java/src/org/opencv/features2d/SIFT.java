@@ -3,9 +3,6 @@
 //
 package org.opencv.features2d;
 
-import org.opencv.features2d.Feature2D;
-import org.opencv.features2d.SIFT;
-
 // C++: class SIFT
 /**
  * Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform

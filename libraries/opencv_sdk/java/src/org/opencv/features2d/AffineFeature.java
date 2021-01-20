@@ -3,13 +3,8 @@
 //
 package org.opencv.features2d;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfFloat;
-import org.opencv.features2d.AffineFeature;
-import org.opencv.features2d.Feature2D;
-import org.opencv.utils.Converters;
 
 // C++: class AffineFeature
 /**

@@ -5,7 +5,7 @@ package org.opencv.calib3d;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.opencv.calib3d.UsacParams;
+
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDouble;
 import org.opencv.core.MatOfPoint2f;

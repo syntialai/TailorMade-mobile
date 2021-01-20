@@ -3,12 +3,9 @@
 //
 package org.opencv.videoio;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.Size;
-import org.opencv.utils.Converters;
 
 // C++: class VideoWriter
 /**

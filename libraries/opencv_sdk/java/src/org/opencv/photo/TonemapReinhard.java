@@ -3,8 +3,6 @@
 //
 package org.opencv.photo;
 
-import org.opencv.photo.Tonemap;
-
 // C++: class TonemapReinhard
 /**
  * This is a global tonemapping operator that models human visual system.

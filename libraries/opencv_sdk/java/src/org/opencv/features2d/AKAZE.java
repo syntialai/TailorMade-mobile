@@ -3,9 +3,6 @@
 //
 package org.opencv.features2d;
 
-import org.opencv.features2d.AKAZE;
-import org.opencv.features2d.Feature2D;
-
 // C++: class AKAZE
 /**
  * Class implementing the AKAZE keypoint detector and descriptor extractor, described in CITE: ANB13.

@@ -3,8 +3,6 @@
 //
 package org.opencv.photo;
 
-import org.opencv.photo.Tonemap;
-
 // C++: class TonemapMantiuk
 /**
  * This algorithm transforms image to contrast using gradients on all levels of gaussian pyramid,

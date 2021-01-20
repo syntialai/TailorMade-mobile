@@ -12,6 +12,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FilterDesignBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
 
+  companion object {
+    fun newInstance() = FilterDesignBottomSheetDialogFragment()
+  }
+
   private lateinit var binding: FragmentFilterDesignBottomSheetDialogBinding
 
   override fun getScreenName(): String = "Filter Design Bottom Sheet Dialog Fragment"
@@ -49,11 +53,5 @@ class FilterDesignBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
   private fun applyFilter() {
     // TODO: Apply filter
     dismiss()
-  }
-
-  companion object {
-
-    @JvmStatic
-    fun newInstance() = FilterDesignBottomSheetDialogFragment()
   }
 }
