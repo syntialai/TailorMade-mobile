@@ -3,13 +3,13 @@ package com.future.tailormade.feature.history.viewModel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.core.model.ui.history.OrderUiModel
 import com.future.tailormade.core.repository.OrderRepository
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade.util.extension.orEmptyList
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart

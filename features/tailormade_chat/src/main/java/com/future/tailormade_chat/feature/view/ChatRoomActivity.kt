@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.util.extension.text
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.ChatRoom
 import com.future.tailormade_chat.databinding.ActivityChatRoomBinding

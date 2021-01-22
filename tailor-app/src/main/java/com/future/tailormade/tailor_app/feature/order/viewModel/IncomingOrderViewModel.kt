@@ -3,13 +3,13 @@ package com.future.tailormade.tailor_app.feature.order.viewModel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.core.model.enums.OrderStatus
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderUiModel
 import com.future.tailormade.tailor_app.core.repository.OrderRepository
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart

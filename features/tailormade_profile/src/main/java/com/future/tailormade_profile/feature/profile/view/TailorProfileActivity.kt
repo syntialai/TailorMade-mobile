@@ -2,9 +2,9 @@ package com.future.tailormade_profile.feature.profile.view
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
 import com.future.tailormade_profile.databinding.ActivityTailorProfileBinding

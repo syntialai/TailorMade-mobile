@@ -1,6 +1,6 @@
 package com.future.tailormade_chat.core.repository.impl
 
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade_chat.core.config.ReferenceConstants
 import com.future.tailormade_chat.core.model.entity.Chat
 import com.future.tailormade_chat.core.model.entity.ChatRoom

@@ -1,8 +1,8 @@
 package com.future.tailormade_chat.feature.viewModel
 
 import androidx.hilt.lifecycle.ViewModelInject
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_chat.core.repository.RealtimeDbRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.Query

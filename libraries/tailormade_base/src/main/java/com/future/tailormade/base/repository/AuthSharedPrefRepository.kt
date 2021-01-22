@@ -1,4 +1,4 @@
-package com.future.tailormade_auth.core.repository.impl
+package com.future.tailormade.base.repository
 
 import android.content.Context
 import android.content.SharedPreferences

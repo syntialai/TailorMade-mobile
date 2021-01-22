@@ -7,11 +7,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade.util.image.ImageHelper
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_design_detail.core.model.request.DesignColorRequest
 import com.future.tailormade_design_detail.core.model.request.DesignRequest
 import com.future.tailormade_design_detail.core.model.request.DesignSizeDetailRequest
