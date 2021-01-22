@@ -13,6 +13,7 @@ import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.extension.text
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
+import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -55,9 +56,21 @@ class SignInFragment : BaseFragment() {
     return binding.root
   }
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
     hideToolbar()
+    viewModel.userInfo.observe(viewLifecycleOwner, {
+      it?.let {
+        goToMain()
+      }
+    })
+  }
+
+  private fun goToMain() {
+    context?.let {
+      UserAction.goToMain(it)
+    }
   }
 
   private fun isFormValid(email: String, password: String): Boolean =

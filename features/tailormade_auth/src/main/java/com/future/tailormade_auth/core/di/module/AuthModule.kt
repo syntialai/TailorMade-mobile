@@ -2,7 +2,9 @@ package com.future.tailormade_auth.core.di.module
 
 import com.future.tailormade.di.module.NetworkModule
 import com.future.tailormade.di.scope.FirebaseApi
+import com.future.tailormade.di.scope.TailormadeApi
 import com.future.tailormade.di.scope.TailormadeLoginApi
+import com.future.tailormade_auth.core.service.AuthLoginService
 import com.future.tailormade_auth.core.service.AuthService
 import com.future.tailormade_auth.core.service.FirebaseAuthService
 import dagger.Module
@@ -16,7 +18,12 @@ import retrofit2.Retrofit
 class AuthModule {
 
   @Provides
-  fun provideAuthService(@TailormadeLoginApi retrofit: Retrofit): AuthService {
+  fun provideAuthLoginService(@TailormadeLoginApi retrofit: Retrofit): AuthLoginService {
+    return retrofit.create(AuthLoginService::class.java)
+  }
+
+  @Provides
+  fun provideAuthService(@TailormadeApi retrofit: Retrofit): AuthService {
     return retrofit.create(AuthService::class.java)
   }
 

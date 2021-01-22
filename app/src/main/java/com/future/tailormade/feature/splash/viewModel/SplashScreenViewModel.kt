@@ -8,7 +8,7 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.repository.AuthRepository
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 class SplashScreenViewModel @ViewModelInject constructor(
     private val authRepository: AuthRepository,
@@ -21,27 +21,19 @@ class SplashScreenViewModel @ViewModelInject constructor(
   val isTokenExpired: LiveData<Boolean>
     get() = _isTokenExpired
 
-  init {
-    with(authSharedPrefRepository) {
-      refreshToken = "Refresh token"
-      name = "Syntia"
-      userId = "USER-ID"
-    }
-  }
-
   fun validateToken() {
     launchViewModelScope {
       authSharedPrefRepository.refreshToken?.let { refreshToken ->
         val refreshTokenRequest = RefreshTokenRequest(refreshToken)
         authRepository.refreshToken(refreshTokenRequest).onError {
           _isTokenExpired.value = true
-        }.collect {
+        }.collectLatest { token ->
           _isTokenExpired.value = false
-          it.data?.token?.let { token ->
-            authSharedPrefRepository.refreshToken = token.refresh
-            authSharedPrefRepository.accessToken = token.access
-          }
+          authSharedPrefRepository.refreshToken = token.refresh
+          authSharedPrefRepository.accessToken = token.access
         }
+      } ?: run {
+        _isTokenExpired.value = true
       }
     }
   }

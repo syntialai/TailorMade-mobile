@@ -5,33 +5,50 @@ import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
-import com.future.tailormade_auth.core.model.response.ActivateTailorResponse
 import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.model.response.TokenResponse
+import com.future.tailormade_auth.core.model.response.UserResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
+import com.future.tailormade_auth.core.service.AuthLoginService
 import com.future.tailormade_auth.core.service.AuthService
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class AuthRepositoryImpl @Inject constructor(private var authService: AuthService) :
+class AuthRepositoryImpl @Inject constructor(private val authService: AuthService,
+    private val authLoginService: AuthLoginService) :
     AuthRepository {
 
-  override suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest) = flow {
-//    emit(authService.refreshToken(refreshTokenRequest))
-    emit(getTokenResponse())
+  override suspend fun refreshToken(
+      refreshTokenRequest: RefreshTokenRequest): Flow<TokenDetailResponse> = flow {
+    authService.refreshToken(refreshTokenRequest).data?.token?.let {
+      emit(it)
+    }
+//    emit(getTokenResponse())
   }.flowOnIO()
 
-  override suspend fun activateTailor(): Flow<BaseSingleObjectResponse<ActivateTailorResponse>> = flow {
-    emit(authService.activateTailor())
+  override suspend fun activateTailor() = flow {
+    authService.activateTailor().data?.let {
+      emit(it)
+    }
   }.flowOnIO()
 
-  override suspend fun signIn(signInRequest: SignInRequest) = flow {
-    emit(authService.signIn(signInRequest))
+  override suspend fun getUserInfo(): Flow<UserResponse> = flow {
+    authService.getUserInfo().data?.let {
+      emit(it)
+    }
+  }
+
+  override suspend fun signIn(signInRequest: SignInRequest): Flow<TokenDetailResponse> = flow {
+    authLoginService.signIn(signInRequest).data?.token?.let {
+      emit(it)
+    }
   }.flowOnIO()
 
   override suspend fun signUp(signUpRequest: SignUpRequest) = flow {
-    emit(authService.signUp(signUpRequest))
+    authLoginService.signUp(signUpRequest).data?.let {
+      emit(it)
+    }
   }.flowOnIO()
 
   private fun getTokenResponse() = BaseSingleObjectResponse(

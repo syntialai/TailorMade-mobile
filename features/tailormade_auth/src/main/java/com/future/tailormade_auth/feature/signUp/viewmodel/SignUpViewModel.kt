@@ -6,7 +6,6 @@ import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
-import com.future.tailormade.util.extension.flowOnIOwithLoadingDialog
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
@@ -14,7 +13,7 @@ import com.future.tailormade_auth.core.model.response.UserResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 
 class SignUpViewModel @ViewModelInject constructor(
@@ -23,10 +22,18 @@ class SignUpViewModel @ViewModelInject constructor(
   @Assisted private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
+  companion object {
+    private const val SIGN_UP_REQUEST = "SIGN_UP_REQUEST"
+  }
+
   override fun getLogName(): String =
     "com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel"
 
   private var signUpRequest: SignUpRequest? = null
+
+  init {
+    signUpRequest = savedStateHandle.get(SIGN_UP_REQUEST)
+  }
 
   private fun getSignInInfo() = SignInRequest(
     signUpRequest?.email.orEmpty(),
@@ -55,10 +62,8 @@ class SignUpViewModel @ViewModelInject constructor(
     launchViewModelScope {
       authRepository.activateTailor().onError { error ->
         appLogger.logOnError(error.message.orEmpty(), error)
-      }.collect { response ->
-        response.data?.let {
-          authSharedPrefRepository.userRole = it.role ?: 0
-        }
+      }.collectLatest {
+        authSharedPrefRepository.userRole = it.role ?: 0
       }
     }
   }
@@ -68,19 +73,16 @@ class SignUpViewModel @ViewModelInject constructor(
   fun signUp() {
     launchViewModelScope {
       signUpRequest?.let { request ->
-        authRepository.signUp(request).flowOnIOwithLoadingDialog(this).onError { error ->
-          appLogger.logOnError(error.message.orEmpty(), error)
-          _errorMessage.value = Constants.SIGN_UP_ERROR
+        authRepository.signUp(request).onError {
+          setErrorMessage(Constants.SIGN_UP_ERROR)
         }.flatMapLatest { response ->
-          response.data?.let { saveUserData(it) }
+          saveUserData(response)
           authRepository.signIn(getSignInInfo())
         }.onError { error ->
           appLogger.logOnError(error.message.orEmpty(), error)
-        }.collect { response ->
-          response.data?.let {
-            authSharedPrefRepository.accessToken = it.token?.access.orEmpty()
-            authSharedPrefRepository.refreshToken = it.token?.refresh.orEmpty()
-          }
+        }.collectLatest { token ->
+          authSharedPrefRepository.accessToken = token.access
+          authSharedPrefRepository.refreshToken = token.refresh
         }
       }
     }
