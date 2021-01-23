@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment(), MainDashboardView, View.OnClickListener {
+class DashboardFragment : BaseFragment(), MainDashboardView {
 
   companion object {
     fun newInstance() = DashboardFragment()
@@ -59,17 +59,12 @@ class DashboardFragment : BaseFragment(), MainDashboardView, View.OnClickListene
     (activity as MainActivity).injectMainDashboardView(this)
 
     binding = FragmentDashboardBinding.inflate(inflater, container, false)
+    binding.buttonAddDesign.setOnClickListener {
+      goToDesignDetail()
+    }
     setupRecyclerView()
     setupSwipeRefreshLayout()
     return binding.root
-  }
-
-  override fun onClick(view: View?) {
-    with(binding) {
-      when(view) {
-        buttonAddDesign -> goToDesignDetail()
-      }
-    }
   }
 
   @ExperimentalCoroutinesApi

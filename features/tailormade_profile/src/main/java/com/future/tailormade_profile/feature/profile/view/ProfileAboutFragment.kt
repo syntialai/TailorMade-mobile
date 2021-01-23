@@ -17,7 +17,7 @@ import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileAboutFragment : BaseFragment(), View.OnClickListener {
+class ProfileAboutFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = ProfileAboutFragment()
@@ -34,13 +34,10 @@ class ProfileAboutFragment : BaseFragment(), View.OnClickListener {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentProfileAboutBinding.inflate(inflater, container, false)
-    return binding.root
-  }
-
-  override fun onClick(view: View?) {
-    when(view) {
-      binding.textViewEditAbout -> goToEditProfileAbout()
+    binding.textViewEditAbout.setOnClickListener {
+      goToEditProfileAbout()
     }
+    return binding.root
   }
 
   override fun setupFragmentObserver() {

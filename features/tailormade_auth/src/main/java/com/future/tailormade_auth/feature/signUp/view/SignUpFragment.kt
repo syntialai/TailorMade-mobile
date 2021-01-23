@@ -19,7 +19,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment(), View.OnClickListener {
+class SignUpFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = SignUpFragment()
@@ -42,22 +42,20 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
       savedInstanceState: Bundle?): View {
     setupDatePicker()
     binding = FragmentSignUpBinding.inflate(inflater, container, false)
-    binding.textInputBirthDateSignUp.setEndIconOnClickListener {
-      showDatePicker()
-    }
-    return binding.root
-  }
-
-  override fun onClick(view: View?) {
     with(binding) {
-      when (view) {
-        buttonSubmitForm -> submitForm(editTextNameSignUp.text(), editTextEmailSignUp.text(),
+      textInputBirthDateSignUp.setEndIconOnClickListener {
+        showDatePicker()
+      }
+      buttonSubmitForm.setOnClickListener {
+        submitForm(editTextNameSignUp.text(), editTextEmailSignUp.text(),
             editTextBirthDateSignUp.text(), editTextPasswordSignUp.text(),
             editTextConfirmPasswordSignUp.text())
-        buttonGoToSignIn -> findNavController().navigateUp()
-        else -> null
+      }
+      buttonGoToSignIn.setOnClickListener {
+        findNavController().navigateUp()
       }
     }
+    return binding.root
   }
 
   override fun setupFragmentObserver() {

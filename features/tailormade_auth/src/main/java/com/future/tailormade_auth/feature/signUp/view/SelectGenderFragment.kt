@@ -18,7 +18,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
-class SelectGenderFragment : BaseFragment(), View.OnClickListener {
+class SelectGenderFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = SelectGenderFragment()
@@ -38,18 +38,13 @@ class SelectGenderFragment : BaseFragment(), View.OnClickListener {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentSelectGenderBinding.inflate(inflater, container, false)
-    setupRadioButton()
-    return binding.root
-  }
-
-  @ExperimentalCoroutinesApi
-  @InternalCoroutinesApi
-  override fun onClick(view: View?) {
     with(binding) {
-      when(view) {
-        buttonSubmitGender -> submitGender(radioGroupSelectGender.checkedRadioButtonId)
+      buttonSubmitGender.setOnClickListener {
+        submitGender(radioGroupSelectGender.checkedRadioButtonId)
       }
     }
+    setupRadioButton()
+    return binding.root
   }
 
   override fun setupFragmentObserver() {

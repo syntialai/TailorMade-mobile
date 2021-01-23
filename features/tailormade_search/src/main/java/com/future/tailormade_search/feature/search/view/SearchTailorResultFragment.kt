@@ -18,7 +18,7 @@ import com.future.tailormade_search.feature.search.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchTailorResultFragment : BaseFragment(), View.OnClickListener {
+class SearchTailorResultFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = SearchTailorResultFragment()
@@ -41,16 +41,11 @@ class SearchTailorResultFragment : BaseFragment(), View.OnClickListener {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentSearchTailorResultBinding.inflate(inflater, container, false)
+    binding.groupSortAndFilter.chipFilter.setOnClickListener {
+      showFilterDialog()
+    }
     setupRecyclerView()
     return binding.root
-  }
-
-  override fun onClick(view: View?) {
-    with(binding) {
-      when(view) {
-        groupSortAndFilter.chipFilter -> showFilterDialog()
-      }
-    }
   }
 
   override fun setupFragmentObserver() {

@@ -19,7 +19,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
-class SignInFragment : BaseFragment(), View.OnClickListener {
+class SignInFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = SignInFragment()
@@ -41,20 +41,16 @@ class SignInFragment : BaseFragment(), View.OnClickListener {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentSignInBinding.inflate(inflater, container, false)
-    return binding.root
-  }
-
-  @ExperimentalCoroutinesApi
-  @InternalCoroutinesApi
-  override fun onClick(view: View?) {
     with(binding) {
-      when (view) {
-        buttonSignIn -> submitEmailAndPassword(editTextEmailSignIn.text(),
-            editTextPasswordSignIn.text())
-        buttonGoToSignUp -> findNavController().navigate(
+      buttonSignIn.setOnClickListener {
+        submitEmailAndPassword(editTextEmailSignIn.text(), editTextPasswordSignIn.text())
+      }
+      buttonGoToSignUp.setOnClickListener {
+        findNavController().navigate(
             SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
       }
     }
+    return binding.root
   }
 
   override fun setupFragmentObserver() {

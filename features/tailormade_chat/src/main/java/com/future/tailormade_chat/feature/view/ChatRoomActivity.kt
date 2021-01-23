@@ -2,7 +2,6 @@ package com.future.tailormade_chat.feature.view
 
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ChatRoomActivity : BaseActivity(), View.OnClickListener {
+class ChatRoomActivity : BaseActivity() {
 
   companion object {
     private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
@@ -67,18 +66,14 @@ class ChatRoomActivity : BaseActivity(), View.OnClickListener {
     setupOnNavigationIconClicked {
       finish()
     }
+    with(binding.layoutInputTextChatRoom) {
+      buttonSendMessage.setOnClickListener {
+        sendMessage(editTextMessageChatRoom.text())
+      }
+    }
     setupRecyclerView()
     getIntentData()
     setupObserver()
-  }
-
-  @RequiresApi(Build.VERSION_CODES.O)
-  override fun onClick(view: View?) {
-    with(binding.layoutInputTextChatRoom) {
-      when(view) {
-        buttonSendMessage -> sendMessage(editTextMessageChatRoom.text())
-      }
-    }
   }
 
   private fun getIntentData() {
