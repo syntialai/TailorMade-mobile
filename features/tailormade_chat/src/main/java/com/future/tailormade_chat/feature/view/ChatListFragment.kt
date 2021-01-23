@@ -48,7 +48,7 @@ class ChatListFragment : BaseFragment() {
         val userChatSession = snapshot.getValue(UserChatSession::class.java)
         userChatSession?.sessions?.let {
           Log.d("USERcHAT", it.toString())
-          adapter.submitList(it.toList())
+          chatListAdapter.submitList(it.toList())
           showRecyclerView()
         } ?: run {
           showEmptyState()
@@ -68,7 +68,7 @@ class ChatListFragment : BaseFragment() {
       }
     }
   }
-  private val adapter by lazy {
+  private val chatListAdapter by lazy {
     ChatListAdapter(this::openChatRoom)
   }
 
@@ -82,9 +82,9 @@ class ChatListFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentChatListBinding.inflate(inflater, container, false)
 
-    with(binding) {
-      recyclerViewChatList.layoutManager = LinearLayoutManager(context)
-      recyclerViewChatList.adapter = adapter
+    with(binding.recyclerViewChatList) {
+      layoutManager = LinearLayoutManager(context)
+      adapter = chatListAdapter
     }
 
     setupListener()
@@ -116,7 +116,7 @@ class ChatListFragment : BaseFragment() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
           val position = viewHolder.adapterPosition
-          val item = adapter.currentList[position]
+          val item = chatListAdapter.currentList[position]
 
           with(item.second) {
             userId?.let { id ->
@@ -134,7 +134,7 @@ class ChatListFragment : BaseFragment() {
 
   private fun removeData(userChatId: String, position: Int) {
     viewModel.deleteSessionByUserChatSession(userChatId)?.addOnSuccessListener {
-      adapter.notifyItemRemoved(position)
+      chatListAdapter.notifyItemRemoved(position)
     }?.addOnFailureListener {
       viewModel.setErrorMessage(getString(R.string.delete_chat_error_message))
     }

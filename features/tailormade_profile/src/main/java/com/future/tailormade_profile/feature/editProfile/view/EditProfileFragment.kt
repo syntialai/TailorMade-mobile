@@ -79,17 +79,18 @@ class EditProfileFragment : BaseFragment() {
   private fun setFormErrorMessage() {
     with(binding) {
       textInputNameEditProfile.error = when {
-        editTextNameEditProfile.text().isBlank() -> Constants.NAME_IS_EMPTY
+        editTextNameEditProfile.text().isBlank() -> getString(R.string.name_is_empty)
         else -> null
       }
 
       textInputPhoneNumberEditProfile.error = when {
-        editTextPhoneNumberEditProfile.text().isPhoneNumberValid().not() -> Constants.PHONE_NUMBER_IS_NOT_VALID
+        editTextPhoneNumberEditProfile.text().isPhoneNumberValid().not() -> getString(
+            R.string.phone_number_invalid)
         else -> null
       }
 
       textInputBirthDateEditProfile.error = when {
-        editTextBirthDateEditProfile.text().isBlank() -> Constants.BIRTH_DATE_IS_NOT_SET
+        editTextBirthDateEditProfile.text().isBlank() -> getString(R.string.birth_date_is_not_set)
         else -> null
       }
     }

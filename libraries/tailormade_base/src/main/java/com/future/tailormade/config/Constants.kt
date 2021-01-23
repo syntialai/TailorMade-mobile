@@ -18,8 +18,6 @@ object Constants {
   const val TYPE_IMAGE_JPEG = "image/jpeg"
   const val TYPE_IMAGE_PNG = "image/png"
   const val MESSAGES_TYPE_TEXT = "TEXT"
-  const val TYPE_ABOUT = "ABOUT"
-  const val TYPE_PROFILE = "PROFILE"
   const val STATUS_ACCEPTED = "Accepted"
   const val STATUS_REJECTED = "Rejected"
 
@@ -34,24 +32,10 @@ object Constants {
   /**
    * Error messages
    */
-  private const val FAILED_TO = "Failed to"
   private const val IS_EMPTY = "is empty"
-  private const val IS_NOT_VALID = "is not valid"
 
-  const val PHONE_NUMBER_IS_EMPTY = "Phone number $IS_EMPTY"
-  const val PHONE_NUMBER_IS_NOT_VALID = "Phone number $IS_NOT_VALID"
-  const val VERIFICATION_CODE_IS_WRONG = "Verification code is wrong"
   const val SIGN_UP_ERROR = "Failed to sign up!"
   const val SIGN_IN_ERROR = "Please check your email and/or password!"
-  const val NAME_IS_EMPTY = "Name $IS_EMPTY"
-  const val EMAIL_IS_EMPTY = "Email $IS_EMPTY"
-  const val EMAIL_IS_NOT_VALID = "Email $IS_NOT_VALID"
-  const val BIRTH_DATE_IS_NOT_SET = "Birth date is not set"
-  const val PASSWORD_IS_EMPTY = "Password $IS_EMPTY"
-  const val PASSWORD_IS_NOT_VALID = "Password length should be more than 7 characters"
-  const val CONFIRM_PASSWORD_IS_EMPTY = "Confirm password $IS_EMPTY"
-  const val CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD = "Confirm password must be same with password"
-  const val FAILED_TO_UPDATE_DESIGN = "$FAILED_TO update design"
   const val COLOR_NAME_IS_EMPTY = "Color Name $IS_EMPTY"
   const val SIZE_NAME_IS_EMPTY = "Size Name $IS_EMPTY"
   const val CHEST_SIZE_IS_EMPTY = "Chest Size $IS_EMPTY"
@@ -87,14 +71,14 @@ object Constants {
   fun generateFailedFetchError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
       "get", objectToFetch, isNotData)
 
-  private fun generateFailedUpdateError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
+  fun generateFailedUpdateError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
       "update", objectToFetch, isNotData)
 
-  private fun generateFailedDeleteError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
+  fun generateFailedDeleteError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
       "delete", objectToFetch, isNotData)
 
   private fun generateFailedError(method: String,
-      objectToFetch: String, isNotData: Boolean? = null) = "$FAILED_TO $method $objectToFetch${
+      objectToFetch: String, isNotData: Boolean? = null) = "Failed to $method $objectToFetch${
     isNotData?.let {
       ""
     } ?: run {

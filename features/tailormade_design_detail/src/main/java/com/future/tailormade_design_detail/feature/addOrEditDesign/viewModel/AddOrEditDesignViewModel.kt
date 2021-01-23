@@ -63,7 +63,7 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
             getDesignRequest(title, price, discount, description)).onStart {
           setStartLoading()
         }.onError {
-          setErrorMessage(Constants.FAILED_TO_UPDATE_DESIGN)
+          setErrorMessage(Constants.generateFailedUpdateError("design"))
           setFinishLoading()
         }.collectLatest {
           // TODO: update
@@ -80,7 +80,7 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
             getDesignRequest(title, price, discount, description)).onStart {
           setStartLoading()
         }.onError {
-          setErrorMessage(Constants.FAILED_TO_UPDATE_DESIGN)
+          setErrorMessage(Constants.generateFailedUpdateError("design"))
           setFinishLoading()
         }.collectLatest {
           // TODO: update

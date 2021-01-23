@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.entity.Education
@@ -18,7 +17,7 @@ import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileAboutFragment : BaseFragment() {
+class ProfileAboutFragment : BaseFragment(), View.OnClickListener {
 
   companion object {
     fun newInstance() = ProfileAboutFragment()
@@ -35,16 +34,13 @@ class ProfileAboutFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentProfileAboutBinding.inflate(inflater, container, false)
-
-    with(binding) {
-      textViewEditAbout.setOnClickListener {
-        context?.let {
-          Action.goToEditProfile(it, Constants.TYPE_ABOUT)
-        }
-      }
-    }
-
     return binding.root
+  }
+
+  override fun onClick(view: View?) {
+    when(view) {
+      binding.textViewEditAbout -> goToEditProfileAbout()
+    }
   }
 
   override fun setupFragmentObserver() {
@@ -67,6 +63,12 @@ class ProfileAboutFragment : BaseFragment() {
         }
       }
     })
+  }
+
+  private fun goToEditProfileAbout() {
+    context?.let {
+      Action.goToEditProfile(it, getString(R.string.type_about))
+    }
   }
 
   private fun setAddressData(address: String) {

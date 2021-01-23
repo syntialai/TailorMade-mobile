@@ -8,9 +8,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
 import com.future.tailormade.util.extension.text
+import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import com.future.tailormade_router.actions.UserAction
@@ -80,13 +80,13 @@ class SignInFragment : BaseFragment(), View.OnClickListener {
   private fun setFormErrorMessage() {
     with(binding) {
       textInputEmailSignIn.error = when {
-        editTextEmailSignIn.text().isBlank() -> Constants.EMAIL_IS_EMPTY
-        editTextEmailSignIn.text().isEmailValid().not() -> Constants.EMAIL_IS_NOT_VALID
+        editTextEmailSignIn.text().isBlank() -> getString(R.string.email_is_empty)
+        editTextEmailSignIn.text().isEmailValid().not() -> getString(R.string.email_is_invalid)
         else -> null
       }
 
       textInputPasswordSignIn.error = when {
-        editTextPasswordSignIn.text().isBlank() -> Constants.PASSWORD_IS_EMPTY
+        editTextPasswordSignIn.text().isBlank() -> getString(R.string.password_is_empty)
         else -> null
       }
     }

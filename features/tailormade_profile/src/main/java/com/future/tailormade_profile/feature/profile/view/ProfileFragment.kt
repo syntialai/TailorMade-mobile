@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.config.Constants
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentProfileBinding
 import com.future.tailormade_profile.databinding.LayoutCardProfileWithEditBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
@@ -66,7 +66,7 @@ class ProfileFragment : BaseFragment() {
 
   private fun goToEditProfile() {
     context?.let {
-      Action.goToEditProfile(it, Constants.TYPE_PROFILE)
+      Action.goToEditProfile(it, getString(R.string.type_profile))
     }
   }
 

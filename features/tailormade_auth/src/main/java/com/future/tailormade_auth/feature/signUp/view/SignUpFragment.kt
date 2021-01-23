@@ -75,30 +75,32 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
   private fun setFormErrorMessage() {
     with(binding) {
       textInputNameSignUp.error = when {
-        editTextNameSignUp.text().isBlank() -> Constants.NAME_IS_EMPTY
+        editTextNameSignUp.text().isBlank() -> getString(R.string.name_is_empty)
         else -> null
       }
 
       textInputEmailSignUp.error = when {
-        editTextEmailSignUp.text().isBlank() -> Constants.EMAIL_IS_EMPTY
-        editTextEmailSignUp.text().isEmailValid().not() -> Constants.EMAIL_IS_NOT_VALID
+        editTextEmailSignUp.text().isBlank() -> getString(R.string.email_is_empty)
+        editTextEmailSignUp.text().isEmailValid().not() -> getString(R.string.email_is_invalid)
         else -> null
       }
 
       textInputBirthDateSignUp.error = when {
-        editTextBirthDateSignUp.text().isBlank() -> Constants.BIRTH_DATE_IS_NOT_SET
+        editTextBirthDateSignUp.text().isBlank() -> getString(R.string.birth_date_is_not_set)
         else -> null
       }
 
       textInputPasswordSignUp.error = when {
-        editTextPasswordSignUp.text().isBlank() -> Constants.PASSWORD_IS_EMPTY
-        editTextPasswordSignUp.text().length <= 8 -> Constants.PASSWORD_IS_NOT_VALID
+        editTextPasswordSignUp.text().isBlank() -> getString(R.string.password_is_empty)
+        editTextPasswordSignUp.text().length <= 8 -> getString(R.string.password_is_invalid)
         else -> null
       }
 
       textInputConfirmPasswordSignUp.error = when {
-        editTextConfirmPasswordSignUp.text().isBlank() -> Constants.CONFIRM_PASSWORD_IS_EMPTY
-        editTextConfirmPasswordSignUp.text() != editTextPasswordSignUp.text() -> Constants.CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD
+        editTextConfirmPasswordSignUp.text().isBlank() -> getString(
+            R.string.confirm_password_is_empty)
+        editTextConfirmPasswordSignUp.text() != editTextPasswordSignUp.text() -> getString(
+            R.string.confirm_password_must_same)
         else -> null
       }
     }

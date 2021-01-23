@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.future.tailormade.base.view.BaseActivity
-import com.future.tailormade.config.Constants
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.ActivityEditProfileBinding
 import com.future.tailormade_profile.feature.editAbout.view.EditAboutFragmentDirections
@@ -33,11 +32,11 @@ class EditProfileActivity : BaseActivity() {
     }
     setupToolbar(getScreenName())
     setupNavController()
-    intent.getStringExtra(PARAM_EDIT_PROFILE_TYPE)?.let {
-      when (it) {
-        Constants.TYPE_PROFILE -> navController.navigate(
+    intent.getStringExtra(PARAM_EDIT_PROFILE_TYPE)?.let { type ->
+      when (type) {
+        getString(R.string.type_profile) -> navController.navigate(
             EditProfileFragmentDirections.actionGlobalEditProfileFragment())
-        Constants.TYPE_ABOUT -> {
+        getString(R.string.type_about) -> {
           navController.popBackStack()
           navController.navigate(EditAboutFragmentDirections.actionGlobalEditAboutFragment())
         }
