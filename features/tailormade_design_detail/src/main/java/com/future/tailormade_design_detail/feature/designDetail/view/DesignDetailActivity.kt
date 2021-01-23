@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DesignDetailActivity : BaseActivity() {
 
   companion object {
-    private const val PARAM_DESIGN_DETAIL_ID = "DESIGN_DETAIL_ID"
+    private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
   }
 
   private lateinit var binding: ActivityDesignDetailBinding
@@ -25,6 +25,7 @@ class DesignDetailActivity : BaseActivity() {
     binding = ActivityDesignDetailBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarDesignDetail
     setContentView(binding.root)
+    setSupportActionBar(toolbar)
 
     designDetailId = intent?.getStringExtra(PARAM_DESIGN_DETAIL_ID).orEmpty()
     if (designDetailId.isBlank()) {

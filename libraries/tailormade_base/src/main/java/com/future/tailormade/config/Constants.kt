@@ -10,9 +10,24 @@ object Constants {
   const val MIN_QUERY_SEARCH_LENGTH = 3
   const val INITIAL_PAGING_PAGE = 1
   const val INITIAL_PAGING_ITEM_PER_PAGE = 10
+  const val INDONESIA_TIME_ZONE = "Asia/Jakarta"
+  const val COMPRESS_IMAGE_QUALITY = 100
   const val TYPE_IMAGE_ALL = "image/*"
+  const val TYPE_IMAGE_JPEG = "image/jpeg"
+  const val TYPE_IMAGE_PNG = "image/png"
+  const val MESSAGES_TYPE_TEXT = "TEXT"
+  const val TYPE_ABOUT = "ABOUT"
+  const val TYPE_PROFILE = "PROFILE"
   const val STATUS_ACCEPTED = "accepted"
   const val STATUS_REJECTED = "rejected"
+
+  /*
+   * Date Patterns
+   */
+  const val DD_MMMM_YYYY = "dd MMMM yyyy"
+  const val DD_MMM_YYYY = "dd MMM yyyy"
+  const val HH_MM = "hh:mm"
+  const val DD_MMMM_YYYY_HH_MM_SS = "dd MMMM yyyy, hh:mm:ss"
 
   /**
    * Error messages
@@ -34,8 +49,14 @@ object Constants {
   const val PASSWORD_IS_NOT_VALID = "Password length should be more than 7 characters"
   const val CONFIRM_PASSWORD_IS_EMPTY = "Confirm password $IS_EMPTY"
   const val CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD = "Confirm password must be same with password"
-  const val FAILED_TO_GET_PROFILE_INFO = "$FAILED_TO get profile info"
-  const val FAILED_TO_UPDATE_PROFILE = "$FAILED_TO update profile"
+
+  val FAILED_TO_GET_PROFILE_INFO = generateFailedFetchError("profile info")
+  val FAILED_TO_UPDATE_PROFILE = generateFailedUpdateError("profile")
+  val FAILED_TO_GET_YOUR_CART_ITEM = generateFailedFetchError("your cart item", true)
+  val FAILED_TO_UPDATE_YOUR_CART_ITEM = generateFailedUpdateError("your cart item", true)
+  val FAILED_TO_GET_CHECKOUT_DATA = generateFailedFetchError("checkout")
+  val FAILED_TO_CHECKOUT_ITEM = generateFailedError("checkout", "item", true)
+  val FAILED_TO_DELETE_CART_ITEM = generateFailedDeleteError("your cart item", true)
   const val FAILED_TO_UPDATE_DESIGN = "$FAILED_TO update design"
   const val COLOR_NAME_IS_EMPTY = "Color Name $IS_EMPTY"
   const val SIZE_NAME_IS_EMPTY = "Size Name $IS_EMPTY"
@@ -58,16 +79,21 @@ object Constants {
   const val FAILED_TO_FETCH_RECENT_ORDER = "Failed to fetch recent orders. Please try again later."
   const val FAILED_TO_FETCH_ORDER_DETAIL = "Failed to fetch order detail. Please try again later."
 
-  const val MESSAGES_TYPE_TEXT = "TEXT"
+  fun generateFailedFetchError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
+      "get", objectToFetch, isNotData)
 
-  /*
-   * Date Patterns
-   */
-  const val DD_MMMM_YYYY_HH_MM_SS = "dd MMMM yyyy, hh:mm:ss"
-  const val DD_MMMM_YYYY = "dd MMMM yyyy"
-  const val DD_MMM_YYYY = "dd MMM yyyy"
-  const val HH_MM = "hh:mm"
+  private fun generateFailedUpdateError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
+      "update", objectToFetch, isNotData)
 
-  fun generateDeleteErrorMessage(
-      category: String, id: String) = "$FAILED_TO delete $category with id $id"
+  private fun generateFailedDeleteError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
+      "delete", objectToFetch, isNotData)
+
+  private fun generateFailedError(method: String,
+      objectToFetch: String, isNotData: Boolean? = null) = "$FAILED_TO $method $objectToFetch${
+    isNotData?.let {
+      ""
+    } ?: run {
+      " data"
+    }
+  }. Please try again."
 }

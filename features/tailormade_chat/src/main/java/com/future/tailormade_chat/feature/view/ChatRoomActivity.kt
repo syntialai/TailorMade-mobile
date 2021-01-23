@@ -63,6 +63,10 @@ class ChatRoomActivity : BaseActivity() {
     }
 
     setContentView(binding.root)
+    setSupportActionBar(toolbar)
+    setupOnNavigationIconClicked {
+      finish()
+    }
 
     getIntentData()
     setupObserver()

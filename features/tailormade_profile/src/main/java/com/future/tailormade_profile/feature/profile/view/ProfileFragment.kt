@@ -7,12 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade_profile.databinding.LayoutCardProfileWithEditBinding
+import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentProfileBinding
+import com.future.tailormade_profile.databinding.LayoutCardProfileWithEditBinding
+import com.future.tailormade_profile.feature.editProfile.adapter.ProfilePagerAdapter
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
+import com.future.tailormade_router.actions.Action
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
@@ -28,6 +35,8 @@ class ProfileFragment : BaseFragment() {
 
   override fun getLogName() = "com.future.tailormade_profile.feature.profile.view.ProfileFragment"
 
+  override fun getScreenName() = "Profile"
+
   override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -35,22 +44,69 @@ class ProfileFragment : BaseFragment() {
     fragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false)
     layoutCardProfileWithEditBinding = fragmentProfileBinding.layoutCardProfile
     layoutCardProfileWithEditBinding.buttonGoToEditProfile.setOnClickListener {
-      // TODO: Route to edit profile info
+      context?.let {
+        Action.goToEditProfile(it, Constants.TYPE_PROFILE)
+      }
     }
     layoutCardProfileWithEditBinding.layoutProfileInfo.buttonChatTailor.setOnClickListener {
       // TODO: Route to chat with tailor
     }
+    inflateFragment()
     return fragmentProfileBinding.root
   }
 
+  @ExperimentalCoroutinesApi
+  @InternalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
+    viewModel.fetchProfileInfo()
     viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
-      val location = it.address
-      setButtonVisibility(it.id)
-      setProfileData(it.name, location, it.image.orEmpty())
+      it?.let { profileInfo ->
+        val location = profileInfo.address
+        setButtonVisibility(profileInfo.id)
+        setProfileData(profileInfo.name, location, profileInfo.image.orEmpty())
+        setupFragment(profileInfo.id)
+      }
     })
+  }
+
+  private fun setupFragment(userId: String) {
+    viewModel.isUserProfile(userId).let {
+      if (it) {
+        setupViewPager()
+        setupTabLayout()
+      } else {
+        inflateFragment()
+      }
+    }
+  }
+
+  private fun inflateFragment() {
+    with(fragmentProfileBinding.frameLayoutProfileContent) {
+      show()
+      val fragmentTransaction = parentFragmentManager.beginTransaction()
+      fragmentTransaction.replace(this.id, ProfileAboutFragment.newInstance())
+      fragmentTransaction.commit()
+    }
+  }
+
+  private fun setupTabLayout() {
+    with(fragmentProfileBinding) {
+      TabLayoutMediator(tabLayoutProfile, viewPagerProfile) { tab, position ->
+        tab.text = when (position) {
+          ProfilePagerAdapter.DESIGN_FRAGMENT_INDEX -> getString(R.string.design_label)
+          ProfilePagerAdapter.ABOUT_FRAGMENT_INDEX -> getString(R.string.about_label)
+          else -> ""
+        }
+        viewPagerProfile.setCurrentItem(tab.position, true)
+      }.attach()
+    }
+  }
+
+  private fun setupViewPager() {
+    fragmentProfileBinding.viewPagerProfile.adapter = ProfilePagerAdapter(parentFragmentManager,
+        lifecycle)
   }
 
   private fun setButtonVisibility(userId: String) {
@@ -70,7 +126,7 @@ class ProfileFragment : BaseFragment() {
 
       context?.let {
         if (image.isNotBlank()) {
-          ImageLoader.loadImageUrl(requireContext(), image, imageViewProfile)
+          ImageLoader.loadImageUrl(it, image, imageViewProfile)
         }
       }
     }

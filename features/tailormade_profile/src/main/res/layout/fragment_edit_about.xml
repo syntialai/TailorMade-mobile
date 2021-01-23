@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,10 +8,10 @@
 
     <TextView
         android:id="@+id/text_view_group_occupation"
+        style="@style/TextAppearance.TailorMade.Headline3.BlackHigh"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:text="@string/occupation_label"
-        android:textAppearance="?textAppearanceHeadline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,11 +72,11 @@
 
     <TextView
         android:id="@+id/text_view_group_education"
+        style="@style/TextAppearance.TailorMade.Headline3.BlackHigh"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
         android:text="@string/education_label"
-        android:textAppearance="?textAppearanceHeadline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_input_occupation_city_edit_about" />
@@ -138,8 +137,8 @@
 
     <Button
         android:id="@+id/button_submit_edit_about_form"
-        style="@style/Theme.TailorMade.Button.Rounded"
         android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
         android:text="@string/update_profile_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

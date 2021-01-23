@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.BaseFragment
@@ -28,27 +29,28 @@ class EditAboutFragment : BaseFragment() {
   }
 
   private val editAboutViewModel: EditAboutViewModel by viewModels()
-  private val editProfileViewModel: EditProfileViewModel by viewModels()
+  private val editProfileViewModel: EditProfileViewModel by activityViewModels()
 
   private lateinit var binding: FragmentEditAboutBinding
 
-  override fun getLogName(): String =
-      "com.future.tailormade_profile.feature.editAbout.view.EditAboutFragment"
+  override fun getLogName(): String = "com.future.tailormade_profile.feature.editAbout.view.EditAboutFragment"
 
   override fun getScreenName(): String = "Edit About"
 
   override fun getViewModel(): BaseViewModel = editAboutViewModel
 
   @ExperimentalCoroutinesApi
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?): View {
+  override fun onCreateView(inflater: LayoutInflater,
+      container: ViewGroup?, savedInstanceState: Bundle?): View {
     binding = FragmentEditAboutBinding.inflate(inflater, container, false)
 
     with(binding) {
       buttonSubmitEditAboutForm.setOnClickListener {
-        submitForm(editTextCompanyEditAbout.text(), editTextOccupationEditAbout.text(),
-            editTextOccupationCityEditAbout.text(), editTextSchoolEditAbout.text(),
-            editTextMajorEditAbout.text(), editTextEducationCityEditAbout.text())
+        submitForm(editTextCompanyEditAbout.text.toString(),
+            editTextOccupationEditAbout.text.toString(),
+            editTextOccupationCityEditAbout.text.toString(),
+            editTextSchoolEditAbout.text.toString(), editTextMajorEditAbout.text.toString(),
+            editTextEducationCityEditAbout.text.toString())
       }
 
       editTextEducationCityEditAbout.debounceOnTextChanged(editProfileViewModel.viewModelScope,

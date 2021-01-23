@@ -9,7 +9,8 @@
     <application android:theme="@style/Theme.TailorMade">
 
         <activity
-            android:name=".feature.settings.view.SettingsActivity">
+            android:name=".feature.settings.view.SettingsActivity"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="com.future.tailormade.settings.open" />
@@ -18,7 +19,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".feature.editProfile.view.EditProfileActivity">
+        <activity
+            android:name=".feature.editProfile.view.EditProfileActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.editProfile.open" />
 
@@ -26,5 +30,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

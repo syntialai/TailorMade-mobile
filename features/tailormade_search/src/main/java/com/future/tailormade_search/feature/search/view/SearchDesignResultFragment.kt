@@ -51,11 +51,7 @@ class SearchDesignResultFragment : BaseFragment() {
   }
 
   private fun hideNoDataState() {
-    with(binding) {
-      imageViewNoDesignDataState.remove()
-      textViewNoDesignDataState.remove()
-      textViewNoDesignDataDescriptionState.remove()
-    }
+    binding.groupSearchDesignState.remove()
   }
 
   private fun hideRecyclerView() {
@@ -88,11 +84,7 @@ class SearchDesignResultFragment : BaseFragment() {
   }
 
   private fun showNoDataState() {
-    with(binding) {
-      imageViewNoDesignDataState.show()
-      textViewNoDesignDataState.show()
-      textViewNoDesignDataDescriptionState.show()
-    }
+    binding.groupSearchDesignState.show()
     hideRecyclerView()
   }
 

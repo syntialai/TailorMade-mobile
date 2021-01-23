@@ -19,6 +19,8 @@ abstract class BaseFragment : Fragment() {
 
   open fun getScreenName(): String = ""
 
+  open fun onNavigationIconClicked(): Unit? = null
+
   protected var appLogger = AppLogger.create(this.getLogName())
 
   protected abstract fun getViewModel(): BaseViewModel?
@@ -40,7 +42,8 @@ abstract class BaseFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
 
     activity?.let { activity ->
-      (activity as BaseActivity).setupToolbar(getScreenName())
+      (activity as BaseActivity).setupOnNavigationIconClicked(::onNavigationIconClicked)
+      activity.setupToolbar(getScreenName())
     }
 
     setupFragmentObserver()

@@ -6,19 +6,20 @@ import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
 import com.future.tailormade_auth.core.model.response.ActivateTailorResponse
+import com.future.tailormade_auth.core.model.response.TokenDetailResponse
+import com.future.tailormade_auth.core.model.response.TokenResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import com.future.tailormade_auth.core.service.AuthService
-import com.google.firebase.database.FirebaseDatabase
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor(
-  private var authService: AuthService
-) : AuthRepository {
+class AuthRepositoryImpl @Inject constructor(private var authService: AuthService) :
+    AuthRepository {
 
   override suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest) = flow {
-    emit(authService.refreshToken(refreshTokenRequest))
+//    emit(authService.refreshToken(refreshTokenRequest))
+    emit(getTokenResponse())
   }.flowOnIO()
 
   override suspend fun activateTailor(): Flow<BaseSingleObjectResponse<ActivateTailorResponse>> = flow {
@@ -32,4 +33,7 @@ class AuthRepositoryImpl @Inject constructor(
   override suspend fun signUp(signUpRequest: SignUpRequest) = flow {
     emit(authService.signUp(signUpRequest))
   }.flowOnIO()
+
+  private fun getTokenResponse() = BaseSingleObjectResponse(
+      TokenResponse(TokenDetailResponse("Dummy access token", "Dummy refresh token")))
 }

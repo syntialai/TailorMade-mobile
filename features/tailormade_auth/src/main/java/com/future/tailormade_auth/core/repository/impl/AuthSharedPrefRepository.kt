@@ -18,7 +18,6 @@ class AuthSharedPrefRepository private constructor(context: Context) {
     private const val USER_ROLE = "userRole"
     private var instance: AuthSharedPrefRepository? = null
 
-    @JvmStatic
     fun newInstance(context: Context) = AuthSharedPrefRepository(context)
   }
 
