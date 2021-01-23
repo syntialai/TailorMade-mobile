@@ -108,11 +108,14 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 /**
  * Date Time Converter
  */
-fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).apply {
-  this.timeZone = TimeZone.getTimeZone(Constants.INDONESIA_TIME_ZONE)
-}.format(this.toDate())
-
-fun Long.toDate(): Date = Date(this * 1000)
+fun Long.toDateString(pattern: String, isTimestamp: Boolean = false): String {
+  val time = if (isTimestamp) {
+    1
+  } else {
+    1000
+  }
+  return SimpleDateFormat(pattern, Locale.ENGLISH).format(this * time)
+}
 
 fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(
     this)

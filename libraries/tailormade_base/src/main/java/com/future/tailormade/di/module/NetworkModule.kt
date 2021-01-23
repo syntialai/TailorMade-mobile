@@ -24,8 +24,7 @@ import timber.log.Timber
 @InstallIn(ApplicationComponent::class)
 class NetworkModule {
 
-  // TODO : Change base url to actual api url
-  private val BASE_URL = "http://localhost:8080/"
+  private val BASE_URL = "https://tailormade-backend.herokuapp.com/tailormade/"
 
   private val FIREBASE_URL = "https://tailormade-eac34.firebaseio.com/"
 

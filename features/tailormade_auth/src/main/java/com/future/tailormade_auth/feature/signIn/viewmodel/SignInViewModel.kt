@@ -1,5 +1,6 @@
 package com.future.tailormade_auth.feature.signIn.viewmodel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -27,7 +28,8 @@ class SignInViewModel @ViewModelInject constructor(
     private const val USER_INFO = "USER_INFO"
   }
 
-  override fun getLogName(): String = "SignInViewModel"
+  override fun getLogName(): String =
+      "com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel"
 
   private var _userInfo: MutableLiveData<UserResponse>
   val userInfo: LiveData<UserResponse>
@@ -44,6 +46,7 @@ class SignInViewModel @ViewModelInject constructor(
 
     launchViewModelScope {
       authRepository.signIn(signInRequest).onError {
+        Log.d("SIGN IN", it.toString())
         setErrorMessage(Constants.SIGN_IN_ERROR)
       }.collectLatest { token ->
         authSharedPrefRepository.accessToken = token.access
@@ -53,7 +56,7 @@ class SignInViewModel @ViewModelInject constructor(
     }
   }
 
-  fun getUserInfo() {
+  private fun getUserInfo() {
     launchViewModelScope {
       authRepository.getUserInfo().retry {
         it.cause != null

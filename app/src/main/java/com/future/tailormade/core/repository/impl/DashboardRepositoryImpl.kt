@@ -1,7 +1,7 @@
 package com.future.tailormade.core.repository.impl
 
 import com.future.tailormade.base.repository.BaseRepository
-import com.future.tailormade.core.mock.DataMock
+import com.future.tailormade.core.mapper.DashboardMapper
 import com.future.tailormade.core.repository.DashboardRepository
 import com.future.tailormade.core.service.DashboardService
 import com.future.tailormade.util.extension.flowOnIO
@@ -15,10 +15,10 @@ class DashboardRepositoryImpl @Inject constructor(private val dashboardService: 
 
   override suspend fun getDashboardTailors(
       lat: Double, lon: Double, page: Int, itemPerPage: Int) = flow {
-//    val tailors = dashboardService.getDashboardTailors(lat, lon, page, itemPerPage).data
-//    emit(tailors?.map {
-//      DashboardMapper.mapToDashboardTailorUiModel(it)
-//    } as ArrayList)
-    emit(DataMock.getDashboardTailorsMock())
+    val tailors = dashboardService.getDashboardTailors(lat, lon, page, itemPerPage).data
+    emit(tailors?.map {
+      DashboardMapper.mapToDashboardTailorUiModel(it)
+    } as ArrayList)
+//    emit(DataMock.getDashboardTailorsMock())
   }.flowOnIO()
 }

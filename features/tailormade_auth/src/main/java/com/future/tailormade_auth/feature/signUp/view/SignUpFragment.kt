@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -25,7 +25,7 @@ class SignUpFragment : BaseFragment() {
     fun newInstance() = SignUpFragment()
   }
 
-  private val viewModel: SignUpViewModel by viewModels()
+  private val viewModel: SignUpViewModel by activityViewModels()
 
   private lateinit var binding: FragmentSignUpBinding
 
@@ -114,7 +114,7 @@ class SignUpFragment : BaseFragment() {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
         R.string.birth_date_picker_title_label).build()
     birthDatePicker.addOnPositiveButtonClickListener {
-      binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY))
+      binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
     }
   }
 

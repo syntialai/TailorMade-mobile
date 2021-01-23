@@ -3,27 +3,38 @@ package com.future.tailormade_search.feature.search.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_dls.databinding.LayoutCardProfileBinding
 import com.future.tailormade_search.R
 import com.future.tailormade_search.core.model.response.SearchTailorResponse
 
-class SearchTailorListAdapter(
-    private var tailorList: List<SearchTailorResponse>) :
-    RecyclerView.Adapter<SearchTailorListAdapter.SearchTailorListViewHolder>() {
+class SearchTailorListAdapter(private val onClickListener: (String) -> Unit) :
+    ListAdapter<SearchTailorResponse, SearchTailorListAdapter.SearchTailorListViewHolder>(
+        diffCallback) {
+
+  companion object {
+    private val diffCallback = object : DiffUtil.ItemCallback<SearchTailorResponse>() {
+      override fun areItemsTheSame(oldItem: SearchTailorResponse, newItem: SearchTailorResponse): Boolean {
+        return oldItem.id == newItem.id
+      }
+
+      override fun areContentsTheSame(oldItem: SearchTailorResponse, newItem: SearchTailorResponse): Boolean {
+        return oldItem == newItem
+      }
+    }
+  }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SearchTailorListViewHolder(
       LayoutInflater.from(parent.context).inflate(R.layout.layout_card_profile, parent, false))
 
   override fun onBindViewHolder(holder: SearchTailorListViewHolder, position: Int) {
-    holder.bind(tailorList[position])
+    holder.bind(getItem(position))
   }
 
-  override fun getItemCount(): Int = tailorList.size
-
-  inner class SearchTailorListViewHolder(view: View) :
-      RecyclerView.ViewHolder(view) {
+  inner class SearchTailorListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val context = view.context
     private val binding = LayoutCardProfileBinding.bind(view)
@@ -36,7 +47,7 @@ class SearchTailorListAdapter(
         ImageLoader.loadImageUrl(context, data.imagePath, imageViewProfile)
 
         root.setOnClickListener {
-          // Go to tailor profile
+          onClickListener.invoke(data.id)
         }
       }
     }

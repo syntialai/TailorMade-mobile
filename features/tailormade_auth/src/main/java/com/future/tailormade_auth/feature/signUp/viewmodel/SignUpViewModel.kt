@@ -2,6 +2,8 @@ package com.future.tailormade_auth.feature.signUp.viewmodel
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -24,6 +26,7 @@ class SignUpViewModel @ViewModelInject constructor(
 
   companion object {
     private const val SIGN_UP_REQUEST = "SIGN_UP_REQUEST"
+    private const val HAS_SIGN_IN = "HAS_SIGN_IN"
   }
 
   override fun getLogName(): String =
@@ -31,8 +34,13 @@ class SignUpViewModel @ViewModelInject constructor(
 
   private var signUpRequest: SignUpRequest? = null
 
+  private var _hasSignIn: MutableLiveData<Boolean>
+  val hasSignIn: LiveData<Boolean>
+    get() = _hasSignIn
+
   init {
     signUpRequest = savedStateHandle.get(SIGN_UP_REQUEST)
+    _hasSignIn = savedStateHandle.getLiveData(HAS_SIGN_IN, false)
   }
 
   private fun getSignInInfo() = SignInRequest(
@@ -78,11 +86,13 @@ class SignUpViewModel @ViewModelInject constructor(
         }.flatMapLatest { response ->
           saveUserData(response)
           authRepository.signIn(getSignInInfo())
-        }.onError { error ->
-          appLogger.logOnError(error.message.orEmpty(), error)
+        }.onError {
+          setErrorMessage(Constants.SIGN_IN_ERROR)
+          _hasSignIn.value = false
         }.collectLatest { token ->
           authSharedPrefRepository.accessToken = token.access
           authSharedPrefRepository.refreshToken = token.refresh
+          _hasSignIn.value = true
         }
       }
     }

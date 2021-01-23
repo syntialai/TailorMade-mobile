@@ -19,9 +19,13 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class SelectRoleFragment : BaseFragment() {
 
-  private val viewModel: SignUpViewModel by viewModels()
+  companion object {
+    fun newInstance() = SelectRoleFragment()
+  }
 
   private lateinit var binding: FragmentSelectRoleBinding
+
+  private val viewModel: SignUpViewModel by viewModels()
 
   override fun getLogName(): String =
       "com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
@@ -61,9 +65,5 @@ class SelectRoleFragment : BaseFragment() {
     if (selectedRadioButton == binding.radioButtonSelectRoleTailor) {
       viewModel.activateTailor()
     }
-  }
-
-  companion object {
-    fun newInstance() = SelectRoleFragment()
   }
 }

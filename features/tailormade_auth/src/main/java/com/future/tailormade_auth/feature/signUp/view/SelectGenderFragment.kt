@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.core.view.forEach
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -24,7 +24,7 @@ class SelectGenderFragment : BaseFragment() {
     fun newInstance() = SelectGenderFragment()
   }
 
-  private val viewModel: SignUpViewModel by viewModels()
+  private val viewModel: SignUpViewModel by activityViewModels()
 
   private lateinit var binding: FragmentSelectGenderBinding
 
