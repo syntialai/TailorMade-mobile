@@ -58,15 +58,17 @@ class HistoryFragment : BaseFragment() {
 
     viewModel.fetchHistory()
     viewModel.orders.observe(viewLifecycleOwner, {
-      historyAdapter.submitList(it)
-      if (it.isNotEmpty()) {
-        hideState()
-        showRecyclerView()
-      } else {
-        hideRecyclerView()
-        showState()
+      it?.let { orders ->
+        historyAdapter.submitList(orders)
+        if (orders.isNotEmpty()) {
+          hideState()
+          showRecyclerView()
+        } else {
+          hideRecyclerView()
+          showState()
+        }
+        binding.swipeRefreshLayoutHistory.isRefreshing = false
       }
-      binding.swipeRefreshLayoutHistory.isRefreshing = false
     })
   }
 

@@ -35,10 +35,10 @@ class CartFragment : BaseFragment() {
   }
   private val deleteAlertDialog by lazy {
     context?.let {
-      MaterialAlertDialogBuilder(it).setTitle(getString(R.string.cart_delete_alert_dialog_title))
-          .setNegativeButton(getString(R.string.cart_delete_alert_dialog_cancel_button)) { dialog, _ ->
-            dialog.dismiss()
-          }
+      MaterialAlertDialogBuilder(it).setTitle(getString(R.string.cart_delete_alert_dialog_title)).setNegativeButton(
+          getString(R.string.cart_delete_alert_dialog_cancel_button)) { dialog, _ ->
+        dialog.dismiss()
+      }
     }
   }
 
@@ -63,10 +63,13 @@ class CartFragment : BaseFragment() {
 
     viewModel.fetchCartData()
     viewModel.cartUiModel.observe(viewLifecycleOwner, {
-      cartAdapter.submitList(it)
-      if (it.isNotEmpty()) {
-        hideState()
-        showRecyclerView()
+      it?.let { carts ->
+        cartAdapter.submitList(carts)
+        if (carts.isNotEmpty()) {
+          showRecyclerView()
+        } else {
+          hideRecyclerView()
+        }
       }
     })
   }
@@ -95,8 +98,11 @@ class CartFragment : BaseFragment() {
     }
   }
 
-  private fun hideState() {
-    binding.layoutCartEmptyState.root.remove()
+  private fun hideRecyclerView() {
+    with(binding) {
+      layoutCartEmptyState.root.show()
+      recyclerViewCartList.remove()
+    }
   }
 
   private fun setupRecyclerView() {
@@ -107,6 +113,9 @@ class CartFragment : BaseFragment() {
   }
 
   private fun showRecyclerView() {
-    binding.recyclerViewCartList.show()
+    with(binding) {
+      layoutCartEmptyState.root.remove()
+      recyclerViewCartList.show()
+    }
   }
 }
