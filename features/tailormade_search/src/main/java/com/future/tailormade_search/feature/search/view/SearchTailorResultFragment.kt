@@ -31,7 +31,8 @@ class SearchTailorResultFragment : BaseFragment(), View.OnClickListener {
   }
   private val viewModel: SearchViewModel by activityViewModels()
 
-  override fun getLogName() = "com.future.tailormade_search.feature.search.view.SearchTailorResultFragment"
+  override fun getLogName() =
+      "com.future.tailormade_search.feature.search.view.SearchTailorResultFragment"
 
   override fun getScreenName(): String = "Search Tailor Result"
 
@@ -44,9 +45,9 @@ class SearchTailorResultFragment : BaseFragment(), View.OnClickListener {
     return binding.root
   }
 
-  override fun onClick(v: View?) {
+  override fun onClick(view: View?) {
     with(binding) {
-      when(v) {
+      when(view) {
         groupSortAndFilter.chipFilter -> showFilterDialog()
       }
     }

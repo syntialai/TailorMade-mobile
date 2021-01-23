@@ -19,12 +19,13 @@ import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.TailorAction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment(), MainDashboardView {
+class DashboardFragment : BaseFragment(), MainDashboardView, View.OnClickListener {
 
   companion object {
     fun newInstance() = DashboardFragment()
@@ -58,12 +59,17 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     (activity as MainActivity).injectMainDashboardView(this)
 
     binding = FragmentDashboardBinding.inflate(inflater, container, false)
-    binding.buttonAddDesign.setOnClickListener {
-      goToDesignDetail()
-    }
     setupRecyclerView()
     setupSwipeRefreshLayout()
     return binding.root
+  }
+
+  override fun onClick(view: View?) {
+    with(binding) {
+      when(view) {
+        buttonAddDesign -> goToDesignDetail()
+      }
+    }
   }
 
   @ExperimentalCoroutinesApi
@@ -72,16 +78,31 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
 
     viewModel.fetchTailorDesigns()
     viewModel.designs.observe(viewLifecycleOwner, {
-      dashboardAdapter.submitList(it)
-      if (it.isEmpty()) {
-        showState()
-        hideRecyclerView()
-      } else {
-        hideState()
-        showRecyclerView()
+      it?.let { designs ->
+        dashboardAdapter.submitList(designs)
+        if (designs.isEmpty()) {
+          showState()
+          hideRecyclerView()
+        } else {
+          hideState()
+          showRecyclerView()
+        }
+        binding.swipeRefreshLayoutDashboard.isRefreshing = false
       }
-      binding.swipeRefreshLayoutDashboard.isRefreshing = false
     })
+  }
+
+  override fun setAllSelected(selected: Boolean) {
+    viewModel.selectAllDesigns(selected)
+  }
+
+  override fun showConfirmDeleteDialog() {
+    deleteDesignDialog?.setMessage(
+        getDialogMessage(viewModel.selectedDesigns.value?.size.orZero()))?.setPositiveButton(
+        R.string.delete_alert_dialog_delete_button) { dialog, _ ->
+      viewModel.deleteDesigns()
+      dialog.dismiss()
+    }?.show()
   }
 
   @ExperimentalCoroutinesApi
@@ -113,25 +134,16 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     }
   }
 
-  override fun setAllSelected(selected: Boolean) {
-    viewModel.selectAllDesigns(selected)
-  }
-
-  override fun showConfirmDeleteDialog() {
-    deleteDesignDialog?.setMessage(
-        getDialogMessage(viewModel.selectedDesigns.value?.size.orZero()))?.setPositiveButton(
-        R.string.delete_alert_dialog_delete_button) { dialog, _ ->
-      viewModel.deleteDesigns()
-      dialog.dismiss()
-    }?.show()
-  }
-
   private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
       R.plurals.delete_design_alert_dialog_content, quantity, quantity)
 
   private fun goToDesignDetail(id: String? = null) {
     context?.let { context ->
-      Action.goToDesignDetail(context, id)
+      id?.let {
+        Action.goToDesignDetail(context, id)
+      } ?: run {
+        TailorAction.goToAddDesignDetail(context)
+      }
     }
   }
 

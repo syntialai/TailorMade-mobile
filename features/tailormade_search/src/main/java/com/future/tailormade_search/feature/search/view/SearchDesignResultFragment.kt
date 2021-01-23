@@ -40,15 +40,14 @@ class SearchDesignResultFragment : BaseFragment(), View.OnClickListener {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
-    binding = FragmentSearchDesignResultBinding.inflate(inflater, container,
-        false)
+    binding = FragmentSearchDesignResultBinding.inflate(inflater, container, false)
     setupRecyclerView()
     return binding.root
   }
 
-  override fun onClick(v: View?) {
+  override fun onClick(view: View?) {
     with(binding) {
-      when(v) {
+      when (view) {
         groupSortAndFilter.chipFilter -> showFilterDialog()
       }
     }

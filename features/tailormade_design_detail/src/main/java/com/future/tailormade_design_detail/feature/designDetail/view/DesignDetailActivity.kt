@@ -14,6 +14,7 @@ class DesignDetailActivity : BaseActivity() {
 
   companion object {
     private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
+    private const val PARAM_DESIGN_DETAIL_ADD = "PARAM_DESIGN_DETAIL_ADD_OR_EDIT"
   }
 
   private lateinit var binding: ActivityDesignDetailBinding
@@ -32,10 +33,18 @@ class DesignDetailActivity : BaseActivity() {
     setupNavController()
 
     designDetailId = intent?.getStringExtra(PARAM_DESIGN_DETAIL_ID).orEmpty()
-    if (designDetailId.isBlank()) {
-      navController.popBackStack()
-      navController.navigate(
-          AddOrEditDesignFragmentDirections.actionGlobalAddOrEditDesignFragment(null))
+    goToAddOrEditDesign()
+  }
+
+  private fun goToAddOrEditDesign() {
+    intent?.getBooleanExtra(PARAM_DESIGN_DETAIL_ADD, false).let {
+      it?.let { add ->
+        if (add) {
+          navController.popBackStack()
+          navController.navigate(
+              AddOrEditDesignFragmentDirections.actionGlobalAddOrEditDesignFragment(null))
+        }
+      }
     }
   }
 
