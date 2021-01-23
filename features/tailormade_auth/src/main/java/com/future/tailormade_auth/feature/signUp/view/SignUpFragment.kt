@@ -10,6 +10,7 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
+import com.future.tailormade.util.extension.reset
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade_auth.R
@@ -56,6 +57,17 @@ class SignUpFragment : BaseFragment() {
       }
     }
     return binding.root
+  }
+
+  override fun onPause() {
+    super.onPause()
+    with(binding) {
+      textInputNameSignUp.reset()
+      textInputEmailSignUp.reset()
+      textInputBirthDateSignUp.reset()
+      textInputPasswordSignUp.reset()
+      textInputConfirmPasswordSignUp.reset()
+    }
   }
 
   override fun setupFragmentObserver() {

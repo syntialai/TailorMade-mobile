@@ -12,6 +12,7 @@ import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.coroutine.CoroutineHelper
+import com.google.android.material.textfield.TextInputLayout
 import java.sql.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -53,6 +54,16 @@ fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> = catch { er
 /**
  * View extension functions
  */
+fun TextInputLayout.reset(editText: EditText? = null) {
+  error = null
+  editText?.reset()
+}
+
+fun EditText.reset() {
+  error = null
+  setText("")
+}
+
 fun EditText.debounceOnTextChanged(scope: CoroutineScope, listener: (String) -> Unit) {
   doOnTextChanged { text, _, _, count ->
     val debounce = CoroutineHelper.debounce(scope = scope, destinationFunction = listener)

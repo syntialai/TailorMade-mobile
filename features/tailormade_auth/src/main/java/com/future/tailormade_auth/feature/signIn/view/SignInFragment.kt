@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.isEmailValid
+import com.future.tailormade.util.extension.reset
 import com.future.tailormade.util.extension.text
 import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
@@ -51,6 +52,14 @@ class SignInFragment : BaseFragment() {
       }
     }
     return binding.root
+  }
+
+  override fun onPause() {
+    super.onPause()
+    with(binding) {
+      textInputEmailSignIn.reset()
+      textInputPasswordSignIn.reset()
+    }
   }
 
   override fun setupFragmentObserver() {
