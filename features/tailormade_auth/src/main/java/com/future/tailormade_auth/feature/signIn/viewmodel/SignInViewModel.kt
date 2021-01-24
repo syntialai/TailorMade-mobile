@@ -1,5 +1,6 @@
 package com.future.tailormade_auth.feature.signIn.viewmodel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -62,6 +63,7 @@ class SignInViewModel @ViewModelInject constructor(
       userRole = user.role.ordinal
       userGender = user.gender.ordinal
     }
+    _userInfo.value = user
   }
 
   private fun updateToken(token: TokenDetailResponse) {
