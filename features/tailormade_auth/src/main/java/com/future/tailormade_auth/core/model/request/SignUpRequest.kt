@@ -11,7 +11,7 @@ data class SignUpRequest(
 
     val password: String,
 
-    val birthDate: String,
+    val birthDate: Long,
 
     val gender: GenderEnum = GenderEnum.Anonymous,
 

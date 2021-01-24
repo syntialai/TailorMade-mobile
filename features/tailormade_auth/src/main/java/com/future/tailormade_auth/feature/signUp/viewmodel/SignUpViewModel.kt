@@ -11,7 +11,6 @@ import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
 import com.future.tailormade_auth.core.model.response.TokenDetailResponse
@@ -37,7 +36,7 @@ class SignUpViewModel @ViewModelInject constructor(
     "com.mta.blibli.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel"
 
   private var signUpRequest: SignUpRequest? = null
-  private var birthDate: String? = null
+  private var birthDate: Long? = null
 
   private var _hasSignIn: MutableLiveData<Boolean>
   val hasSignIn: LiveData<Boolean>
@@ -60,7 +59,7 @@ class SignUpViewModel @ViewModelInject constructor(
   }
 
   fun setSignUpBirthDate(timestamp: Long) {
-    birthDate = timestamp.toDateString(Constants.YYYY_MM_DD, true)
+    birthDate = timestamp
   }
 
   fun setSignUpGender(gender: String) {
