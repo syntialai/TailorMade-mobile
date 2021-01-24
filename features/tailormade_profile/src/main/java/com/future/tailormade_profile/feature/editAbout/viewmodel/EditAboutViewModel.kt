@@ -38,7 +38,7 @@ class EditAboutViewModel @ViewModelInject constructor(
       authSharedPrefRepository.userId?.let { id ->
         profileRepository.updateProfileAbout(id, request).flowOnIOwithLoadingDialog(
             this).onError {
-          _errorMessage.postValue(Constants.FAILED_TO_UPDATE_PROFILE)
+          setErrorMessage(Constants.FAILED_TO_UPDATE_PROFILE)
           appLogger.logOnError(Constants.FAILED_TO_UPDATE_PROFILE, it)
         }.collect { response ->
           response.data?.let {

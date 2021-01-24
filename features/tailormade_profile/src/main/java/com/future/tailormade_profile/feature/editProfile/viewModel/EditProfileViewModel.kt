@@ -47,7 +47,7 @@ class EditProfileViewModel @ViewModelInject constructor(
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
         profileRepository.getProfileInfo(id).onError {
-          _errorMessage.postValue(Constants.FAILED_TO_GET_PROFILE_INFO)
+          setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
         }.collectLatest { data ->
           _profileInfo.value = data.response
         }

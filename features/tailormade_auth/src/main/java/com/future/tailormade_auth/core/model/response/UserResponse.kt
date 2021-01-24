@@ -1,5 +1,8 @@
 package com.future.tailormade_auth.core.model.response
 
+import com.future.tailormade.base.model.enums.GenderEnum
+import com.future.tailormade.base.model.enums.RoleEnum
+
 data class UserResponse (
 
   val id: String = "",
@@ -10,7 +13,7 @@ data class UserResponse (
 
   val birthDate: String = "",
 
-  val gender: String = "",
+  val gender: GenderEnum = GenderEnum.Anonymous,
 
-  val role: Int = 0
+  val role: RoleEnum = RoleEnum.ROLE_USER
 )

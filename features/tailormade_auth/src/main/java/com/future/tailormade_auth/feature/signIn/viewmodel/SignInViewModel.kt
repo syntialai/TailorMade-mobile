@@ -1,6 +1,5 @@
 package com.future.tailormade_auth.feature.signIn.viewmodel
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -46,7 +45,7 @@ class SignInViewModel @ViewModelInject constructor(
 
     launchViewModelScope {
       authRepository.signIn(signInRequest).onError {
-        Log.d("SIGN IN", it.toString())
+        appLogger.logOnError(Constants.SIGN_IN_ERROR, it)
         setErrorMessage(Constants.SIGN_IN_ERROR)
       }.collectLatest { data ->
         updateToken(data.token)
@@ -60,7 +59,8 @@ class SignInViewModel @ViewModelInject constructor(
       userId = user.id
       username = user.email
       name = user.name
-      userRole = user.role
+      userRole = user.role.ordinal
+      userGender = user.gender.ordinal
     }
   }
 

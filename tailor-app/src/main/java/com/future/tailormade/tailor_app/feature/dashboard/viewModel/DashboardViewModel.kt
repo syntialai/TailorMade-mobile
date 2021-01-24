@@ -43,9 +43,6 @@ class DashboardViewModel @ViewModelInject constructor(
   init {
     _designs = savedStateHandle.getLiveData(DESIGNS)
     _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS)
-
-    authSharedPrefRepository.userId = "TAILOR_ID"
-    authSharedPrefRepository.userRole = 1
   }
 
   @ExperimentalCoroutinesApi

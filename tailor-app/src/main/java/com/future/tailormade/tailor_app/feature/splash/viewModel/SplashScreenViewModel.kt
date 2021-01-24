@@ -3,6 +3,7 @@ package com.future.tailormade.feature.splash.viewModel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.future.tailormade.base.model.enums.RoleEnum
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.onError
@@ -18,6 +19,10 @@ class SplashScreenViewModel @ViewModelInject constructor(private val authReposit
   private var _isTokenExpired = MutableLiveData<Boolean>()
   val isTokenExpired: LiveData<Boolean>
     get() = _isTokenExpired
+
+  init {
+    authSharedPrefRepository.userRole = RoleEnum.ROLE_TAILOR.ordinal
+  }
 
   fun validateToken() {
     launchViewModelScope {

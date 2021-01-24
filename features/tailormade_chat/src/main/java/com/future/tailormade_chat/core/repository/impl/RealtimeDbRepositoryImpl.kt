@@ -21,7 +21,7 @@ class RealtimeDbRepositoryImpl @Inject constructor(
       ReferenceConstants.USERS_CHAT_SESSION)
 
   override fun getChatRooms(): Query {
-    if (authSharedPrefRepository.userRole == 0) {
+    if (authSharedPrefRepository.isUser()) {
       return getChatRoomRef.startAt(authSharedPrefRepository.userId)
     }
     return getChatRoomRef.endAt(authSharedPrefRepository.userId)
@@ -52,7 +52,7 @@ class RealtimeDbRepositoryImpl @Inject constructor(
             userChatId), null)
   }
 
-  private fun getRoomId(anotherUserId: String) = if (authSharedPrefRepository.userRole == 0) {
+  private fun getRoomId(anotherUserId: String) = if (authSharedPrefRepository.isUser()) {
     "${authSharedPrefRepository.userId}_${anotherUserId}"
   } else {
     "${anotherUserId}_${authSharedPrefRepository.userId}"

@@ -22,7 +22,7 @@ abstract class BaseViewModel : ViewModel() {
 
   val viewState = MutableLiveData<ViewState>()
 
-  protected val _errorMessage = MutableLiveData<String?>()
+  private val _errorMessage = MutableLiveData<String?>()
   val errorMessage: LiveData<String?>
     get() = _errorMessage
 

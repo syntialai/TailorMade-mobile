@@ -29,14 +29,6 @@ class NetworkModule {
   private val FIREBASE_URL = "https://tailormade-eac34.firebaseio.com/"
 
   @Provides
-  @TailormadeApi
-  fun provideBaseUrl() = BASE_URL
-
-  @Provides
-  @FirebaseApi
-  fun provideFirebaseUrl() = FIREBASE_URL
-
-  @Provides
   @Singleton
   fun provideAuthSharedPref(@ApplicationContext context: Context): AuthSharedPrefRepository {
     return AuthSharedPrefRepository.newInstance(context)

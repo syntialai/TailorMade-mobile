@@ -64,7 +64,7 @@ class DesignDetailFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentDesignDetailBinding.inflate(inflater, container, false)
     setupBottomNav()
-    if (authSharedPrefRepository.userRole != 0) {
+    if (authSharedPrefRepository.isTailor()) {
       hideCustomerFeatures()
     }
 

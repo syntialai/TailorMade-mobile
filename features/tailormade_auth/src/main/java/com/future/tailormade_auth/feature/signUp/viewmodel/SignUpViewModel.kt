@@ -5,6 +5,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.model.enums.GenderEnum
+import com.future.tailormade.base.model.enums.RoleEnum
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
@@ -54,7 +56,8 @@ class SignUpViewModel @ViewModelInject constructor(
   }
 
   fun setSignUpGender(gender: String) {
-    signUpRequest = signUpRequest?.copy(gender = gender)
+    val role = RoleEnum.values()[authSharedPrefRepository.userRole]
+    signUpRequest = signUpRequest?.copy(gender = GenderEnum.valueOf(gender), role = role)
   }
 
   private fun saveUserData(user: UserResponse) {
@@ -62,17 +65,20 @@ class SignUpViewModel @ViewModelInject constructor(
       userId = user.id
       name = user.name
       username = user.email
-      userRole = user.role
+      userRole = user.role.ordinal
+      userGender = user.gender.ordinal
     }
   }
 
   @ExperimentalCoroutinesApi
   fun activateTailor() {
-    launchViewModelScope {
-      authRepository.activateTailor().onError { error ->
-        appLogger.logOnError(error.message.orEmpty(), error)
-      }.collectLatest {
-        authSharedPrefRepository.userRole = it.role ?: 0
+    authSharedPrefRepository.userId?.let { id ->
+      launchViewModelScope {
+        authRepository.activateTailor(id).onError { error ->
+          appLogger.logOnError(error.message.orEmpty(), error)
+        }.collectLatest {
+          authSharedPrefRepository.userRole = it.role ?: RoleEnum.ROLE_USER.ordinal
+        }
       }
     }
   }
@@ -83,6 +89,7 @@ class SignUpViewModel @ViewModelInject constructor(
     launchViewModelScope {
       signUpRequest?.let { request ->
         authRepository.signUp(request).onError {
+          appLogger.logOnError(Constants.SIGN_UP_ERROR, it)
           setErrorMessage(Constants.SIGN_UP_ERROR)
         }.flatMapLatest { response ->
           saveUserData(response)

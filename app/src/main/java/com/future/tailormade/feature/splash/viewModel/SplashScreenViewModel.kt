@@ -3,10 +3,12 @@ package com.future.tailormade.feature.splash.viewModel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.future.tailormade.base.model.enums.RoleEnum
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
+import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.flow.collectLatest
 
@@ -21,6 +23,10 @@ class SplashScreenViewModel @ViewModelInject constructor(
   val isTokenExpired: LiveData<Boolean>
     get() = _isTokenExpired
 
+  init {
+    authSharedPrefRepository.userRole = RoleEnum.ROLE_USER.ordinal
+  }
+
   fun validateToken() {
     launchViewModelScope {
       authSharedPrefRepository.refreshToken?.let { refreshToken ->
@@ -29,12 +35,18 @@ class SplashScreenViewModel @ViewModelInject constructor(
           _isTokenExpired.value = true
         }.collectLatest { token ->
           _isTokenExpired.value = false
-          authSharedPrefRepository.refreshToken = token.refresh
-          authSharedPrefRepository.accessToken = token.access
+          setToken(token)
         }
       } ?: run {
         _isTokenExpired.value = true
       }
+    }
+  }
+
+  private fun setToken(token: TokenDetailResponse) {
+    with(authSharedPrefRepository) {
+      refreshToken = token.refresh
+      accessToken = token.access
     }
   }
 }

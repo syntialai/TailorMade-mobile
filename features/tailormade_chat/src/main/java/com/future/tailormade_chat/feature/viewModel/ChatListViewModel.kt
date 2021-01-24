@@ -19,7 +19,7 @@ class ChatListViewModel @ViewModelInject constructor(
 
   fun getChatRoomId(userChatId: String): String? {
     return authSharedPrefRepository.userId?.let {
-      return@let if (authSharedPrefRepository.userRole == 0) {
+      return@let if (authSharedPrefRepository.isUser()) {
         "${it}_$userChatId"
       } else {
         "${userChatId}_${it}"
