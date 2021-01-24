@@ -1,8 +1,10 @@
 package com.future.tailormade_design_detail.feature.addOrEditDesign.view
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -86,12 +88,10 @@ class AddOrEditDesignFragment : BaseFragment() {
     super.onActivityResult(requestCode, resultCode, data)
     if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
       data?.data?.let { imageUri ->
-        imageUri.path?.let { path ->
-          viewModel.setImage(path)
+        activity?.contentResolver?.let {
+          addImage(it, imageUri)
           if (isImagePreviewShown().not()) {
-            activity?.contentResolver?.let {
-              showImagePreview(imageUri, ImageHelper.getFileName(it, imageUri).orEmpty())
-            }
+            showImagePreview(imageUri, ImageHelper.getFileName(it, imageUri).orEmpty())
           }
         }
       }
@@ -109,6 +109,12 @@ class AddOrEditDesignFragment : BaseFragment() {
         setData(designDetail)
       }
     })
+  }
+
+  private fun addImage(contentResolver: ContentResolver, imageUri: Uri) {
+    val inputStream = contentResolver.openInputStream(imageUri)
+    val bitmap = BitmapFactory.decodeStream(inputStream)
+    viewModel.setImage(bitmap)
   }
 
   private fun addSizeChip(text: String, sizeDetail: SizeDetailUiModel) {

@@ -9,7 +9,6 @@ object TailorAction {
    * Param name
    */
   private const val PARAM_ORDER_DETAIL_ID = "ORDER_DETAIL_ID"
-  private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
   private const val PARAM_DESIGN_DETAIL_ADD = "PARAM_DESIGN_DETAIL_ADD"
 
   /**

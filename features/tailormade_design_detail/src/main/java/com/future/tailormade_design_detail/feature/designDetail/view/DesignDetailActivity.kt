@@ -14,7 +14,7 @@ class DesignDetailActivity : BaseActivity() {
 
   companion object {
     private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
-    private const val PARAM_DESIGN_DETAIL_ADD = "PARAM_DESIGN_DETAIL_ADD_OR_EDIT"
+    private const val PARAM_DESIGN_DETAIL_ADD = "PARAM_DESIGN_DETAIL_ADD"
   }
 
   private lateinit var binding: ActivityDesignDetailBinding

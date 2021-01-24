@@ -1,6 +1,9 @@
 package com.future.tailormade_design_detail.feature.addOrEditDesign.viewModel
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -102,9 +105,8 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
     _designDetailResponse.value = response
   }
 
-  @RequiresApi(Build.VERSION_CODES.O)
-  fun setImage(imagePath: String) {
-    imageRequest = ImageHelper.encodeFile(imagePath)
+  fun setImage(bitmap: Bitmap) {
+    imageRequest = ImageHelper.encodeAndCompressFile(bitmap)
   }
 
   fun validate() = when {
