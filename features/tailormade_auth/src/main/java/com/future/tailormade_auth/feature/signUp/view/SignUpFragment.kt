@@ -44,7 +44,7 @@ class SignUpFragment : BaseFragment() {
     setupDatePicker()
     binding = FragmentSignUpBinding.inflate(inflater, container, false)
     with(binding) {
-      textInputBirthDateSignUp.setEndIconOnClickListener {
+      textInputBirthDateSignUp.setOnClickListener {
         showDatePicker()
       }
       buttonSubmitForm.setOnClickListener {
@@ -121,6 +121,7 @@ class SignUpFragment : BaseFragment() {
         R.string.birth_date_picker_title_label).build()
     birthDatePicker.addOnPositiveButtonClickListener {
       binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
+      viewModel.setSignUpBirthDate(it)
     }
   }
 
@@ -131,7 +132,7 @@ class SignUpFragment : BaseFragment() {
   private fun submitForm(name: String, email: String, birthDate: String, password: String,
       confirmPassword: String) {
     if (isFormValid(name, email, birthDate, password, confirmPassword)) {
-      viewModel.setSignUpInfo(name, email, birthDate, password)
+      viewModel.setSignUpInfo(name, email, password)
       findNavController().navigate(
           SignUpFragmentDirections.actionSignUpFragmentToSelectGenderFragment())
     } else {

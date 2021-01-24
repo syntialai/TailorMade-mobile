@@ -1,5 +1,6 @@
 package com.future.tailormade_profile.feature.profile.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -45,6 +46,7 @@ class ProfileViewModel @ViewModelInject constructor(
           setStartLoading()
         }.onError {
           setFinishLoading()
+          Log.d(PROFILE_INFO, it.message, it)
           setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
         }.collectLatest {
           _profileInfoUiModel.value = it.uiModel

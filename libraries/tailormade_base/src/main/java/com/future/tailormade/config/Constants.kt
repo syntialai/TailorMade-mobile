@@ -28,6 +28,7 @@ object Constants {
   const val DD_MMM_YYYY = "dd MMM yyyy"
   const val HH_MM = "hh:mm"
   const val DD_MMMM_YYYY_HH_MM_SS = "dd MMMM yyyy, hh:mm:ss"
+  const val YYYY_MM_DD = "yyyy-MM-dd"
 
   /**
    * Error messages
