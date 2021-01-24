@@ -101,7 +101,7 @@ class EditProfileFragment : BaseFragment() {
         getString(R.string.birth_date_picker_title_label)).build()
     birthDatePicker.addOnPositiveButtonClickListener {
       birthDate = it
-      binding.editTextBirthDateEditProfile.setText(it.toDateString(Constants.DD_MMMM_YYYY))
+      binding.editTextBirthDateEditProfile.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
     }
   }
 
