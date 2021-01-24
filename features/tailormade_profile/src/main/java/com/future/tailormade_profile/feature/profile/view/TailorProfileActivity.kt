@@ -76,9 +76,9 @@ class TailorProfileActivity : BaseActivity() {
       textViewProfileName.text = data.name
       textViewProfileCity.text = data.address
 
-      data.image?.let {
-        ImageLoader.loadImageUrl(this@TailorProfileActivity, it, imageViewProfile)
-      }
+      ImageLoader.loadImageUrlWithFitCenterAndPlaceholder(this@TailorProfileActivity,
+          data.image.orEmpty(),
+          R.drawable.illustration_dashboard_tailor_profile, imageViewProfile)
     }
   }
 

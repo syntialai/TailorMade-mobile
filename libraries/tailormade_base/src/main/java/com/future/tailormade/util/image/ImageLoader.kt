@@ -9,8 +9,8 @@ import java.io.File
 object ImageLoader {
 
   fun loadImageUrl(context: Context, imageUrl: String, imageView: ImageView) {
-//    val options = RequestOptions().centerCrop().fitCenter()
-    Glide.with(context).load(imageUrl).into(imageView)
+    val options = RequestOptions().fitCenter().centerCrop()
+    Glide.with(context).load(imageUrl).apply(options).into(imageView)
   }
 
   fun loadImageResource(context: Context, imageResource: Int, imageView: ImageView) {
@@ -19,11 +19,6 @@ object ImageLoader {
 
   fun loadImageFile(context: Context, imageFile: File, imageView: ImageView) {
     Glide.with(context).load(imageFile).into(imageView)
-  }
-
-  fun loadImageUrlWithPlaceholder(context: Context, imageUrl: String, imageView: ImageView,
-      imagePlaceholder: Int) {
-    Glide.with(context).load(imageUrl).placeholder(imagePlaceholder).into(imageView)
   }
 
   fun loadImageUrlWithFitCenterAndPlaceholder(context: Context, imageUrl: String, drawable: Int,

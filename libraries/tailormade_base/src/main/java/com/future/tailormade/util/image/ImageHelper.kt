@@ -1,11 +1,12 @@
 package com.future.tailormade.util.image
 
 import android.content.ContentResolver
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.OpenableColumns
 import androidx.annotation.RequiresApi
+import com.future.tailormade.R
+import com.future.tailormade.base.model.enums.GenderEnum
 import java.io.File
 import java.util.*
 
@@ -42,5 +43,11 @@ object ImageHelper {
   fun decoder(base64Str: String, pathFile: String) {
     val imageByteArray = Base64.getDecoder().decode(base64Str)
     File(pathFile).writeBytes(imageByteArray)
+  }
+
+  fun getUserProfilePlaceholder(genderEnumValue: Int) = when (GenderEnum.values()[genderEnumValue]) {
+    GenderEnum.Female -> R.drawable.illustration_female
+    GenderEnum.Male -> R.drawable.illustration_male
+    else -> R.drawable.ic_profile
   }
 }

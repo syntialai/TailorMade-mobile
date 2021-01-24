@@ -54,4 +54,6 @@ class ProfileViewModel @ViewModelInject constructor(
       }
     }
   }
+
+  fun getUserGender() = authSharedPrefRepository.userGender
 }

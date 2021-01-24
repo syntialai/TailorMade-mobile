@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
 import com.future.tailormade.core.model.ui.dashboard.DashboardTailorUiModel
 import com.future.tailormade.databinding.LayoutDashboardTailorBinding
-import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 
@@ -55,9 +54,8 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit) :
           textViewProfileCity.remove()
         }
 
-        data.image?.let {
-          ImageLoader.loadImageUrl(context, it, imageViewProfile)
-        }
+        ImageLoader.loadImageUrlWithFitCenterAndPlaceholder(context, data.image.orEmpty(),
+            R.drawable.illustration_dashboard_tailor_profile, imageViewProfile)
 
         data.designs?.let { designs ->
           showPreview()

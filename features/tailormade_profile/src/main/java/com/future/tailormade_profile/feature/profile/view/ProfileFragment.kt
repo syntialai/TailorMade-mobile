@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentProfileBinding
@@ -84,9 +85,8 @@ class ProfileFragment : BaseFragment() {
       textViewProfileCity.text = city
 
       context?.let {
-        if (image.isNotBlank()) {
-          ImageLoader.loadImageUrl(it, image, imageViewProfile)
-        }
+        ImageLoader.loadImageUrlWithFitCenterAndPlaceholder(it, image,
+            ImageHelper.getUserProfilePlaceholder(viewModel.getUserGender()), imageViewProfile)
       }
     }
   }
