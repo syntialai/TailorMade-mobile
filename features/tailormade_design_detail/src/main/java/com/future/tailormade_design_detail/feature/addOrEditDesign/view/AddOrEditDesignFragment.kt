@@ -1,5 +1,6 @@
 package com.future.tailormade_design_detail.feature.addOrEditDesign.view
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
@@ -11,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
@@ -156,12 +158,17 @@ class AddOrEditDesignFragment : BaseFragment() {
     binding.chipGroupDesignColor.addView(chipBinding)
   }
 
+  @SuppressLint("ClickableViewAccessibility")
   private fun hideImagePreview() {
     with(binding.layoutAddOrEditImage) {
       groupFilledImageState.remove()
       groupEmptyImageState.show()
-      root.setOnClickListener {
-        openGallery()
+      root.setOnTouchListener { view, event ->
+        if (event.action == MotionEvent.ACTION_DOWN) {
+          view.performClick()
+          openGallery()
+        }
+        false
       }
     }
     setClickable(true)
@@ -270,7 +277,7 @@ class AddOrEditDesignFragment : BaseFragment() {
       && viewModel.isPriceValid(price, discount)
 
   private fun addOrUpdateDesign(name: String, price: String, discount: String, description: String) {
-    args.designDetail.let {
+    args.designDetail?.let {
       viewModel.updateDesign(name, price, discount, description)
     } ?: run {
       viewModel.addDesign(name, price, discount, description)
