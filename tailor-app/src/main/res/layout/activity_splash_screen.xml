@@ -13,6 +13,6 @@
         android:layout_width="@dimen/dp_200"
         android:layout_height="@dimen/dp_200"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_tailormade"
+        android:src="@mipmap/ic_launcher_foreground"
         tools:ignore="ContentDescription" />
 </LinearLayout>

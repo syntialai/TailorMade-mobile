@@ -44,7 +44,7 @@ class SignUpFragment : BaseFragment() {
     setupDatePicker()
     binding = FragmentSignUpBinding.inflate(inflater, container, false)
     with(binding) {
-      textInputBirthDateSignUp.setOnClickListener {
+      textInputBirthDateSignUp.setEndIconOnClickListener {
         showDatePicker()
       }
       buttonSubmitForm.setOnClickListener {

@@ -19,10 +19,10 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
     private val diffCallback = object : DiffUtil.ItemCallback<DashboardDesignUiModel>() {
 
       override fun areItemsTheSame(oldItem: DashboardDesignUiModel,
-          newItem: DashboardDesignUiModel) = oldItem == newItem
+          newItem: DashboardDesignUiModel) = oldItem.id == newItem.id
 
       override fun areContentsTheSame(oldItem: DashboardDesignUiModel,
-          newItem: DashboardDesignUiModel) = oldItem.id == newItem.id
+          newItem: DashboardDesignUiModel) = oldItem == newItem
     }
   }
 

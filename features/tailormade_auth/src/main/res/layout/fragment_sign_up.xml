@@ -67,8 +67,6 @@
         android:id="@+id/text_input_birth_date_sign_up"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
         android:hint="@string/birth_date_label"
         app:endIconDrawable="@drawable/ic_date"
         app:endIconMode="custom"
@@ -82,7 +80,7 @@
             android:id="@+id/edit_text_birth_date_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date" />
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
