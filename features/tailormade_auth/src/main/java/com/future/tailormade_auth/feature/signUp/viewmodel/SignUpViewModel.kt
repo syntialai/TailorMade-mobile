@@ -11,6 +11,7 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
+import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.model.response.UserResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -89,12 +90,18 @@ class SignUpViewModel @ViewModelInject constructor(
         }.onError {
           setErrorMessage(Constants.SIGN_IN_ERROR)
           _hasSignIn.value = false
-        }.collectLatest { token ->
-          authSharedPrefRepository.accessToken = token.access
-          authSharedPrefRepository.refreshToken = token.refresh
+        }.collectLatest { data ->
+          updateToken(data.token)
           _hasSignIn.value = true
         }
       }
+    }
+  }
+
+  private fun updateToken(token: TokenDetailResponse) {
+    with(authSharedPrefRepository) {
+      accessToken = token.access
+      refreshToken = token.refresh
     }
   }
 }

@@ -11,12 +11,12 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.SignInRequest
+import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.model.response.UserResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.retry
 
 class SignInViewModel @ViewModelInject constructor(
   private val authRepository: AuthRepository,
@@ -48,23 +48,9 @@ class SignInViewModel @ViewModelInject constructor(
       authRepository.signIn(signInRequest).onError {
         Log.d("SIGN IN", it.toString())
         setErrorMessage(Constants.SIGN_IN_ERROR)
-      }.collectLatest { token ->
-        authSharedPrefRepository.accessToken = token.access
-        authSharedPrefRepository.refreshToken = token.refresh
-        getUserInfo()
-      }
-    }
-  }
-
-  private fun getUserInfo() {
-    launchViewModelScope {
-      authRepository.getUserInfo().retry {
-        it.cause != null
-      }.onError {
-        setErrorMessage(Constants.SIGN_IN_ERROR)
-      }.collectLatest {
-        _userInfo.value = it
-        updateUserData(it)
+      }.collectLatest { data ->
+        updateToken(data.token)
+        updateUserData(data.user)
       }
     }
   }
@@ -75,6 +61,13 @@ class SignInViewModel @ViewModelInject constructor(
       username = user.email
       name = user.name
       userRole = user.role
+    }
+  }
+
+  private fun updateToken(token: TokenDetailResponse) {
+    with(authSharedPrefRepository) {
+      accessToken = token.access
+      refreshToken = token.refresh
     }
   }
 }

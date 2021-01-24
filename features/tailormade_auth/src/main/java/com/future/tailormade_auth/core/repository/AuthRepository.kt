@@ -4,15 +4,14 @@ import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
 import com.future.tailormade_auth.core.model.response.ActivateTailorResponse
+import com.future.tailormade_auth.core.model.response.SignInResponse
 import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.model.response.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
-  suspend fun getUserInfo(): Flow<UserResponse>
-
-  suspend fun signIn(signInRequest: SignInRequest): Flow<TokenDetailResponse>
+  suspend fun signIn(signInRequest: SignInRequest): Flow<SignInResponse>
 
   suspend fun signUp(signUpRequest: SignUpRequest): Flow<UserResponse>
 

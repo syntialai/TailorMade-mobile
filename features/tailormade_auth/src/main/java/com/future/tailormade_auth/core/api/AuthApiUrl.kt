@@ -11,6 +11,5 @@ object AuthApiUrl {
   const val USER_SIGN_IN_PATH = "$BASE_USER_PATH/_sign-in"
   const val USER_SIGN_UP_PATH = "$BASE_USER_PATH/_sign-up"
   const val USER_REFRESH_TOKEN_PATH = "$BASE_USER_PATH/_refresh-token"
-  const val USER_GET_USER_INFO = "$BASE_USER_PATH/info"
   const val USER_GET_FIREBASE_TOKEN_PATH = "$BASE_USER_PATH/_get-firebase-token"
 }

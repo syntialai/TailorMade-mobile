@@ -5,9 +5,9 @@ import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
+import com.future.tailormade_auth.core.model.response.SignInResponse
 import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.model.response.TokenResponse
-import com.future.tailormade_auth.core.model.response.UserResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import com.future.tailormade_auth.core.service.AuthLoginService
 import com.future.tailormade_auth.core.service.AuthService
@@ -33,14 +33,8 @@ class AuthRepositoryImpl @Inject constructor(private val authService: AuthServic
     }
   }.flowOnIO()
 
-  override suspend fun getUserInfo(): Flow<UserResponse> = flow {
-    authService.getUserInfo().data?.let {
-      emit(it)
-    }
-  }
-
-  override suspend fun signIn(signInRequest: SignInRequest): Flow<TokenDetailResponse> = flow {
-    authLoginService.signIn(signInRequest).data?.token?.let {
+  override suspend fun signIn(signInRequest: SignInRequest): Flow<SignInResponse> = flow {
+    authLoginService.signIn(signInRequest).data?.let {
       emit(it)
     }
   }.flowOnIO()

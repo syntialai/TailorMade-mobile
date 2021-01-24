@@ -24,7 +24,7 @@ import timber.log.Timber
 @InstallIn(ApplicationComponent::class)
 class NetworkModule {
 
-  private val BASE_URL = "https://tailormade-backend.herokuapp.com/tailormade/"
+  private val BASE_URL = "https://tailormade-backend.herokuapp.com/"
 
   private val FIREBASE_URL = "https://tailormade-eac34.firebaseio.com/"
 
