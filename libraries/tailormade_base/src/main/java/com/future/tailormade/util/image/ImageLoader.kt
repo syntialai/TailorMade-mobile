@@ -23,7 +23,7 @@ object ImageLoader {
 
   fun loadImageUrlWithFitCenterAndPlaceholder(context: Context, imageUrl: String, drawable: Int,
       imageView: ImageView) {
-    val options = RequestOptions().fitCenter().placeholder(drawable)
+    val options = RequestOptions().fitCenter().centerCrop().placeholder(drawable)
     Glide.with(context).load(imageUrl).apply(options).into(imageView)
   }
 }

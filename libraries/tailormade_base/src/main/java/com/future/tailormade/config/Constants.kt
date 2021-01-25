@@ -12,7 +12,7 @@ object Constants {
   const val REFRESH_DELAY_TIME = 1000L
   const val INDONESIA_TIME_ZONE = "Asia/Jakarta"
   const val INITIAL_PAGING_PAGE = 0
-  const val INITIAL_PAGING_ITEM_PER_PAGE = 10
+  const val INITIAL_PAGING_ITEM_PER_PAGE = 20
   const val COMPRESS_IMAGE_QUALITY = 100
   const val TYPE_IMAGE_ALL = "image/*"
   const val TYPE_IMAGE_JPEG = "image/jpeg"

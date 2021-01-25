@@ -12,6 +12,7 @@ import com.future.tailormade.core.model.request.cart.CartEditQuantityRequest
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.core.repository.CartRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
@@ -38,17 +39,23 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   fun fetchCartData() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { userId ->
-        cartRepository.getCarts(userId).onStart {
+        cartRepository.getCarts(userId, page, itemPerPage).onStart {
           setStartLoading()
         }.onError {
           setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_GET_YOUR_CART_ITEM)
         }.collectLatest {
-          _cartUiModel.value = it
+          addToList(it)
           setFinishLoading()
         }
       }
     }
+  }
+
+  @ExperimentalCoroutinesApi
+  override fun fetchMore() {
+    super.fetchMore()
+    fetchCartData()
   }
 
   fun editCartItemQuantity(id: String, quantity: Int) {
@@ -76,6 +83,15 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
         }
       }
     }
+  }
+
+  private fun addToList(list: ArrayList<CartUiModel>) {
+    val carts = arrayListOf<CartUiModel>()
+    if (isFirstPage().not()) {
+      carts.addAll(_cartUiModel.value.orEmptyList())
+    }
+    carts.addAll(list)
+    _cartUiModel.value = carts
   }
 
   private fun deleteUiModelItem(id: String) {

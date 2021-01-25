@@ -16,8 +16,8 @@ class CartRepositoryImpl @Inject constructor(private val cartService: CartServic
 
   override fun getLogName(): String = "com.future.tailormade.core.repository.impl.CartRepositoryImpl"
 
-  override suspend fun getCarts(userId: String): Flow<ArrayList<CartUiModel>> = flow {
-    val carts = cartService.getCarts(userId).data
+  override suspend fun getCarts(userId: String, page: Int, itemPerPage: Int): Flow<ArrayList<CartUiModel>> = flow {
+    val carts = cartService.getCarts(userId, page, itemPerPage).data
     carts?.let {
       emit(CartMapper.mapToCartUiModel(it))
     }

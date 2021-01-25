@@ -13,6 +13,7 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentCartBinding
 import com.future.tailormade.feature.cart.adapter.CartAdapter
 import com.future.tailormade.feature.cart.viewModel.CartViewModel
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_router.actions.Action
@@ -105,10 +106,22 @@ class CartFragment : BaseFragment() {
     }
   }
 
+  @ExperimentalCoroutinesApi
   private fun setupRecyclerView() {
     with(binding.recyclerViewCartList) {
-      layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+      layoutManager = LinearLayoutManager(context)
       adapter = cartAdapter
+
+      addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          super.onScrolled(recyclerView, dx, dy)
+
+          if (isLastItemViewed(recyclerView, viewModel.cartUiModel.value?.size.orZero())) {
+            viewModel.fetchMore()
+          }
+        }
+      })
     }
   }
 
