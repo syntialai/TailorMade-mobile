@@ -9,24 +9,29 @@
     <application android:theme="@style/Theme.TailorMade">
         <activity android:name=".feature.profile.view.TailorProfileActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.tailorProfile.open" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".feature.settings.view.SettingsActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.settings.open" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".feature.editProfile.view.EditProfileActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="com.future.tailormade.editProfile.open" />
 

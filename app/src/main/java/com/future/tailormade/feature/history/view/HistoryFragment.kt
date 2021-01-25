@@ -93,7 +93,8 @@ class HistoryFragment : BaseFragment() {
     binding.layoutHistoryState.root.show()
   }
 
-  @ExperimentalCoroutinesApi private fun setupRecyclerView() {
+  @ExperimentalCoroutinesApi
+  private fun setupRecyclerView() {
     with(binding.recyclerViewHistoryList) {
       layoutManager = LinearLayoutManager(context)
       adapter = historyAdapter
@@ -111,7 +112,8 @@ class HistoryFragment : BaseFragment() {
     }
   }
 
-  @ExperimentalCoroutinesApi private fun setupSwipeRefreshLayout() {
+  @ExperimentalCoroutinesApi
+  private fun setupSwipeRefreshLayout() {
     binding.swipeRefreshLayoutHistory.setOnRefreshListener {
       viewModel.refreshFetch()
       if (binding.swipeRefreshLayoutHistory.isRefreshing.not()) {

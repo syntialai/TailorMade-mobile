@@ -131,6 +131,7 @@ class SignUpFragment : BaseFragment() {
 
   private fun submitForm(name: String, email: String, birthDate: String, password: String,
       confirmPassword: String) {
+    hideKeyboard()
     if (isFormValid(name, email, birthDate, password, confirmPassword)) {
       viewModel.setSignUpInfo(name, email, password)
       findNavController().navigate(

@@ -45,6 +45,7 @@ class SignInFragment : BaseFragment() {
     with(binding) {
       buttonSignIn.setOnClickListener {
         submitEmailAndPassword(editTextEmailSignIn.text(), editTextPasswordSignIn.text())
+        hideKeyboard()
       }
       buttonGoToSignUp.setOnClickListener {
         findNavController().navigate(
