@@ -13,14 +13,14 @@ import retrofit2.http.Path
 interface DesignDetailService {
 
   @GET(DesignDetailApiUrl.DESIGNS_ID_PATH)
-  fun getDesignDetailById(
+  suspend fun getDesignDetailById(
       @Path("id") id: String): BaseSingleObjectResponse<DesignDetailResponse>
 
   @POST(DesignDetailApiUrl.TAILORS_ID_DESIGNS_PATH)
-  fun postAddDesignByTailor(@Path("tailorId") tailorId: String,
+  suspend fun postAddDesignByTailor(@Path("tailorId") tailorId: String,
       @Body designDetailRequest: DesignRequest): BaseSingleObjectResponse<DesignDetailResponse>
 
   @PUT(DesignDetailApiUrl.TAILORS_ID_DESIGNS_ID_PATH)
-  fun putEditDesignByTailorAndById(@Path("tailorId") tailorId: String, @Path("id") id: String,
+  suspend fun putEditDesignByTailorAndById(@Path("tailorId") tailorId: String, @Path("id") id: String,
       @Body designDetailRequest: DesignRequest): BaseSingleObjectResponse<DesignDetailResponse>
 }

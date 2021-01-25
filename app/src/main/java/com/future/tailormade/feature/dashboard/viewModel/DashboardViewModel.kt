@@ -1,5 +1,6 @@
 package com.future.tailormade.feature.dashboard.viewModel
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,6 +28,7 @@ class DashboardViewModel @ViewModelInject constructor(
     launchViewModelScope {
       dashboardRepository.getDashboardTailors(page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("dashboard"))
+        Log.d("", it.message, it)
         setFinishLoading()
       }.onStart {
         setStartLoading()

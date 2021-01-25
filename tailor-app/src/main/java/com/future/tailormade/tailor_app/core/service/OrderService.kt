@@ -14,18 +14,20 @@ import retrofit2.http.Query
 interface OrderService {
 
   @GET(TailorAppApiUrl.BASE_TAILORS_ID_ORDERS_PATH)
-  fun getTailorOrders(
+  suspend fun getTailorOrders(
       @Path("tailorId") tailorId: String, @Query("status") status: String):
       BaseListResponse<OrderResponse>
 
   @GET(TailorAppApiUrl.TAILORS_ID_ORDERS_ID_PATH)
-  fun getTailorOrderById(
+  suspend fun getTailorOrderById(
       @Path("tailorId") tailorId: String, @Path("id") id: String):
       BaseSingleObjectResponse<OrderDetailResponse>
 
   @PUT(TailorAppApiUrl.TAILORS_ID_ORDERS_ID_ACCEPT_PATH)
-  fun putAcceptOrder(@Path("tailorId") tailorId: String, @Path("id") id: String): BaseResponse
+  suspend fun putAcceptOrder(
+      @Path("tailorId") tailorId: String, @Path("id") id: String): BaseResponse
 
   @PUT(TailorAppApiUrl.TAILORS_ID_ORDERS_ID_REJECT_PATH)
-  fun putRejectOrder(@Path("tailorId") tailorId: String, @Path("id") id: String): BaseResponse
+  suspend fun putRejectOrder(
+      @Path("tailorId") tailorId: String, @Path("id") id: String): BaseResponse
 }

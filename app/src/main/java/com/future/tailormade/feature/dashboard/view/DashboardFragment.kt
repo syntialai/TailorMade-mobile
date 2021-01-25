@@ -55,7 +55,7 @@ class DashboardFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    viewModel.fetchDashboardTailors(10.0, 10.0)
+    viewModel.fetchDashboardTailors()
     viewModel.tailors.observe(viewLifecycleOwner, {
       dashboardAdapter.submitList(it)
       if (it.isNotEmpty()) {
