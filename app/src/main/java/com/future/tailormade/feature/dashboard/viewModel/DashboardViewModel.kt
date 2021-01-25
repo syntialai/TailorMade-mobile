@@ -23,9 +23,9 @@ class DashboardViewModel @ViewModelInject constructor(
     get() = _tailors
 
   @ExperimentalCoroutinesApi
-  fun fetchDashboardTailors(lat: Double, lon: Double) {
+  fun fetchDashboardTailors() {
     launchViewModelScope {
-      dashboardRepository.getDashboardTailors(lat, lon, page, itemPerPage).onError {
+      dashboardRepository.getDashboardTailors(page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("dashboard"))
         setFinishLoading()
       }.onStart {
@@ -40,15 +40,13 @@ class DashboardViewModel @ViewModelInject constructor(
   @ExperimentalCoroutinesApi
   override fun fetchMore() {
     super.fetchMore()
-    // TODO: Uncomment and Change this position after LocationManager done
-//    fetchDashboardTailors(10.0, 10.0)
+    fetchDashboardTailors()
   }
 
   @ExperimentalCoroutinesApi
   override fun refreshFetch() {
     super.refreshFetch()
-    // TODO: Uncomment and Change this position after LocationManager done
-//    fetchDashboardTailors(10.0, 10.0)
+    fetchDashboardTailors()
   }
 
   private fun addToList(list: ArrayList<DashboardTailorUiModel>) {

@@ -13,9 +13,8 @@ class DashboardRepositoryImpl @Inject constructor(private val dashboardService: 
 
   override fun getLogName() = "com.future.tailormade.core.repository.impl.DashboardRepositoryImpl"
 
-  override suspend fun getDashboardTailors(
-      lat: Double, lon: Double, page: Int, itemPerPage: Int) = flow {
-    val tailors = dashboardService.getDashboardTailors(lat, lon, page, itemPerPage).data
+  override suspend fun getDashboardTailors(page: Int, itemPerPage: Int) = flow {
+    val tailors = dashboardService.getDashboardTailors(page, itemPerPage).data
     emit(tailors?.map {
       DashboardMapper.mapToDashboardTailorUiModel(it)
     } as ArrayList)
