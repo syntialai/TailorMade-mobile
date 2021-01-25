@@ -4,6 +4,7 @@
     <string name="delete_chat_alert_dialog_content">You’ll delete all chat history with </string>
     <string name="chat_input_message_label">Type a message</string>
 
+    <string name="send_message_error_message">Failed to send message, please try again.</string>
     <string name="delete_chat_error_message">Failed to delete chat</string>
     <string name="load_chat_data_error_message">Failed to load chat data</string>
 

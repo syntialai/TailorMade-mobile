@@ -121,7 +121,7 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
-  open fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
+  fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
     val layoutManager: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
     return getViewModel()?.isStillLoading()?.not().orFalse() &&
            layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition

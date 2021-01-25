@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.util.extension.text
+import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.ChatRoom
 import com.future.tailormade_chat.databinding.ActivityChatRoomBinding
@@ -98,6 +99,22 @@ class ChatRoomActivity : BaseActivity() {
     viewModel.chatRoomContent.observe(this, {
       it.addValueEventListener(adapterValueEventListener)
     })
+
+    viewModel.isMessageSent.observe(this, {
+      it?.let { isSent ->
+        if (isSent) {
+          removeMessage()
+        } else {
+          ToastHelper.showToast(binding.recyclerViewChatRoom,
+              getString(R.string.send_message_error_message))
+        }
+      }
+    })
+  }
+
+  private fun removeMessage() {
+    binding.layoutInputTextChatRoom.editTextMessageChatRoom.text = null
+    viewModel.setIsSent(null)
   }
 
   private fun setupRecyclerView() {
