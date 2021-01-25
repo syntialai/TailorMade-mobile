@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentDashboardBinding
@@ -16,8 +17,10 @@ import com.future.tailormade.feature.dashboard.viewModel.DashboardViewModel
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade_router.actions.Action
 import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
@@ -27,11 +30,14 @@ class DashboardFragment : BaseFragment() {
     fun newInstance() = DashboardFragment()
   }
 
+  @Inject
+  lateinit var authSharedPrefRepository: AuthSharedPrefRepository
+
   private lateinit var binding: FragmentDashboardBinding
 
   private val viewModel: DashboardViewModel by viewModels()
   private val dashboardAdapter by lazy {
-    DashboardAdapter(::goToTailorProfile)
+    DashboardAdapter(::goToTailorProfile, ::goToChatRoom)
   }
 
   override fun getLogName() = "com.future.tailormade.feature.dashboard.view.DashboardFragment"
@@ -67,6 +73,14 @@ class DashboardFragment : BaseFragment() {
       }
       binding.swipeRefreshLayoutDashboard.isRefreshing = false
     })
+  }
+
+  private fun goToChatRoom(tailorId: String, tailorName: String) {
+    context?.let { context ->
+      authSharedPrefRepository.userId?.let { userId ->
+        Action.goToChatRoom(context, "${userId}_$tailorId", tailorName)
+      }
+    }
   }
 
   private fun goToTailorProfile(tailorId: String) {

@@ -12,6 +12,7 @@ import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
 import com.future.tailormade.util.view.DialogHelper
 import com.future.tailormade.util.view.ToastHelper
+import com.future.tailormade_router.actions.Action
 
 abstract class BaseFragment : Fragment() {
 
@@ -102,7 +103,10 @@ abstract class BaseFragment : Fragment() {
   }
 
   private fun onUnauthorized() {
-    // TODO: Implement this
+    context?.let {
+      Action.goToSignIn(it)
+      activity?.finish()
+    }
   }
 
   private fun showNoInternetConnection() {

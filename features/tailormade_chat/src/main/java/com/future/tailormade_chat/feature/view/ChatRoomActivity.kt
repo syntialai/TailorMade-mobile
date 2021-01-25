@@ -102,8 +102,7 @@ class ChatRoomActivity : BaseActivity() {
 
   private fun setupRecyclerView() {
     with(binding.recyclerViewChatRoom) {
-      layoutManager = LinearLayoutManager(this@ChatRoomActivity, LinearLayoutManager.VERTICAL,
-          false)
+      layoutManager = LinearLayoutManager(this@ChatRoomActivity)
       adapter = chatRoomAdapter
     }
   }

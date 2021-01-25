@@ -81,12 +81,6 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
-  private fun goToSearch() {
-    context?.let { context ->
-      Action.goToSearch(context)
-    }
-  }
-
   @InternalCoroutinesApi
   @ExperimentalCoroutinesApi
   override fun setupFragmentObserver() {
@@ -139,6 +133,18 @@ class DesignDetailFragment : BaseFragment() {
       this.chipIconTint = ColorStateList.valueOf(Color.parseColor(color))
     }
     return chipBinding
+  }
+
+  private fun goToSearch() {
+    context?.let { context ->
+      Action.goToSearch(context)
+    }
+  }
+
+  private fun goToTailorProfile(tailorId: String) {
+    context?.let { context ->
+      UserAction.goToTailorProfile(context, tailorId)
+    }
   }
 
   private fun hideCustomerFeatures() {
@@ -233,7 +239,9 @@ class DesignDetailFragment : BaseFragment() {
         }
       }
       textViewDesignDetailDesignedBy.setOnClickListener {
-        // TODO: Go to tailor profile
+        if (authSharedPrefRepository.isUser()) {
+          goToTailorProfile(tailorId)
+        }
       }
 
       textViewDesignDetailTitle.text = title

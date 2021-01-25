@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/dp_4">
+    android:elevation="@dimen/dp_8">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_message_chat_room"
