@@ -8,8 +8,9 @@ import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
+import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 class SplashScreenViewModel @ViewModelInject constructor(private val authRepository: AuthRepository,
     private val authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
@@ -30,12 +31,20 @@ class SplashScreenViewModel @ViewModelInject constructor(private val authReposit
         val refreshTokenRequest = RefreshTokenRequest(refreshToken)
         authRepository.refreshToken(refreshTokenRequest).onError {
           _isTokenExpired.value = true
-        }.collect { token ->
+        }.collectLatest { token ->
+          setToken(token)
           _isTokenExpired.value = false
-          authSharedPrefRepository.refreshToken = token.refresh
-          authSharedPrefRepository.accessToken = token.access
         }
+      }  ?: run {
+        _isTokenExpired.value = true
       }
+    }
+  }
+
+  private fun setToken(token: TokenDetailResponse) {
+    with(authSharedPrefRepository) {
+      refreshToken = token.refresh
+      accessToken = token.access
     }
   }
 }

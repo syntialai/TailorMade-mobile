@@ -12,10 +12,8 @@ import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.flow.collectLatest
 
-class SplashScreenViewModel @ViewModelInject constructor(
-    private val authRepository: AuthRepository,
-    private val authSharedPrefRepository: AuthSharedPrefRepository) :
-    BaseViewModel() {
+class SplashScreenViewModel @ViewModelInject constructor(private val authRepository: AuthRepository,
+    private val authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
 
   override fun getLogName(): String = "com.future.tailormade.feature.splash.viewModel.SplashScreenViewModel"
 
