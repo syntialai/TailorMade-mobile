@@ -10,10 +10,11 @@ import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade_chat.core.model.entity.Chat
+import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_chat.core.model.entity.Text
 import com.future.tailormade_chat.core.repository.RealtimeDbRepository
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.Query
 import java.sql.Timestamp
 import java.time.LocalDateTime
@@ -25,9 +26,12 @@ class ChatRoomViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
   companion object {
+    private const val CHAT_ROOM_USER_ID = "CHAT_ROOM_USER_ID"
     private const val CHAT_ROOM_ID = "CHAT_ROOM_ID"
     private const val CHAT_ROOM_CONTENT = "CHAT_ROOM_CONTENT"
   }
+
+  private var anotherUserId: String? = null
 
   private var _chatRoomId: MutableLiveData<String>
   val chatRoomId: LiveData<String>
@@ -44,6 +48,7 @@ class ChatRoomViewModel @ViewModelInject constructor(
   init {
     _chatRoomId = savedStateHandle.getLiveData(CHAT_ROOM_ID)
     _chatRoomContent = savedStateHandle.getLiveData(CHAT_ROOM_CONTENT)
+    anotherUserId = savedStateHandle.get(CHAT_ROOM_USER_ID)
   }
 
   override fun getLogName(): String = "com.future.tailormade_chat.feature.viewModel.ChatRoomViewModel"
@@ -54,21 +59,24 @@ class ChatRoomViewModel @ViewModelInject constructor(
     }
   }
 
-  fun setChatRoomId(chatRoomId: String) {
-    _chatRoomId.value = chatRoomId
+  fun setChatRoomId(userId: String) {
+    anotherUserId = userId
+    _chatRoomId.value = realtimeDbRepository.getRoomId(userId)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
   fun sendMessage(text: String) {
+    val nowTimestamp = Timestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC))
     authSharedPrefRepository.userId?.let { userId ->
       _chatRoomId.value?.let {
-        val chat = Chat(Timestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)), userId, false,
-            Constants.MESSAGES_TYPE_TEXT, Text(text))
-        realtimeDbRepository.updateChatRoom(it, chat).addOnSuccessListener {
+        val chat = Chat(nowTimestamp, userId, false, Constants.MESSAGES_TYPE_TEXT, Text(text))
+        val session = Session(nowTimestamp, userId, authSharedPrefRepository.name, chat, false)
+        realtimeDbRepository.addChatRoomAndSession(
+            anotherUserId.orEmpty(), it, session, chat)?.addOnSuccessListener {
           setIsSent(true)
-        }.addOnFailureListener {
+        }?.addOnFailureListener {
           setIsSent(false)
-        }
+        } ?: setIsSent(false)
       }
     }
   }

@@ -69,8 +69,7 @@ class TailorProfileActivity : BaseActivity() {
   private fun setupProfileData(data: ProfileInfoUiModel) {
     with(binding.layoutProfileInfo) {
       buttonChatTailor.setOnClickListener {
-        Action.goToChatRoom(this@TailorProfileActivity,
-            "${authSharedPrefRepository.userId}_${data.id}", data.name)
+        Action.goToChatRoom(this@TailorProfileActivity, data.id, data.name)
       }
 
       textViewProfileName.text = data.name

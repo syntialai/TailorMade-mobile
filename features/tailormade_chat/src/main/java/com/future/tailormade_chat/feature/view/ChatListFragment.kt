@@ -100,9 +100,7 @@ class ChatListFragment : BaseFragment() {
 
   private fun openChatRoom(id: String, name: String) {
     context?.let { context ->
-      viewModel.getChatRoomId(id)?.let { chatRoomId ->
-        Action.goToChatRoom(context, chatRoomId, name)
-      }
+      Action.goToChatRoom(context, id, name)
     }
   }
 

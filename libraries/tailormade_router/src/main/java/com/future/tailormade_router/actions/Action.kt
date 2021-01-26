@@ -8,7 +8,7 @@ object Action {
   /**
    * Param name
    */
-  private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
+  private const val PARAM_CHAT_ROOM_USER_ID = "PARAM_CHAT_ROOM_USER_ID"
   private const val PARAM_CHAT_ROOM_USER_NAME = "PARAM_CHAT_ROOM_USER_NAME"
   private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
   private const val PARAM_EDIT_PROFILE_TYPE = "PARAM_EDIT_PROFILE_TYPE"
@@ -42,9 +42,9 @@ object Action {
 
   fun goToSearch(context: Context) = context.startActivity(getIntent(context, ACTION_OPEN_SEARCH))
 
-  fun goToChatRoom(context: Context, chatRoomId: String, userName: String) = context.startActivity(
+  fun goToChatRoom(context: Context, userId: String, userName: String) = context.startActivity(
       getIntent(context, ACTION_OPEN_CHAT_ROOM).apply {
-        putExtra(PARAM_CHAT_ROOM_ID, chatRoomId)
+        putExtra(PARAM_CHAT_ROOM_USER_ID, userId)
         putExtra(PARAM_CHAT_ROOM_USER_NAME, userName)
       })
 

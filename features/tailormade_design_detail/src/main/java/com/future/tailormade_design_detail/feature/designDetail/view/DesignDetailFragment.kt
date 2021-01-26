@@ -67,7 +67,6 @@ class DesignDetailFragment : BaseFragment() {
     if (authSharedPrefRepository.isTailor()) {
       hideCustomerFeatures()
     }
-
     return binding.root
   }
 
@@ -135,6 +134,14 @@ class DesignDetailFragment : BaseFragment() {
     return chipBinding
   }
 
+  private fun goToChat() {
+    context?.let { context ->
+      designDetailResponse?.let {
+        Action.goToChatRoom(context, it.tailorId, it.tailorName)
+      }
+    }
+  }
+
   private fun goToSearch() {
     context?.let { context ->
       Action.goToSearch(context)
@@ -169,7 +176,7 @@ class DesignDetailFragment : BaseFragment() {
     binding.bottomNavDesignDetail.setOnNavigationItemSelectedListener { item ->
       when(item.itemId) {
         R.id.item_chat_tailor -> {
-          // TODO: Go to chat
+          goToChat()
           true
         }
         R.id.item_add_to_cart -> {

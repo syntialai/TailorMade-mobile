@@ -3,7 +3,7 @@ package com.future.tailormade_chat.core.repository.impl
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade_chat.core.config.ReferenceConstants
 import com.future.tailormade_chat.core.model.entity.Chat
-import com.future.tailormade_chat.core.model.entity.ChatRoom
+import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_chat.core.repository.RealtimeDbRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class RealtimeDbRepositoryImpl @Inject constructor(
     private val authSharedPrefRepository: AuthSharedPrefRepository,
-    databaseReference: DatabaseReference) : RealtimeDbRepository {
+    private val databaseReference: DatabaseReference) : RealtimeDbRepository {
 
   private val getChatRoomRef = databaseReference.child(
       ReferenceConstants.CHAT_ROOMS)
@@ -27,18 +27,30 @@ class RealtimeDbRepositoryImpl @Inject constructor(
     return getChatRoomRef.endAt(authSharedPrefRepository.userId)
   }
 
+  override fun getRoomId(anotherUserId: String): String = if (authSharedPrefRepository.isUser()) {
+    "${authSharedPrefRepository.userId}_${anotherUserId}"
+  } else {
+    "${anotherUserId}_${authSharedPrefRepository.userId}"
+  }
+
   override fun getUserChatSessionById(userId: String) = getUserChatSessionRef.child(
       userId)
 
-  override fun addChatRoom(anotherUserId: String, chatRoom: ChatRoom): Task<Void> {
-    val roomId = getRoomId(anotherUserId)
-    return setValue(getChatRoomRef.child(roomId), chatRoom)
+  override fun addChatRoomAndSession(userId: String, chatRoomId: String, session: Session, chat: Chat): Task<Void>? {
+    authSharedPrefRepository.userId?.let { id ->
+      val childUpdates = hashMapOf(
+          "${ReferenceConstants.CHAT_ROOMS}/$chatRoomId/${ReferenceConstants.CHATS}/${chat.createdDate.toString()}" to chat,
+          "${ReferenceConstants.USERS_CHAT_SESSION}/$id/hasBeenRead" to false,
+          "${ReferenceConstants.USERS_CHAT_SESSION}/$id/userId" to id,
+          "${ReferenceConstants.USERS_CHAT_SESSION}/$id/userName" to authSharedPrefRepository.name,
+          "${ReferenceConstants.USERS_CHAT_SESSION}/$id/${ReferenceConstants.SESSIONS}/$userId" to session)
+      return databaseReference.updateChildren(childUpdates)
+    } ?: return null
   }
 
   override fun updateChatRoom(chatRoomId: String, chat: Chat): Task<Void> {
-    // TODO: Change chatId to real generated chatId
     return getRoomChatsById(chatRoomId).updateChildren(
-        mutableMapOf<String, Any>(Pair("chatId", chat)))
+        mutableMapOf<String, Any>(Pair(chat.createdDate.toString(), chat)))
   }
 
   override fun deleteChatRoom(chatRoomId: String): Task<Void> {
@@ -50,12 +62,6 @@ class RealtimeDbRepositoryImpl @Inject constructor(
     return setValue(
         getUserChatSessionById(userId).child(ReferenceConstants.SESSIONS).child(
             userChatId), null)
-  }
-
-  private fun getRoomId(anotherUserId: String) = if (authSharedPrefRepository.isUser()) {
-    "${authSharedPrefRepository.userId}_${anotherUserId}"
-  } else {
-    "${anotherUserId}_${authSharedPrefRepository.userId}"
   }
 
   private fun getRoomChatsById(chatRoomId: String) = getChatRoomRef.child(

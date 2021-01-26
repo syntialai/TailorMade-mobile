@@ -30,9 +30,6 @@ class DashboardFragment : BaseFragment() {
     fun newInstance() = DashboardFragment()
   }
 
-  @Inject
-  lateinit var authSharedPrefRepository: AuthSharedPrefRepository
-
   private lateinit var binding: FragmentDashboardBinding
 
   private val viewModel: DashboardViewModel by viewModels()
@@ -77,9 +74,7 @@ class DashboardFragment : BaseFragment() {
 
   private fun goToChatRoom(tailorId: String, tailorName: String) {
     context?.let { context ->
-      authSharedPrefRepository.userId?.let { userId ->
-        Action.goToChatRoom(context, "${userId}_$tailorId", tailorName)
-      }
+      Action.goToChatRoom(context, tailorId, tailorName)
     }
   }
 

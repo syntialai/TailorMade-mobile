@@ -24,7 +24,7 @@ import javax.inject.Inject
 class ChatRoomActivity : BaseActivity() {
 
   companion object {
-    private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
+    private const val PARAM_CHAT_ROOM_USER_ID = "PARAM_CHAT_ROOM_USER_ID"
     private const val PARAM_CHAT_ROOM_USER_NAME = "PARAM_CHAT_ROOM_USER_NAME"
   }
 
@@ -78,7 +78,7 @@ class ChatRoomActivity : BaseActivity() {
   }
 
   private fun getIntentData() {
-    intent.getStringExtra(PARAM_CHAT_ROOM_ID)?.let { chatRoomId ->
+    intent.getStringExtra(PARAM_CHAT_ROOM_USER_ID)?.let { chatRoomId ->
       viewModel.setChatRoomId(chatRoomId)
     }
     setupToolbar(intent.getStringExtra(PARAM_CHAT_ROOM_USER_NAME) ?: getScreenName())

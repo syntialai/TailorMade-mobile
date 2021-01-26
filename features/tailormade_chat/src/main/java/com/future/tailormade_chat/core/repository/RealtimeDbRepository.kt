@@ -1,7 +1,7 @@
 package com.future.tailormade_chat.core.repository
 
 import com.future.tailormade_chat.core.model.entity.Chat
-import com.future.tailormade_chat.core.model.entity.ChatRoom
+import com.future.tailormade_chat.core.model.entity.Session
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.Query
 
@@ -9,9 +9,11 @@ interface RealtimeDbRepository {
 
   fun getChatRooms(): Query
 
+  fun getRoomId(anotherUserId: String): String
+
   fun getUserChatSessionById(userId: String): Query
 
-  fun addChatRoom(anotherUserId: String, chatRoom: ChatRoom): Task<Void>
+  fun addChatRoomAndSession(userId: String, chatRoomId: String, session: Session, chat: Chat): Task<Void>?
 
   fun updateChatRoom(chatRoomId: String, chat: Chat): Task<Void>
 
