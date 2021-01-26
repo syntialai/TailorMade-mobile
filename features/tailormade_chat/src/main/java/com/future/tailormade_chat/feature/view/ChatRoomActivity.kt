@@ -61,27 +61,27 @@ class ChatRoomActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityChatRoomBinding.inflate(layoutInflater)
-    toolbar = binding.topToolbarChatRoom
     setContentView(binding.root)
-    setSupportActionBar(toolbar)
-    setupOnNavigationIconClicked {
-      finish()
-    }
+    setupToolbar()
     with(binding.layoutInputTextChatRoom) {
       buttonSendMessage.setOnClickListener {
         sendMessage(editTextMessageChatRoom.text())
       }
     }
     setupRecyclerView()
-    getIntentData()
+    getChatRoom()
     setupObserver()
   }
 
-  private fun getIntentData() {
+  private fun getChatRoom() {
     intent.getStringExtra(PARAM_CHAT_ROOM_USER_ID)?.let { chatRoomId ->
       viewModel.setChatRoomId(chatRoomId)
     }
-    setupToolbar(intent.getStringExtra(PARAM_CHAT_ROOM_USER_NAME) ?: getScreenName())
+  }
+
+  private fun removeMessage() {
+    binding.layoutInputTextChatRoom.editTextMessageChatRoom.text = null
+    viewModel.setIsSent(null)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
@@ -112,15 +112,18 @@ class ChatRoomActivity : BaseActivity() {
     })
   }
 
-  private fun removeMessage() {
-    binding.layoutInputTextChatRoom.editTextMessageChatRoom.text = null
-    viewModel.setIsSent(null)
-  }
-
   private fun setupRecyclerView() {
     with(binding.recyclerViewChatRoom) {
       layoutManager = LinearLayoutManager(this@ChatRoomActivity)
       adapter = chatRoomAdapter
     }
+  }
+
+  private fun setupToolbar() {
+    toolbar = binding.topToolbarChatRoom
+    setupOnNavigationIconClicked {
+      finish()
+    }
+    setupToolbar(intent.getStringExtra(PARAM_CHAT_ROOM_USER_NAME) ?: getScreenName())
   }
 }

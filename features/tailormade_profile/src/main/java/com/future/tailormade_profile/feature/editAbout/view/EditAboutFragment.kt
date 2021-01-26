@@ -39,6 +39,10 @@ class EditAboutFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = editAboutViewModel
 
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
+
   @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater,
       container: ViewGroup?, savedInstanceState: Bundle?): View {

@@ -88,7 +88,6 @@ class SearchActivity : BaseActivity() {
 
   private fun setupToolbar() {
     toolbar = binding.topToolbarSearch
-    setSupportActionBar(toolbar)
     setupOnNavigationIconClicked {
       finish()
     }

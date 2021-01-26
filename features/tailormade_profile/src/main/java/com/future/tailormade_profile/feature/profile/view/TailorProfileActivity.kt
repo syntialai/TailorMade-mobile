@@ -38,13 +38,8 @@ class TailorProfileActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityTailorProfileBinding.inflate(layoutInflater)
-    toolbar = binding.topToolbarProfile
     setContentView(binding.root)
-    setSupportActionBar(toolbar)
-    setupOnNavigationIconClicked {
-      finish()
-    }
-    setupToolbar(getTailorId() ?: getScreenName())
+    setupToolbar()
     setupViewPager()
     setupTabLayout()
     setupObserver()
@@ -91,6 +86,11 @@ class TailorProfileActivity : BaseActivity() {
         }
       }.attach()
     }
+  }
+
+  private fun setupToolbar() {
+    toolbar = binding.topToolbarProfile
+    setupToolbar(getTailorId() ?: getScreenName())
   }
 
   private fun setupViewPager() {

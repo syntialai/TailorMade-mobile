@@ -43,6 +43,10 @@ class EditProfileFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
+
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

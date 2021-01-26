@@ -24,13 +24,8 @@ class EditProfileActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityEditProfileBinding.inflate(layoutInflater)
-    toolbar = binding.topToolbarProfile
     setContentView(binding.root)
-    setSupportActionBar(toolbar)
-    setupOnNavigationIconClicked {
-      finish()
-    }
-    setupToolbar(getScreenName())
+    toolbar = binding.topToolbarProfile
     setupNavController()
     intent.getStringExtra(PARAM_EDIT_PROFILE_TYPE)?.let { type ->
       when (type) {
