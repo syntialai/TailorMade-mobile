@@ -49,6 +49,7 @@ class ProfileViewModel @ViewModelInject constructor(
           Log.d(PROFILE_INFO, it.message, it)
           setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
         }.collectLatest {
+          setFinishLoading()
           _profileInfoUiModel.value = it.uiModel
         }
       }

@@ -86,11 +86,14 @@ abstract class BaseFragment : Fragment() {
   }
 
   open fun setupFragmentObserver() {
-    getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
-      when (state) {
-        is ViewState.Loading -> onLoading(state.isLoading)
-        is ViewState.Unauthorized -> onUnauthorized()
-        else -> showNoInternetConnection()
+    getViewModel()?.isLoading?.observe(viewLifecycleOwner, { isLoading ->
+//      when (state) {
+//        is ViewState.Loading -> onLoading(state.isLoading)
+//        is ViewState.Unauthorized -> onUnauthorized()
+//        else -> showNoInternetConnection()
+//      }
+      isLoading?.let {
+        onLoading(it)
       }
     })
 
@@ -139,14 +142,14 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
-  fun showLoadingView() {
-    if (loadingDialog == null && context == null) {
+  private fun showLoadingView() {
+    if (loadingDialog == null) {
       loadingDialog = DialogHelper.createLoadingDialog(requireContext())
     }
     DialogHelper.showDialog(loadingDialog)
   }
 
-  fun hideLoadingView() {
+  private fun hideLoadingView() {
     DialogHelper.dismissDialog(loadingDialog)
     loadingDialog = null
   }

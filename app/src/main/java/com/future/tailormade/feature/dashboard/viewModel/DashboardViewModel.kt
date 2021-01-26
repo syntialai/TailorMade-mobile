@@ -28,13 +28,8 @@ class DashboardViewModel @ViewModelInject constructor(
     launchViewModelScope {
       dashboardRepository.getDashboardTailors(page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("dashboard"))
-        Log.d("", it.message, it)
-        setFinishLoading()
-      }.onStart {
-        setStartLoading()
       }.collectLatest {
         addToList(it)
-        setFinishLoading()
       }
     }
   }

@@ -35,8 +35,8 @@ class ProfileDesignViewModel @ViewModelInject constructor(
         }.collectLatest { response ->
           response.data?.let {
             addToList(it as ArrayList, isFirstPage())
-            setFinishLoading()
           }
+          setFinishLoading()
         }
       }
     }

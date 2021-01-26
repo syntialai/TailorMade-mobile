@@ -9,7 +9,7 @@ object Constants {
   const val DEBOUNCE_TIME_500 = 500L
   const val MIN_PASSWORD_LENGTH = 8
   const val MIN_QUERY_SEARCH_LENGTH = 3
-  const val REFRESH_DELAY_TIME = 1000L
+  const val REFRESH_DELAY_TIME = 600L
   const val INDONESIA_TIME_ZONE = "Asia/Jakarta"
   const val INITIAL_PAGING_PAGE = 0
   const val INITIAL_PAGING_ITEM_PER_PAGE = 20

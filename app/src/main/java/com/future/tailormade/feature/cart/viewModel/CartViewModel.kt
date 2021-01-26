@@ -39,14 +39,10 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   fun fetchCartData() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { userId ->
-        cartRepository.getCarts(userId, page, itemPerPage).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
+        cartRepository.getCarts(userId, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_GET_YOUR_CART_ITEM)
         }.collectLatest {
           addToList(it)
-          setFinishLoading()
         }
       }
     }

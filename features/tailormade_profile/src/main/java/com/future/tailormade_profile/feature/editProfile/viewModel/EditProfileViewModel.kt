@@ -16,6 +16,7 @@ import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onStart
 
 class EditProfileViewModel @ViewModelInject constructor(
     private val profileRepository: ProfileRepository,
@@ -46,9 +47,13 @@ class EditProfileViewModel @ViewModelInject constructor(
   private fun getBasicInfo() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        profileRepository.getProfileInfo(id).onError {
+        profileRepository.getProfileInfo(id).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
         }.collectLatest { data ->
+          setFinishLoading()
           _profileInfo.value = data.response
         }
       }
@@ -62,10 +67,13 @@ class EditProfileViewModel @ViewModelInject constructor(
         location.orEmpty())
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        profileRepository.updateProfileInfo(id, request).flowOnIOwithLoadingDialog(
-            this).onError {
+        profileRepository.updateProfileInfo(id, request).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_UPDATE_PROFILE)
         }.collectLatest { response ->
+          setFinishLoading()
           _profileInfo.value = response
         }
       }

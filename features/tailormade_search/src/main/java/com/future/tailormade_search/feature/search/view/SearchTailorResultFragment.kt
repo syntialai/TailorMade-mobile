@@ -1,10 +1,12 @@
 package com.future.tailormade_search.feature.search.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -54,6 +56,7 @@ class SearchTailorResultFragment : BaseFragment() {
     viewModel.listOfTailors.observe(viewLifecycleOwner, {
       it?.let { tailors ->
         searchTailorListAdapter.submitList(tailors)
+        Log.d("TAILORS", tailors.toString())
         if (tailors.isEmpty()) {
           showNoDataState()
         } else {

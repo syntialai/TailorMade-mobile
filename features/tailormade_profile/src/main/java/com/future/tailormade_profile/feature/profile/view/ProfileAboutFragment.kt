@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -23,7 +24,7 @@ class ProfileAboutFragment : BaseFragment() {
     fun newInstance() = ProfileAboutFragment()
   }
 
-  private val viewModel: ProfileViewModel by viewModels()
+  private val viewModel: ProfileViewModel by activityViewModels()
 
   private lateinit var binding: FragmentProfileAboutBinding
 

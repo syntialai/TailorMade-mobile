@@ -20,6 +20,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onStart
 
 class SignUpViewModel @ViewModelInject constructor(
   private val authRepository: AuthRepository,
@@ -95,17 +96,22 @@ class SignUpViewModel @ViewModelInject constructor(
   fun signUp() {
     launchViewModelScope {
       signUpRequest?.let { request ->
-        authRepository.signUp(request).onError {
+        authRepository.signUp(request).onStart {
+          setStartLoading()
+        }.onError {
           appLogger.logOnError(Constants.SIGN_UP_ERROR, it)
+          setFinishLoading()
           setErrorMessage(Constants.SIGN_UP_ERROR)
         }.flatMapLatest { response ->
           saveUserData(response)
           authRepository.signIn(getSignInInfo())
         }.onError {
           setErrorMessage(Constants.SIGN_IN_ERROR)
+          setFinishLoading()
           _hasSignIn.value = false
         }.collectLatest { data ->
           updateToken(data.token)
+          setFinishLoading()
           _hasSignIn.value = true
         }
       }

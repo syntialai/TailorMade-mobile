@@ -16,6 +16,7 @@ import com.future.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onStart
 
 class SignInViewModel @ViewModelInject constructor(
   private val authRepository: AuthRepository,
@@ -44,10 +45,14 @@ class SignInViewModel @ViewModelInject constructor(
     val signInRequest = SignInRequest(email, password)
 
     launchViewModelScope {
-      authRepository.signIn(signInRequest).onError {
+      authRepository.signIn(signInRequest).onStart {
+        setStartLoading()
+      }.onError {
         appLogger.logOnError(Constants.SIGN_IN_ERROR, it)
+        setFinishLoading()
         setErrorMessage(Constants.SIGN_IN_ERROR)
       }.collectLatest { data ->
+        setFinishLoading()
         updateToken(data.token)
         updateUserData(data.user)
       }
