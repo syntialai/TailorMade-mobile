@@ -80,7 +80,7 @@ class SearchDesignResultFragment : BaseFragment() {
   private fun setupRecyclerView() {
     with(binding.recyclerViewSearchDesignResult) {
       layoutManager = GridLayoutManager(context, 2)
-      adapter = adapter
+      adapter = searchDesignListAdapter
     }
   }
 

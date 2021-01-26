@@ -44,7 +44,8 @@ class SearchTailorListAdapter(private val onClickListener: (String) -> Unit) :
         textViewProfileName.text = data.name
         textViewProfileCity.text = data.location
 
-        ImageLoader.loadImageUrl(context, data.imagePath, imageViewProfile)
+        ImageLoader.loadImageUrlWithFitCenterAndPlaceholder(context, data.imagePath.orEmpty(),
+            R.drawable.illustration_dashboard_tailor_profile, imageViewProfile, true)
 
         root.setOnClickListener {
           onClickListener.invoke(data.id)

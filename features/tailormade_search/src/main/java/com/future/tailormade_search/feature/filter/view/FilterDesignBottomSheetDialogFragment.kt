@@ -39,12 +39,6 @@ class FilterDesignBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
       buttonSubmitDesignFilter.setOnClickListener {
         applyFilter()
       }
-
-      groupSearchLocation.buttonShowAllLocation.setOnClickListener {
-        findNavController().navigate(
-            FilterDesignBottomSheetDialogFragmentDirections
-                .actionFilterDesignBottomSheetDialogFragment2ToLocationListFragment())
-      }
     }
 
     return binding.root

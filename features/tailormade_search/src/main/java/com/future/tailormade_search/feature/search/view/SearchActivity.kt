@@ -1,10 +1,14 @@
 package com.future.tailormade_search.feature.search.view
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
+import android.widget.SearchView
 import androidx.activity.viewModels
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade_search.R
 import com.future.tailormade_search.databinding.ActivitySearchBinding
 import com.future.tailormade_search.feature.search.adapter.SearchPagerAdapter
@@ -29,9 +33,16 @@ class SearchActivity : BaseActivity() {
 
     with(binding.viewSearchField) {
       isIconifiedByDefault = false
-      setOnSearchClickListener {
-        validateQuery(query.toString())
-      }
+      setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+          query?.let {
+            validateQuery(it)
+          }
+          return false
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean = false
+      })
     }
 
     setupPagerAdapter()
@@ -39,12 +50,8 @@ class SearchActivity : BaseActivity() {
   }
 
   private fun doSearch(query: String) {
-    launchCoroutineOnIO ({
-      viewModel.searchDesign(query)
-    }, Constants.REFRESH_DELAY_TIME)
-    launchCoroutineOnIO ({
-      viewModel.searchTailor(query)
-    }, Constants.REFRESH_DELAY_TIME)
+    viewModel.searchDesign(query)
+    viewModel.searchTailor(query)
   }
 
   private fun hideInitialSearchState() {
@@ -55,15 +62,14 @@ class SearchActivity : BaseActivity() {
 
   private fun setupObserver() {
     viewModel.searchResultCount.observe(this, {
-      if (it > 0) {
+      if (it != -1L) {
         showSearchResultView()
       }
     })
   }
 
   private fun setupPagerAdapter() {
-    binding.viewPagerSearch.adapter = SearchPagerAdapter(supportFragmentManager,
-        lifecycle)
+    binding.viewPagerSearch.adapter = SearchPagerAdapter(this)
     setupTabLayout()
   }
 
@@ -92,7 +98,7 @@ class SearchActivity : BaseActivity() {
   private fun showSearchResultView() {
     if (isSearchResultShown().not()) {
       hideInitialSearchState()
-      binding.groupSearchResult.remove()
+      binding.groupSearchResult.show()
     }
   }
 

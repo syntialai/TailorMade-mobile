@@ -3,14 +3,16 @@ package com.future.tailormade.util.image
 import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import java.io.File
 
 object ImageLoader {
 
-  fun loadImageUrl(context: Context, imageUrl: String, imageView: ImageView) {
-    val options = RequestOptions().fitCenter().centerCrop()
-    Glide.with(context).load(imageUrl).apply(options).into(imageView)
+  fun loadImageUrl(context: Context, imageUrl: String, imageView: ImageView, isCircle: Boolean = false) {
+    if (isCircle) {
+      Glide.with(context).load(imageUrl).circleCrop().into(imageView)
+    } else {
+      Glide.with(context).load(imageUrl).centerInside().into(imageView)
+    }
   }
 
   fun loadImageResource(context: Context, imageResource: Int, imageView: ImageView) {
@@ -22,8 +24,12 @@ object ImageLoader {
   }
 
   fun loadImageUrlWithFitCenterAndPlaceholder(context: Context, imageUrl: String, drawable: Int,
-      imageView: ImageView) {
-    val options = RequestOptions().fitCenter().centerInside().placeholder(drawable)
-    Glide.with(context).load(imageUrl).apply(options).into(imageView)
+      imageView: ImageView, isCircle: Boolean = false) {
+    if (isCircle) {
+      Glide.with(context).load(imageUrl).placeholder(drawable).circleCrop().centerInside().into(
+          imageView)
+    } else {
+      Glide.with(context).load(imageUrl).centerInside().placeholder(drawable).into(imageView)
+    }
   }
 }

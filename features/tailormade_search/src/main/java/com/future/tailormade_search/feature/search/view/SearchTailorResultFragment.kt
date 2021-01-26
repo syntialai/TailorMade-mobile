@@ -80,7 +80,7 @@ class SearchTailorResultFragment : BaseFragment() {
   private fun setupRecyclerView() {
     with(binding.recyclerViewSearchTailorResult) {
       layoutManager = LinearLayoutManager(context)
-      adapter = adapter
+      adapter = searchTailorListAdapter
     }
   }
 

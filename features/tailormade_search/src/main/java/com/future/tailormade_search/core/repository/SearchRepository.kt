@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
 
-  suspend fun searchDesign(query: String): Flow<BaseListResponse<SearchDesignResponse>>
+  suspend fun searchDesign(
+      query: String, page: Int, itemPerPage: Int): Flow<BaseListResponse<SearchDesignResponse>>
 
-  suspend fun searchTailor(query: String): Flow<BaseListResponse<SearchTailorResponse>>
+  suspend fun searchTailor(
+      query: String, page: Int, itemPerPage: Int): Flow<BaseListResponse<SearchTailorResponse>>
 }

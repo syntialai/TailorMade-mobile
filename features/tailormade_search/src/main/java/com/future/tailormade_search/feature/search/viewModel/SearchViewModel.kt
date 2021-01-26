@@ -1,5 +1,6 @@
 package com.future.tailormade_search.feature.search.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -39,7 +40,7 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
   private var _tailorCount = MutableLiveData<Int>()
 
   val searchResultCount = MediatorLiveData<Long>().apply {
-    value = 0L
+    value = -1L
   }
 
   init {
@@ -61,9 +62,11 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
 
   fun searchDesign(query: String) {
     launchViewModelScope {
-      searchRepository.searchDesign(query).onError {
+      Log.d("SEARCH", "do Search Design")
+      searchRepository.searchDesign(query, page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("design"))
       }.collect {
+        Log.d("DESIGN", it.toString())
         _designCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
         _listOfDesigns.value = it.data.orEmptyList()
       }
@@ -72,9 +75,11 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
 
   fun searchTailor(query: String) {
     launchViewModelScope {
-      searchRepository.searchTailor(query).onError {
+      Log.d("SEARCH", "do Search Tailor")
+      searchRepository.searchTailor(query, page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("tailor"))
       }.collect {
+        Log.d("TAILOR", it.toString())
         _tailorCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
         _listOfTailors.value = it.data.orEmptyList()
       }
