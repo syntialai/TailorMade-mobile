@@ -17,6 +17,7 @@ import com.future.tailormade_profile.core.model.response.ProfileAboutResponse
 import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
 
 class EditAboutViewModel @ViewModelInject constructor(
     private val profileRepository: ProfileRepository,
@@ -24,23 +25,34 @@ class EditAboutViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle) :
     BaseViewModel() {
 
+  companion object {
+    private const val PROFILE_ABOUT = "PROFILE_ABOUT"
+  }
+
   override fun getLogName(): String =
       "com.future.tailormade_profile.feature.editAbout.viewmodel.EditAboutViewModel"
 
-  private var _profileAbout = MutableLiveData<ProfileAboutResponse>()
+  private var _profileAbout: MutableLiveData<ProfileAboutResponse>
   val profileAbout: LiveData<ProfileAboutResponse>
     get() = _profileAbout
+
+  init {
+    _profileAbout = savedStateHandle.getLiveData(PROFILE_ABOUT)
+  }
 
   @ExperimentalCoroutinesApi
   fun updateProfileAbout(occupation: Occupation, education: Education) {
     val request = UpdateProfileAboutRequest(occupation, education)
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        profileRepository.updateProfileAbout(id, request).flowOnIOwithLoadingDialog(
-            this).onError {
+        profileRepository.updateProfileAbout(id, request).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_UPDATE_PROFILE)
           appLogger.logOnError(Constants.FAILED_TO_UPDATE_PROFILE, it)
         }.collect { response ->
+          setFinishLoading()
           response.data?.let {
             _profileAbout.value = it
           }
