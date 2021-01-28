@@ -4,7 +4,9 @@ import com.future.tailormade.api.ApiUrl
 
 object DesignDetailApiUrl {
 
-  private const val DESIGNS_PATH =  "/designs"
+  private const val DESIGNS_PATH = "/designs"
+
+  const val UPLOAD_PATH = ApiUrl.API_PATH + "/upload/{filePath}"
 
   const val BASE_DESIGNS_PATH = ApiUrl.API_PATH + DESIGNS_PATH
   const val DESIGNS_ID_PATH = "$BASE_DESIGNS_PATH/{id}"

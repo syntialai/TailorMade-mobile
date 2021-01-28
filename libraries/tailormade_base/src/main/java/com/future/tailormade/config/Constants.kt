@@ -14,12 +14,14 @@ object Constants {
   const val INITIAL_PAGING_PAGE = 0
   const val INITIAL_PAGING_ITEM_PER_PAGE = 20
   const val COMPRESS_IMAGE_QUALITY = 100
+  const val MEDIA_TYPE_MULTIPART_FORM_DATA = "multipart/form-data"
   const val TYPE_IMAGE_ALL = "image/*"
   const val TYPE_IMAGE_JPEG = "image/jpeg"
   const val TYPE_IMAGE_PNG = "image/png"
   const val MESSAGES_TYPE_TEXT = "TEXT"
   const val STATUS_ACCEPTED = "Accepted"
   const val STATUS_REJECTED = "Rejected"
+  const val UPLOAD_TYPE_DESIGN = "design"
 
   /*
    * Date Patterns
