@@ -2,10 +2,8 @@ package com.future.tailormade_design_detail.feature.addOrEditDesign.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -16,6 +14,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.future.tailormade.base.view.BaseFragment
@@ -26,6 +25,7 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.mapper.DesignDetailMapper
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
@@ -36,6 +36,8 @@ import com.future.tailormade_design_detail.databinding.FragmentAddOrEditDesignBi
 import com.future.tailormade_design_detail.feature.addOrEditDesign.viewModel.AddOrEditDesignViewModel
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
 @AndroidEntryPoint
 class AddOrEditDesignFragment : BaseFragment() {
@@ -91,7 +93,7 @@ class AddOrEditDesignFragment : BaseFragment() {
     if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
       data?.data?.let { imageUri ->
         activity?.contentResolver?.let {
-          addImage(it, imageUri)
+          viewModel.setImageFile(imageUri.toFile())
           if (isImagePreviewShown().not()) {
             showImagePreview(imageUri, ImageHelper.getFileName(it, imageUri).orEmpty())
           }
@@ -111,12 +113,21 @@ class AddOrEditDesignFragment : BaseFragment() {
         setData(designDetail)
       }
     })
+    viewModel.isUpdated.observe(viewLifecycleOwner, {
+      it?.let { isUpdated ->
+        if (isUpdated) {
+          onNavigationIconClicked()
+          showSuccessToast()
+        }
+      }
+    })
   }
 
-  private fun addImage(contentResolver: ContentResolver, imageUri: Uri) {
-    val inputStream = contentResolver.openInputStream(imageUri)
-    val bitmap = BitmapFactory.decodeStream(inputStream)
-    viewModel.setImage(bitmap)
+  private fun showSuccessToast() {
+    val message = getString(args.designDetail?.let {
+      R.string.design_added
+    } ?: R.string.design_updated)
+    ToastHelper.showToast(binding.root, message)
   }
 
   private fun addSizeChip(text: String, sizeDetail: SizeDetailUiModel) {
@@ -276,6 +287,8 @@ class AddOrEditDesignFragment : BaseFragment() {
       name.isNotBlank() && price.isNotBlank() && discount.isNotBlank() && description.isNotBlank()
       && viewModel.isPriceValid(price, discount)
 
+  @ExperimentalCoroutinesApi
+  @FlowPreview
   private fun addOrUpdateDesign(name: String, price: String, discount: String, description: String) {
     args.designDetail?.let {
       viewModel.updateDesign(name, price, discount, description)

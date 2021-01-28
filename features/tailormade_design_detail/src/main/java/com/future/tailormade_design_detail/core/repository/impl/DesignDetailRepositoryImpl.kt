@@ -1,7 +1,6 @@
 package com.future.tailormade_design_detail.core.repository.impl
 
 import com.future.tailormade.base.model.BaseMapperModel
-import com.future.tailormade.base.model.response.BaseSingleObjectResponse
 import com.future.tailormade.base.repository.BaseRepository
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.flowOnIO
@@ -14,7 +13,6 @@ import java.io.File
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -39,8 +37,10 @@ class DesignDetailRepositoryImpl @Inject constructor(
   }.flowOnIO()
 
   override suspend fun addDesignByTailor(
-      tailorId: String, designRequest: DesignRequest): Flow<BaseSingleObjectResponse<DesignDetailResponse>> = flow {
-    emit(designDetailService.postAddDesignByTailor(tailorId, designRequest))
+      tailorId: String, designRequest: DesignRequest): Flow<DesignDetailResponse> = flow {
+    designDetailService.postAddDesignByTailor(tailorId, designRequest).data?.let {
+      emit(it)
+    }
   }.flowOnIO()
 
   override suspend fun updateDesignById(
@@ -53,6 +53,11 @@ class DesignDetailRepositoryImpl @Inject constructor(
   }.flowOnIO()
 
   override suspend fun uploadDesignImage(file: File) = flow {
+    if (file.exists().not()) {
+      emit("")
+      return@flow
+    }
+
     val imageMultiPartBody = MultipartBody.Part.createFormData(FILE, file.name,
         RequestBody.create(MediaType.parse(Constants.MEDIA_TYPE_MULTIPART_FORM_DATA), file))
     emit(designDetailService.postUploadImage(
