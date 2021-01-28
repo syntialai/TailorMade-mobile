@@ -10,9 +10,10 @@ import com.future.tailormade.tailor_app.core.model.enums.OrderStatus
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderUiModel
 import com.future.tailormade.tailor_app.core.repository.OrderRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class IncomingOrderViewModel @ViewModelInject constructor(
     private val orderRepository: OrderRepository,
@@ -32,15 +33,19 @@ class IncomingOrderViewModel @ViewModelInject constructor(
   fun fetchIncomingOrders() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { tailorId ->
-        orderRepository.getOrders(tailorId, OrderStatus.INCOMING.name).onStart {
-          setStartLoading()
-        }.onError {
+        orderRepository.getOrders(tailorId, OrderStatus.INCOMING.name, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_FETCH_INCOMING_ORDER)
         }.collectLatest {
-          _incomingOrders.value = it
+          addToList(it)
         }
       }
     }
+  }
+
+  @ExperimentalCoroutinesApi
+  override fun fetchMore() {
+    super.fetchMore()
+    fetchIncomingOrders()
   }
 
   fun acceptOrder(id: String) {
@@ -48,9 +53,9 @@ class IncomingOrderViewModel @ViewModelInject constructor(
       authSharedPrefRepository.userId?.let { tailorId ->
         orderRepository.acceptOrder(tailorId, id).onError {
           setErrorMessage(Constants.FAILED_TO_ACCEPT_ORDER)
-          _hasOrderResponded.value = false
+          setHasResponded(false)
         }.collect {
-          _hasOrderResponded.value = true
+          setHasResponded(true)
         }
       }
     }
@@ -61,11 +66,24 @@ class IncomingOrderViewModel @ViewModelInject constructor(
       authSharedPrefRepository.userId?.let { tailorId ->
         orderRepository.rejectOrder(tailorId, id).onError {
           setErrorMessage(Constants.FAILED_TO_REJECT_ORDER)
-          _hasOrderResponded.value = false
+          setHasResponded(false)
         }.collect {
-          _hasOrderResponded.value = true
+          setHasResponded(true)
         }
       }
     }
+  }
+
+  private fun addToList(list: ArrayList<OrderUiModel>) {
+    val orders = arrayListOf<OrderUiModel>()
+    if (isFirstPage().not()) {
+      orders.addAll(_incomingOrders.value.orEmptyList())
+    }
+    orders.addAll(list)
+    _incomingOrders.value = orders
+  }
+
+  private fun setHasResponded(value: Boolean) {
+    _hasOrderResponded.value = value
   }
 }

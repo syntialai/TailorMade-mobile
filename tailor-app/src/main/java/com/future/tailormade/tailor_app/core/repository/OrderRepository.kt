@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface OrderRepository {
 
-  suspend fun getOrders(tailorId: String, status: String): Flow<ArrayList<OrderUiModel>>
+  suspend fun getOrders(
+      tailorId: String, status: String, page: Int, itemPerPage: Int): Flow<ArrayList<OrderUiModel>>
 
   suspend fun getOrderDetail(tailorId: String, id: String): Flow<OrderDetailUiModel>
 

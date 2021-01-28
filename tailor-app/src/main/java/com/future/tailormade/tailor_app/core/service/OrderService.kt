@@ -14,8 +14,8 @@ import retrofit2.http.Query
 interface OrderService {
 
   @GET(TailorAppApiUrl.BASE_TAILORS_ID_ORDERS_PATH)
-  suspend fun getTailorOrders(
-      @Path("tailorId") tailorId: String, @Query("status") status: String):
+  suspend fun getTailorOrders(@Path("tailorId") tailorId: String, @Query("status") status: String,
+      @Query("page") page: Int, @Query("itemPerPage") itemPerPage: Int):
       BaseListResponse<OrderResponse>
 
   @GET(TailorAppApiUrl.TAILORS_ID_ORDERS_ID_PATH)

@@ -43,8 +43,8 @@ class OrderDetailViewModel @ViewModelInject constructor(
           setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_FETCH_ORDER_DETAIL)
         }.collectLatest {
-          _orderDetailUiModel.value = it
           setFinishLoading()
+          _orderDetailUiModel.value = it
         }
       }
     }

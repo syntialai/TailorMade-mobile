@@ -10,8 +10,9 @@ import com.future.tailormade.tailor_app.core.model.enums.OrderStatus
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderUiModel
 import com.future.tailormade.tailor_app.core.repository.OrderRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class RecentOrderViewModel @ViewModelInject constructor(
     private val orderRepository: OrderRepository,
@@ -29,16 +30,20 @@ class RecentOrderViewModel @ViewModelInject constructor(
   fun fetchIncomingOrders() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { tailorId ->
-        orderRepository.getOrders(tailorId, OrderStatus.RECENT.name).onStart {
-          setStartLoading()
-        }.onError {
+        orderRepository.getOrders(tailorId, OrderStatus.RECENT.name, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_FETCH_RECENT_ORDER)
         }.collectLatest {
-          _orders = it
+          addToList(it)
           filterAllOrders()
         }
       }
     }
+  }
+
+  @ExperimentalCoroutinesApi
+  override fun fetchMore() {
+    super.fetchMore()
+    fetchIncomingOrders()
   }
 
   fun filterAcceptedOrders() {
@@ -51,6 +56,15 @@ class RecentOrderViewModel @ViewModelInject constructor(
 
   fun filterRejectedOrders() {
     filterOrders(Constants.STATUS_REJECTED)
+  }
+
+  private fun addToList(list: ArrayList<OrderUiModel>) {
+    val orders = arrayListOf<OrderUiModel>()
+    if (isFirstPage().not()) {
+      orders.addAll(_orders.orEmptyList())
+    }
+    orders.addAll(list)
+    _orders = orders
   }
 
   private fun filterOrders(status: String) {

@@ -11,11 +11,11 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.core.model.ui.dashboard.DashboardDesignUiModel
 import com.future.tailormade.tailor_app.core.repository.DashboardRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade.util.extension.orFalse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class DashboardViewModel @ViewModelInject constructor(
     private val dashboardRepository: DashboardRepository,
@@ -49,14 +49,10 @@ class DashboardViewModel @ViewModelInject constructor(
   fun fetchTailorDesigns() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        dashboardRepository.getDashboardDesigns(id, page, itemPerPage).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
+        dashboardRepository.getDashboardDesigns(id, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_GET_YOUR_DESIGN)
         }.collectLatest {
-          _designs.value = it
-          appLogger.logApiOnSuccess("", _designs.value.toString())
+          addToList(it)
         }
       }
     }
@@ -101,6 +97,15 @@ class DashboardViewModel @ViewModelInject constructor(
     } else {
       _selectedDesigns.value?.add(id)
     }
+  }
+
+  private fun addToList(list: ArrayList<DashboardDesignUiModel>) {
+    val designs = arrayListOf<DashboardDesignUiModel>()
+    if (isFirstPage().not()) {
+      designs.addAll(_designs.value.orEmptyList())
+    }
+    designs.addAll(list)
+    _designs.value = designs
   }
 
   private suspend fun deleteDesign(tailorId: String, id: String) {
