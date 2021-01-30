@@ -1,5 +1,6 @@
 package com.future.tailormade.util.extension
 
+import android.graphics.Paint
 import android.os.Build
 import android.util.Patterns
 import android.view.View
@@ -76,6 +77,10 @@ fun EditText.debounceOnTextChanged(scope: CoroutineScope, listener: (String) -> 
 fun EditText.text() = this.text.toString()
 
 fun TextView.text() = this.text.toString()
+
+fun TextView.strikeThrough() {
+  this.paintFlags = this.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+}
 
 fun View.hide() {
   visibility = View.INVISIBLE

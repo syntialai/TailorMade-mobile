@@ -13,8 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_design_detail.R
@@ -278,8 +280,9 @@ class DesignDetailFragment : BaseFragment() {
     with(binding.layoutDesignDetailGeneralInfo) {
       discount?.let {
         showDiscountPrice()
-        textViewDesignDetailBeforeDiscountPrice.text = price
         textViewDesignDetailBeforeDiscountPrice.text = it
+        textViewDesignDetailBeforeDiscountPrice.text = price
+        textViewDesignDetailBeforeDiscountPrice.strikeThrough()
       } ?: run {
         textViewDesignDetailPrice.text = price
       }
@@ -290,6 +293,7 @@ class DesignDetailFragment : BaseFragment() {
     with(binding.layoutDesignDetailGeneralInfo) {
       textViewDesignDetailAfterDiscountPrice.show()
       textViewDesignDetailBeforeDiscountPrice.show()
+      textViewDesignDetailPrice.hide()
     }
   }
 

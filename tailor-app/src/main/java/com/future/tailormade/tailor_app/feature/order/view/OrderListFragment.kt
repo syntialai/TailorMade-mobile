@@ -8,7 +8,7 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.FragmentOrderListBinding
-import com.future.tailormade.tailor_app.feature.order.adapter.OrderFragmentStateAdapter
+import com.future.tailormade.tailor_app.feature.order.adapter.OrderPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,8 +39,8 @@ class OrderListFragment : BaseFragment() {
     with(binding) {
       TabLayoutMediator(tabLayoutOrders, viewPagerOrders) { tab, position ->
         tab.text = when (position) {
-          OrderFragmentStateAdapter.INCOMING_ORDER_PAGE_INDEX -> getString(R.string.incoming_label)
-          OrderFragmentStateAdapter.RECENT_ORDER_PAGE_INDEX -> getString(R.string.recent_label)
+          OrderPagerAdapter.INCOMING_ORDER_PAGE_INDEX -> getString(R.string.incoming_label)
+          OrderPagerAdapter.RECENT_ORDER_PAGE_INDEX -> getString(R.string.recent_label)
           else -> null
         }
       }.attach()
@@ -48,7 +48,7 @@ class OrderListFragment : BaseFragment() {
   }
 
   private fun setupViewPager() {
-    val pagerAdapter = OrderFragmentStateAdapter(requireActivity())
+    val pagerAdapter = OrderPagerAdapter(requireActivity())
     binding.viewPagerOrders.adapter = pagerAdapter
   }
 }

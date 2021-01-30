@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.future.tailormade.tailor_app.feature.order.view.IncomingOrderFragment
 import com.future.tailormade.tailor_app.feature.order.view.RecentOrderFragment
 
-class OrderFragmentStateAdapter(fragmentActivity: FragmentActivity) :
+class OrderPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
   companion object {

@@ -12,6 +12,7 @@ import com.future.tailormade.core.model.ui.history.OrderUiModel
 import com.future.tailormade.databinding.LayoutHistoryCardItemBinding
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 
 class HistoryCardItemAdapter(private val onCardClickListener: (String) -> Unit) :
@@ -70,8 +71,9 @@ class HistoryCardItemAdapter(private val onCardClickListener: (String) -> Unit) 
       with(binding) {
         design.discount?.let {
           showDiscount()
-          textViewHistoryDesignOrderedPriceBeforeDiscount.text = design.price
           textViewHistoryDesignOrderedPriceAfterDiscount.text = it
+          textViewHistoryDesignOrderedPriceBeforeDiscount.text = design.price
+          textViewHistoryDesignOrderedPriceBeforeDiscount.strikeThrough()
         } ?: run {
           textViewHistoryDesignOrderedPrice.text = design.price
         }

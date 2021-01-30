@@ -7,8 +7,9 @@ import com.future.tailormade.tailor_app.core.model.ui.order.OrderDesignUiModel
 import com.future.tailormade.tailor_app.core.model.ui.orderDetail.OrderDetailMeasurementUiModel
 import com.future.tailormade.tailor_app.databinding.ActivityOrderDetailBinding
 import com.future.tailormade.tailor_app.feature.orderDetail.viewModel.OrderDetailViewModel
-import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,11 +76,12 @@ class OrderDetailActivity : BaseActivity() {
 
   private fun setupDesignDiscount(price: String, discount: String) {
     with(binding.layoutDesignDetail) {
-      textViewOrderPrice.remove()
+      textViewOrderPrice.hide()
       textViewOrderPriceBeforeDiscount.show()
       textViewOrderPriceAfterDiscount.show()
 
       textViewOrderPriceBeforeDiscount.text = price
+      textViewOrderPriceBeforeDiscount.strikeThrough()
       textViewOrderPriceAfterDiscount.text = discount
     }
   }

@@ -13,8 +13,9 @@ import com.future.tailormade.core.model.ui.history.OrderDesignUiModel
 import com.future.tailormade.core.model.ui.history.OrderDetailMeasurementUiModel
 import com.future.tailormade.databinding.FragmentHistoryDetailBinding
 import com.future.tailormade.feature.history.viewModel.HistoryDetailViewModel
-import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
@@ -97,12 +98,13 @@ class HistoryDetailFragment : BaseFragment() {
 
   private fun setupDesignDiscount(price: String, discount: String) {
     with(binding.layoutDesignDetail) {
-      textViewOrderPrice.remove()
+      textViewOrderPrice.hide()
       textViewOrderBeforeDiscount.show()
       textViewOrderAfterDiscount.show()
 
-      textViewOrderBeforeDiscount.text = price
       textViewOrderAfterDiscount.text = discount
+      textViewOrderBeforeDiscount.text = price
+      textViewOrderBeforeDiscount.strikeThrough()
     }
   }
 

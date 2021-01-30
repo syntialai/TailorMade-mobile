@@ -6,6 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.future.tailormade.util.extension.hide
+import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
+import com.future.tailormade.util.extension.toIndonesiaCurrencyFormat
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_dls.databinding.LayoutCardDesignBinding
 import com.future.tailormade_search.R
@@ -42,7 +46,7 @@ class SearchDesignGridAdapter(private val onClickListener: (String) -> Unit) :
     fun bind(data: SearchDesignResponse) {
       with(binding) {
         textViewDesignName.text = data.title
-        textViewDesignPrice.text = data.price.toString()
+        setPrice(data.price, data.discount)
 
         data.image?.let { image ->
           ImageLoader.loadImageUrl(context, image, imageViewDesign)
@@ -50,6 +54,20 @@ class SearchDesignGridAdapter(private val onClickListener: (String) -> Unit) :
 
         root.setOnClickListener {
           onClickListener.invoke(data.id)
+        }
+      }
+    }
+
+    private fun setPrice(price: Double, discount: Double) {
+      with(binding) {
+        if (discount > 0) {
+          groupDiscountPrice.show()
+          textViewDesignPrice.hide()
+          textViewDesignBeforeDiscount.text = price.toIndonesiaCurrencyFormat()
+          textViewDesignBeforeDiscount.strikeThrough()
+          textViewDesignAfterDiscount.text = (price - discount).toIndonesiaCurrencyFormat()
+        } else {
+          textViewDesignPrice.text = price.toIndonesiaCurrencyFormat()
         }
       }
     }

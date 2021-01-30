@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.core.model.ui.dashboard.DashboardDesignUiModel
+import com.future.tailormade.util.extension.hide
+import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_dls.databinding.LayoutCardDesignBinding
 
@@ -41,7 +44,7 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
     fun bind(data: DashboardDesignUiModel) {
       with(binding) {
         textViewDesignName.text = data.title
-        textViewDesignPrice.text = data.price
+        setPrice(data.price, data.discount)
 
         ImageLoader.loadImageUrl(context, data.image, imageViewDesign)
 
@@ -53,6 +56,20 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
           root.isChecked = !root.isChecked
           onLongClickListener.invoke(data.id)
           true
+        }
+      }
+    }
+
+    private fun setPrice(price: String, discount: String?) {
+      with(binding) {
+        discount?.let {
+          groupDiscountPrice.show()
+          textViewDesignPrice.hide()
+          textViewDesignBeforeDiscount.text = price
+          textViewDesignBeforeDiscount.strikeThrough()
+          textViewDesignAfterDiscount.text = it
+        } ?: run {
+          textViewDesignPrice.text = price
         }
       }
     }

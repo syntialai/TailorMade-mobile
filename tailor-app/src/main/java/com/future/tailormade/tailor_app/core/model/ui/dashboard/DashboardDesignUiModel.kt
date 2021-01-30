@@ -14,4 +14,6 @@ data class DashboardDesignUiModel(
 
     var price: String,
 
+    var discount: String? = null,
+
     var active: Boolean) : Parcelable
