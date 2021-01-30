@@ -12,9 +12,11 @@ import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.databinding.FragmentCheckoutBinding
 import com.future.tailormade.feature.checkout.viewModel.CheckoutViewModel
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.orEmptyMutableList
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
@@ -95,6 +97,7 @@ class CheckoutFragment : BaseFragment() {
       design.discount?.let { discount ->
         showDiscount()
         textViewOrderBeforeDiscount.text = design.price
+        textViewOrderBeforeDiscount.strikeThrough()
         textViewOrderAfterDiscount.text = discount
       } ?: run {
         textViewOrderPrice.text = design.price
@@ -122,7 +125,7 @@ class CheckoutFragment : BaseFragment() {
   private fun showDiscount() {
     with(binding.layoutDesignDetail) {
       groupDiscountTextView.show()
-      textViewOrderPrice.remove()
+      textViewOrderPrice.hide()
     }
   }
 }

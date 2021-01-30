@@ -38,10 +38,7 @@ class HistoryDetailViewModel @ViewModelInject constructor(
   fun fetchHistoryDetails(id: String) {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { userId ->
-        orderRepository.getOrderDetail(userId, id).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
+        orderRepository.getOrderDetail(userId, id).onError {
           setErrorMessage(Constants.generateFailedFetchError("history with id $id"))
         }.collectLatest { orderDetail ->
           _orderDetailUiModel.value = orderDetail

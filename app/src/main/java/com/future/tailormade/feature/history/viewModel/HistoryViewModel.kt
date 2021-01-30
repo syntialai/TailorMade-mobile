@@ -29,12 +29,8 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
       authSharedPrefRepository.userId?.let { userId ->
         orderRepository.getOrders(userId, page, itemPerPage).onError {
           setErrorMessage(Constants.generateFailedFetchError("history"))
-          setFinishLoading()
-        }.onStart {
-          setStartLoading()
         }.collectLatest { orders ->
           addToList(orders)
-          setFinishLoading()
         }
       }
     }
