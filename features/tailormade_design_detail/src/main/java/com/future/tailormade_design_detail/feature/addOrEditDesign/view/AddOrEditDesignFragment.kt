@@ -234,14 +234,14 @@ class AddOrEditDesignFragment : BaseFragment() {
 
   private fun setColor(colors: List<ColorResponse>) {
     colors.forEach {
-      addColorChip(it.id, it.color)
+      addColorChip(it.name, it.color)
     }
   }
 
   private fun setSize(sizes: List<SizeResponse>) {
     sizes.forEach { size ->
       size.detail?.let {
-        addSizeChip(size.id, DesignDetailMapper.mapToSizeDetailUiModel(it))
+        addSizeChip(size.name, DesignDetailMapper.mapToSizeDetailUiModel(it))
       }
     }
   }

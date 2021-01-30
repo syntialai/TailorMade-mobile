@@ -27,4 +27,5 @@
 
     <string name="design_added">Design added.</string>
     <string name="design_updated">Design updated.</string>
+    <string name="design_added_to_cart">Design successfully added to cart.</string>
 </resources>

@@ -35,7 +35,7 @@ object DesignDetailMapper {
   private fun setSize(sizes: List<SizeResponse>): MutableList<SizeUiModel> {
     val sizesUiModel = mutableListOf<SizeUiModel>()
     sizes.forEach { size ->
-      val sizeUiModel = SizeUiModel(id = size.id)
+      val sizeUiModel = SizeUiModel(name = size.name)
       size.detail?.let {
         sizeUiModel.detail = mapToSizeDetailUiModel(size.detail)
       }

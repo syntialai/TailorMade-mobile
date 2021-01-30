@@ -54,11 +54,6 @@ object Constants {
   const val DESIGN_DISCOUNT_IS_EMPTY = "Design discount $IS_EMPTY"
   const val DESIGN_DISCOUNT_CANT_BE_HIGHER_THAN_PRICE = "Design discount can't be higher than the normal price"
   const val DESIGN_DESCRIPTION_IS_EMPTY = "Design description $IS_EMPTY"
-  const val FAILED_TO_ACCEPT_ORDER = "Failed to accept order. Please try again later."
-  const val FAILED_TO_REJECT_ORDER = "Failed to reject order. Please try again later."
-  const val FAILED_TO_FETCH_INCOMING_ORDER = "Failed to fetch incoming orders. Please try again later."
-  const val FAILED_TO_FETCH_RECENT_ORDER = "Failed to fetch recent orders. Please try again later."
-  const val FAILED_TO_FETCH_ORDER_DETAIL = "Failed to fetch order detail. Please try again later."
 
   val FAILED_TO_GET_PROFILE_INFO = generateFailedFetchError("profile info")
   val FAILED_TO_UPDATE_PROFILE = generateFailedUpdateError("profile")
@@ -70,6 +65,14 @@ object Constants {
 
   val FAILED_TO_DELETE_DESIGN = generateFailedDeleteError("design")
   val FAILED_TO_GET_YOUR_DESIGN = generateFailedFetchError("your designs")
+  val FAILED_TO_ACCEPT_ORDER = generateFailedError("accept", "order", true)
+  val FAILED_TO_REJECT_ORDER = generateFailedError("reject", "order", true)
+  val FAILED_TO_FETCH_INCOMING_ORDER = generateFailedFetchError("incoming orders", true)
+  val FAILED_TO_FETCH_RECENT_ORDER = generateFailedFetchError("recent orders", true)
+  val FAILED_TO_FETCH_ORDER_DETAIL = generateFailedFetchError("order detail")
+
+  fun generateFailedAddError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
+      "add", objectToFetch, isNotData)
 
   fun generateFailedFetchError(objectToFetch: String, isNotData: Boolean? = null) = generateFailedError(
       "get", objectToFetch, isNotData)

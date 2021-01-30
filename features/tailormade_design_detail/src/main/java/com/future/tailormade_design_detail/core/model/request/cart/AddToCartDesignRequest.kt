@@ -4,6 +4,8 @@ import com.future.tailormade_design_detail.core.model.response.SizeDetailRespons
 
 data class AddToCartDesignRequest(
 
+    val id: String,
+
     val title: String,
 
     val image: String,
@@ -12,9 +14,9 @@ data class AddToCartDesignRequest(
 
     val discount: Double,
 
-    val size: String,
+    var size: String,
 
-    val color: String,
+    var color: String,
 
-    val sizeDetail: SizeDetailResponse
+    var sizeDetail: SizeDetailResponse? = null
 )

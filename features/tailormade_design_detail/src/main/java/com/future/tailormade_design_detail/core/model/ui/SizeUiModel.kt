@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class SizeUiModel(
 
-		var id: String,
+		var name: String,
 
 		var detail: SizeDetailUiModel? = null): Parcelable

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:elevation="@dimen/dp_16"
     android:orientation="horizontal"
+    android:background="@drawable/drawable_bottom_nav_background"
     android:paddingHorizontal="@dimen/dp_16"
     android:weightSum="4">
 

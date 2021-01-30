@@ -16,9 +16,9 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
-import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.core.model.ui.SizeUiModel
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
@@ -36,6 +36,8 @@ class DesignDetailFragment : BaseFragment() {
 
   companion object {
     private const val DESCRIPTION_MAX_LINES = 3
+    private const val TYPE_ADD_TO_CART = "TYPE_ADD_TO_CART"
+    private const val TYPE_CHECKOUT = "TYPE_CHECKOUT"
 
     fun newInstance() = DesignDetailFragment()
   }
@@ -100,6 +102,24 @@ class DesignDetailFragment : BaseFragment() {
         setupDescription(designDetailUiModel.description)
       }
     })
+
+    if (authSharedPrefRepository.isUser()) {
+      viewModel.designDetailResponse.observe(viewLifecycleOwner, {
+        it?.let { designDetailResponse ->
+          viewModel.setAddToCartRequest(designDetailResponse)
+        }
+      })
+      viewModel.isAddedToCart.observe(viewLifecycleOwner, {
+        it?.let { isAdded ->
+          if (isAdded.second) {
+            when (isAdded.first) {
+              TYPE_ADD_TO_CART -> showSuccessAddCartToast()
+              TYPE_CHECKOUT -> checkoutItem(viewModel.designDetailResponse.value?.id.orEmpty())
+            }
+          }
+        }
+      })
+    }
   }
 
   private fun checkoutItem(id: String) {
@@ -114,6 +134,7 @@ class DesignDetailFragment : BaseFragment() {
     with(chipBinding) {
       this.id = index
       this.text = text
+      this.isChecked = index == 0
     }
     return chipBinding
   }
@@ -173,31 +194,37 @@ class DesignDetailFragment : BaseFragment() {
         goToChat()
       }
       buttonAddToCart.setOnClickListener {
-        viewModel.addToCart()
+        viewModel.addToCart(TYPE_ADD_TO_CART)
       }
       buttonOrderNow.setOnClickListener {
-        checkoutItem(viewModel.designDetailResponse.value?.id.orEmpty())
+        viewModel.addToCart(TYPE_CHECKOUT)
       }
     }
   }
 
   private fun setupChooseColorChips(colors: List<ColorResponse>) {
     with(binding.chipGroupChooseColor) {
-      this.removeAllViews()
+      removeAllViews()
       colors.forEachIndexed { index, color ->
-        addView(getChooseColorChip(index, color.id, color.color))
+        addView(getChooseColorChip(index, color.name, color.color))
+      }
+      setOnCheckedChangeListener { _, checkedId ->
+        viewModel.setColorRequest(colors[checkedId].name)
       }
     }
   }
 
   private fun setupChooseSizeChips(sizes: List<SizeUiModel>) {
     with(binding.chipGroupChooseSize) {
-      this.removeAllViews()
+      removeAllViews()
       sizes.forEachIndexed { index, size ->
-        addView(getChooseSizeChip(index, size.id))
+        addView(getChooseSizeChip(index, size.name))
       }
-      this.setOnCheckedChangeListener { _, checkedId ->
-        sizes[checkedId].detail?.let { setSizeDetailInfoData(it) }
+      setOnCheckedChangeListener { _, checkedId ->
+        sizes[checkedId].detail?.let {
+          setSizeDetailInfoData(it)
+          viewModel.setSizeRequest(checkedId)
+        }
       }
     }
   }
@@ -264,5 +291,9 @@ class DesignDetailFragment : BaseFragment() {
       textViewDesignDetailAfterDiscountPrice.show()
       textViewDesignDetailBeforeDiscountPrice.show()
     }
+  }
+
+  private fun showSuccessAddCartToast() {
+    ToastHelper.showToast(binding.root, getString(R.string.design_added_to_cart))
   }
 }
