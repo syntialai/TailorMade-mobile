@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.show
@@ -17,8 +16,7 @@ import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class ProfileAboutFragment : BaseFragment() {
+@AndroidEntryPoint class ProfileAboutFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = ProfileAboutFragment()
@@ -45,19 +43,23 @@ class ProfileAboutFragment : BaseFragment() {
     super.setupFragmentObserver()
 
     viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
-      it?.location?.address?.let { address ->
-        setAddressData(address)
-      }
-
-      it?.occupation?.let { occupation ->
-        if (occupation.company.isNullOrBlank().not() || occupation.job.isNullOrBlank().not()) {
-          setOccupationData(occupation)
+      it?.let { profile ->
+        if (viewModel.isUser()) {
+          binding.textViewEditAbout.show()
         }
-      }
 
-      it?.education?.let { education ->
-        if (education.school.isNullOrBlank().not() || education.major.isNullOrBlank().not()) {
-          setEducationData(education)
+        profile.location?.address?.let { address ->
+          setAddressData(address)
+        }
+        profile.occupation?.let { occupation ->
+          if (occupation.company.isNullOrBlank().not() || occupation.job.isNullOrBlank().not()) {
+            setOccupationData(occupation)
+          }
+        }
+        profile.education?.let { education ->
+          if (education.school.isNullOrBlank().not() || education.major.isNullOrBlank().not()) {
+            setEducationData(education)
+          }
         }
       }
     })

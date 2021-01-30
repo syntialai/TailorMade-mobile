@@ -25,9 +25,11 @@
         android:clickable="true"
         android:focusable="true"
         android:text="@string/edit_label"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/text_view_about_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_view_about_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_view_about_title"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/image_view_about_address"
