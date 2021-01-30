@@ -218,7 +218,7 @@ class DesignDetailFragment : BaseFragment() {
     with(binding.chipGroupChooseSize) {
       removeAllViews()
       sizes.forEachIndexed { index, size ->
-        addView(getChooseSizeChip(index, size.name))
+        addView(getChooseSizeChip(index, size.name.orEmpty()))
       }
       setOnCheckedChangeListener { _, checkedId ->
         sizes[checkedId].detail?.let {

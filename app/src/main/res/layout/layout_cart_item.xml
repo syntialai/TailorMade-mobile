@@ -93,10 +93,10 @@
             style="@style/TextAppearance.TailorMade.Body2.Primary.Bold"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_4"
-            app:layout_constraintBottom_toBottomOf="@id/text_view_order_price"
-            app:layout_constraintStart_toEndOf="@id/text_view_order_price"
-            app:layout_constraintTop_toTopOf="@id/text_view_order_price"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintStart_toEndOf="@id/image_view_order"
+            app:layout_constraintTop_toBottomOf="@id/text_view_order_color_label"
             tools:text="@string/order_price_discount_label" />
 
         <TextView

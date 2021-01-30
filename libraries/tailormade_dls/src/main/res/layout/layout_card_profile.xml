@@ -18,7 +18,7 @@
             android:layout_height="@dimen/dp_64"
             android:background="@drawable/drawable_avatar_background"
             android:cropToPadding="true"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@id/button_chat_tailor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_view_profile_name"

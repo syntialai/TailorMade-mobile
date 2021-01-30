@@ -1,5 +1,6 @@
 package com.future.tailormade_search.feature.search.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -66,6 +67,7 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
       }.collect {
         _designCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
         _listOfDesigns.value = it.data.orEmptyList()
+        Log.d("DESIGNS", _listOfDesigns.value.toString())
       }
     }
   }

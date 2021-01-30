@@ -1,5 +1,6 @@
 package com.future.tailormade_design_detail.feature.designDetail.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -58,6 +59,7 @@ class DesignDetailViewModel @ViewModelInject constructor(
             setStartLoading()
           }.onError {
             setFinishLoading()
+            Log.d("ADD TO CART - $type", it.message, it)
             setErrorMessage(Constants.generateFailedAddError("cart"))
             _isAddedToCart.value = Pair(type, false)
           }.collectLatest {
@@ -74,8 +76,10 @@ class DesignDetailViewModel @ViewModelInject constructor(
   fun fetchDesignDetailData(id: String) {
     launchViewModelScope {
       designDetailRepository.getDesignDetailById(id).onError {
+        Log.d("DESIGN DETAIL", it.message, it)
         setErrorMessage(Constants.generateFailedFetchError("design"))
       }.collectLatest { data ->
+        Log.d("DESIGN DETAIL", data.toString())
         setResponse(data.response)
         setUiModel(data.uiModel)
       }
@@ -90,10 +94,12 @@ class DesignDetailViewModel @ViewModelInject constructor(
     addToCartRequest = AddToCartRequest(userName = authSharedPrefRepository.name,
         tailorId = designDetail.tailorId, tailorName = designDetail.tailorName, quantity = 1,
         design = designRequest)
+    Log.d("REQUEST", addToCartRequest.toString())
   }
 
   fun setColorRequest(color: String) {
     addToCartRequest?.design?.color = color
+    Log.d("REQUEST", addToCartRequest.toString())
   }
 
   fun setSizeRequest(index: Int) {
@@ -102,6 +108,7 @@ class DesignDetailViewModel @ViewModelInject constructor(
       it.size = size?.name.orEmpty()
       it.sizeDetail = size?.detail
     }
+    Log.d("REQUEST", addToCartRequest.toString())
   }
 
   private fun setResponse(designDetailResponse: DesignDetailResponse) {
