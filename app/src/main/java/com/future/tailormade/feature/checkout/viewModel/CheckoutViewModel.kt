@@ -33,11 +33,11 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
 
   override fun getLogName() = "com.future.tailormade.feature.checkout.viewModel.CheckoutViewModel"
 
-  private var _id = MutableLiveData<String>()
+  private var _id: MutableLiveData<String>
   val id: LiveData<String>
     get() = _id
 
-  private var _cartUiModel = MutableLiveData<CartUiModel>()
+  private var _cartUiModel: MutableLiveData<CartUiModel>
   val cartUiModel: LiveData<CartUiModel>
     get() = _cartUiModel
 
