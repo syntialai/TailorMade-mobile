@@ -2,11 +2,27 @@ package com.future.tailormade.util.image
 
 import android.content.ContentResolver
 import android.net.Uri
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import com.future.tailormade.R
 import com.future.tailormade.base.model.enums.GenderEnum
+import com.future.tailormade.util.extension.orFalse
 
 object ImageHelper {
+
+  fun getFileAbsolutePath(contentResolver: ContentResolver, uri: Uri): String? {
+    var result: String? = null
+    val projection = arrayOf(MediaStore.Images.Media.DATA)
+    val cursor = contentResolver.query(uri, projection, null, null, null)
+    if (cursor?.moveToFirst().orFalse()) {
+      val columnIndex = cursor?.getColumnIndex(projection[0])
+      columnIndex?.let {
+        result = cursor.getString(it)
+      }
+    }
+    cursor?.close()
+    return result
+  }
 
   fun getFileName(contentResolver: ContentResolver, uri: Uri): String? {
     var result: String? = null

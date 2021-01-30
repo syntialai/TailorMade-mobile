@@ -1,5 +1,6 @@
 package com.future.tailormade_design_detail.feature.addOrEditDesign.view
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -14,9 +15,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
@@ -66,6 +67,8 @@ class AddOrEditDesignFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
+  @FlowPreview
+  @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentAddOrEditDesignBinding.inflate(inflater, container, false)
@@ -93,9 +96,11 @@ class AddOrEditDesignFragment : BaseFragment() {
     if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
       data?.data?.let { imageUri ->
         activity?.contentResolver?.let {
-          viewModel.setImageFile(imageUri.toFile())
-          if (isImagePreviewShown().not()) {
-            showImagePreview(imageUri, ImageHelper.getFileName(it, imageUri).orEmpty())
+          ImageHelper.getFileAbsolutePath(it, imageUri)?.let { path ->
+            viewModel.setImageFile(path)
+            if (isImagePreviewShown().not()) {
+              showImagePreview(imageUri, ImageHelper.getFileName(it, imageUri).orEmpty())
+            }
           }
         }
       }
@@ -188,10 +193,13 @@ class AddOrEditDesignFragment : BaseFragment() {
   private fun isImagePreviewShown() = binding.layoutAddOrEditImage.groupFilledImageState.isShown
 
   private fun openGallery() {
-    val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
-      type = Constants.TYPE_IMAGE_ALL
+    (activity as BaseActivity).checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+        BaseActivity.READ_EXTERNAL_STORAGE_PERMISSION) {
+      val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+        type = Constants.TYPE_IMAGE_ALL
+      }
+      this.startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
     }
-    this.startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
   }
 
   private fun openAddColorBottomSheet(name: String? = null, color: String? = null) {
@@ -268,6 +276,8 @@ class AddOrEditDesignFragment : BaseFragment() {
     binding.layoutAddOrEditImage.imageViewPreviewDesignImage.setImageURI(imageUri)
   }
 
+  @FlowPreview
+  @ExperimentalCoroutinesApi
   private fun validate() {
     with(binding) {
       val name = editTextDesignName.text()

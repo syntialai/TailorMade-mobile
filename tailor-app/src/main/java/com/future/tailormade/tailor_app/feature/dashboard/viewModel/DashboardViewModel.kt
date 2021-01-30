@@ -1,5 +1,6 @@
 package com.future.tailormade.tailor_app.feature.dashboard.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -52,6 +53,7 @@ class DashboardViewModel @ViewModelInject constructor(
         dashboardRepository.getDashboardDesigns(id, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_GET_YOUR_DESIGN)
         }.collectLatest {
+          Log.d("DASHBOARD", it.toString())
           addToList(it)
         }
       }

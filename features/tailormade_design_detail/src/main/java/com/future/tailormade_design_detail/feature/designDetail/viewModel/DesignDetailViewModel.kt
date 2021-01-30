@@ -13,7 +13,6 @@ import com.future.tailormade_design_detail.core.repository.DesignDetailRepositor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class DesignDetailViewModel @ViewModelInject constructor(
     private val designDetailRepository: DesignDetailRepository,
@@ -43,15 +42,11 @@ class DesignDetailViewModel @ViewModelInject constructor(
   @InternalCoroutinesApi
   fun fetchDesignDetailData(id: String) {
     launchViewModelScope {
-      designDetailRepository.getDesignDetailById(id).onStart {
-        setStartLoading()
-      }.onError {
-        setFinishLoading()
+      designDetailRepository.getDesignDetailById(id).onError {
         setErrorMessage("Failed to get data. Please try again.")
       }.collectLatest { data ->
         setResponse(data.response)
         setUiModel(data.uiModel)
-        setFinishLoading()
       }
     }
   }

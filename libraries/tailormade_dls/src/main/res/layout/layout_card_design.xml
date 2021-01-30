@@ -5,7 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="?attr/colorSurface"
+    android:clickable="true"
     android:elevation="@dimen/dp_4"
+    android:focusable="true"
     app:cardElevation="@dimen/dp_4">
 
     <androidx.constraintlayout.widget.ConstraintLayout

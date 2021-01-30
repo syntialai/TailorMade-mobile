@@ -135,7 +135,7 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   private fun goToDesignDetail(id: String? = null) {
     context?.let { context ->
       id?.let {
-        Action.goToDesignDetail(context, id)
+        Action.goToDesignDetail(context, it)
       } ?: run {
         TailorAction.goToAddDesignDetail(context)
       }

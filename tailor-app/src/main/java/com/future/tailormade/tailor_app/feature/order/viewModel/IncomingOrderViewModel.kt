@@ -1,5 +1,6 @@
 package com.future.tailormade.tailor_app.feature.order.viewModel
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,6 +36,7 @@ class IncomingOrderViewModel @ViewModelInject constructor(
       authSharedPrefRepository.userId?.let { tailorId ->
         orderRepository.getOrders(tailorId, OrderStatus.INCOMING.name, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_FETCH_INCOMING_ORDER)
+          Log.d("INCOMING", it.message, it)
         }.collectLatest {
           addToList(it)
         }

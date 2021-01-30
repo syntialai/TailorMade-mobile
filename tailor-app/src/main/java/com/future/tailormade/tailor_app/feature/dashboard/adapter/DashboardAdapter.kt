@@ -45,10 +45,8 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
 
         ImageLoader.loadImageUrl(context, data.image, imageViewDesign)
 
-        if (data.active) {
-          root.setOnClickListener {
-            onClickListener.invoke(data.id)
-          }
+        root.setOnClickListener {
+          onClickListener.invoke(data.id)
         }
 
         root.setOnLongClickListener {

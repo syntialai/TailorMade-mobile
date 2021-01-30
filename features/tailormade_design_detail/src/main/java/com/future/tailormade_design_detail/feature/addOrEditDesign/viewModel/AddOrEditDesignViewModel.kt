@@ -116,8 +116,8 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
     _designDetailResponse.value = response
   }
 
-  fun setImageFile(file: File) {
-    imageRequest = file
+  fun setImageFile(filePath: String) {
+    imageRequest = File(filePath)
   }
 
   fun validate() = when {

@@ -59,8 +59,8 @@ class DesignDetailRepositoryImpl @Inject constructor(
     }
 
     val imageMultiPartBody = MultipartBody.Part.createFormData(FILE, file.name,
-        RequestBody.create(MediaType.parse(Constants.MEDIA_TYPE_MULTIPART_FORM_DATA), file))
+        RequestBody.create(MediaType.parse(Constants.TYPE_IMAGE_JPEG), file))
     emit(designDetailService.postUploadImage(
-        Constants.UPLOAD_TYPE_DESIGN, imageMultiPartBody).data?.imagePath.orEmpty())
+        Constants.UPLOAD_TYPE_DESIGN, imageMultiPartBody).data?.imageUrl.orEmpty())
   }.flowOnIO()
 }
