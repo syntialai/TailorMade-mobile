@@ -152,9 +152,11 @@
                 android:paddingHorizontal="@dimen/dp_16"
                 android:paddingBottom="@dimen/dp_16"
                 android:text="@string/read_more_label"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_design_detail_description" />
+                app:layout_constraintTop_toBottomOf="@id/text_view_design_detail_description"
+                tools:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

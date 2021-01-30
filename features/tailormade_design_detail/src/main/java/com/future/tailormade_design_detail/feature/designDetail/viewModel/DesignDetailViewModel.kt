@@ -94,12 +94,10 @@ class DesignDetailViewModel @ViewModelInject constructor(
     addToCartRequest = AddToCartRequest(userName = authSharedPrefRepository.name,
         tailorId = designDetail.tailorId, tailorName = designDetail.tailorName, quantity = 1,
         design = designRequest)
-    Log.d("REQUEST", addToCartRequest.toString())
   }
 
   fun setColorRequest(color: String) {
     addToCartRequest?.design?.color = color
-    Log.d("REQUEST", addToCartRequest.toString())
   }
 
   fun setSizeRequest(index: Int) {
@@ -108,7 +106,6 @@ class DesignDetailViewModel @ViewModelInject constructor(
       it.size = size?.name.orEmpty()
       it.sizeDetail = size?.detail
     }
-    Log.d("REQUEST", addToCartRequest.toString())
   }
 
   private fun setResponse(designDetailResponse: DesignDetailResponse) {

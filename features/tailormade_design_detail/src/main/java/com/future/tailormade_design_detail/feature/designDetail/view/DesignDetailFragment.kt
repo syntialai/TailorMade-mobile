@@ -148,6 +148,7 @@ class DesignDetailFragment : BaseFragment() {
       this.id = index
       this.text = text
       this.chipIconTint = ColorStateList.valueOf(Color.parseColor(color))
+      this.isChecked = index == 0
     }
     return chipBinding
   }
@@ -234,6 +235,11 @@ class DesignDetailFragment : BaseFragment() {
   private fun setupDescription(description: String) {
     with(binding) {
       textViewDesignDetailDescription.text = description
+
+      if (textViewDesignDetailDescription.lineCount > DESCRIPTION_MAX_LINES) {
+        textViewReadMore.show()
+      }
+
       textViewReadMore.setOnClickListener {
         with(textViewDesignDetailDescription) {
           if (maxLines == DESCRIPTION_MAX_LINES) {
