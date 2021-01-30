@@ -29,7 +29,6 @@ class DesignDetailActivity : BaseActivity() {
     binding = ActivityDesignDetailBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarDesignDetail
     setContentView(binding.root)
-    setSupportActionBar(toolbar)
     setupNavController()
 
     designDetailId = intent?.getStringExtra(PARAM_DESIGN_DETAIL_ID).orEmpty()

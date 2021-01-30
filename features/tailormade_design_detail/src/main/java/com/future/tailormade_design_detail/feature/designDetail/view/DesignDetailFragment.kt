@@ -94,7 +94,7 @@ class DesignDetailFragment : BaseFragment() {
 
     viewModel.designDetailUiModel.observe(viewLifecycleOwner, {
       it?.let { designDetailUiModel ->
-        setupGeneralInfoLayout(designDetailUiModel.id, designDetailUiModel.tailorId,
+        setupGeneralInfoLayout(designDetailUiModel.title, designDetailUiModel.tailorId,
             designDetailUiModel.tailorName, designDetailUiModel.image)
         setupGeneralInfoPrice(designDetailUiModel.price, designDetailUiModel.discount)
         setupChooseSizeChips(designDetailUiModel.size)
