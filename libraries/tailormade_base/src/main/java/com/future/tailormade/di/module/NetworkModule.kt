@@ -39,7 +39,7 @@ class NetworkModule {
   fun provideAuthInterceptor(authSharedPrefRepository: AuthSharedPrefRepository): Interceptor {
     return Interceptor { chain ->
       val request = chain.request().newBuilder()
-          .addHeader("Authorization", "Bearer ${authSharedPrefRepository.accessToken}")
+          .addHeader("Authorization", "Bearer ${authSharedPrefRepository.refreshToken}")
           .build()
       Timber.d(this::class.java.simpleName, request.url())
       chain.proceed(request)

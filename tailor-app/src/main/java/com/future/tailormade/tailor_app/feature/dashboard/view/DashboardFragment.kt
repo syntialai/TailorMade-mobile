@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -101,10 +104,16 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   }
 
   @ExperimentalCoroutinesApi
-  fun setupRecyclerView() {
+  private fun setupRecyclerView() {
     with(binding.recyclerViewTailorDesignsList) {
       layoutManager = GridLayoutManager(context, 2)
       adapter = dashboardAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
 
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
 

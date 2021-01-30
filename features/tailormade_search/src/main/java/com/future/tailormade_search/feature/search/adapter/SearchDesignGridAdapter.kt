@@ -44,7 +44,9 @@ class SearchDesignGridAdapter(private val onClickListener: (String) -> Unit) :
         textViewDesignName.text = data.title
         textViewDesignPrice.text = data.price.toString()
 
-        ImageLoader.loadImageUrl(context, data.imagePath, imageViewDesign)
+        data.image?.let { image ->
+          ImageLoader.loadImageUrl(context, image, imageViewDesign)
+        }
 
         root.setOnClickListener {
           onClickListener.invoke(data.id)

@@ -5,7 +5,8 @@ import com.future.tailormade.base.repository.BaseRepository
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_design_detail.core.mapper.DesignDetailMapper
-import com.future.tailormade_design_detail.core.model.request.DesignRequest
+import com.future.tailormade_design_detail.core.model.request.cart.AddToCartRequest
+import com.future.tailormade_design_detail.core.model.request.design.DesignRequest
 import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
 import com.future.tailormade_design_detail.core.repository.DesignDetailRepository
 import com.future.tailormade_design_detail.core.service.DesignDetailService
@@ -41,6 +42,10 @@ class DesignDetailRepositoryImpl @Inject constructor(
     designDetailService.postAddDesignByTailor(tailorId, designRequest).data?.let {
       emit(it)
     }
+  }.flowOnIO()
+
+  override suspend fun addToCart(userId: String, addToCartRequest: AddToCartRequest) = flow {
+    emit(designDetailService.postAddToCart(userId, addToCartRequest))
   }.flowOnIO()
 
   override suspend fun updateDesignById(

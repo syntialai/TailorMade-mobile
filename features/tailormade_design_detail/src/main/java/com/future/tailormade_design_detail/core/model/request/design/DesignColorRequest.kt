@@ -1,4 +1,4 @@
-package com.future.tailormade_design_detail.core.model.request
+package com.future.tailormade_design_detail.core.model.request.design
 
 data class DesignColorRequest(
 

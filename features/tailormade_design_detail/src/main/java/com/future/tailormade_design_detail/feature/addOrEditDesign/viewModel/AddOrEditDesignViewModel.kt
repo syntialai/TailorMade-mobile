@@ -9,10 +9,10 @@ import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade_design_detail.core.model.request.DesignColorRequest
-import com.future.tailormade_design_detail.core.model.request.DesignRequest
-import com.future.tailormade_design_detail.core.model.request.DesignSizeDetailRequest
-import com.future.tailormade_design_detail.core.model.request.DesignSizeRequest
+import com.future.tailormade_design_detail.core.model.request.design.DesignColorRequest
+import com.future.tailormade_design_detail.core.model.request.design.DesignRequest
+import com.future.tailormade_design_detail.core.model.request.design.DesignSizeDetailRequest
+import com.future.tailormade_design_detail.core.model.request.design.DesignSizeRequest
 import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.core.repository.DesignDetailRepository

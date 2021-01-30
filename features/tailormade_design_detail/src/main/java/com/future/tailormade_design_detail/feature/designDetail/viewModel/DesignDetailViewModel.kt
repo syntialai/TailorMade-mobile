@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
 import com.future.tailormade_design_detail.core.model.ui.DesignDetailUiModel
@@ -38,12 +39,18 @@ class DesignDetailViewModel @ViewModelInject constructor(
 
   override fun getLogName() = "com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel"
 
+  fun addToCart() {
+    launchViewModelScope {
+
+    }
+  }
+
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   fun fetchDesignDetailData(id: String) {
     launchViewModelScope {
       designDetailRepository.getDesignDetailById(id).onError {
-        setErrorMessage("Failed to get data. Please try again.")
+        setErrorMessage(Constants.generateFailedFetchError("design"))
       }.collectLatest { data ->
         setResponse(data.response)
         setUiModel(data.uiModel)

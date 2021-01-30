@@ -45,8 +45,6 @@ class DesignDetailFragment : BaseFragment() {
 
   private val viewModel: DesignDetailViewModel by viewModels()
 
-  private var designDetailResponse: DesignDetailResponse? = null
-
   private lateinit var binding: FragmentDesignDetailBinding
 
   override fun getLogName() =
@@ -102,9 +100,6 @@ class DesignDetailFragment : BaseFragment() {
         setupDescription(designDetailUiModel.description)
       }
     })
-    viewModel.designDetailResponse.observe(viewLifecycleOwner, {
-      designDetailResponse = it
-    })
   }
 
   private fun checkoutItem(id: String) {
@@ -136,7 +131,7 @@ class DesignDetailFragment : BaseFragment() {
 
   private fun goToChat() {
     context?.let { context ->
-      designDetailResponse?.let {
+      viewModel.designDetailResponse.value?.let {
         Action.goToChatRoom(context, it.tailorId, it.tailorName)
       }
     }
@@ -156,7 +151,7 @@ class DesignDetailFragment : BaseFragment() {
 
   private fun hideCustomerFeatures() {
     with(binding) {
-      bottomNavDesignDetail.remove()
+      layoutDesignDetailBottomNav.root.remove()
       layoutDesignDetailGeneralInfo.buttonSwapFace.remove()
       layoutDesignDetailGeneralInfo.buttonEditDesignDetail.show()
     }
@@ -173,23 +168,15 @@ class DesignDetailFragment : BaseFragment() {
   }
 
   private fun setupBottomNav() {
-    binding.bottomNavDesignDetail.setOnNavigationItemSelectedListener { item ->
-      when(item.itemId) {
-        R.id.item_chat_tailor -> {
-          goToChat()
-          true
-        }
-        R.id.item_add_to_cart -> {
-          // TODO: Add item to cart
-          true
-        }
-        R.id.item_button_order_now -> {
-          viewModel.designDetailUiModel.value?.id?.let {
-            checkoutItem(it)
-          }
-          true
-        }
-        else -> false
+    with(binding.layoutDesignDetailBottomNav) {
+      buttonChatTailor.setOnClickListener {
+        goToChat()
+      }
+      buttonAddToCart.setOnClickListener {
+        viewModel.addToCart()
+      }
+      buttonOrderNow.setOnClickListener {
+        checkoutItem(viewModel.designDetailResponse.value?.id.orEmpty())
       }
     }
   }
@@ -239,7 +226,7 @@ class DesignDetailFragment : BaseFragment() {
         // TODO: Go to face swap
       }
       buttonEditDesignDetail.setOnClickListener {
-        designDetailResponse?.let { designDetailResponse ->
+        viewModel.designDetailResponse.value?.let { designDetailResponse ->
           findNavController().navigate(
               DesignDetailFragmentDirections.actionDesignDetailFragmentToAddOrEditDesignFragment(
                   designDetailResponse))

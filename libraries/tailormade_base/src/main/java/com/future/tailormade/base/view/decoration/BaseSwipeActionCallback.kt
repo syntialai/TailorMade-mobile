@@ -1,4 +1,4 @@
-package com.future.tailormade.base.view
+package com.future.tailormade.base.view.decoration
 
 import android.graphics.Canvas
 import android.graphics.Paint

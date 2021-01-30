@@ -20,6 +20,7 @@
             android:id="@+id/recycler_view_search_design_result"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
+            android:layout_marginHorizontal="@dimen/dp_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/group_sort_and_filter" />

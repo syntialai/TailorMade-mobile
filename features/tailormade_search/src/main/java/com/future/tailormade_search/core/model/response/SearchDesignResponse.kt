@@ -14,4 +14,4 @@ data class SearchDesignResponse(
 
     val discount: Double,
 
-    val imagePath: String): Parcelable
+    val image: String? = null): Parcelable

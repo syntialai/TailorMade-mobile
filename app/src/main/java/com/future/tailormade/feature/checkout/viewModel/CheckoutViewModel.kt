@@ -14,6 +14,7 @@ import com.future.tailormade.core.model.request.checkout.CheckoutRequest
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.core.repository.CartRepository
 import com.future.tailormade.core.repository.CheckoutRepository
+import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade.util.extension.flowOnMainWithLoadingDialog
 import com.future.tailormade.util.extension.onError
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -78,7 +79,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
   fun getCartItemById(id: String) {
     authSharedPrefRepository.userId?.let { userId ->
       launchViewModelScope {
-        cartRepository.getCartById(userId, id).flowOnMainWithLoadingDialog(this).onStart {
+        cartRepository.getCartById(userId, id).onStart {
           setStartLoading()
         }.onError {
           setFinishLoading()

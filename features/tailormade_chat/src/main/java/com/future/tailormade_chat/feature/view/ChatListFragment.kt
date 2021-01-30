@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
-import com.future.tailormade.base.view.BaseSwipeActionCallback
+import com.future.tailormade.base.view.decoration.BaseSwipeActionCallback
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show

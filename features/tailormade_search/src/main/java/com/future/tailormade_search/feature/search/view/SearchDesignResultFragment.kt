@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_search.R
 import com.future.tailormade_search.databinding.FragmentSearchDesignResultBinding
 import com.future.tailormade_search.feature.filter.view.FilterDesignBottomSheetDialogFragment
 import com.future.tailormade_search.feature.search.adapter.SearchDesignGridAdapter
@@ -81,6 +85,12 @@ class SearchDesignResultFragment : BaseFragment() {
     with(binding.recyclerViewSearchDesignResult) {
       layoutManager = GridLayoutManager(context, 2)
       adapter = searchDesignListAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
     }
   }
 
