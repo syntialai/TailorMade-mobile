@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.FragmentRecentOrderBinding
 import com.future.tailormade.tailor_app.feature.order.adapter.RecentOrderAdapter
 import com.future.tailormade.tailor_app.feature.order.viewModel.RecentOrderViewModel
@@ -92,6 +95,12 @@ class RecentOrderFragment : BaseFragment() {
     with(binding.recyclerViewRecentOrder) {
       layoutManager = LinearLayoutManager(context)
       adapter = recentOrderAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
     }
   }
 
