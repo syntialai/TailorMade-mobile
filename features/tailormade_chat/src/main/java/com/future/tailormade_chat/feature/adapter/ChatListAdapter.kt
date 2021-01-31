@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.orTrue
 import com.future.tailormade.util.extension.setVisibility
-import com.future.tailormade.util.extension.toTimeString
+import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_chat.databinding.LayoutCardChatBinding
@@ -48,7 +48,7 @@ class ChatListAdapter(private val onClickListener: (String, String) -> Unit) :
       with(binding) {
         with(data.second) {
           textViewChatName.text = userId
-          textViewChatTime.text = updatedDate?.toTimeString(Constants.HH_MM)
+          textViewChatTime.text = updatedDate?.toDateString(Constants.HH_MM)
           textViewChatContent.text = chat?.text?.body
 
           layoutBadge.viewBadge.setVisibility(hasBeenRead.orTrue())

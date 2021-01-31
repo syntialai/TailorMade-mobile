@@ -31,23 +31,6 @@ import kotlinx.coroutines.flow.onStart
  */
 fun <T> Flow<T>.flowOnIO(): Flow<T> = this.flowOn(Dispatchers.IO)
 
-fun <T> Flow<T>.flowOnMain(): Flow<T> = this.flowOn(Dispatchers.Main)
-
-@ExperimentalCoroutinesApi
-fun <T> Flow<T>.flowWithLoadingDialog(viewModel: BaseViewModel) = onStart {
-  viewModel.viewState.value = ViewState.Loading(true)
-}.onError {
-  viewModel.viewState.value = ViewState.Loading(false)
-}
-
-@ExperimentalCoroutinesApi
-fun <T> Flow<T>.flowOnIOwithLoadingDialog(viewModel: BaseViewModel) = flowWithLoadingDialog(
-    viewModel).flowOnIO()
-
-@ExperimentalCoroutinesApi
-fun <T> Flow<T>.flowOnMainWithLoadingDialog(viewModel: BaseViewModel) = flowWithLoadingDialog(
-    viewModel).flowOnMain()
-
 fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> = catch { error ->
   block(error)
 }
@@ -133,9 +116,6 @@ fun Long.toDateString(pattern: String, isTimestamp: Boolean = false): String {
   return SimpleDateFormat(pattern, Locale.ENGLISH).format(this * time)
 }
 
-fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(
-    this)
-
 /**
  * Money Converter
  */
@@ -162,9 +142,3 @@ fun Long?.orZero(): Long = this ?: 0L
 fun Boolean?.orTrue(): Boolean = this ?: true
 
 fun Boolean?.orFalse(): Boolean = this ?: false
-
-/**
- * Collection converter
- */
-@RequiresApi(Build.VERSION_CODES.N)
-fun <T> MutableMap<String, T>.getFirstElement() = this.entries.stream().findFirst().get()

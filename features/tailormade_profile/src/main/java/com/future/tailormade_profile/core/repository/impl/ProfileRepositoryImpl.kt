@@ -5,6 +5,7 @@ import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_profile.core.mapper.ProfileMapper
 import com.future.tailormade_profile.core.model.request.UpdateProfileAboutRequest
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
+import com.future.tailormade_profile.core.model.response.ProfileDesignResponse
 import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
 import com.future.tailormade_profile.core.repository.ProfileRepository
@@ -36,7 +37,9 @@ class ProfileRepositoryImpl @Inject constructor(
   }.flowOnIO()
 
   override suspend fun getProfileDesigns(id: String, page: Int, itemPerPage: Int) = flow {
-    emit(profileService.getProfileTailorDesigns(id, page, itemPerPage))
+    profileService.getProfileTailorDesigns(id, page, itemPerPage).data?.let {
+      emit(it as ArrayList)
+    }
   }.flowOnIO()
 
   override suspend fun searchLocation(query: String) = flow {

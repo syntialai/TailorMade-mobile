@@ -36,7 +36,8 @@ class RealtimeDbRepositoryImpl @Inject constructor(
   override fun getUserChatSessionById(userId: String) = getUserChatSessionRef.child(
       userId)
 
-  override fun addChatRoomAndSession(userId: String, chatRoomId: String, session: Session, chat: Chat): Task<Void>? {
+  override fun addChatRoomAndSession(userId: String, chatRoomId: String, session: Session,
+      chat: Chat): Task<Void>? {
     authSharedPrefRepository.userId?.let { id ->
       val childUpdates = hashMapOf(
           "${ReferenceConstants.CHAT_ROOMS}/$chatRoomId/${ReferenceConstants.CHATS}/${chat.createdDate.toString()}" to chat,

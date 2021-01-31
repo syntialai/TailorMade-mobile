@@ -35,7 +35,7 @@ class SplashScreenViewModel @ViewModelInject constructor(private val authReposit
           setToken(token)
           _isTokenExpired.value = false
         }
-      }  ?: run {
+      } ?: run {
         _isTokenExpired.value = true
       }
     }

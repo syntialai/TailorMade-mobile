@@ -9,8 +9,7 @@ import com.google.firebase.database.Query
 
 class ChatListViewModel @ViewModelInject constructor(
     private val realtimeDbRepository: RealtimeDbRepository,
-    private val authSharedPrefRepository: AuthSharedPrefRepository) :
-    BaseViewModel() {
+    private val authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
 
   override fun getLogName(): String =
       "com.future.tailormade_chat.feature.viewModel.ChatListViewModel"

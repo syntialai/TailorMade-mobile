@@ -67,7 +67,6 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
       }.collect {
         _designCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
         _listOfDesigns.value = it.data.orEmptyList()
-        Log.d("DESIGNS", _listOfDesigns.value.toString())
       }
     }
   }

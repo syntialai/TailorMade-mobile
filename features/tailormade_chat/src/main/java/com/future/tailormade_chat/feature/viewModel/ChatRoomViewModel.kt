@@ -10,13 +10,11 @@ import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
-import com.future.tailormade.util.extension.orZero
 import com.future.tailormade_chat.core.model.entity.Chat
 import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_chat.core.model.entity.Text
 import com.future.tailormade_chat.core.repository.RealtimeDbRepository
 import com.google.firebase.database.Query
-import java.sql.Timestamp
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -66,7 +64,7 @@ class ChatRoomViewModel @ViewModelInject constructor(
 
   @RequiresApi(Build.VERSION_CODES.O)
   fun sendMessage(text: String) {
-    val nowTimestamp = Timestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC))
+    val nowTimestamp = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
     authSharedPrefRepository.userId?.let { userId ->
       _chatRoomId.value?.let {
         val chat = Chat(nowTimestamp, userId, false, Constants.MESSAGES_TYPE_TEXT, Text(text))

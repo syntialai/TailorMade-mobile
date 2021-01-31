@@ -6,7 +6,7 @@ import java.sql.Timestamp
 @IgnoreExtraProperties
 data class Session(
 
-    var updatedDate: Timestamp? = null,
+    var updatedDate: Long? = null,
 
     var userId: String? = null,
 

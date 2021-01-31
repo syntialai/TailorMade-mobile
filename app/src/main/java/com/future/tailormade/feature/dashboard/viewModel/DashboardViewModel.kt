@@ -29,7 +29,7 @@ class DashboardViewModel @ViewModelInject constructor(
       dashboardRepository.getDashboardTailors(page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("dashboard"))
       }.collectLatest {
-        addToList(it)
+        addToList(it, _tailors)
       }
     }
   }
@@ -44,14 +44,5 @@ class DashboardViewModel @ViewModelInject constructor(
   override fun refreshFetch() {
     super.refreshFetch()
     fetchDashboardTailors()
-  }
-
-  private fun addToList(list: ArrayList<DashboardTailorUiModel>) {
-    val tailors = arrayListOf<DashboardTailorUiModel>()
-    if (isFirstPage().not()) {
-      tailors.addAll(_tailors.value.orEmptyList())
-    }
-    tailors.addAll(list)
-    _tailors.value = tailors
   }
 }

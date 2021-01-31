@@ -53,8 +53,7 @@ class DashboardViewModel @ViewModelInject constructor(
         dashboardRepository.getDashboardDesigns(id, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_GET_YOUR_DESIGN)
         }.collectLatest {
-          Log.d("DASHBOARD", it.toString())
-          addToList(it)
+          addToList(it, _designs)
         }
       }
     }
@@ -99,15 +98,6 @@ class DashboardViewModel @ViewModelInject constructor(
     } else {
       _selectedDesigns.value?.add(id)
     }
-  }
-
-  private fun addToList(list: ArrayList<DashboardDesignUiModel>) {
-    val designs = arrayListOf<DashboardDesignUiModel>()
-    if (isFirstPage().not()) {
-      designs.addAll(_designs.value.orEmptyList())
-    }
-    designs.addAll(list)
-    _designs.value = designs
   }
 
   private suspend fun deleteDesign(tailorId: String, id: String) {

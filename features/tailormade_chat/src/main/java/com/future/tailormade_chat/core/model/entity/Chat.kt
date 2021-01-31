@@ -6,7 +6,7 @@ import java.sql.Timestamp
 @IgnoreExtraProperties
 data class Chat(
 
-    var createdDate: Timestamp? = null,
+    var createdDate: Long? = null,
 
     var userId: String? = null,
 

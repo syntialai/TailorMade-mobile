@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_profile.core.model.response.ProfileDesignResponse
 import com.future.tailormade_profile.core.repository.ProfileRepository
@@ -31,11 +32,9 @@ class ProfileDesignViewModel @ViewModelInject constructor(
           setStartLoading()
         }.onError {
           setFinishLoading()
-          setErrorMessage("Failed to get designs. Please try again.")
-        }.collectLatest { response ->
-          response.data?.let {
-            addToList(it as ArrayList, isFirstPage())
-          }
+          setErrorMessage(Constants.generateFailedFetchError("designs"))
+        }.collectLatest {
+          addToList(it, _images)
           setFinishLoading()
         }
       }
@@ -52,12 +51,5 @@ class ProfileDesignViewModel @ViewModelInject constructor(
   override fun refreshFetch() {
     super.refreshFetch()
     fetchImages()
-  }
-
-  private fun addToList(list: ArrayList<ProfileDesignResponse>, update: Boolean) {
-    if (update.not()) {
-      _images.value?.clear()
-    }
-    _images.value?.addAll(list)
   }
 }

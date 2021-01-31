@@ -1,7 +1,6 @@
 package com.future.tailormade_profile.core.repository
 
 import com.future.tailormade.base.model.BaseMapperModel
-import com.future.tailormade.base.model.response.BaseListResponse
 import com.future.tailormade.base.model.response.BaseSingleObjectResponse
 import com.future.tailormade_profile.core.model.request.UpdateProfileAboutRequest
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
@@ -18,8 +17,8 @@ interface ProfileRepository {
 
   suspend fun getTailorProfileInfo(tailorId: String): Flow<ProfileInfoUiModel>
 
-  suspend fun getProfileDesigns(id: String, page: Int, itemPerPage: Int):
-      Flow<BaseListResponse<ProfileDesignResponse>>
+  suspend fun getProfileDesigns(
+      id: String, page: Int, itemPerPage: Int): Flow<ArrayList<ProfileDesignResponse>>
 
   suspend fun searchLocation(query: String): Flow<ArrayList<LocationResponse>>
 

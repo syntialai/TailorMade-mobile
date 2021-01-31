@@ -1,6 +1,5 @@
 package com.future.tailormade_design_detail.feature.designDetail.viewModel
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -49,7 +48,8 @@ class DesignDetailViewModel @ViewModelInject constructor(
     _designDetailUiModel = savedStateHandle.getLiveData(DESIGN_DETAIL_UI_MODEL, null)
   }
 
-  override fun getLogName() = "com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel"
+  override fun getLogName() =
+      "com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel"
 
   fun addToCart(type: String) {
     authSharedPrefRepository.userId?.let { id ->
@@ -59,7 +59,6 @@ class DesignDetailViewModel @ViewModelInject constructor(
             setStartLoading()
           }.onError {
             setFinishLoading()
-            Log.d("ADD TO CART - $type", it.message, it)
             setErrorMessage(Constants.generateFailedAddError("cart"))
             _isAddedToCart.value = Pair(type, false)
           }.collectLatest {
@@ -76,10 +75,8 @@ class DesignDetailViewModel @ViewModelInject constructor(
   fun fetchDesignDetailData(id: String) {
     launchViewModelScope {
       designDetailRepository.getDesignDetailById(id).onError {
-        Log.d("DESIGN DETAIL", it.message, it)
         setErrorMessage(Constants.generateFailedFetchError("design"))
       }.collectLatest { data ->
-        Log.d("DESIGN DETAIL", data.toString())
         setResponse(data.response)
         setUiModel(data.uiModel)
       }

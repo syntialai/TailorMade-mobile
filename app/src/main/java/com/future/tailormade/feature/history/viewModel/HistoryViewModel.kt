@@ -30,7 +30,7 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
         orderRepository.getOrders(userId, page, itemPerPage).onError {
           setErrorMessage(Constants.generateFailedFetchError("history"))
         }.collectLatest { orders ->
-          addToList(orders)
+          addToList(orders, _orders)
         }
       }
     }
@@ -46,14 +46,5 @@ class HistoryViewModel @ViewModelInject constructor(private val orderRepository:
   override fun refreshFetch() {
     super.refreshFetch()
     fetchHistory()
-  }
-
-  private fun addToList(list: ArrayList<OrderUiModel>) {
-    val orders = arrayListOf<OrderUiModel>()
-    if (isFirstPage().not()) {
-      orders.addAll(_orders.value.orEmptyList())
-    }
-    orders.addAll(list)
-    _orders.value = orders
   }
 }

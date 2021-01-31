@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.config.Constants
-import com.future.tailormade.util.extension.toTimeString
+import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.Chat
 import com.future.tailormade_chat.databinding.LayoutChatContentReplyBinding
@@ -66,8 +66,7 @@ class ChatRoomAdapter(private val userId: String) :
     fun bind(data: Chat) {
       with(sendBinding) {
         textViewChatContentSendText.text = data.text?.body
-        textViewChatContentSendTime.text = data.createdDate?.toTimeString(
-            Constants.HH_MM)
+        textViewChatContentSendTime.text = data.createdDate?.toDateString(Constants.HH_MM)
       }
     }
   }
@@ -81,8 +80,7 @@ class ChatRoomAdapter(private val userId: String) :
     fun bind(data: Chat) {
       with(replyBinding) {
         textViewChatContentReplyText.text = data.text?.body
-        textViewChatContentReplyTime.text = data.createdDate?.toTimeString(
-            Constants.HH_MM)
+        textViewChatContentReplyTime.text = data.createdDate?.toDateString(Constants.HH_MM)
       }
     }
   }

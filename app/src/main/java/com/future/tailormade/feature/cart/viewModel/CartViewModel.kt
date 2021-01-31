@@ -42,7 +42,7 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
         cartRepository.getCarts(userId, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_GET_YOUR_CART_ITEM)
         }.collectLatest {
-          addToList(it)
+          addToList(it, _cartUiModel)
         }
       }
     }
@@ -79,15 +79,6 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
         }
       }
     }
-  }
-
-  private fun addToList(list: ArrayList<CartUiModel>) {
-    val carts = arrayListOf<CartUiModel>()
-    if (isFirstPage().not()) {
-      carts.addAll(_cartUiModel.value.orEmptyList())
-    }
-    carts.addAll(list)
-    _cartUiModel.value = carts
   }
 
   private fun deleteUiModelItem(id: String) {

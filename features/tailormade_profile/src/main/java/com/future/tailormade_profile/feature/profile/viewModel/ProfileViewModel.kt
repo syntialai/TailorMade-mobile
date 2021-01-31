@@ -46,7 +46,6 @@ class ProfileViewModel @ViewModelInject constructor(
           setStartLoading()
         }.onError {
           setFinishLoading()
-          Log.d(PROFILE_INFO, it.message, it)
           setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
         }.collectLatest {
           setFinishLoading()
