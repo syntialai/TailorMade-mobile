@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentHistoryBinding
@@ -98,6 +101,12 @@ class HistoryFragment : BaseFragment() {
     with(binding.recyclerViewHistoryList) {
       layoutManager = LinearLayoutManager(context)
       adapter = historyAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
 
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
