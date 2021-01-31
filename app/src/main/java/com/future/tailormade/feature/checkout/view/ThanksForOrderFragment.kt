@@ -12,8 +12,9 @@ import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.databinding.FragmentThanksForOrderBinding
 import com.future.tailormade.feature.checkout.viewModel.ThanksForOrderViewModel
-import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_router.actions.Action
 import com.future.tailormade_router.actions.UserAction
@@ -94,6 +95,7 @@ class ThanksForOrderFragment : BaseFragment() {
         showDiscount()
         textViewOrderBeforeDiscount.text = design.price
         textViewOrderAfterDiscount.text = discount
+        textViewOrderAfterDiscount.strikeThrough()
       } ?: run {
         textViewOrderPrice.text = design.price
       }
@@ -118,7 +120,7 @@ class ThanksForOrderFragment : BaseFragment() {
   private fun showDiscount() {
     with(binding.layoutDesignDetail) {
       groupDiscountTextView.show()
-      textViewOrderPrice.remove()
+      textViewOrderPrice.hide()
     }
   }
 }

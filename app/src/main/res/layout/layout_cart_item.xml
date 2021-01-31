@@ -105,9 +105,9 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
-            app:layout_constraintBottom_toBottomOf="@id/text_view_order_price"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_order_after_discount"
             app:layout_constraintStart_toEndOf="@id/text_view_order_after_discount"
-            app:layout_constraintTop_toTopOf="@id/text_view_order_price"
+            app:layout_constraintTop_toTopOf="@id/text_view_order_after_discount"
             tools:text="@string/order_discount_label" />
 
         <androidx.constraintlayout.widget.Group
