@@ -63,7 +63,6 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/dp_4"
-        android:layout_marginStart="@dimen/dp_16"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/text_view_design_detail_designed_by_label"
         app:layout_constraintStart_toEndOf="@id/text_view_design_detail_price"

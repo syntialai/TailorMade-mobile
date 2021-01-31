@@ -31,7 +31,7 @@ class RecentOrderViewModel @ViewModelInject constructor(
   fun fetchIncomingOrders() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { tailorId ->
-        orderRepository.getOrders(tailorId, OrderStatus.RECENT.name, page, itemPerPage).onError {
+        orderRepository.getOrders(tailorId, OrderStatus.Accepted.name, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_FETCH_RECENT_ORDER)
           Log.d("RECENT", it.message, it)
         }.collectLatest {
