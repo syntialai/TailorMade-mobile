@@ -61,10 +61,7 @@ class ChatListFragment : BaseFragment() {
   }
   private val deleteAlertDialog by lazy {
     context?.let {
-      MaterialAlertDialogBuilder(it).setTitle(R.string.delete_chat_alert_dialog_title).setNegativeButton(
-          R.string.delete_alert_dialog_cancel_button) { dialog, _ ->
-        dialog.dismiss()
-      }
+      MaterialAlertDialogBuilder(it).setTitle(R.string.delete_chat_alert_dialog_title)
     }
   }
   private val chatListAdapter by lazy {
@@ -141,12 +138,14 @@ class ChatListFragment : BaseFragment() {
     viewModel.getUserChatSessions()?.addValueEventListener(adapterValueEventListener)
   }
 
-  private fun showAlertDialogForDeleteChat(userChatId: String, userName: String,
-      position: Int) {
+  private fun showAlertDialogForDeleteChat(userChatId: String, userName: String, position: Int) {
     deleteAlertDialog?.setMessage(resources.getString(
         R.string.delete_chat_alert_dialog_content) + userName)?.setPositiveButton(
         R.string.delete_alert_dialog_delete_button) { dialog, _ ->
       removeData(userChatId, position)
+      dialog.dismiss()
+    }?.setNegativeButton(R.string.delete_alert_dialog_cancel_button) { dialog, _ ->
+      chatListAdapter.notifyItemChanged(position)
       dialog.dismiss()
     }?.show()
   }
