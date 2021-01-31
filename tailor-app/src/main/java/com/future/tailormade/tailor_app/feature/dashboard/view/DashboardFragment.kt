@@ -80,9 +80,7 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
         dashboardAdapter.submitList(designs)
         if (designs.isEmpty()) {
           showState()
-          hideRecyclerView()
         } else {
-          hideState()
           showRecyclerView()
         }
         binding.swipeRefreshLayoutDashboard.isRefreshing = false
@@ -166,9 +164,11 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
 
   private fun showRecyclerView() {
     binding.recyclerViewTailorDesignsList.show()
+    hideState()
   }
 
   private fun showState() {
     binding.layoutDashboardState.root.show()
+    hideRecyclerView()
   }
 }

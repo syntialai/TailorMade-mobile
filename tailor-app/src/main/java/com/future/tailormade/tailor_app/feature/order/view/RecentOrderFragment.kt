@@ -42,18 +42,15 @@ class RecentOrderFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentRecentOrderBinding.inflate(inflater, container, false)
     with(binding) {
-      chipFilterAllOrder.setOnClickListener {
-        viewModel.filterAllOrders()
-        chipFilterAllOrder.isChecked = true
-      }
-
       chipFilterAcceptedOrder.setOnClickListener {
-        viewModel.filterAcceptedOrders()
+        viewModel.fetchAcceptedOrders()
+        showEmptyState()
         chipFilterAcceptedOrder.isChecked = true
       }
 
       chipFilterRejectedOrder.setOnClickListener {
-        viewModel.filterRejectedOrders()
+        viewModel.fetchRejectedOrders()
+        showEmptyState()
         chipFilterRejectedOrder.isChecked = true
       }
     }
@@ -64,15 +61,21 @@ class RecentOrderFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    viewModel.fetchIncomingOrders()
-    viewModel.recentOrders.observe(viewLifecycleOwner, {
+    viewModel.fetchAcceptedOrders()
+    viewModel.acceptedOrders.observe(viewLifecycleOwner, {
       recentOrderAdapter.submitList(it)
       if (it.isEmpty()) {
-        hideRecyclerView()
         showEmptyState()
       } else {
         showRecyclerView()
-        hideEmptyState()
+      }
+    })
+    viewModel.rejectedOrders.observe(viewLifecycleOwner, {
+      recentOrderAdapter.submitList(it)
+      if (it.isEmpty()) {
+        showEmptyState()
+      } else {
+        showRecyclerView()
       }
     })
   }
@@ -106,9 +109,11 @@ class RecentOrderFragment : BaseFragment() {
 
   private fun showEmptyState() {
     binding.layoutRecentOrderState.root.show()
+    hideRecyclerView()
   }
 
   private fun showRecyclerView() {
     binding.recyclerViewRecentOrder.show()
+    hideEmptyState()
   }
 }

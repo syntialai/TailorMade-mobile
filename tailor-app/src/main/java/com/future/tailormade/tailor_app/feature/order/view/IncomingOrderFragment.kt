@@ -51,11 +51,9 @@ class IncomingOrderFragment : BaseFragment() {
     viewModel.incomingOrders.observe(viewLifecycleOwner, {
       incomingOrderAdapter.submitList(it)
       if (it.isEmpty()) {
-        hideRecyclerView()
         showEmptyState()
       } else {
         showRecyclerView()
-        hideEmptyState()
       }
     })
     viewModel.hasOrderResponded.observe(viewLifecycleOwner, {
@@ -88,9 +86,11 @@ class IncomingOrderFragment : BaseFragment() {
 
   private fun showEmptyState() {
     binding.layoutIncomingOrderState.root.show()
+    hideRecyclerView()
   }
 
   private fun showRecyclerView() {
     binding.recyclerViewIncomingOrder.show()
+    hideEmptyState()
   }
 }

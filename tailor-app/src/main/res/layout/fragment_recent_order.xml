@@ -17,17 +17,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-    <com.google.android.material.chip.Chip
-            android:id="@+id/chip_filter_all_order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/all_label" />
-
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_filter_accepted_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/accepted_label" />
 
         <com.google.android.material.chip.Chip
