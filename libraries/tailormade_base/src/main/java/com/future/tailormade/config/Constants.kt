@@ -6,18 +6,15 @@ object Constants {
    * Static data
    */
   const val MIN_DEBOUNCE_TIME = 300L
-  const val DEBOUNCE_TIME_500 = 500L
   const val MIN_PASSWORD_LENGTH = 8
   const val MIN_QUERY_SEARCH_LENGTH = 3
   const val REFRESH_DELAY_TIME = 600L
-  const val INDONESIA_TIME_ZONE = "Asia/Jakarta"
   const val INITIAL_PAGING_PAGE = 0
   const val INITIAL_PAGING_ITEM_PER_PAGE = 20
   const val COMPRESS_IMAGE_QUALITY = 100
   const val MEDIA_TYPE_MULTIPART_FORM_DATA = "multipart/form-data"
   const val TYPE_IMAGE_ALL = "image/*"
   const val TYPE_IMAGE_JPEG = "image/jpeg"
-  const val TYPE_IMAGE_PNG = "image/png"
   const val MESSAGES_TYPE_TEXT = "TEXT"
   const val STATUS_ACCEPTED = "Accepted"
   const val STATUS_REJECTED = "Rejected"
