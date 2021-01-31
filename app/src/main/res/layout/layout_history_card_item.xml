@@ -128,28 +128,28 @@
             tools:text="@string/ordered_price_label" />
 
         <TextView
-            android:id="@+id/text_view_history_design_ordered_price_before_discount"
+            android:id="@+id/text_view_history_design_ordered_price_after_discount"
             style="@style/TextAppearance.TailorMade.Body2.Primary.Bold"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_4"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@id/text_view_history_design_ordered_price"
+            app:layout_constraintStart_toEndOf="@id/image_view_history_design_ordered"
             app:layout_constraintTop_toBottomOf="@id/text_view_history_design_ordered_color_label"
             tools:text="@string/ordered_price_discount_label"
             tools:visibility="visible" />
 
         <TextView
-            android:id="@+id/text_view_history_design_ordered_price_after_discount"
+            android:id="@+id/text_view_history_design_ordered_price_before_discount"
             style="@style/TextAppearance.TailorMade.Body2.BlackMedium2"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/text_view_history_design_ordered_price_before_discount"
-            app:layout_constraintStart_toEndOf="@id/text_view_history_design_ordered_price_before_discount"
-            app:layout_constraintTop_toTopOf="@id/text_view_history_design_ordered_price_before_discount"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_history_design_ordered_price_after_discount"
+            app:layout_constraintStart_toEndOf="@id/text_view_history_design_ordered_price_after_discount"
+            app:layout_constraintTop_toTopOf="@id/text_view_history_design_ordered_price_after_discount"
             tools:text="@string/ordered_discount_label"
             tools:visibility="visible" />
 

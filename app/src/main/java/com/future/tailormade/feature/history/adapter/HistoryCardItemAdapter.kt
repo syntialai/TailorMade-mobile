@@ -10,7 +10,7 @@ import com.future.tailormade.R
 import com.future.tailormade.core.model.ui.history.OrderDesignUiModel
 import com.future.tailormade.core.model.ui.history.OrderUiModel
 import com.future.tailormade.databinding.LayoutHistoryCardItemBinding
-import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
@@ -84,7 +84,7 @@ class HistoryCardItemAdapter(private val onCardClickListener: (String) -> Unit) 
       with(binding) {
         textViewHistoryDesignOrderedPriceBeforeDiscount.show()
         textViewHistoryDesignOrderedPriceAfterDiscount.show()
-        textViewHistoryDesignOrderedPrice.remove()
+        textViewHistoryDesignOrderedPrice.hide()
       }
     }
   }

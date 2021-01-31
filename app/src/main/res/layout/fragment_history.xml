@@ -15,6 +15,7 @@
             android:id="@+id/recycler_view_history_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_1"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,9 +25,9 @@
 
     <include
         android:id="@+id/layout_history_state"
-        layout="@layout/layout_history_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        layout="@layout/layout_history_state"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

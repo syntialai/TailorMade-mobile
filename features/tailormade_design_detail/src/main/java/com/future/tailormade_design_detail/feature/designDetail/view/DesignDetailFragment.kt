@@ -286,7 +286,7 @@ class DesignDetailFragment : BaseFragment() {
     with(binding.layoutDesignDetailGeneralInfo) {
       discount?.let {
         showDiscountPrice()
-        textViewDesignDetailBeforeDiscountPrice.text = it
+        textViewDesignDetailAfterDiscountPrice.text = it
         textViewDesignDetailBeforeDiscountPrice.text = price
         textViewDesignDetailBeforeDiscountPrice.strikeThrough()
       } ?: run {

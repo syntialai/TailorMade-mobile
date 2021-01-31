@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/dp_4"
+    app:cardElevation="@dimen/dp_4"
     app:cardCornerRadius="@dimen/dp_16">
 
     <LinearLayout
