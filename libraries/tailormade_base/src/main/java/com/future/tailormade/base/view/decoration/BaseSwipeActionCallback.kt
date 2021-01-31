@@ -61,15 +61,13 @@ abstract class BaseSwipeActionCallback(private val backgroundColor: Int,
   }
 
   override fun onMove(recyclerView: RecyclerView,
-      viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-    return false
-  }
+      viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
 
   private fun clearCanvas(canvas: Canvas, left: Float, top: Float, right: Float,
       bottom: Float) {
     canvas.drawRect(left, top, right, bottom, _clearPaint)
   }
 
-  private fun isCancelled(dX: Float, isCurrentlyActive: Boolean) = dX.compareTo(
-      0) == 0 && isCurrentlyActive.not()
+  private fun isCancelled(
+      dX: Float, isCurrentlyActive: Boolean) = dX.compareTo(0) == 0 || isCurrentlyActive.not()
 }

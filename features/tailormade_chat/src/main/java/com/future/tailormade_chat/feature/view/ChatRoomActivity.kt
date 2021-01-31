@@ -2,7 +2,6 @@ package com.future.tailormade_chat.feature.view
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -46,7 +45,6 @@ class ChatRoomActivity : BaseActivity() {
         val chatRoom = snapshot.getValue(ChatRoom::class.java)
         chatRoom?.chats?.values?.let {
           chatRoomAdapter.submitList(it.toList())
-          Log.d("CHAT ROOM", it.toString())
         }
       }
 
@@ -78,8 +76,12 @@ class ChatRoomActivity : BaseActivity() {
   }
 
   private fun getChatRoom() {
-    intent.getStringExtra(PARAM_CHAT_ROOM_USER_ID)?.let { chatRoomId ->
-      viewModel.setChatRoomId(chatRoomId)
+    val userId = intent.getStringExtra(PARAM_CHAT_ROOM_USER_ID)
+    val userName = intent.getStringExtra(PARAM_CHAT_ROOM_USER_NAME)
+    userId?.let { id ->
+      userName?.let { name ->
+        viewModel.setChatRoomId(id, name)
+      }
     }
   }
 
@@ -105,8 +107,8 @@ class ChatRoomActivity : BaseActivity() {
         if (isSent) {
           removeMessage()
         } else {
-          ToastHelper.showToast(binding.recyclerViewChatRoom,
-              getString(R.string.send_message_error_message))
+          ToastHelper.showToast(
+              binding.recyclerViewChatRoom, getString(R.string.send_message_error_message))
         }
       }
     })

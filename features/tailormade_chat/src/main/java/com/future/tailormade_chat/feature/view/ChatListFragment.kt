@@ -119,7 +119,6 @@ class ChatListFragment : BaseFragment() {
             userId?.let { id ->
               userName?.let { name ->
                 showAlertDialogForDeleteChat(id, name, position)
-
               }
             }
           }
