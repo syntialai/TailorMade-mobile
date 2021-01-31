@@ -27,6 +27,10 @@ class RealtimeDbRepositoryImpl @Inject constructor(
     return getChatRoomRef.endAt(authSharedPrefRepository.userId)
   }
 
+  override fun getChatRoomById(chatRoomId: String): Query {
+    return getChatRoomRef.child(chatRoomId)
+  }
+
   override fun getRoomId(anotherUserId: String): String = if (authSharedPrefRepository.isUser()) {
     "${authSharedPrefRepository.userId}_${anotherUserId}"
   } else {

@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
-import com.future.tailormade.util.extension.flowOnIOwithLoadingDialog
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
 import com.future.tailormade_profile.core.model.response.ProfileInfoResponse

@@ -24,16 +24,14 @@ class ChatRoomViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
   companion object {
-    private const val CHAT_ROOM_USER_ID = "CHAT_ROOM_USER_ID"
+    private const val CHAT_ROOM_USER_INFO = "CHAT_ROOM_USER_INFO"
     private const val CHAT_ROOM_ID = "CHAT_ROOM_ID"
     private const val CHAT_ROOM_CONTENT = "CHAT_ROOM_CONTENT"
   }
 
-  private var anotherUserId: String? = null
+  private var _anotherUserInfo: Pair<String, String>? = null
 
   private var _chatRoomId: MutableLiveData<String>
-  val chatRoomId: LiveData<String>
-    get() = _chatRoomId
 
   private var _chatRoomContent: MutableLiveData<Query>
   val chatRoomContent: LiveData<Query>
@@ -46,35 +44,32 @@ class ChatRoomViewModel @ViewModelInject constructor(
   init {
     _chatRoomId = savedStateHandle.getLiveData(CHAT_ROOM_ID)
     _chatRoomContent = savedStateHandle.getLiveData(CHAT_ROOM_CONTENT)
-    anotherUserId = savedStateHandle.get(CHAT_ROOM_USER_ID)
+    _anotherUserInfo = savedStateHandle.get(CHAT_ROOM_USER_INFO)
   }
 
   override fun getLogName(): String = "com.future.tailormade_chat.feature.viewModel.ChatRoomViewModel"
 
-  fun fetchChatRoomData() {
-    _chatRoomId.value?.let {
-      _chatRoomContent.value = realtimeDbRepository.getChatRooms()
-    }
-  }
-
-  fun setChatRoomId(userId: String) {
-    anotherUserId = userId
+  fun setChatRoomId(userId: String, userName: String) {
+    _anotherUserInfo = Pair(userId, userName)
     _chatRoomId.value = realtimeDbRepository.getRoomId(userId)
+    _chatRoomContent.value = realtimeDbRepository.getChatRoomById(_chatRoomId.value.orEmpty())
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
   fun sendMessage(text: String) {
     val nowTimestamp = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+    val anotherUserId = _anotherUserInfo?.first.orEmpty()
+    val anotherUserName = _anotherUserInfo?.second.orEmpty()
     authSharedPrefRepository.userId?.let { userId ->
       _chatRoomId.value?.let {
         val chat = Chat(nowTimestamp, userId, false, Constants.MESSAGES_TYPE_TEXT, Text(text))
-        val session = Session(nowTimestamp, userId, authSharedPrefRepository.name, chat, false)
-        realtimeDbRepository.addChatRoomAndSession(
-            anotherUserId.orEmpty(), it, session, chat)?.addOnSuccessListener {
-          setIsSent(true)
-        }?.addOnFailureListener {
-          setIsSent(false)
-        } ?: setIsSent(false)
+        val session = Session(nowTimestamp, anotherUserId, anotherUserName, chat, false)
+        realtimeDbRepository
+            .addChatRoomAndSession(anotherUserId, it, session, chat)?.addOnSuccessListener {
+              setIsSent(true)
+            }?.addOnFailureListener {
+              setIsSent(false)
+            } ?: setIsSent(false)
       }
     }
   }

@@ -47,19 +47,19 @@ class ChatListAdapter(private val onClickListener: (String, String) -> Unit) :
     fun bind(data: Pair<String, Session>) {
       with(binding) {
         with(data.second) {
-          textViewChatName.text = userId
-          textViewChatTime.text = updatedDate?.toDateString(Constants.HH_MM)
+          textViewChatName.text = userName
+          textViewChatTime.text = updatedDate?.toDateString(Constants.HH_MM, true)
           textViewChatContent.text = chat?.text?.body
 
           layoutBadge.viewBadge.setVisibility(hasBeenRead.orTrue())
 
-          // TODO: Bind image view
-        }
-
-        root.setOnClickListener {
-          data.second.userName?.let { name ->
-            onClickListener.invoke(data.first, name)
+          root.setOnClickListener {
+            userName?.let { name ->
+              onClickListener.invoke(data.first, name)
+            }
           }
+
+          // TODO: Bind image view
         }
       }
     }

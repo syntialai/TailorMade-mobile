@@ -24,7 +24,7 @@ class ChatRoomAdapter(private val userId: String) :
 
     private val diffCallback = object : DiffUtil.ItemCallback<Chat>() {
 
-      override fun areItemsTheSame(oldItem: Chat, newItem: Chat) = oldItem.userId == newItem.userId
+      override fun areItemsTheSame(oldItem: Chat, newItem: Chat) = oldItem == newItem
 
       override fun areContentsTheSame(oldItem: Chat, newItem: Chat) = oldItem == newItem
     }

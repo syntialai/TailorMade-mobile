@@ -2,8 +2,11 @@ package com.future.tailormade_chat.feature.view
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseActivity
@@ -43,6 +46,7 @@ class ChatRoomActivity : BaseActivity() {
         val chatRoom = snapshot.getValue(ChatRoom::class.java)
         chatRoom?.chats?.values?.let {
           chatRoomAdapter.submitList(it.toList())
+          Log.d("CHAT ROOM", it.toString())
         }
       }
 
@@ -92,10 +96,6 @@ class ChatRoomActivity : BaseActivity() {
   }
 
   private fun setupObserver() {
-    viewModel.chatRoomId.observe(this, {
-      viewModel.fetchChatRoomData()
-    })
-
     viewModel.chatRoomContent.observe(this, {
       it.addValueEventListener(adapterValueEventListener)
     })
@@ -116,6 +116,12 @@ class ChatRoomActivity : BaseActivity() {
     with(binding.recyclerViewChatRoom) {
       layoutManager = LinearLayoutManager(this@ChatRoomActivity)
       adapter = chatRoomAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.chat_item_separator)?.let {
+          setDrawable(it)
+        }
+      })
     }
   }
 

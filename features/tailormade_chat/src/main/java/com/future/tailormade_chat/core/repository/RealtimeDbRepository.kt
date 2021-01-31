@@ -9,6 +9,8 @@ interface RealtimeDbRepository {
 
   fun getChatRooms(): Query
 
+  fun getChatRoomById(chatRoomId: String): Query
+
   fun getRoomId(anotherUserId: String): String
 
   fun getUserChatSessionById(userId: String): Query

@@ -5,7 +5,6 @@ import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_profile.core.mapper.ProfileMapper
 import com.future.tailormade_profile.core.model.request.UpdateProfileAboutRequest
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
-import com.future.tailormade_profile.core.model.response.ProfileDesignResponse
 import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
 import com.future.tailormade_profile.core.repository.ProfileRepository
@@ -46,9 +45,11 @@ class ProfileRepositoryImpl @Inject constructor(
     emit(nominatimService.searchLocation(query, "json", "1", "5", "1"))
   }.flowOnIO()
 
-  override suspend fun updateProfileAbout(id: String,
-      updateProfileAboutRequest: UpdateProfileAboutRequest) = flow {
-    emit(profileService.updateProfileAboutInfo(id, updateProfileAboutRequest))
+  override suspend fun updateProfileAbout(
+      id: String, updateProfileAboutRequest: UpdateProfileAboutRequest) = flow {
+    profileService.updateProfileAboutInfo(id, updateProfileAboutRequest).data?.let {
+      emit(it)
+    }
   }
 
   override suspend fun updateProfileInfo(id: String,

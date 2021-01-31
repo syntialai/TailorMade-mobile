@@ -47,7 +47,6 @@ class ChatListFragment : BaseFragment() {
       override fun onDataChange(snapshot: DataSnapshot) {
         val userChatSession = snapshot.getValue(UserChatSession::class.java)
         userChatSession?.sessions?.let {
-          Log.d("USERcHAT", it.toString())
           chatListAdapter.submitList(it.toList())
           showRecyclerView()
         } ?: run {
@@ -120,6 +119,7 @@ class ChatListFragment : BaseFragment() {
             userId?.let { id ->
               userName?.let { name ->
                 showAlertDialogForDeleteChat(id, name, position)
+
               }
             }
           }
