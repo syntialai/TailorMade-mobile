@@ -14,8 +14,6 @@ import com.future.tailormade.core.model.request.checkout.CheckoutRequest
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.core.repository.CartRepository
 import com.future.tailormade.core.repository.CheckoutRepository
-import com.future.tailormade.util.extension.flowOnIO
-import com.future.tailormade.util.extension.flowOnMainWithLoadingDialog
 import com.future.tailormade.util.extension.onError
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -58,10 +56,10 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
   }
 
   @ExperimentalCoroutinesApi
-  fun checkoutItem(id: String) {
+  fun checkoutItem(id: String, specialInstructions: String) {
     authSharedPrefRepository.userId?.let { userId ->
       launchViewModelScope {
-        val checkoutRequest = getCheckoutRequest()
+        val checkoutRequest = getCheckoutRequest(specialInstructions)
         checkoutRepository.checkoutCartItem(userId, id, checkoutRequest).onStart {
           setStartLoading()
         }.onError {
@@ -69,7 +67,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
           setErrorMessage(Constants.FAILED_TO_CHECKOUT_ITEM)
         }.collectLatest {
           setFinishLoading()
-          _historyId.value = it?.id
+          _historyId.value = it.id
         }
       }
     }
@@ -103,8 +101,8 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
     _id.value = id
   }
 
-  private fun getCheckoutRequest(specialInstruction: String? = null) = CheckoutRequest(
-      measurement = getCheckoutMeasurementRequest(), specialInstructions = specialInstruction)
+  private fun getCheckoutRequest(specialInstructions: String) = CheckoutRequest(
+      measurements = getCheckoutMeasurementRequest(), specialInstructions = specialInstructions)
 
   private fun getCheckoutMeasurementRequest(): CheckoutMeasurementRequest {
     val measurements = arrayListOf<Float>()

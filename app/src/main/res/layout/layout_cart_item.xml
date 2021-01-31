@@ -60,7 +60,7 @@
             style="@style/TextAppearance.TailorMade.Caption.BlackMedium"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_64"
             android:layout_marginTop="@dimen/dp_4"
             android:text="@string/order_size_label"
             app:layout_constraintStart_toEndOf="@id/text_view_order_color"
@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="spin_button_number, button_delete_order, button_checkout_order"
+            app:constraint_referenced_ids="text_view_order_after_discount, text_view_order_before_discount"
             tools:visibility="visible" />
 
         <com.future.tailormade_dls.widget.SpinNumberButton
@@ -144,7 +144,7 @@
             android:id="@+id/button_checkout_order"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_12"
             android:text="@string/checkout_order_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

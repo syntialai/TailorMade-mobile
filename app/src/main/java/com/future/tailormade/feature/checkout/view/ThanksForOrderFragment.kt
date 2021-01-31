@@ -42,11 +42,9 @@ class ThanksForOrderFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentThanksForOrderBinding.inflate(inflater, container, false)
-
     binding.buttonThankYouGoToHistory.setOnClickListener {
       goToHistory()
     }
-
     return binding.root
   }
 

@@ -14,9 +14,9 @@ import com.future.tailormade.databinding.FragmentCheckoutBinding
 import com.future.tailormade.feature.checkout.viewModel.CheckoutViewModel
 import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.orEmptyMutableList
-import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.strikeThrough
+import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +56,7 @@ class CheckoutFragment : BaseFragment() {
       }
       buttonCheckoutMakeOrder.setOnClickListener {
         viewModel.id.value?.let { id ->
-          viewModel.checkoutItem(id)
+          viewModel.checkoutItem(id, editTextSpecialInstruction.text())
         }
       }
     }
