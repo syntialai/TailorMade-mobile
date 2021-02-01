@@ -100,6 +100,7 @@ class ChatRoomActivity : BaseActivity() {
   private fun setupObserver() {
     viewModel.chatRoomContent.observe(this, {
       it.addValueEventListener(adapterValueEventListener)
+      viewModel.readChat()
     })
 
     viewModel.isMessageSent.observe(this, {

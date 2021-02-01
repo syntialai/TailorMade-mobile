@@ -49,6 +49,12 @@ class ChatRoomViewModel @ViewModelInject constructor(
 
   override fun getLogName(): String = "com.future.tailormade_chat.feature.viewModel.ChatRoomViewModel"
 
+  fun readChat() {
+    authSharedPrefRepository.userId?.let { id ->
+      realtimeDbRepository.updateReadStatus(id, _anotherUserInfo?.first.orEmpty())
+    }
+  }
+
   fun setChatRoomId(userId: String, userName: String) {
     _anotherUserInfo = Pair(userId, userName)
     _chatRoomId.value = realtimeDbRepository.getRoomId(userId)
@@ -63,13 +69,18 @@ class ChatRoomViewModel @ViewModelInject constructor(
     authSharedPrefRepository.userId?.let { userId ->
       _chatRoomId.value?.let {
         val chat = Chat(nowTimestamp, userId, false, Constants.MESSAGES_TYPE_TEXT, Text(text))
-        val session = Session(nowTimestamp, anotherUserId, anotherUserName, chat, false)
+        val userSession = Session(nowTimestamp, anotherUserId, anotherUserName, chat, true)
+        val anotherUserSession = userSession.copy().apply {
+          this.userId = userId
+          this.userName = authSharedPrefRepository.name
+          this.hasBeenRead = false
+        }
         realtimeDbRepository
-            .addChatRoomAndSession(anotherUserId, it, session, chat)?.addOnSuccessListener {
+            .addChatRoomAndSession(it, userSession, anotherUserSession, chat).addOnSuccessListener {
               setIsSent(true)
-            }?.addOnFailureListener {
+            }.addOnFailureListener {
               setIsSent(false)
-            } ?: setIsSent(false)
+            }
       }
     }
   }

@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/dp_8">
+    android:layout_marginTop="@dimen/dp_8"
+    android:background="?attr/colorSurface"
+    android:elevation="@dimen/dp_40"
+    android:padding="@dimen/dp_8">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_message_chat_room"
@@ -29,10 +32,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
-        android:background="@drawable/drawable_primary_rounded"
         android:id="@+id/button_send_message"
-        android:layout_height="@dimen/dp_52"
         android:layout_width="@dimen/dp_52"
+        android:layout_height="@dimen/dp_52"
+        android:background="@drawable/drawable_primary_rounded"
         android:src="@drawable/ic_send"
         app:layout_constraintBottom_toBottomOf="@id/text_input_message_chat_room"
         app:layout_constraintEnd_toEndOf="parent"

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -81,6 +82,12 @@ class ChatListFragment : BaseFragment() {
     with(binding.recyclerViewChatList) {
       layoutManager = LinearLayoutManager(context)
       adapter = chatListAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.chat_list_separator)?.let {
+          setDrawable(it)
+        }
+      })
     }
 
     setupListener()
@@ -97,6 +104,14 @@ class ChatListFragment : BaseFragment() {
   private fun openChatRoom(id: String, name: String) {
     context?.let { context ->
       Action.goToChatRoom(context, id, name)
+    }
+  }
+
+  private fun removeData(userChatId: String, position: Int) {
+    viewModel.deleteSessionByUserChatSession(userChatId)?.addOnSuccessListener {
+      chatListAdapter.notifyItemRemoved(position)
+    }?.addOnFailureListener {
+      viewModel.setErrorMessage(getString(R.string.delete_chat_error_message))
     }
   }
 
@@ -126,21 +141,13 @@ class ChatListFragment : BaseFragment() {
     }
   }
 
-  private fun removeData(userChatId: String, position: Int) {
-    viewModel.deleteSessionByUserChatSession(userChatId)?.addOnSuccessListener {
-      chatListAdapter.notifyItemRemoved(position)
-    }?.addOnFailureListener {
-      viewModel.setErrorMessage(getString(R.string.delete_chat_error_message))
-    }
-  }
-
   private fun setupListener() {
     viewModel.getUserChatSessions()?.addValueEventListener(adapterValueEventListener)
   }
 
   private fun showAlertDialogForDeleteChat(userChatId: String, userName: String, position: Int) {
     deleteAlertDialog?.setMessage(resources.getString(
-        R.string.delete_chat_alert_dialog_content) + userName)?.setPositiveButton(
+        R.string.delete_chat_alert_dialog_content) + " $userName")?.setPositiveButton(
         R.string.delete_alert_dialog_delete_button) { dialog, _ ->
       removeData(userChatId, position)
       dialog.dismiss()

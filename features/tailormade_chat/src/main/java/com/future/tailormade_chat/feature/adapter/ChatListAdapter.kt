@@ -41,7 +41,6 @@ class ChatListAdapter(private val onClickListener: (String, String) -> Unit) :
   inner class ChatListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = LayoutCardChatBinding.bind(view)
-    private val context = view.context
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun bind(data: Pair<String, Session>) {
@@ -51,15 +50,13 @@ class ChatListAdapter(private val onClickListener: (String, String) -> Unit) :
           textViewChatTime.text = updatedDate?.toDateString(Constants.HH_MM, true)
           textViewChatContent.text = chat?.text?.body
 
-          layoutBadge.viewBadge.setVisibility(hasBeenRead.orTrue())
+          layoutBadge.root.setVisibility(hasBeenRead?.not().orTrue())
 
           root.setOnClickListener {
             userName?.let { name ->
               onClickListener.invoke(data.first, name)
             }
           }
-
-          // TODO: Bind image view
         }
       }
     }
