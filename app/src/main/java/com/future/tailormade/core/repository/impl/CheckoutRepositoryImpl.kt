@@ -1,7 +1,6 @@
 package com.future.tailormade.core.repository.impl
 
 import com.future.tailormade.base.repository.BaseRepository
-import com.future.tailormade.core.mapper.DataMock
 import com.future.tailormade.core.model.request.checkout.CheckoutRequest
 import com.future.tailormade.core.repository.CheckoutRepository
 import com.future.tailormade.core.service.CheckoutService
@@ -14,8 +13,11 @@ class CheckoutRepositoryImpl @Inject constructor(private val checkoutService: Ch
 
   override fun getLogName() = "com.future.tailormade.core.repository.impl.CheckoutRepositoryImpl"
 
-  override suspend fun checkoutCartItem(userId: String, id: String, checkoutRequest: CheckoutRequest) = flow {
-//    emit(checkoutService.postCheckoutCartItem(userId, id, checkoutRequest).data)
-    emit(DataMock.getCheckoutMock())
+  override suspend fun checkoutCartItem(
+      userId: String, id: String, checkoutRequest: CheckoutRequest) = flow {
+    checkoutService.postCheckoutCartItem(userId, id, checkoutRequest).data?.let {
+      emit(it)
+    }
+//    emit(DataMock.getCheckoutMock())
   }.flowOnIO()
 }

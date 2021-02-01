@@ -14,6 +14,7 @@ import com.future.tailormade.feature.dashboard.view.DashboardFragmentDirections
 import com.future.tailormade_chat.feature.view.ChatListFragmentDirections
 import com.future.tailormade_profile.feature.profile.view.ProfileFragmentDirections
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,7 +47,7 @@ class MainActivity : BaseActivity() {
         true
       }
       R.id.menu_order -> {
-        Action.goToHistory(this)
+        UserAction.goToHistory(this)
         true
       }
       R.id.menu_settings -> {

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -12,10 +12,13 @@ import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.databinding.FragmentCheckoutBinding
 import com.future.tailormade.feature.checkout.viewModel.CheckoutViewModel
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.orEmptyMutableList
-import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
+import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -28,7 +31,7 @@ class CheckoutFragment : BaseFragment() {
 
   private lateinit var binding: FragmentCheckoutBinding
 
-  private val viewModel: CheckoutViewModel by viewModels()
+  private val viewModel: CheckoutViewModel by activityViewModels()
 
   override fun getLogName() = "com.future.tailormade.feature.checkout.view.CheckoutFragment"
 
@@ -53,7 +56,7 @@ class CheckoutFragment : BaseFragment() {
       }
       buttonCheckoutMakeOrder.setOnClickListener {
         viewModel.id.value?.let { id ->
-          viewModel.checkoutItem(id)
+          viewModel.checkoutItem(id, editTextSpecialInstruction.text())
         }
       }
     }
@@ -79,6 +82,12 @@ class CheckoutFragment : BaseFragment() {
     })
   }
 
+  private fun goToDesignDetail(id: String) {
+    context?.let { context ->
+      Action.goToDesignDetail(context, id)
+    }
+  }
+
   private fun setupDesignDetailData(design: CartDesignUiModel) {
     with(binding.layoutDesignDetail) {
       textViewOrderTitle.text = design.title
@@ -88,6 +97,7 @@ class CheckoutFragment : BaseFragment() {
       design.discount?.let { discount ->
         showDiscount()
         textViewOrderBeforeDiscount.text = design.price
+        textViewOrderBeforeDiscount.strikeThrough()
         textViewOrderAfterDiscount.text = discount
       } ?: run {
         textViewOrderPrice.text = design.price
@@ -95,6 +105,10 @@ class CheckoutFragment : BaseFragment() {
 
       context?.let { context ->
         ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
+      }
+
+      root.setOnClickListener {
+        goToDesignDetail(design.id)
       }
     }
   }
@@ -111,7 +125,7 @@ class CheckoutFragment : BaseFragment() {
   private fun showDiscount() {
     with(binding.layoutDesignDetail) {
       groupDiscountTextView.show()
-      textViewOrderPrice.remove()
+      textViewOrderPrice.hide()
     }
   }
 }

@@ -9,57 +9,44 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/dp_16"
-        android:layout_marginVertical="@dimen/dp_8">
-
-        <ImageView
-            android:id="@+id/image_view_chat"
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_48"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+        android:layout_margin="@dimen/dp_16">
 
         <TextView
             android:id="@+id/text_view_chat_name"
-            style="?attr/textAppearanceBody1"
+            style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:text="@string/chat_name_label"
-            android:textColor="@color/color_black_87"
             app:layout_constraintBottom_toTopOf="@id/text_view_chat_content"
-            app:layout_constraintStart_toEndOf="@id/image_view_chat"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/chat_name_label" />
 
         <TextView
             android:id="@+id/text_view_chat_content"
-            style="?attr/textAppearanceCaption"
+            style="@style/TextAppearance.TailorMade.Body2.BlackMedium"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:text="@string/chat_content_label"
-            android:textColor="@color/color_black_60"
+            android:layout_marginTop="@dimen/dp_8"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_view_chat"
-            app:layout_constraintTop_toBottomOf="@id/text_view_chat_name" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_chat_name"
+            tools:text="@string/chat_content_label" />
 
         <TextView
             android:id="@+id/text_view_chat_time"
-            style="?attr/textAppearanceOverline"
+            style="@style/TextAppearance.TailorMade.Overline.BlackLow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chat_time_label"
-            android:textColor="@color/color_black_38"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/chat_time_label" />
 
         <include
             android:id="@+id/layout_badge"
-            layout="@layout/layout_badge"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
+            android:layout_width="@dimen/dp_8"
+            android:layout_height="@dimen/dp_8"
             android:visibility="gone"
+            layout="@layout/layout_badge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_chat_time"

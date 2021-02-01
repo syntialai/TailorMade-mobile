@@ -1,105 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".feature.checkout.view.CheckoutFragment">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/layout_design_detail"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/layout_cart_item" />
+        android:orientation="vertical"
+        tools:context=".feature.checkout.view.CheckoutFragment">
 
-    <Button
-        android:id="@+id/button_checkout_edit_measurement"
-        style="@style/Theme.TailorMade.Button.Outlined.Rounded"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/dp_16"
-        android:drawableEnd="@drawable/ic_edit"
-        android:text="@string/edit_measurement_label" />
-
-    <TextView
-        android:id="@+id/text_view_special_instruction_label"
-        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_12"
-        android:layout_marginBottom="@dimen/dp_4"
-        android:text="@string/special_instructions_label" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_special_instruction"
-        style="@style/Theme.TailorMade.TextInputEditText.Outlined.Rounded"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:labelFor="@id/text_view_special_instruction_label">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_special_instruction"
+        <include
+            android:id="@+id/layout_design_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="5" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_margin="@dimen/dp_1"
+            layout="@layout/layout_cart_item" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/dp_16"
-        android:elevation="@dimen/dp_4"
-        app:shapeAppearanceOverlay="@style/Theme.TailorMade.CornerRounded_16dp">
+        <Button
+            android:id="@+id/button_checkout_edit_measurement"
+            style="@style/Theme.TailorMade.Button.Outlined.Rounded"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_16"
+            android:drawableEnd="@drawable/ic_edit"
+            android:text="@string/edit_measurement_label" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/text_view_special_instruction_label"
+            style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_12"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:text="@string/special_instructions_label" />
 
-            <include
-                android:id="@+id/layout_checkout_total"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_special_instruction"
+            style="@style/Theme.TailorMade.TextInputEditText.Outlined.Rounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:labelFor="@id/text_view_special_instruction_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_special_instruction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/layout_ordered_total" />
+                android:maxLines="5" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:id="@+id/view_checkout_separator"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1"
-                android:layout_marginVertical="@dimen/dp_8"
-                android:background="@color/color_grey_F1F1F1" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_1"
+            android:layout_marginVertical="@dimen/dp_16"
+            android:elevation="@dimen/dp_4"
+            app:shapeAppearanceOverlay="@style/Theme.TailorMade.CornerRounded_16dp">
 
-            <GridLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:rowCount="1"
-                android:useDefaultMargins="true">
+                android:layout_margin="@dimen/dp_12"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/text_view_checkout_payment_total_label"
-                    style="@style/TextAppearance.TailorMade.Caption.BlackHigh"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:text="@string/payment_total_label" />
+                <include
+                    android:id="@+id/layout_checkout_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/layout_ordered_total" />
 
-                <TextView
-                    android:id="@+id/text_view_checkout_payment_total"
-                    style="@style/TextAppearance.TailorMade.Caption.PrimaryDark.Bold"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:layout_gravity="end"
-                    tools:text="@string/payment_total_label" />
-            </GridLayout>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <View
+                    android:id="@+id/view_checkout_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginVertical="@dimen/dp_8"
+                    android:background="@color/color_grey_F1F1F1" />
 
-    <Button
-        android:id="@+id/button_checkout_make_order"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8"
-        android:text="@string/make_order_label" />
-</LinearLayout>
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="1"
+                    android:useDefaultMargins="true">
+
+                    <TextView
+                        android:id="@+id/text_view_checkout_payment_total_label"
+                        style="@style/TextAppearance.TailorMade.Caption.BlackHigh"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:text="@string/payment_total_label" />
+
+                    <TextView
+                        android:id="@+id/text_view_checkout_payment_total"
+                        style="@style/TextAppearance.TailorMade.Caption.PrimaryDark.Bold"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:layout_gravity="end"
+                        tools:text="@string/payment_total_label" />
+                </GridLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/button_checkout_make_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/make_order_label" />
+    </LinearLayout>
+</ScrollView>

@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_checkout" >
         <action
             android:id="@+id/action_checkoutFragment_to_thanksForOrderFragment"
-            app:destination="@id/thanksForOrderFragment" />
+            app:destination="@id/thanksForOrderFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/thanksForOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/thanksForOrderFragment"

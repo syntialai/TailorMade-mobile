@@ -20,5 +20,4 @@ data class OrderResponse(
 
     val updatedAt: Long,
 
-    val userId: String
-)
+    val userId: String)

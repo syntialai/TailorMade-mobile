@@ -1,9 +1,12 @@
 package com.future.tailormade_profile.core.model.ui
 
+import android.os.Parcelable
 import com.future.tailormade_profile.core.model.entity.Education
 import com.future.tailormade_profile.core.model.entity.Location
 import com.future.tailormade_profile.core.model.entity.Occupation
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ProfileInfoUiModel(
 
     var id: String,
@@ -22,4 +25,4 @@ data class ProfileInfoUiModel(
 
     var occupation: Occupation? = null,
 
-    var education: Education? = null)
+    var education: Education? = null): Parcelable

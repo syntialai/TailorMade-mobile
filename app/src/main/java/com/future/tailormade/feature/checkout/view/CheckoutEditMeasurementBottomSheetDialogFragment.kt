@@ -26,7 +26,7 @@ class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFr
   private lateinit var adapterValues: MutableList<String>
 
   private val editMeasurementAdapter by lazy {
-    EditMeasurementFieldAdapter()
+    EditMeasurementFieldAdapter(this::onEditTextChanged)
   }
   private val editMeasurementList by lazy {
     mutableListOf<EditMeasurementFieldUiModel>()
@@ -48,8 +48,8 @@ class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFr
         dismiss()
       }
     }
-    insertAdapterValue(adapterValues)
     initAdapter()
+    insertAdapterValue()
     setupRecyclerView()
     return binding.root
   }
@@ -65,11 +65,15 @@ class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFr
     }
   }
 
-  private fun insertAdapterValue(values: MutableList<String>) {
+  private fun insertAdapterValue() {
     editMeasurementList.forEachIndexed { index, editMeasurement ->
-      editMeasurement.value = values[index]
+      editMeasurement.value = adapterValues[index]
     }
     editMeasurementAdapter.submitList(editMeasurementList)
+  }
+
+  private fun onEditTextChanged(size: String, position: Int) {
+    editMeasurementList[position].value = size
   }
 
   private fun setupRecyclerView() {

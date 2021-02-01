@@ -33,12 +33,6 @@ class FilterTailorBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
       buttonSubmitTailorFilter.setOnClickListener {
         applyFilter()
       }
-
-      groupSearchLocation.buttonShowAllLocation.setOnClickListener {
-        findNavController().navigate(
-            FilterTailorBottomSheetDialogFragmentDirections
-                .actionFilterTailorBottomSheetDialogFragmentToLocationListFragment())
-      }
     }
 
     return binding.root

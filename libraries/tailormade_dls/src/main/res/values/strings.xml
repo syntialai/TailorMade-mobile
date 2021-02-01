@@ -14,7 +14,7 @@
     <string name="notification_time_label">Notification time</string>
     <string name="notification_title_label">Notification title</string>
     <string name="notification_content_label">Notification content</string>
-    <string name="chat_content_send_time_label">Chat sent time</string>
+    <string name="chat_content_send_time_label">08:49</string>
     <string name="chat_content_reply_time_label">Chat reply time</string>
     <string name="order_title_label">Order title</string>
     <string name="order_price_label">Order price</string>
@@ -58,6 +58,10 @@
     <string name="size_hips_label">Hips</string>
     <string name="size_neck_to_waist_label">Neck to Waist</string>
     <string name="size_inseam_label">Inseam</string>
+    <string name="accept_label">Accept</string>
+    <string name="reject_label">Reject</string>
+    <string name="order_total_status_label">Status</string>
 
     <string name="action_close">Close</string>
+    <string name="loading_dialog_text">Please Wait...</string>
 </resources>

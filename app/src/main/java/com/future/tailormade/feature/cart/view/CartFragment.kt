@@ -13,9 +13,11 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentCartBinding
 import com.future.tailormade.feature.cart.adapter.CartAdapter
 import com.future.tailormade.feature.cart.viewModel.CartViewModel
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.UserAction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,10 +36,10 @@ class CartFragment : BaseFragment() {
   }
   private val deleteAlertDialog by lazy {
     context?.let {
-      MaterialAlertDialogBuilder(it).setTitle(getString(R.string.cart_delete_alert_dialog_title))
-          .setNegativeButton(getString(R.string.cart_delete_alert_dialog_cancel_button)) { dialog, _ ->
-            dialog.dismiss()
-          }
+      MaterialAlertDialogBuilder(it).setTitle(getString(R.string.cart_delete_alert_dialog_title)).setNegativeButton(
+          getString(R.string.cart_delete_alert_dialog_cancel_button)) { dialog, _ ->
+        dialog.dismiss()
+      }
     }
   }
 
@@ -62,17 +64,20 @@ class CartFragment : BaseFragment() {
 
     viewModel.fetchCartData()
     viewModel.cartUiModel.observe(viewLifecycleOwner, {
-      cartAdapter.submitList(it)
-      if (it.isNotEmpty()) {
-        hideState()
-        showRecyclerView()
+      it?.let { carts ->
+        cartAdapter.submitList(carts)
+        if (carts.isNotEmpty()) {
+          showRecyclerView()
+        } else {
+          hideRecyclerView()
+        }
       }
     })
   }
 
   private fun checkoutItem(id: String) {
     context?.let { context ->
-      Action.goToCheckout(context, id)
+      UserAction.goToCheckout(context, id)
     }
   }
 
@@ -94,18 +99,36 @@ class CartFragment : BaseFragment() {
     }
   }
 
-  private fun hideState() {
-    binding.layoutCartEmptyState.root.remove()
+  private fun hideRecyclerView() {
+    with(binding) {
+      layoutCartEmptyState.root.show()
+      recyclerViewCartList.remove()
+    }
   }
 
+  @ExperimentalCoroutinesApi
   private fun setupRecyclerView() {
     with(binding.recyclerViewCartList) {
-      layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+      layoutManager = LinearLayoutManager(context)
       adapter = cartAdapter
+
+      addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          super.onScrolled(recyclerView, dx, dy)
+
+          if (isLastItemViewed(recyclerView, viewModel.cartUiModel.value?.size.orZero())) {
+            viewModel.fetchMore()
+          }
+        }
+      })
     }
   }
 
   private fun showRecyclerView() {
-    binding.recyclerViewCartList.show()
+    with(binding) {
+      layoutCartEmptyState.root.remove()
+      recyclerViewCartList.show()
+    }
   }
 }

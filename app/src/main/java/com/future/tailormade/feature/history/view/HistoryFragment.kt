@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentHistoryBinding
@@ -58,15 +61,17 @@ class HistoryFragment : BaseFragment() {
 
     viewModel.fetchHistory()
     viewModel.orders.observe(viewLifecycleOwner, {
-      historyAdapter.submitList(it)
-      if (it.isNotEmpty()) {
-        hideState()
-        showRecyclerView()
-      } else {
-        hideRecyclerView()
-        showState()
+      it?.let { orders ->
+        historyAdapter.submitList(orders)
+        if (orders.isNotEmpty()) {
+          hideState()
+          showRecyclerView()
+        } else {
+          hideRecyclerView()
+          showState()
+        }
+        binding.swipeRefreshLayoutHistory.isRefreshing = false
       }
-      binding.swipeRefreshLayoutHistory.isRefreshing = false
     })
   }
 
@@ -91,10 +96,17 @@ class HistoryFragment : BaseFragment() {
     binding.layoutHistoryState.root.show()
   }
 
-  @ExperimentalCoroutinesApi private fun setupRecyclerView() {
+  @ExperimentalCoroutinesApi
+  private fun setupRecyclerView() {
     with(binding.recyclerViewHistoryList) {
       layoutManager = LinearLayoutManager(context)
       adapter = historyAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
 
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -109,7 +121,8 @@ class HistoryFragment : BaseFragment() {
     }
   }
 
-  @ExperimentalCoroutinesApi private fun setupSwipeRefreshLayout() {
+  @ExperimentalCoroutinesApi
+  private fun setupSwipeRefreshLayout() {
     binding.swipeRefreshLayoutHistory.setOnRefreshListener {
       viewModel.refreshFetch()
       if (binding.swipeRefreshLayoutHistory.isRefreshing.not()) {

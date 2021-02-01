@@ -13,9 +13,11 @@ import com.future.tailormade.core.model.ui.history.OrderDesignUiModel
 import com.future.tailormade.core.model.ui.history.OrderDetailMeasurementUiModel
 import com.future.tailormade.databinding.FragmentHistoryDetailBinding
 import com.future.tailormade.feature.history.viewModel.HistoryDetailViewModel
-import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -66,6 +68,12 @@ class HistoryDetailFragment : BaseFragment() {
     })
   }
 
+  private fun goToDesignDetail(id: String) {
+    context?.let { context ->
+      Action.goToDesignDetail(context, id)
+    }
+  }
+
   private fun setupDesignDetailData(design: OrderDesignUiModel) {
     with(binding.layoutDesignDetail) {
       textViewOrderTitle.text = design.title
@@ -81,17 +89,22 @@ class HistoryDetailFragment : BaseFragment() {
       context?.let { context ->
         ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
       }
+
+      root.setOnClickListener {
+        goToDesignDetail(design.id)
+      }
     }
   }
 
   private fun setupDesignDiscount(price: String, discount: String) {
     with(binding.layoutDesignDetail) {
-      textViewOrderPrice.remove()
+      textViewOrderPrice.hide()
       textViewOrderBeforeDiscount.show()
       textViewOrderAfterDiscount.show()
 
-      textViewOrderBeforeDiscount.text = price
       textViewOrderAfterDiscount.text = discount
+      textViewOrderBeforeDiscount.text = price
+      textViewOrderBeforeDiscount.strikeThrough()
     }
   }
 

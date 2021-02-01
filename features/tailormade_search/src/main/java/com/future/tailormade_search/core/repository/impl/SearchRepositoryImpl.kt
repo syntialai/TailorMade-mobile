@@ -9,11 +9,11 @@ import kotlinx.coroutines.flow.flow
 class SearchRepositoryImpl @Inject constructor(
     private val searchService: SearchService) : SearchRepository {
 
-  override suspend fun searchDesign(query: String) = flow {
-    emit(searchService.searchDesign(query))
+  override suspend fun searchDesign(query: String, page: Int, itemPerPage: Int) = flow {
+    emit(searchService.searchDesign(query, page, itemPerPage))
   }.flowOnIO()
 
-  override suspend fun searchTailor(query: String) = flow {
-    emit(searchService.searchTailor(query))
+  override suspend fun searchTailor(query: String, page: Int, itemPerPage: Int) = flow {
+    emit(searchService.searchTailor(query, page, itemPerPage))
   }.flowOnIO()
 }

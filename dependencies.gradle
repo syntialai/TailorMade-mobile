@@ -18,8 +18,8 @@ ext {
       glide                 : "4.11.0",
       gson                  : "2.8.6",
       retrofit              : "2.9.0",
-      material              : "1.3.0-alpha03",
-      constraint_layout     : "2.0.2",
+      material              : "1.3.0-rc01",
+      constraint_layout     : "2.0.4",
       appcompat             : "1.2.0",
       core                  : "1.3.2",
       recyclerview          : "1.1.0",
@@ -28,6 +28,7 @@ ext {
       legacy                : "1.0.0",
       firebase              : "26.0.0",
       osm                   : "6.1.8",
+      color_picker          : "2.2.2",
       play_core             : "1.9.0",
       gms_location          : "17.0.0",
       test_junit            : "4.13",
@@ -143,4 +144,6 @@ ext {
   gms = [
       location: "com.google.android.gms:play-services-location:${versions.gms_location}"
   ]
+
+  color_picker = "com.github.skydoves:colorpickerview:${versions.color_picker}"
 }

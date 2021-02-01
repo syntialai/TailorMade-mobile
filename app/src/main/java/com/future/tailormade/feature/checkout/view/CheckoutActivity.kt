@@ -23,7 +23,6 @@ class CheckoutActivity : BaseActivity() {
     binding = ActivityCheckoutBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarCheckout
     setContentView(binding.root)
-    setSupportActionBar(toolbar)
     getCartItemId()
   }
 

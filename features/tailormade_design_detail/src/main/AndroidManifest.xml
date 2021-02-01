@@ -5,7 +5,7 @@
     <application android:theme="@style/Theme.TailorMade">
 
         <activity
-            android:name=".feature.view.DesignDetailActivity"
+            android:name=".feature.designDetail.view.DesignDetailActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -14,6 +14,5 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
     </application>
 </manifest>

@@ -1,16 +1,15 @@
 package com.future.tailormade_profile.feature.profile.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
-import com.future.tailormade_profile.core.model.entity.Location
-import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
 import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,33 +47,15 @@ class ProfileViewModel @ViewModelInject constructor(
         }.onError {
           setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
-        }.collectLatest { response ->
-          response.data?.let {
-            _profileInfoUiModel.value = mapToProfileInfoUiModel(it)
-          }
+        }.collectLatest {
+          setFinishLoading()
+          _profileInfoUiModel.value = it.uiModel
         }
       }
     }
   }
 
-  fun isUserProfile(id: String) = authSharedPrefRepository.userId == id
+  fun getUserGender() = authSharedPrefRepository.userGender
 
-  private fun getAddress(location: Location?) = location?.city.orEmpty() + if (
-      location?.province.isNullOrBlank().not()) {
-        ", ${location?.province}"
-      } else {
-        ""
-      }
-
-  private fun mapToProfileInfoUiModel(profileInfo: ProfileInfoResponse) = ProfileInfoUiModel(
-      id = profileInfo.id,
-      name = profileInfo.name,
-      image = profileInfo.image,
-      phoneNumber = profileInfo.phoneNumber,
-      birthDate = profileInfo.birthDate,
-      address = getAddress(profileInfo.location),
-      location = profileInfo.location,
-      occupation = profileInfo.occupation,
-      education = profileInfo.education
-  )
+  fun isUser() = authSharedPrefRepository.userId == _profileInfoUiModel.value?.id
 }

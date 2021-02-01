@@ -5,23 +5,27 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
-import com.future.tailormade.util.extension.flowOnIOwithLoadingDialog
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
 import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onStart
 
 class EditProfileViewModel @ViewModelInject constructor(
     private val profileRepository: ProfileRepository,
     private val authSharedPrefRepository: AuthSharedPrefRepository,
     @Assisted private val savedStateHandle: SavedStateHandle) :
     BaseViewModel() {
+
+  companion object {
+    private const val PROFILE_INFO = "PROFILE_INFO"
+  }
 
   override fun getLogName(): String =
       "com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel"
@@ -35,18 +39,21 @@ class EditProfileViewModel @ViewModelInject constructor(
     get() = _listOfLocations
 
   init {
+    _profileInfo = savedStateHandle.getLiveData(PROFILE_INFO)
     getBasicInfo()
   }
 
   private fun getBasicInfo() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        profileRepository.getProfileInfo(id).onError {
-          _errorMessage.postValue(Constants.FAILED_TO_GET_PROFILE_INFO)
-        }.collect { response ->
-          response.data?.let {
-            _profileInfo.postValue(it)
-          }
+        profileRepository.getProfileInfo(id).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
+          setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
+        }.collectLatest { data ->
+          setFinishLoading()
+          _profileInfo.value = data.response
         }
       }
     }
@@ -59,14 +66,14 @@ class EditProfileViewModel @ViewModelInject constructor(
         location.orEmpty())
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        profileRepository.updateProfileInfo(id, request).flowOnIOwithLoadingDialog(
-            this).onError {
-          _errorMessage.postValue(Constants.FAILED_TO_UPDATE_PROFILE)
-          appLogger.logOnError(Constants.FAILED_TO_UPDATE_PROFILE, it)
-        }.collect { response ->
-          response.data?.let {
-            _profileInfo.postValue(it)
-          }
+        profileRepository.updateProfileInfo(id, request).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
+          setErrorMessage(Constants.FAILED_TO_UPDATE_PROFILE)
+        }.collectLatest { response ->
+          setFinishLoading()
+          _profileInfo.value = response
         }
       }
     }
@@ -76,10 +83,9 @@ class EditProfileViewModel @ViewModelInject constructor(
   fun updateLocations(query: String) {
     launchViewModelScope {
       profileRepository.searchLocation(query).onError {
-        _errorMessage.value = it.toString()
-      }.collect {
+        setErrorMessage(it.message.orEmpty())
+      }.collectLatest {
         val response = it.map { item ->
-          appLogger.logOnEvent(it.toString())
           item.display_name.orEmpty()
         }
         _listOfLocations.value = response

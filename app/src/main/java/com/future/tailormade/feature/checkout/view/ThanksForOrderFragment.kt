@@ -12,10 +12,12 @@ import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.databinding.FragmentThanksForOrderBinding
 import com.future.tailormade.feature.checkout.viewModel.ThanksForOrderViewModel
-import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,20 +38,14 @@ class ThanksForOrderFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
-  override fun onNavigationIconClicked() {
-    activity?.finish()
-  }
+  override fun onNavigationIconClicked() = goToMain()
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentThanksForOrderBinding.inflate(inflater, container, false)
-
     binding.buttonThankYouGoToHistory.setOnClickListener {
-      context?.let { context ->
-        Action.goToHistory(context)
-      }
+      goToHistory()
     }
-
     return binding.root
   }
 
@@ -65,6 +61,30 @@ class ThanksForOrderFragment : BaseFragment() {
     })
   }
 
+  private fun goToDesignDetail(id: String) {
+    context?.let { context ->
+      Action.goToDesignDetail(context, id)
+      removeActivityStack()
+    }
+  }
+
+  private fun goToHistory() {
+    context?.let { context ->
+      UserAction.goToHistory(context)
+      removeActivityStack()
+    }
+  }
+
+  private fun goToMain() {
+    context?.let { context ->
+      UserAction.goToMain(context)
+    }
+  }
+
+  private fun removeActivityStack() {
+    activity?.finishAndRemoveTask()
+  }
+
   private fun setupDesignDetailData(design: CartDesignUiModel) {
     with(binding.layoutDesignDetail) {
       textViewOrderTitle.text = design.title
@@ -75,12 +95,17 @@ class ThanksForOrderFragment : BaseFragment() {
         showDiscount()
         textViewOrderBeforeDiscount.text = design.price
         textViewOrderAfterDiscount.text = discount
+        textViewOrderAfterDiscount.strikeThrough()
       } ?: run {
         textViewOrderPrice.text = design.price
       }
 
       context?.let { context ->
         ImageLoader.loadImageUrl(context, design.image, imageViewOrder)
+      }
+
+      root.setOnClickListener {
+        goToDesignDetail(design.id)
       }
     }
   }
@@ -95,7 +120,7 @@ class ThanksForOrderFragment : BaseFragment() {
   private fun showDiscount() {
     with(binding.layoutDesignDetail) {
       groupDiscountTextView.show()
-      textViewOrderPrice.remove()
+      textViewOrderPrice.hide()
     }
   }
 }

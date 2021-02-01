@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.debounceOnTextChanged
+import com.future.tailormade.util.extension.text
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.entity.Education
 import com.future.tailormade_profile.core.model.entity.Occupation
@@ -38,6 +39,10 @@ class EditAboutFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = editAboutViewModel
 
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
+
   @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater,
       container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -45,11 +50,9 @@ class EditAboutFragment : BaseFragment() {
 
     with(binding) {
       buttonSubmitEditAboutForm.setOnClickListener {
-        submitForm(editTextCompanyEditAbout.text.toString(),
-            editTextOccupationEditAbout.text.toString(),
-            editTextOccupationCityEditAbout.text.toString(),
-            editTextSchoolEditAbout.text.toString(), editTextMajorEditAbout.text.toString(),
-            editTextEducationCityEditAbout.text.toString())
+        submitForm(editTextCompanyEditAbout.text(), editTextOccupationEditAbout.text(),
+            editTextOccupationCityEditAbout.text(), editTextSchoolEditAbout.text(),
+            editTextMajorEditAbout.text(), editTextEducationCityEditAbout.text())
       }
 
       editTextEducationCityEditAbout.debounceOnTextChanged(editProfileViewModel.viewModelScope,
@@ -94,9 +97,9 @@ class EditAboutFragment : BaseFragment() {
     })
   }
 
-  @ExperimentalCoroutinesApi private fun submitForm(occupationCompany: String,
-      occupationName: String, occupationCity: String, schoolName: String, schoolMajor: String,
-      schoolCity: String) {
+  @ExperimentalCoroutinesApi
+  private fun submitForm(occupationCompany: String, occupationName: String, occupationCity: String,
+      schoolName: String, schoolMajor: String, schoolCity: String) {
     val occupation = Occupation(occupationCompany, occupationCity, occupationName)
     val education = Education(schoolName, schoolMajor, schoolCity)
     editAboutViewModel.updateProfileAbout(occupation, education)

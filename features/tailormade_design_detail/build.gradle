@@ -52,6 +52,9 @@ dependencies {
     api project(":features:tailormade_auth")
     implementation project(":libraries:opencv_sdk")
 
+    // Color Picker
+    implementation color_picker
+
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core

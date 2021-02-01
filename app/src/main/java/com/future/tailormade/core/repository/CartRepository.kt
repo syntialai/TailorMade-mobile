@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
 
-  suspend fun getCarts(userId: String): Flow<ArrayList<CartUiModel>>
+  suspend fun getCarts(userId: String, page: Int, itemPerPage: Int): Flow<ArrayList<CartUiModel>>
 
   suspend fun getCartById(userId: String, id: String): Flow<CartUiModel>
 

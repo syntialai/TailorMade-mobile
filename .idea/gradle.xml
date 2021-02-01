@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/libraries/tailormade_base" />
             <option value="$PROJECT_DIR$/libraries/tailormade_dls" />
             <option value="$PROJECT_DIR$/libraries/tailormade_router" />
+            <option value="$PROJECT_DIR$/tailor-app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -5,6 +5,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.core.mapper.CartMapper
@@ -13,9 +14,7 @@ import com.future.tailormade.core.model.request.checkout.CheckoutRequest
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.core.repository.CartRepository
 import com.future.tailormade.core.repository.CheckoutRepository
-import com.future.tailormade.util.extension.flowOnMainWithLoadingDialog
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
@@ -32,11 +31,11 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
 
   override fun getLogName() = "com.future.tailormade.feature.checkout.viewModel.CheckoutViewModel"
 
-  private var _id = MutableLiveData<String>()
+  private var _id: MutableLiveData<String>
   val id: LiveData<String>
     get() = _id
 
-  private var _cartUiModel = MutableLiveData<CartUiModel>()
+  private var _cartUiModel: MutableLiveData<CartUiModel>
   val cartUiModel: LiveData<CartUiModel>
     get() = _cartUiModel
 
@@ -57,10 +56,10 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
   }
 
   @ExperimentalCoroutinesApi
-  fun checkoutItem(id: String) {
+  fun checkoutItem(id: String, specialInstructions: String) {
     authSharedPrefRepository.userId?.let { userId ->
       launchViewModelScope {
-        val checkoutRequest = getCheckoutRequest()
+        val checkoutRequest = getCheckoutRequest(specialInstructions)
         checkoutRepository.checkoutCartItem(userId, id, checkoutRequest).onStart {
           setStartLoading()
         }.onError {
@@ -68,7 +67,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
           setErrorMessage(Constants.FAILED_TO_CHECKOUT_ITEM)
         }.collectLatest {
           setFinishLoading()
-          _historyId.value = it?.id
+          _historyId.value = it.id
         }
       }
     }
@@ -78,7 +77,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
   fun getCartItemById(id: String) {
     authSharedPrefRepository.userId?.let { userId ->
       launchViewModelScope {
-        cartRepository.getCartById(userId, id).flowOnMainWithLoadingDialog(this).onStart {
+        cartRepository.getCartById(userId, id).onStart {
           setStartLoading()
         }.onError {
           setFinishLoading()
@@ -102,13 +101,13 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
     _id.value = id
   }
 
-  private fun getCheckoutRequest(specialInstruction: String? = null) = CheckoutRequest(
-      measurement = getCheckoutMeasurementRequest(), specialInstructions = specialInstruction)
+  private fun getCheckoutRequest(specialInstructions: String) = CheckoutRequest(
+      measurements = getCheckoutMeasurementRequest(), specialInstructions = specialInstructions)
 
   private fun getCheckoutMeasurementRequest(): CheckoutMeasurementRequest {
-    val measurements = arrayListOf<Double>()
+    val measurements = arrayListOf<Float>()
     _measurementValues.value?.forEach {
-      measurements.add(it.toDouble())
+      measurements.add(it.toFloat())
     }
     return CheckoutMeasurementRequest(measurements[0], measurements[1], measurements[2],
         measurements[3], measurements[4])

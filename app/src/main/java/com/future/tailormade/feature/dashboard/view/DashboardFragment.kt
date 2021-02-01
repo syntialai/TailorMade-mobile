@@ -4,16 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.databinding.FragmentDashboardBinding
 import com.future.tailormade.feature.dashboard.adapter.DashboardAdapter
 import com.future.tailormade.feature.dashboard.viewModel.DashboardViewModel
+import com.future.tailormade.util.extension.orZero
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
+import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
@@ -27,7 +36,7 @@ class DashboardFragment : BaseFragment() {
 
   private val viewModel: DashboardViewModel by viewModels()
   private val dashboardAdapter by lazy {
-    DashboardAdapter(::goToTailorProfile)
+    DashboardAdapter(::goToTailorProfile, ::goToChatRoom)
   }
 
   override fun getLogName() = "com.future.tailormade.feature.dashboard.view.DashboardFragment"
@@ -51,7 +60,7 @@ class DashboardFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    viewModel.fetchDashboardTailors(10.0, 10.0)
+    viewModel.fetchDashboardTailors()
     viewModel.tailors.observe(viewLifecycleOwner, {
       dashboardAdapter.submitList(it)
       if (it.isNotEmpty()) {
@@ -65,10 +74,15 @@ class DashboardFragment : BaseFragment() {
     })
   }
 
+  private fun goToChatRoom(tailorId: String, tailorName: String) {
+    context?.let { context ->
+      Action.goToChatRoom(context, tailorId, tailorName)
+    }
+  }
+
   private fun goToTailorProfile(tailorId: String) {
     context?.let {
-      findNavController().navigate(
-          DashboardFragmentDirections.actionDashboardFragmentToProfileFragment(tailorId))
+      UserAction.goToTailorProfile(it, tailorId)
     }
   }
 
@@ -93,6 +107,12 @@ class DashboardFragment : BaseFragment() {
     with(binding.recyclerViewTailorList) {
       layoutManager = LinearLayoutManager(context)
       adapter = dashboardAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
 
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
 

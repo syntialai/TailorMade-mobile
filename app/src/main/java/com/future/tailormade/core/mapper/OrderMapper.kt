@@ -16,7 +16,7 @@ object OrderMapper {
 
   fun mapToHistoryUiModel(order: OrderResponse) = OrderUiModel(
       id = order.id,
-      orderDate = order.createdAt.toDateString(Constants.DD_MMM_YYYY),
+      orderDate = order.createdAt.toDateString(Constants.DD_MMM_YYYY, true),
       quantity = order.quantity.toString(),
       status = order.status,
       design = mapToHistoryDetailDesign(order.design),
@@ -26,7 +26,7 @@ object OrderMapper {
 
   fun mapToHistoryDetailUiModel(orderDetail: OrderDetailResponse) = OrderDetailUiModel(
       id = orderDetail.id,
-      orderDate = orderDetail.createdAt.toDateString(Constants.DD_MMMM_YYYY_HH_MM_SS),
+      orderDate = orderDetail.createdAt.toDateString(Constants.DD_MMMM_YYYY_HH_MM_SS, true),
       orderedBy = orderDetail.userName,
       quantity = orderDetail.quantity.toString(),
       status = orderDetail.status,

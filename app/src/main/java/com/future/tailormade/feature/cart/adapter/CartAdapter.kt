@@ -10,8 +10,9 @@ import com.future.tailormade.R
 import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.databinding.LayoutCartItemBinding
-import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 
 class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
@@ -77,6 +78,7 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
           showDiscount()
           textViewOrderAfterDiscount.text = design.discount
           textViewOrderBeforeDiscount.text = design.price
+          textViewOrderBeforeDiscount.strikeThrough()
         } ?: run {
           textViewOrderPrice.text = design.price
         }
@@ -92,7 +94,7 @@ class CartAdapter(private val deleteCartItemListener: (String, String) -> Unit,
     private fun showDiscount() {
       with(binding){
         groupDiscountTextView.show()
-        textViewOrderPrice.remove()
+        textViewOrderPrice.hide()
       }
     }
   }

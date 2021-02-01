@@ -1,3 +1,4 @@
+include ':tailor-app'
 include ':app'
 
 // Features

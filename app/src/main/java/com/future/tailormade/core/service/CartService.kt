@@ -12,22 +12,25 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface CartService {
 
   @GET(AppApiUrl.USERS_ID_WISHLISTS_PATH)
-  fun getCarts(@Path("userId") userId: String): BaseListResponse<CartResponse>
+  suspend fun getCarts(@Path("userId") userId: String, @Query("page") page: Int,
+      @Query("itemPerPage") itemPerPage: Int): BaseListResponse<CartResponse>
 
   @GET(AppApiUrl.USERS_ID_WISHLISTS_ID_PATH)
-  fun getCartById(@Path("userId") userId: String,
+  suspend fun getCartById(@Path("userId") userId: String,
       @Path("id") id: String): BaseSingleObjectResponse<CartResponse>
 
-  @PUT(AppApiUrl.USERS_ID_WISHLISTS_ID_EDIT_QUANTITY_PATH) fun putEditCartItemQuantity(
+  @PUT(AppApiUrl.USERS_ID_WISHLISTS_ID_EDIT_QUANTITY_PATH)
+  suspend fun putEditCartItemQuantity(
       @Path("userId") userId: String, @Path("id") id: String,
       @Body cartEditQuantityRequest: CartEditQuantityRequest):
       BaseSingleObjectResponse<CartEditQuantityResponse>
 
   @DELETE(AppApiUrl.USERS_ID_WISHLISTS_ID_PATH)
-  fun deleteCartItemById(
+  suspend fun deleteCartItemById(
       @Path("userId") userId: String, @Path("id") id: String): BaseResponse
 }

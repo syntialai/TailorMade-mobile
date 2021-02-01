@@ -21,6 +21,22 @@
         <item name="android:textColor">@color/color_white</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Headline3.BlackHigh" parent="TextAppearance.TailorMade.Headline3">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackHigh.Bold" parent="TextAppearance.TailorMade.Headline3.BlackHigh">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackMedium" parent="TextAppearance.TailorMade.Headline3">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackLight" parent="TextAppearance.TailorMade.Headline3">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Body1.BlackHigh" parent="TextAppearance.TailorMade.Body1">
         <item name="android:textColor">@color/color_white</item>
     </style>
@@ -79,6 +95,16 @@
 
     <style name="TextAppearance.TailorMade.Caption.BlackMedium2" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.Red" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_red_400</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.Green" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_green_400</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Overline.BlackHigh" parent="TextAppearance.TailorMade.Overline">

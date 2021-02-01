@@ -3,14 +3,12 @@ package com.future.tailormade.base.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.config.Constants
+import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
-import kotlin.coroutines.CoroutineContext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -22,11 +20,11 @@ abstract class BaseViewModel : ViewModel() {
 
   val viewState = MutableLiveData<ViewState>()
 
-  protected val _errorMessage = MutableLiveData<String?>()
+  private val _errorMessage = MutableLiveData<String?>()
   val errorMessage: LiveData<String?>
     get() = _errorMessage
 
-  protected val _isLoading = MutableLiveData<Boolean>()
+  private val _isLoading = MutableLiveData<Boolean>()
   val isLoading: LiveData<Boolean>
     get() = _isLoading
 
@@ -59,23 +57,13 @@ abstract class BaseViewModel : ViewModel() {
     _errorMessage.value = message
   }
 
-  fun <T> launchOnMainViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-    return launchOnViewModelScope(block, Dispatchers.Main)
-  }
-
-  fun <T> launchOnIOViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-    return launchOnViewModelScope(block, Dispatchers.IO)
-  }
-
-  fun <T> launchOnDefaultViewModelScope(block: suspend () -> LiveData<T>): LiveData<T> {
-    return launchOnViewModelScope(block, Dispatchers.Default)
-  }
-
-  private fun <T> launchOnViewModelScope(block: suspend () -> LiveData<T>,
-			coroutineContext: CoroutineContext): LiveData<T> {
-    return liveData(viewModelScope.coroutineContext + coroutineContext) {
-      emitSource(block())
+  fun <T> addToList(list: ArrayList<T>, genericLiveData: MutableLiveData<ArrayList<T>>) {
+    val temporaryArrayList = arrayListOf<T>()
+    if (isFirstPage().not()) {
+      temporaryArrayList.addAll(genericLiveData.value.orEmptyList())
     }
+    temporaryArrayList.addAll(list)
+    genericLiveData.value = temporaryArrayList
   }
 
   fun launchViewModelScope(block: suspend () -> Unit) {

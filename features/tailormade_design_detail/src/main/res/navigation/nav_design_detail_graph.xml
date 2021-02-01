@@ -7,7 +7,27 @@
 
     <fragment
         android:id="@+id/designDetailFragment"
-        android:name="com.future.tailormade_design_detail.feature.view.DesignDetailFragment"
+        android:name="com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
         android:label="fragment_design_detail"
-        tools:layout="@layout/fragment_design_detail" />
+        tools:layout="@layout/fragment_design_detail" >
+        <action
+            android:id="@+id/action_designDetailFragment_to_addOrEditDesignFragment"
+            app:destination="@id/addOrEditDesignFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addOrEditDesignFragment"
+        android:name="com.future.tailormade_design_detail.feature.addOrEditDesign.view.AddOrEditDesignFragment"
+        android:label="fragment_add_or_edit_design"
+        tools:layout="@layout/fragment_add_or_edit_design" >
+        <argument
+            android:name="design_detail"
+            app:argType="com.future.tailormade_design_detail.core.model.response.DesignDetailResponse"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_addOrEditDesignFragment"
+        app:destination="@id/addOrEditDesignFragment"
+        app:popUpTo="@id/addOrEditDesignFragment"
+        app:popUpToInclusive="true" />
 </navigation>

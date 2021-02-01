@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_1"
     android:elevation="@dimen/dp_4"
+    app:cardElevation="@dimen/dp_4"
     app:shapeAppearanceOverlay="@style/Theme.TailorMade.CornerRounded_16dp">
 
     <LinearLayout
@@ -15,9 +17,9 @@
 
         <include
             android:id="@+id/layout_checkout_total"
-            layout="@layout/layout_ordered_total"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            layout="@layout/layout_ordered_total" />
 
         <View
             android:id="@+id/view_checkout_separator"

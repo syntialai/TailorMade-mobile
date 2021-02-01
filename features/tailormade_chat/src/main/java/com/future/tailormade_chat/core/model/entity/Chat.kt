@@ -1,20 +1,18 @@
 package com.future.tailormade_chat.core.model.entity
 
-import com.google.gson.annotations.Expose
+import com.google.firebase.database.IgnoreExtraProperties
 import java.sql.Timestamp
 
+@IgnoreExtraProperties
 data class Chat(
 
-    @Expose
-    val createdDate: Timestamp,
+    var createdDate: Long? = null,
 
-    @Expose
-    val userId: String,
+    var userId: String? = null,
 
-    @Expose
-    val hasBeenRead: Boolean,
+    var hasBeenRead: Boolean? = null,
 
-    val type: String,
+    var type: String? = null,
 
-    val text: Text
+    var text: Text? = null
 )

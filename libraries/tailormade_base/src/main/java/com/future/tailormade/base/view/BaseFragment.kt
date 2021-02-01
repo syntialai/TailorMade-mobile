@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.logger.AppLogger
 import com.future.tailormade.util.view.DialogHelper
 import com.future.tailormade.util.view.ToastHelper
+import com.future.tailormade_router.actions.Action
 
 abstract class BaseFragment : Fragment() {
 
@@ -85,11 +85,14 @@ abstract class BaseFragment : Fragment() {
   }
 
   open fun setupFragmentObserver() {
-    getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
-      when (state) {
-        is ViewState.Loading -> onLoading(state.isLoading)
-        is ViewState.Unauthorized -> onUnauthorized()
-        else -> showNoInternetConnection()
+    getViewModel()?.isLoading?.observe(viewLifecycleOwner, { isLoading ->
+//      when (state) {
+//        is ViewState.Loading -> onLoading(state.isLoading)
+//        is ViewState.Unauthorized -> onUnauthorized()
+//        else -> showNoInternetConnection()
+//      }
+      isLoading?.let {
+        onLoading(it)
       }
     })
 
@@ -102,7 +105,10 @@ abstract class BaseFragment : Fragment() {
   }
 
   private fun onUnauthorized() {
-    // TODO: Implement this
+    context?.let {
+      Action.goToSignIn(it)
+      activity?.finish()
+    }
   }
 
   private fun showNoInternetConnection() {
@@ -117,10 +123,9 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
-  open fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
-    val layoutManager: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-    return getViewModel()?.isStillLoading()?.not().orFalse() &&
-           layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition
+  fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
+    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+    return layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition
   }
 
   fun hideToolbar() {
@@ -135,14 +140,14 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
-  fun showLoadingView() {
-    if (loadingDialog == null && context == null) {
+  private fun showLoadingView() {
+    if (loadingDialog == null) {
       loadingDialog = DialogHelper.createLoadingDialog(requireContext())
     }
     DialogHelper.showDialog(loadingDialog)
   }
 
-  fun hideLoadingView() {
+  private fun hideLoadingView() {
     DialogHelper.dismissDialog(loadingDialog)
     loadingDialog = null
   }

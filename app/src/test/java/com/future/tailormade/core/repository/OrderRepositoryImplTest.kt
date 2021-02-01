@@ -2,7 +2,7 @@ package com.future.tailormade.core.repository
 
 import com.future.tailormade.base.test.BaseTest
 import com.future.tailormade.core.mapper.OrderMapper
-import com.future.tailormade.core.model.response.history.OrderDesignResponse
+import com.future.tailormade.core.mock.DataMock
 import com.future.tailormade.core.model.response.history.OrderDetailMeasurementResponse
 import com.future.tailormade.core.model.response.history.OrderDetailResponse
 import com.future.tailormade.core.model.response.history.OrderResponse
@@ -96,9 +96,8 @@ class OrderRepositoryImplTest: BaseTest() {
   private fun getOrderDetailResponse() = OrderDetailResponse(0, getOrderDesignResponse(), ID,
       getOrderDetailMeasurementResponse(), 1, "", "", "", "", 0.0, 0.0, 0, USER_ID, "")
 
-  private fun getOrderDesignResponse() = OrderDesignResponse(
-      "", 0.0, "", "", 0.0, "", "", "", "").getMockResponse()
+  private fun getOrderDesignResponse() = DataMock.getOrdersMock()
 
   private fun getOrderDetailMeasurementResponse() = OrderDetailMeasurementResponse(0f, 0f, 0f, 0f,
-      0f).getMockResponse()
+      0f)
 }

@@ -1,5 +1,6 @@
 package com.future.tailormade_search.feature.search.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -16,19 +17,22 @@ import com.future.tailormade_search.core.model.response.SearchTailorResponse
 import com.future.tailormade_search.core.repository.SearchRepository
 import kotlinx.coroutines.flow.collect
 
-class SearchViewModel @ViewModelInject constructor(
-    private val searchRepository: SearchRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle) :
-    BaseViewModel() {
+class SearchViewModel @ViewModelInject constructor(private val searchRepository: SearchRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
+
+  companion object {
+    private const val LIST_OF_DESIGNS = "LIST_OF_DESIGNS"
+    private const val LIST_OF_TAILORS = "LIST_OF_TAILORS"
+  }
 
   override fun getLogName(): String =
       "com.future.tailormade_search.feature.search.viewModel.SearchViewModel"
 
-  private var _listOfDesigns = MutableLiveData<List<SearchDesignResponse>>()
+  private var _listOfDesigns: MutableLiveData<List<SearchDesignResponse>>
   val listOfDesigns: LiveData<List<SearchDesignResponse>>
     get() = _listOfDesigns
 
-  private var _listOfTailors = MutableLiveData<List<SearchTailorResponse>>()
+  private var _listOfTailors: MutableLiveData<List<SearchTailorResponse>>
   val listOfTailors: LiveData<List<SearchTailorResponse>>
     get() = _listOfTailors
 
@@ -36,10 +40,13 @@ class SearchViewModel @ViewModelInject constructor(
   private var _tailorCount = MutableLiveData<Int>()
 
   val searchResultCount = MediatorLiveData<Long>().apply {
-    value = 0L
+    value = -1L
   }
 
   init {
+    _listOfDesigns = savedStateHandle.getLiveData(LIST_OF_DESIGNS)
+    _listOfTailors = savedStateHandle.getLiveData(LIST_OF_TAILORS)
+
     searchResultCount.addSource(_designCount) {
       if (it > searchResultCount.value.orZero()) {
         searchResultCount.value = it.toLong()
@@ -55,7 +62,7 @@ class SearchViewModel @ViewModelInject constructor(
 
   fun searchDesign(query: String) {
     launchViewModelScope {
-      searchRepository.searchDesign(query).onError {
+      searchRepository.searchDesign(query, page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("design"))
       }.collect {
         _designCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
@@ -66,7 +73,7 @@ class SearchViewModel @ViewModelInject constructor(
 
   fun searchTailor(query: String) {
     launchViewModelScope {
-      searchRepository.searchTailor(query).onError {
+      searchRepository.searchTailor(query, page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("tailor"))
       }.collect {
         _tailorCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()

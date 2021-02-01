@@ -1,5 +1,9 @@
 package com.future.tailormade_design_detail.core.model.response
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class DesignDetailResponse(
 
     val id: String,
@@ -25,4 +29,4 @@ data class DesignDetailResponse(
     val category: List<String>,
 
     val active: Boolean
-)
+): Parcelable

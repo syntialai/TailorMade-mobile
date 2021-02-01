@@ -3,6 +3,7 @@ package com.future.tailormade.feature.checkout.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.future.tailormade.core.model.ui.checkout.EditMeasurementFieldUiModel
 import com.future.tailormade.databinding.LayoutEditMeasurementFieldItemBinding
 import com.future.tailormade.util.image.ImageLoader
 
-class EditMeasurementFieldAdapter :
+class EditMeasurementFieldAdapter(private val onTextChanged: (String, Int) -> Unit) :
     ListAdapter<EditMeasurementFieldUiModel, EditMeasurementFieldAdapter.EditMeasurementViewHolder>(
         diffCallback) {
 
@@ -31,7 +32,7 @@ class EditMeasurementFieldAdapter :
           parent, false))
 
   override fun onBindViewHolder(holder: EditMeasurementViewHolder, position: Int) {
-    holder.bind(getItem(position))
+    holder.bind(getItem(position), position)
   }
 
   inner class EditMeasurementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -39,11 +40,15 @@ class EditMeasurementFieldAdapter :
     private val binding = LayoutEditMeasurementFieldItemBinding.bind(itemView)
     private val context = itemView.context
 
-    fun bind(data: EditMeasurementFieldUiModel) {
+    fun bind(data: EditMeasurementFieldUiModel, position: Int) {
       with(binding) {
         ImageLoader.loadImageResource(context, data.image, imageViewEditMeasurement)
         textViewEditMeasurementLabel.text = data.label
+
         editTextEditMeasurement.setText(data.value)
+        editTextEditMeasurement.doOnTextChanged { text, _, _, _ ->
+          onTextChanged.invoke(text.toString(), position)
+        }
       }
     }
   }
