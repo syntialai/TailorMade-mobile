@@ -29,7 +29,7 @@ class RealtimeDbRepositoryImpl @Inject constructor(
   }
 
   override fun getChatRoomById(chatRoomId: String): Query {
-    return getChatRoomRef.child(chatRoomId)
+    return getChatRoomRef.child(chatRoomId).orderByChild("chats")
   }
 
   override fun getRoomId(anotherUserId: String): String = if (authSharedPrefRepository.isUser()) {

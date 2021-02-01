@@ -2,6 +2,7 @@ package com.future.tailormade_chat.feature.view
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -43,8 +44,8 @@ class ChatRoomActivity : BaseActivity() {
       @RequiresApi(Build.VERSION_CODES.N)
       override fun onDataChange(snapshot: DataSnapshot) {
         val chatRoom = snapshot.getValue(ChatRoom::class.java)
-        chatRoom?.chats?.values?.let {
-          chatRoomAdapter.submitList(it.toList())
+        chatRoom?.chats?.let {
+          chatRoomAdapter.submitList(it.toSortedMap().values.toList())
           binding.recyclerViewChatRoom.scrollToPosition(it.size)
         }
       }

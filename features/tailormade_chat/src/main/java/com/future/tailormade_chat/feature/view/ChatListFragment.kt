@@ -48,7 +48,7 @@ class ChatListFragment : BaseFragment() {
       override fun onDataChange(snapshot: DataSnapshot) {
         val userChatSession = snapshot.getValue(UserChatSession::class.java)
         userChatSession?.sessions?.let {
-          chatListAdapter.submitList(it.toList())
+          chatListAdapter.submitList(it.toSortedMap().toList())
           showRecyclerView()
         } ?: run {
           showEmptyState()
