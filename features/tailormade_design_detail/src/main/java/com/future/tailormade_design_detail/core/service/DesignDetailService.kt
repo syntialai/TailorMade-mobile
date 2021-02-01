@@ -5,6 +5,7 @@ import com.future.tailormade.base.model.response.BaseSingleObjectResponse
 import com.future.tailormade_design_detail.core.api.DesignDetailApiUrl
 import com.future.tailormade_design_detail.core.model.request.cart.AddToCartRequest
 import com.future.tailormade_design_detail.core.model.request.design.DesignRequest
+import com.future.tailormade_design_detail.core.model.response.AddToCartResponse
 import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
 import com.future.tailormade_design_detail.core.model.response.UploadImageResponse
 import okhttp3.MultipartBody
@@ -32,8 +33,8 @@ interface DesignDetailService {
       @Body designDetailRequest: DesignRequest): BaseSingleObjectResponse<DesignDetailResponse>
 
   @POST(DesignDetailApiUrl.USERS_ID_WISHLISTS_PATH)
-  suspend fun postAddToCart(
-      @Path("userId") userId: String, @Body addToCartRequest: AddToCartRequest): BaseResponse
+  suspend fun postAddToCart(@Path("userId") userId: String,
+      @Body addToCartRequest: AddToCartRequest): BaseSingleObjectResponse<AddToCartResponse>
 
   @PUT(DesignDetailApiUrl.TAILORS_ID_DESIGNS_ID_PATH)
   suspend fun putEditDesignByTailorAndById(@Path("tailorId") tailorId: String, @Path("id") id: String,

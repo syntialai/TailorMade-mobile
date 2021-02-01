@@ -37,8 +37,8 @@ class DesignDetailViewModel @ViewModelInject constructor(
   val designDetailUiModel: LiveData<DesignDetailUiModel>
     get() = _designDetailUiModel
 
-  private var _isAddedToCart = MutableLiveData<Pair<String, Boolean>>()
-  val isAddedToCart: LiveData<Pair<String, Boolean>>
+  private var _isAddedToCart = MutableLiveData<Pair<String, String?>>()
+  val isAddedToCart: LiveData<Pair<String, String?>>
     get() = _isAddedToCart
 
   private var addToCartRequest: AddToCartRequest? = null
@@ -60,10 +60,10 @@ class DesignDetailViewModel @ViewModelInject constructor(
           }.onError {
             setFinishLoading()
             setErrorMessage(Constants.generateFailedAddError("cart"))
-            _isAddedToCart.value = Pair(type, false)
+            _isAddedToCart.value = Pair(type, null)
           }.collectLatest {
             setFinishLoading()
-            _isAddedToCart.value = Pair(type, true)
+            _isAddedToCart.value = Pair(type, it.wishlistId)
           }
         }
       }
