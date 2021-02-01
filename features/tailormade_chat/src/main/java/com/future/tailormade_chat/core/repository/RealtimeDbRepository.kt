@@ -15,6 +15,8 @@ interface RealtimeDbRepository {
 
   fun getUserChatSessionById(userId: String): Query
 
+  fun getUserSession(userId: String, anotherUserId: String): Query
+
   fun addChatRoomAndSession(chatRoomId: String, userSession: Session, anotherUserSession: Session,
       chat: Chat): Task<Void>
 

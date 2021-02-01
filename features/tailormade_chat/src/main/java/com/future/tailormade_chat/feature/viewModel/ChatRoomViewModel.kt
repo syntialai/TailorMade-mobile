@@ -14,7 +14,10 @@ import com.future.tailormade_chat.core.model.entity.Chat
 import com.future.tailormade_chat.core.model.entity.Session
 import com.future.tailormade_chat.core.model.entity.Text
 import com.future.tailormade_chat.core.repository.RealtimeDbRepository
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
+import com.google.firebase.database.ValueEventListener
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -51,7 +54,18 @@ class ChatRoomViewModel @ViewModelInject constructor(
 
   fun readChat() {
     authSharedPrefRepository.userId?.let { id ->
-      realtimeDbRepository.updateReadStatus(id, _anotherUserInfo?.first.orEmpty())
+      realtimeDbRepository.getUserSession(id, getAnotherUserId())
+          .addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+              if (snapshot.exists()) {
+                realtimeDbRepository.updateReadStatus(id, getAnotherUserId())
+              }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+              // No implementation needed
+            }
+          })
     }
   }
 
@@ -64,7 +78,7 @@ class ChatRoomViewModel @ViewModelInject constructor(
   @RequiresApi(Build.VERSION_CODES.O)
   fun sendMessage(text: String) {
     val nowTimestamp = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
-    val anotherUserId = _anotherUserInfo?.first.orEmpty()
+    val anotherUserId = getAnotherUserId()
     val anotherUserName = _anotherUserInfo?.second.orEmpty()
     authSharedPrefRepository.userId?.let { userId ->
       _chatRoomId.value?.let {
@@ -88,4 +102,6 @@ class ChatRoomViewModel @ViewModelInject constructor(
   fun setIsSent(value: Boolean?) {
     _isMessageSent.value = value
   }
+
+  private fun getAnotherUserId() = _anotherUserInfo?.first.orEmpty()
 }

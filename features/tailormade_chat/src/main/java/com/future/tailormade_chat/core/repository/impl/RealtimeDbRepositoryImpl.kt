@@ -41,6 +41,9 @@ class RealtimeDbRepositoryImpl @Inject constructor(
   override fun getUserChatSessionById(userId: String) = getUserChatSessionRef.child(
       userId)
 
+  override fun getUserSession(userId: String, anotherUserId: String) = getUserChatSessionById(
+      userId).child(ReferenceConstants.SESSIONS).child(anotherUserId)
+
   override fun addChatRoomAndSession(chatRoomId: String, userSession: Session,
       anotherUserSession: Session, chat: Chat): Task<Void> {
     val userChatSession = UserChatSingleSession(userSession.userId.orEmpty(),
@@ -58,8 +61,7 @@ class RealtimeDbRepositoryImpl @Inject constructor(
   }
 
   override fun updateReadStatus(userId: String, anotherUserId: String): Task<Void> {
-    return setValue(getUserChatSessionById(userId).child(ReferenceConstants.SESSIONS).child(
-        anotherUserId).child("hasBeenRead"), true)
+    return setValue(getUserSession(userId, anotherUserId).child("hasBeenRead"), true)
   }
 
   override fun updateChatRoom(chatRoomId: String, chat: Chat): Task<Void> {
