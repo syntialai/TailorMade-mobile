@@ -10,8 +10,9 @@ import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderDesignUiModel
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderUiModel
 import com.future.tailormade.tailor_app.databinding.LayoutCardOrderItemBinding
-import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 
 class IncomingOrderAdapter(private val onAcceptOrderListener: (String) -> Unit,
@@ -29,7 +30,7 @@ class IncomingOrderAdapter(private val onAcceptOrderListener: (String) -> Unit,
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = IncomingOrderViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_order_item, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_order_item, parent, false))
 
   override fun onBindViewHolder(holder: IncomingOrderViewHolder, position: Int) {
     holder.bind(getItem(position))
@@ -62,10 +63,11 @@ class IncomingOrderAdapter(private val onAcceptOrderListener: (String) -> Unit,
 
         design.discount?.let { discount ->
           groupDiscountPrice.show()
-          textViewOrderedPrice.remove()
+          textViewOrderedPrice.hide()
 
           textViewOrderedPriceDiscount.text = discount
           textViewOrderedDiscount.text = design.price
+          textViewOrderedDiscount.strikeThrough()
         } ?: run {
           textViewOrderedPrice.text = design.price
         }

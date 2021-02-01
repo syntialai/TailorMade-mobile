@@ -39,6 +39,10 @@ class EditAboutFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = editAboutViewModel
 
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
+
   @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater,
       container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -46,11 +50,9 @@ class EditAboutFragment : BaseFragment() {
 
     with(binding) {
       buttonSubmitEditAboutForm.setOnClickListener {
-        submitForm(editTextCompanyEditAbout.text.toString(),
-            editTextOccupationEditAbout.text.toString(),
-            editTextOccupationCityEditAbout.text.toString(),
-            editTextSchoolEditAbout.text.toString(), editTextMajorEditAbout.text.toString(),
-            editTextEducationCityEditAbout.text.toString())
+        submitForm(editTextCompanyEditAbout.text(), editTextOccupationEditAbout.text(),
+            editTextOccupationCityEditAbout.text(), editTextSchoolEditAbout.text(),
+            editTextMajorEditAbout.text(), editTextEducationCityEditAbout.text())
       }
 
       editTextEducationCityEditAbout.debounceOnTextChanged(editProfileViewModel.viewModelScope,

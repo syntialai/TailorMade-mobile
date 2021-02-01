@@ -81,11 +81,13 @@
 
         <include
             android:id="@+id/layout_add_or_edit_image"
-            layout="@layout/layout_add_or_edit_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_4" />
+            android:layout_marginTop="@dimen/dp_4"
+            android:clickable="true"
+            android:focusable="true"
+            layout="@layout/layout_add_or_edit_image" />
 
         <View
             android:layout_width="match_parent"

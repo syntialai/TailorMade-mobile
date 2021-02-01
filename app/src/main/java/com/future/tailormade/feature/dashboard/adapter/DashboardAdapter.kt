@@ -14,7 +14,8 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 
-class DashboardAdapter(private val onClickListener: (String) -> Unit) :
+class DashboardAdapter(private val onClickListener: (String) -> Unit,
+    private val onChatButtonClickListener: (String, String) -> Unit) :
     ListAdapter<DashboardTailorUiModel, DashboardAdapter.DashboardViewHolder>(diffCallback) {
 
   companion object {
@@ -47,7 +48,12 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit) :
     fun bind(data: DashboardTailorUiModel) {
       with(binding.layoutCardTailor) {
         textViewProfileName.text = data.name
-        buttonChatTailor.show()
+        with(buttonChatTailor) {
+          show()
+          setOnClickListener {
+            onChatButtonClickListener.invoke(data.id, data.name)
+          }
+        }
 
         data.location?.let {
           textViewProfileCity.text = it
@@ -55,14 +61,15 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit) :
           textViewProfileCity.remove()
         }
 
-        data.image?.let {
-          ImageLoader.loadImageUrl(context, it, imageViewProfile)
-        }
+        ImageLoader.loadImageUrlWithFitCenterAndPlaceholder(context, data.image.orEmpty(),
+            R.drawable.illustration_dashboard_tailor_profile, imageViewProfile, true)
 
         data.designs?.let { designs ->
-          showPreview()
-          setupPreviewImageAdapter()
-          previewImageAdapter.submitList(designs)
+          if (designs.isNotEmpty()) {
+            showPreview()
+            setupPreviewImageAdapter()
+            previewImageAdapter.submitList(designs)
+          }
         }
       }
 

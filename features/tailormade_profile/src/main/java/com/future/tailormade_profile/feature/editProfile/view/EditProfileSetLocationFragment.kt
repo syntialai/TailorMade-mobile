@@ -18,6 +18,10 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 @AndroidEntryPoint
 class EditProfileSetLocationFragment : BaseFragment() {
 
+  companion object {
+    fun newInstance() = EditProfileSetLocationFragment()
+  }
+
   private val viewModel: EditProfileViewModel by viewModels()
 
   private lateinit var binding: FragmentEditProfileSetLocationBinding
@@ -67,10 +71,5 @@ class EditProfileSetLocationFragment : BaseFragment() {
       }
       binding.mapViewEditProfile.overlays.add(myLocationOverlay)
     }
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = EditProfileSetLocationFragment()
   }
 }

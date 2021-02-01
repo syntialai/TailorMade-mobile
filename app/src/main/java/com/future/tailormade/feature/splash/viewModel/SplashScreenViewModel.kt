@@ -3,17 +3,17 @@ package com.future.tailormade.feature.splash.viewModel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.future.tailormade.base.model.enums.RoleEnum
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
+import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
-class SplashScreenViewModel @ViewModelInject constructor(
-    private val authRepository: AuthRepository,
-    private val authSharedPrefRepository: AuthSharedPrefRepository) :
-    BaseViewModel() {
+class SplashScreenViewModel @ViewModelInject constructor(private val authRepository: AuthRepository,
+    private val authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
 
   override fun getLogName(): String = "com.future.tailormade.feature.splash.viewModel.SplashScreenViewModel"
 
@@ -22,11 +22,7 @@ class SplashScreenViewModel @ViewModelInject constructor(
     get() = _isTokenExpired
 
   init {
-    with(authSharedPrefRepository) {
-      refreshToken = "Refresh token"
-      name = "Syntia"
-      userId = "IDKU"
-    }
+    authSharedPrefRepository.userRole = RoleEnum.ROLE_USER.ordinal
   }
 
   fun validateToken() {
@@ -35,14 +31,20 @@ class SplashScreenViewModel @ViewModelInject constructor(
         val refreshTokenRequest = RefreshTokenRequest(refreshToken)
         authRepository.refreshToken(refreshTokenRequest).onError {
           _isTokenExpired.value = true
-        }.collect {
+        }.collectLatest { token ->
           _isTokenExpired.value = false
-          it.data?.token?.let { token ->
-            authSharedPrefRepository.refreshToken = token.refresh
-            authSharedPrefRepository.accessToken = token.access
-          }
+          setToken(token)
         }
+      } ?: run {
+        _isTokenExpired.value = true
       }
+    }
+  }
+
+  private fun setToken(token: TokenDetailResponse) {
+    with(authSharedPrefRepository) {
+      refreshToken = token.refresh
+      accessToken = token.access
     }
   }
 }

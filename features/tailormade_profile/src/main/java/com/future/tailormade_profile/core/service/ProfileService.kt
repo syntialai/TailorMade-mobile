@@ -20,6 +20,10 @@ interface ProfileService {
   suspend fun getProfileInfo(
       @Path("id") id: String): BaseSingleObjectResponse<ProfileInfoResponse>
 
+  @GET(ProfileApiUrl.TAILORS_ID_PATH)
+  suspend fun getTailorProfileInfo(
+      @Path("tailorId") tailorId: String): BaseSingleObjectResponse<ProfileInfoResponse>
+
   @GET(ProfileApiUrl.TAILORS_ID_DESIGNS_PATH)
   suspend fun getProfileTailorDesigns(
       @Path("tailorId") id: String, @Query("page") page: Int,

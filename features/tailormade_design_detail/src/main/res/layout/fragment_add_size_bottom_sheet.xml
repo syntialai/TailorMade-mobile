@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_16"
     tools:context=".feature.addOrEditDesign.view.AddSizeBottomSheetFragment">
 
     <TextView
@@ -40,7 +41,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_size_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -53,16 +56,27 @@
         app:layout_constraintTop_toBottomOf="@id/text_input_size_name"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/image_view_size_chest"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@drawable/measurement_chest"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_label"
+        tools:ignore="ContentDescription" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_size_chest"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_16"
+        android:layout_marginHorizontal="@dimen/dp_16"
         android:hint="@string/size_chest_label"
         app:suffixText="@string/cm_label"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_size_chest"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_detail_label">
+        app:layout_constraintTop_toTopOf="@id/image_view_size_chest"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_size_chest">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_size_chest"
@@ -71,16 +85,27 @@
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/image_view_size_waist"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@drawable/measurement_waist"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_view_size_chest"
+        tools:ignore="ContentDescription" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_size_waist"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_16"
         android:hint="@string/size_waist_label"
         app:suffixText="@string/cm_label"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_size_waist"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_size_chest">
+        app:layout_constraintTop_toTopOf="@id/image_view_size_waist"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_size_waist">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_size_waist"
@@ -89,16 +114,27 @@
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/image_view_size_hips"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@drawable/measurement_hip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_view_size_waist"
+        tools:ignore="ContentDescription" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_size_hips"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_16"
         android:hint="@string/size_hips_label"
         app:suffixText="@string/cm_label"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_size_hips"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_size_waist">
+        app:layout_constraintTop_toTopOf="@id/image_view_size_hips"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_size_hips">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_size_hips"
@@ -107,16 +143,27 @@
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/image_view_size_neck_to_waist"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@drawable/measurement_neck_to_waist"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_view_size_hips"
+        tools:ignore="ContentDescription" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_size_neck_to_waist"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_16"
         android:hint="@string/size_neck_to_waist_label"
         app:suffixText="@string/cm_label"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_size_neck_to_waist"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_size_hips">
+        app:layout_constraintTop_toTopOf="@id/image_view_size_neck_to_waist"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_size_neck_to_waist">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_size_neck_to_waist"
@@ -125,16 +172,27 @@
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/image_view_size_inseam"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@drawable/measurement_inseam"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_view_size_neck_to_waist"
+        tools:ignore="ContentDescription" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_size_inseam"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_16"
         android:hint="@string/size_inseam_label"
         app:suffixText="@string/cm_label"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_size_inseam"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_size_neck_to_waist">
+        app:layout_constraintTop_toTopOf="@id/image_view_size_inseam"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_size_inseam">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_size_inseam"
@@ -151,6 +209,6 @@
         android:text="@string/add_size_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_size_inseam" />
+        app:layout_constraintTop_toBottomOf="@id/image_view_size_inseam" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

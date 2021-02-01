@@ -1,5 +1,6 @@
 package com.future.tailormade.feature.dashboard.viewModel
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,16 +24,12 @@ class DashboardViewModel @ViewModelInject constructor(
     get() = _tailors
 
   @ExperimentalCoroutinesApi
-  fun fetchDashboardTailors(lat: Double, lon: Double) {
+  fun fetchDashboardTailors() {
     launchViewModelScope {
-      dashboardRepository.getDashboardTailors(lat, lon, page, itemPerPage).onError {
+      dashboardRepository.getDashboardTailors(page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("dashboard"))
-        setFinishLoading()
-      }.onStart {
-        setStartLoading()
       }.collectLatest {
-        addToList(it)
-        setFinishLoading()
+        addToList(it, _tailors)
       }
     }
   }
@@ -40,23 +37,12 @@ class DashboardViewModel @ViewModelInject constructor(
   @ExperimentalCoroutinesApi
   override fun fetchMore() {
     super.fetchMore()
-    // TODO: Uncomment and Change this position after LocationManager done
-//    fetchDashboardTailors(10.0, 10.0)
+    fetchDashboardTailors()
   }
 
   @ExperimentalCoroutinesApi
   override fun refreshFetch() {
     super.refreshFetch()
-    // TODO: Uncomment and Change this position after LocationManager done
-//    fetchDashboardTailors(10.0, 10.0)
-  }
-
-  private fun addToList(list: ArrayList<DashboardTailorUiModel>) {
-    val tailors = arrayListOf<DashboardTailorUiModel>()
-    if (isFirstPage()) {
-      tailors.addAll(_tailors.value.orEmptyList())
-    }
-    tailors.addAll(list)
-    _tailors.value = tailors
+    fetchDashboardTailors()
   }
 }

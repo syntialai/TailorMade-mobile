@@ -1,5 +1,7 @@
 package com.future.tailormade_design_detail.feature.addOrEditDesign.view
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -9,11 +11,13 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
@@ -22,6 +26,7 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.mapper.DesignDetailMapper
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
@@ -32,6 +37,8 @@ import com.future.tailormade_design_detail.databinding.FragmentAddOrEditDesignBi
 import com.future.tailormade_design_detail.feature.addOrEditDesign.viewModel.AddOrEditDesignViewModel
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
 @AndroidEntryPoint
 class AddOrEditDesignFragment : BaseFragment() {
@@ -43,6 +50,10 @@ class AddOrEditDesignFragment : BaseFragment() {
   }
 
   private lateinit var binding: FragmentAddOrEditDesignBinding
+
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
 
   private val args: AddOrEditDesignFragmentArgs by navArgs()
   private val viewModel: AddOrEditDesignViewModel by viewModels()
@@ -56,6 +67,8 @@ class AddOrEditDesignFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
+  @FlowPreview
+  @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentAddOrEditDesignBinding.inflate(inflater, container, false)
@@ -82,10 +95,10 @@ class AddOrEditDesignFragment : BaseFragment() {
     super.onActivityResult(requestCode, resultCode, data)
     if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
       data?.data?.let { imageUri ->
-        imageUri.path?.let { path ->
-          viewModel.setImage(path)
-          if (isImagePreviewShown().not()) {
-            activity?.contentResolver?.let {
+        activity?.contentResolver?.let {
+          ImageHelper.getFileAbsolutePath(it, imageUri)?.let { path ->
+            viewModel.setImageFile(path)
+            if (isImagePreviewShown().not()) {
               showImagePreview(imageUri, ImageHelper.getFileName(it, imageUri).orEmpty())
             }
           }
@@ -97,17 +110,34 @@ class AddOrEditDesignFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    args.designDetail.let { designDetailResponse ->
+    args.designDetail?.let { designDetailResponse ->
       viewModel.setDesignDetailResponse(designDetailResponse)
     }
     viewModel.designDetailResponse.observe(viewLifecycleOwner, {
-      setData(it)
+      it?.let { designDetail ->
+        setData(designDetail)
+      }
     })
+    viewModel.isUpdated.observe(viewLifecycleOwner, {
+      it?.let { isUpdated ->
+        if (isUpdated) {
+          onNavigationIconClicked()
+          showSuccessToast()
+        }
+      }
+    })
+  }
+
+  private fun showSuccessToast() {
+    val message = getString(args.designDetail?.let {
+      R.string.design_added
+    } ?: R.string.design_updated)
+    ToastHelper.showToast(binding.root, message)
   }
 
   private fun addSizeChip(text: String, sizeDetail: SizeDetailUiModel) {
     val chipBinding = layoutInflater.inflate(R.layout.item_choose_size_chip,
-        binding.chipGroupDesignSize, true) as Chip
+        binding.chipGroupDesignSize, false) as Chip
     with(chipBinding) {
       this.text = text
       isCloseIconEnabled = true
@@ -144,12 +174,17 @@ class AddOrEditDesignFragment : BaseFragment() {
     binding.chipGroupDesignColor.addView(chipBinding)
   }
 
+  @SuppressLint("ClickableViewAccessibility")
   private fun hideImagePreview() {
     with(binding.layoutAddOrEditImage) {
       groupFilledImageState.remove()
       groupEmptyImageState.show()
-      root.setOnClickListener {
-        openGallery()
+      root.setOnTouchListener { view, event ->
+        if (event.action == MotionEvent.ACTION_DOWN) {
+          view.performClick()
+          openGallery()
+        }
+        false
       }
     }
     setClickable(true)
@@ -158,10 +193,13 @@ class AddOrEditDesignFragment : BaseFragment() {
   private fun isImagePreviewShown() = binding.layoutAddOrEditImage.groupFilledImageState.isShown
 
   private fun openGallery() {
-    val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
-      type = Constants.TYPE_IMAGE_ALL
+    (activity as BaseActivity).checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+        BaseActivity.READ_EXTERNAL_STORAGE_PERMISSION) {
+      val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+        type = Constants.TYPE_IMAGE_ALL
+      }
+      this.startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
     }
-    this.startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
   }
 
   private fun openAddColorBottomSheet(name: String? = null, color: String? = null) {
@@ -196,14 +234,14 @@ class AddOrEditDesignFragment : BaseFragment() {
 
   private fun setColor(colors: List<ColorResponse>) {
     colors.forEach {
-      addColorChip(it.id, it.color)
+      addColorChip(it.name, it.color)
     }
   }
 
   private fun setSize(sizes: List<SizeResponse>) {
     sizes.forEach { size ->
       size.detail?.let {
-        addSizeChip(size.id, DesignDetailMapper.mapToSizeDetailUiModel(it))
+        addSizeChip(size.name, DesignDetailMapper.mapToSizeDetailUiModel(it))
       }
     }
   }
@@ -238,6 +276,8 @@ class AddOrEditDesignFragment : BaseFragment() {
     binding.layoutAddOrEditImage.imageViewPreviewDesignImage.setImageURI(imageUri)
   }
 
+  @FlowPreview
+  @ExperimentalCoroutinesApi
   private fun validate() {
     with(binding) {
       val name = editTextDesignName.text()
@@ -257,8 +297,10 @@ class AddOrEditDesignFragment : BaseFragment() {
       name.isNotBlank() && price.isNotBlank() && discount.isNotBlank() && description.isNotBlank()
       && viewModel.isPriceValid(price, discount)
 
+  @ExperimentalCoroutinesApi
+  @FlowPreview
   private fun addOrUpdateDesign(name: String, price: String, discount: String, description: String) {
-    args.designDetail.let {
+    args.designDetail?.let {
       viewModel.updateDesign(name, price, discount, description)
     } ?: run {
       viewModel.addDesign(name, price, discount, description)

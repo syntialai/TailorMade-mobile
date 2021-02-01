@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +14,7 @@
             android:id="@+id/layout_card_history_detail_order_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_2"
             layout="@layout/layout_card_history_detail_order_info" />
 
         <TextView
@@ -29,6 +30,7 @@
             android:id="@+id/layout_payment_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_2"
             layout="@layout/layout_payment_detail_card" />
 
         <View
@@ -42,6 +44,7 @@
             android:id="@+id/layout_design_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_2"
             layout="@layout/layout_cart_item" />
 
         <TextView
@@ -50,7 +53,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_24"
-            android:layout_marginBottom="@dimen/dp_8"
             android:text="@string/measurement_details_label" />
 
         <include
@@ -75,6 +77,7 @@
             style="@style/TextAppearance.TailorMade.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_16"
             android:visibility="gone"
             tools:text="@string/special_instructions_label"
             tools:visibility="visible" />

@@ -2,20 +2,25 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_1"
     android:background="?attr/colorSurface"
-    android:elevation="@dimen/dp_4">
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="@dimen/dp_4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/image_view_design"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="@dimen/dp_200"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/text_view_design_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +31,7 @@
             style="@style/Theme.TailorMade.CornerRounded.Top"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_8"
-            android:background="?attr/colorSurface"
+            android:background="@drawable/drawable_rounded_top_background"
             app:layout_constraintBottom_toBottomOf="@id/image_view_design"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -51,7 +56,40 @@
             android:layout_marginBottom="@dimen/dp_12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_design_name"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="@string/design_price_label" />
+
+        <TextView
+            android:id="@+id/text_view_design_after_discount"
+            style="@style/TextAppearance.TailorMade.Body2.Primary.Bold"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginBottom="@dimen/dp_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_design_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@string/order_price_discount_label" />
+
+        <TextView
+            android:id="@+id/text_view_design_before_discount"
+            style="@style/TextAppearance.TailorMade.Body2.BlackMedium2"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_design_price"
+            app:layout_constraintStart_toEndOf="@id/text_view_design_after_discount"
+            app:layout_constraintTop_toTopOf="@id/text_view_design_price"
+            tools:text="@string/order_discount_label" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_discount_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="text_view_design_after_discount, text_view_design_before_discount"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

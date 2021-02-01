@@ -7,8 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class SizeResponse(
 
-    val id: String,
+    val name: String,
 
     @Expose
-    val detail: SizeDetailResponse? = null
-): Parcelable
+    val detail: SizeDetailResponse? = null) : Parcelable

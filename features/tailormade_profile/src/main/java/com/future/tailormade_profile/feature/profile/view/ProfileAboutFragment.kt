@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.entity.Education
@@ -17,14 +16,13 @@ import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class ProfileAboutFragment : BaseFragment() {
+@AndroidEntryPoint class ProfileAboutFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = ProfileAboutFragment()
   }
 
-  private val viewModel: ProfileViewModel by viewModels()
+  private val viewModel: ProfileViewModel by activityViewModels()
 
   private lateinit var binding: FragmentProfileAboutBinding
 
@@ -35,15 +33,9 @@ class ProfileAboutFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentProfileAboutBinding.inflate(inflater, container, false)
-
-    with(binding) {
-      textViewEditAbout.setOnClickListener {
-        context?.let {
-          Action.goToEditProfile(it, Constants.TYPE_ABOUT)
-        }
-      }
+    binding.textViewEditAbout.setOnClickListener {
+      goToEditProfileAbout()
     }
-
     return binding.root
   }
 
@@ -51,22 +43,32 @@ class ProfileAboutFragment : BaseFragment() {
     super.setupFragmentObserver()
 
     viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
-      it?.location?.address?.let { address ->
-        setAddressData(address)
-      }
-
-      it?.occupation?.let { occupation ->
-        if (occupation.company.isNullOrBlank().not() || occupation.job.isNullOrBlank().not()) {
-          setOccupationData(occupation)
+      it?.let { profile ->
+        if (viewModel.isUser()) {
+          binding.textViewEditAbout.show()
         }
-      }
 
-      it?.education?.let { education ->
-        if (education.school.isNullOrBlank().not() || education.major.isNullOrBlank().not()) {
-          setEducationData(education)
+        profile.location?.address?.let { address ->
+          setAddressData(address)
+        }
+        profile.occupation?.let { occupation ->
+          if (occupation.company.isNullOrBlank().not() || occupation.job.isNullOrBlank().not()) {
+            setOccupationData(occupation)
+          }
+        }
+        profile.education?.let { education ->
+          if (education.school.isNullOrBlank().not() || education.major.isNullOrBlank().not()) {
+            setEducationData(education)
+          }
         }
       }
     })
+  }
+
+  private fun goToEditProfileAbout() {
+    context?.let {
+      Action.goToEditProfile(it, getString(R.string.type_about))
+    }
   }
 
   private fun setAddressData(address: String) {

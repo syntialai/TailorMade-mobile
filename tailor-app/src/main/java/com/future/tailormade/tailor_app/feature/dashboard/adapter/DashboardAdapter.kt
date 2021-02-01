@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.core.model.ui.dashboard.DashboardDesignUiModel
+import com.future.tailormade.util.extension.hide
+import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_dls.databinding.LayoutCardDesignBinding
 
@@ -27,7 +30,7 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DashboardViewHolder(
-      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_design, parent, true))
+      LayoutInflater.from(parent.context).inflate(R.layout.layout_card_design, parent, false))
 
   override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
     holder.bind(getItem(position))
@@ -41,20 +44,32 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
     fun bind(data: DashboardDesignUiModel) {
       with(binding) {
         textViewDesignName.text = data.title
-        textViewDesignPrice.text = data.price
+        setPrice(data.price, data.discount)
 
         ImageLoader.loadImageUrl(context, data.image, imageViewDesign)
 
-        if (data.active) {
-          root.setOnClickListener {
-            onClickListener.invoke(data.id)
-          }
+        root.setOnClickListener {
+          onClickListener.invoke(data.id)
         }
 
         root.setOnLongClickListener {
           root.isChecked = !root.isChecked
           onLongClickListener.invoke(data.id)
           true
+        }
+      }
+    }
+
+    private fun setPrice(price: String, discount: String?) {
+      with(binding) {
+        discount?.let {
+          groupDiscountPrice.show()
+          textViewDesignPrice.hide()
+          textViewDesignBeforeDiscount.text = price
+          textViewDesignBeforeDiscount.strikeThrough()
+          textViewDesignAfterDiscount.text = it
+        } ?: run {
+          textViewDesignPrice.text = price
         }
       }
     }

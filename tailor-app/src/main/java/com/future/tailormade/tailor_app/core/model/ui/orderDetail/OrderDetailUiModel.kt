@@ -1,7 +1,10 @@
 package com.future.tailormade.tailor_app.core.model.ui.orderDetail
 
+import android.os.Parcelable
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderDesignUiModel
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class OrderDetailUiModel(
 
     var orderDate: String,
@@ -25,4 +28,4 @@ data class OrderDetailUiModel(
     var paymentTotal: String,
 
     var orderedBy: String
-)
+): Parcelable

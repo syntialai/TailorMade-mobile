@@ -40,7 +40,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_color_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.skydoves.colorpickerview.ColorPickerView
@@ -61,11 +63,12 @@
         android:layout_height="@dimen/dp_16"
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginVertical="@dimen/dp_16"
-        app:borderColor_AlphaSlideBar="@color/color_black_20"
-        app:borderSize_AlphaSlideBar="4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_color_picker" />
+        app:layout_constraintTop_toBottomOf="@id/view_color_picker"
+        app:selector_AlphaSlideBar="@drawable/wheel"
+        app:borderColor_AlphaSlideBar="@color/color_black_20"
+        app:borderSize_AlphaSlideBar="4" />
 
     <com.skydoves.colorpickerview.sliders.BrightnessSlideBar
         android:id="@+id/slide_bar_color_picker_brightness"
@@ -73,11 +76,12 @@
         android:layout_height="@dimen/dp_16"
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginVertical="@dimen/dp_16"
-        app:borderColor_BrightnessSlider="@color/color_black_20"
-        app:borderSize_BrightnessSlider="5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/slide_bar_color_picker_alpha" />
+        app:layout_constraintTop_toBottomOf="@id/slide_bar_color_picker_alpha"
+        app:selector_BrightnessSlider="@drawable/wheel"
+        app:borderColor_BrightnessSlider="@color/color_black_20"
+        app:borderSize_BrightnessSlider="5" />
 
     <View
         android:id="@+id/view_color_preview"

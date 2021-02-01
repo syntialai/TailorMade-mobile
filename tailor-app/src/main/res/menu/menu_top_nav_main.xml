@@ -7,10 +7,9 @@
         android:title="@string/search_label"
         app:showAsAction="ifRoom" />
 
-    <!-- TODO: Add this after get the icon -->
-    <!--    android:icon="@drawable/ic_settings" -->
     <item
         android:id="@+id/menu_settings"
-        android:title="@string/order_menu_label"
+        android:title="@string/settings_label"
+        android:icon="@drawable/ic_settings"
         app:showAsAction="ifRoom" />
 </menu>

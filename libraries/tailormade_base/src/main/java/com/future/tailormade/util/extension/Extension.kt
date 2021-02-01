@@ -1,5 +1,6 @@
 package com.future.tailormade.util.extension
 
+import android.graphics.Paint
 import android.os.Build
 import android.util.Patterns
 import android.view.View
@@ -12,6 +13,7 @@ import com.future.tailormade.base.view.ViewState
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.coroutine.CoroutineHelper
+import com.google.android.material.textfield.TextInputLayout
 import java.sql.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -29,23 +31,6 @@ import kotlinx.coroutines.flow.onStart
  */
 fun <T> Flow<T>.flowOnIO(): Flow<T> = this.flowOn(Dispatchers.IO)
 
-fun <T> Flow<T>.flowOnMain(): Flow<T> = this.flowOn(Dispatchers.Main)
-
-@ExperimentalCoroutinesApi
-fun <T> Flow<T>.flowWithLoadingDialog(viewModel: BaseViewModel) = onStart {
-  viewModel.viewState.value = ViewState.Loading(true)
-}.onError {
-  viewModel.viewState.value = ViewState.Loading(false)
-}
-
-@ExperimentalCoroutinesApi
-fun <T> Flow<T>.flowOnIOwithLoadingDialog(viewModel: BaseViewModel) = flowWithLoadingDialog(
-    viewModel).flowOnIO()
-
-@ExperimentalCoroutinesApi
-fun <T> Flow<T>.flowOnMainWithLoadingDialog(viewModel: BaseViewModel) = flowWithLoadingDialog(
-    viewModel).flowOnMain()
-
 fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> = catch { error ->
   block(error)
 }
@@ -53,6 +38,16 @@ fun <T> Flow<T>.onError(block: (error: Throwable) -> Unit): Flow<T> = catch { er
 /**
  * View extension functions
  */
+fun TextInputLayout.reset(editText: EditText? = null) {
+  error = null
+  editText?.reset()
+}
+
+fun EditText.reset() {
+  error = null
+  setText("")
+}
+
 fun EditText.debounceOnTextChanged(scope: CoroutineScope, listener: (String) -> Unit) {
   doOnTextChanged { text, _, _, count ->
     val debounce = CoroutineHelper.debounce(scope = scope, destinationFunction = listener)
@@ -65,6 +60,10 @@ fun EditText.debounceOnTextChanged(scope: CoroutineScope, listener: (String) -> 
 fun EditText.text() = this.text.toString()
 
 fun TextView.text() = this.text.toString()
+
+fun TextView.strikeThrough() {
+  this.paintFlags = this.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+}
 
 fun View.hide() {
   visibility = View.INVISIBLE
@@ -108,14 +107,14 @@ fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matche
 /**
  * Date Time Converter
  */
-fun Long.toDateString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).apply {
-  this.timeZone = TimeZone.getTimeZone(Constants.INDONESIA_TIME_ZONE)
-}.format(this.toDate())
-
-fun Long.toDate(): Date = Date(this)
-
-fun Timestamp.toTimeString(pattern: String): String = SimpleDateFormat(pattern, Locale.ENGLISH).format(
-    this)
+fun Long.toDateString(pattern: String, isTimestamp: Boolean = false): String {
+  val time = if (isTimestamp) {
+    1
+  } else {
+    1000
+  }
+  return SimpleDateFormat(pattern, Locale.ENGLISH).format(this * time)
+}
 
 /**
  * Money Converter
@@ -143,9 +142,3 @@ fun Long?.orZero(): Long = this ?: 0L
 fun Boolean?.orTrue(): Boolean = this ?: true
 
 fun Boolean?.orFalse(): Boolean = this ?: false
-
-/**
- * Collection converter
- */
-@RequiresApi(Build.VERSION_CODES.N)
-fun <T> MutableMap<String, T>.getFirstElement() = this.entries.stream().findFirst().get()

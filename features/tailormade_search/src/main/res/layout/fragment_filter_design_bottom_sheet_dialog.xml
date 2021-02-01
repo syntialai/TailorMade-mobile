@@ -40,9 +40,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_lowest_price"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_16"
         android:layout_marginVertical="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
         android:layout_marginEnd="@dimen/dp_8"
         app:layout_constraintEnd_toStartOf="@id/text_view_separator"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -63,8 +64,8 @@
         style="@style/TextAppearance.TailorMade.Headline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/separator"
         android:layout_marginStart="@dimen/dp_0"
+        android:text="@string/separator"
         app:layout_constraintBottom_toBottomOf="@id/text_input_lowest_price"
         app:layout_constraintEnd_toStartOf="@id/text_input_highest_price"
         app:layout_constraintStart_toEndOf="@id/text_input_lowest_price"
@@ -73,6 +74,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_highest_price"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
         app:layout_constraintBottom_toBottomOf="@id/text_input_lowest_price"
@@ -121,9 +123,9 @@
 
     <include
         android:id="@+id/group_search_location"
-        layout="@layout/layout_search_tailor_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        layout="@layout/layout_search_tailor_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chip_group_category" />

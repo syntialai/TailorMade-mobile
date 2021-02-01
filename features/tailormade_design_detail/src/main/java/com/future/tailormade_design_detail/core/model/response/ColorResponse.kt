@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ColorResponse(
 
-    val id: String,
+    val name: String,
 
     val color: String): Parcelable

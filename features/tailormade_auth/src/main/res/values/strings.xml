@@ -33,4 +33,14 @@
     <string name="confirm_password_label">Confirm Password</string>
     <string name="birth_date_picker_label">Birth Date Picker</string>
     <string name="birth_date_picker_title_label">Choose Date</string>
+
+    <!-- Error messages -->
+    <string name="name_is_empty">Name is empty.</string>
+    <string name="email_is_empty">Email is empty.</string>
+    <string name="email_is_invalid">Email is not valid.</string>
+    <string name="birth_date_is_not_set">Birth date is not set.</string>
+    <string name="password_is_empty">Password is empty.</string>
+    <string name="password_is_invalid">Password length should be more than 7 characters.</string>
+    <string name="confirm_password_is_empty">Confirm password is empty.</string>
+    <string name="confirm_password_must_same">Confirm password must be same with password.</string>
 </resources>

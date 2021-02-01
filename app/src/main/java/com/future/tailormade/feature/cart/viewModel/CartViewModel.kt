@@ -5,13 +5,14 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.core.model.request.cart.CartEditQuantityRequest
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.core.repository.CartRepository
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
+import com.future.tailormade.util.extension.orEmptyList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
@@ -38,17 +39,19 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   fun fetchCartData() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { userId ->
-        cartRepository.getCarts(userId).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
+        cartRepository.getCarts(userId, page, itemPerPage).onError {
           setErrorMessage(Constants.FAILED_TO_GET_YOUR_CART_ITEM)
         }.collectLatest {
-          _cartUiModel.value = it
-          setFinishLoading()
+          addToList(it, _cartUiModel)
         }
       }
     }
+  }
+
+  @ExperimentalCoroutinesApi
+  override fun fetchMore() {
+    super.fetchMore()
+    fetchCartData()
   }
 
   fun editCartItemQuantity(id: String, quantity: Int) {

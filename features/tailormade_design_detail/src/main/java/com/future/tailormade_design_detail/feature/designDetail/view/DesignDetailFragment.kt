@@ -10,24 +10,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
+import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
-import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.core.model.ui.SizeUiModel
 import com.future.tailormade_design_detail.databinding.FragmentDesignDetailBinding
-import com.future.tailormade_design_detail.databinding.ItemChooseColorChipBinding
-import com.future.tailormade_design_detail.databinding.ItemChooseSizeChipBinding
-import com.future.tailormade_design_detail.feature.viewModel.DesignDetailViewModel
-import com.future.tailormade_router.actions.Action
 import com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.UserAction
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -39,20 +38,23 @@ class DesignDetailFragment : BaseFragment() {
 
   companion object {
     private const val DESCRIPTION_MAX_LINES = 3
+    private const val TYPE_ADD_TO_CART = "TYPE_ADD_TO_CART"
+    private const val TYPE_CHECKOUT = "TYPE_CHECKOUT"
 
     fun newInstance() = DesignDetailFragment()
   }
 
-  @Inject lateinit var authSharedPrefRepository: AuthSharedPrefRepository
+  @Inject
+  lateinit var authSharedPrefRepository: AuthSharedPrefRepository
 
   private val viewModel: DesignDetailViewModel by viewModels()
-
-  private var designDetailResponse: DesignDetailResponse? = null
 
   private lateinit var binding: FragmentDesignDetailBinding
 
   override fun getLogName() =
       "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
+
+  override fun getScreenName(): String = "Design Detail"
 
   override fun getViewModel(): BaseViewModel = viewModel
 
@@ -64,7 +66,7 @@ class DesignDetailFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentDesignDetailBinding.inflate(inflater, container, false)
     setupBottomNav()
-    if (authSharedPrefRepository.userRole != 0) {
+    if (authSharedPrefRepository.isTailor()) {
       hideCustomerFeatures()
     }
     return binding.root
@@ -77,12 +79,6 @@ class DesignDetailFragment : BaseFragment() {
         true
       }
       else -> super.onOptionsItemSelected(item)
-    }
-  }
-
-  private fun goToSearch() {
-    context?.let { context ->
-      startActivity(Action.goToSearch(context))
     }
   }
 
@@ -100,7 +96,7 @@ class DesignDetailFragment : BaseFragment() {
 
     viewModel.designDetailUiModel.observe(viewLifecycleOwner, {
       it?.let { designDetailUiModel ->
-        setupGeneralInfoLayout(designDetailUiModel.id, designDetailUiModel.tailorId,
+        setupGeneralInfoLayout(designDetailUiModel.title, designDetailUiModel.tailorId,
             designDetailUiModel.tailorName, designDetailUiModel.image)
         setupGeneralInfoPrice(designDetailUiModel.price, designDetailUiModel.discount)
         setupChooseSizeChips(designDetailUiModel.size)
@@ -108,14 +104,29 @@ class DesignDetailFragment : BaseFragment() {
         setupDescription(designDetailUiModel.description)
       }
     })
-    viewModel.designDetailResponse.observe(viewLifecycleOwner, {
-      designDetailResponse = it
-    })
+
+    if (authSharedPrefRepository.isUser()) {
+      viewModel.designDetailResponse.observe(viewLifecycleOwner, {
+        it?.let { designDetailResponse ->
+          viewModel.setAddToCartRequest(designDetailResponse)
+        }
+      })
+      viewModel.isAddedToCart.observe(viewLifecycleOwner, {
+        it?.let { isAdded ->
+          if (isAdded.second) {
+            when (isAdded.first) {
+              TYPE_ADD_TO_CART -> showSuccessAddCartToast()
+              TYPE_CHECKOUT -> checkoutItem(viewModel.designDetailResponse.value?.id.orEmpty())
+            }
+          }
+        }
+      })
+    }
   }
 
   private fun checkoutItem(id: String) {
     context?.let {
-      Action.goToCheckout(it, id)
+      UserAction.goToCheckout(it, id)
     }
   }
 
@@ -125,6 +136,7 @@ class DesignDetailFragment : BaseFragment() {
     with(chipBinding) {
       this.id = index
       this.text = text
+      this.isChecked = index == 0
     }
     return chipBinding
   }
@@ -136,13 +148,34 @@ class DesignDetailFragment : BaseFragment() {
       this.id = index
       this.text = text
       this.chipIconTint = ColorStateList.valueOf(Color.parseColor(color))
+      this.isChecked = index == 0
     }
     return chipBinding
   }
 
+  private fun goToChat() {
+    context?.let { context ->
+      viewModel.designDetailResponse.value?.let {
+        Action.goToChatRoom(context, it.tailorId, it.tailorName)
+      }
+    }
+  }
+
+  private fun goToSearch() {
+    context?.let { context ->
+      Action.goToSearch(context)
+    }
+  }
+
+  private fun goToTailorProfile(tailorId: String) {
+    context?.let { context ->
+      UserAction.goToTailorProfile(context, tailorId)
+    }
+  }
+
   private fun hideCustomerFeatures() {
     with(binding) {
-      bottomNavDesignDetail.remove()
+      layoutDesignDetailBottomNav.root.remove()
       layoutDesignDetailGeneralInfo.buttonSwapFace.remove()
       layoutDesignDetailGeneralInfo.buttonEditDesignDetail.show()
     }
@@ -159,42 +192,42 @@ class DesignDetailFragment : BaseFragment() {
   }
 
   private fun setupBottomNav() {
-    binding.bottomNavDesignDetail.setOnNavigationItemSelectedListener { item ->
-      when(item.itemId) {
-        R.id.item_chat_tailor -> {
-          // TODO: Go to chat
-          true
-        }
-        R.id.item_add_to_cart -> {
-          // TODO: Add item to cart
-          true
-        }
-        R.id.item_button_order_now -> {
-          viewModel.designDetailUiModel.value?.id?.let {
-            checkoutItem(it)
-          }
-          true
-        }
-        else -> false
+    with(binding.layoutDesignDetailBottomNav) {
+      buttonChatTailor.setOnClickListener {
+        goToChat()
+      }
+      buttonAddToCart.setOnClickListener {
+        viewModel.addToCart(TYPE_ADD_TO_CART)
+      }
+      buttonOrderNow.setOnClickListener {
+        viewModel.addToCart(TYPE_CHECKOUT)
       }
     }
   }
 
   private fun setupChooseColorChips(colors: List<ColorResponse>) {
     with(binding.chipGroupChooseColor) {
+      removeAllViews()
       colors.forEachIndexed { index, color ->
-        addView(getChooseColorChip(index, color.id, color.color))
+        addView(getChooseColorChip(index, color.name, color.color))
+      }
+      setOnCheckedChangeListener { _, checkedId ->
+        viewModel.setColorRequest(colors[checkedId].name)
       }
     }
   }
 
   private fun setupChooseSizeChips(sizes: List<SizeUiModel>) {
     with(binding.chipGroupChooseSize) {
+      removeAllViews()
       sizes.forEachIndexed { index, size ->
-        addView(getChooseSizeChip(index, size.id))
+        addView(getChooseSizeChip(index, size.name.orEmpty()))
       }
-      this.setOnCheckedChangeListener { _, checkedId ->
-        sizes[checkedId].detail?.let { setSizeDetailInfoData(it) }
+      setOnCheckedChangeListener { _, checkedId ->
+        sizes[checkedId].detail?.let {
+          setSizeDetailInfoData(it)
+          viewModel.setSizeRequest(checkedId)
+        }
       }
     }
   }
@@ -202,6 +235,11 @@ class DesignDetailFragment : BaseFragment() {
   private fun setupDescription(description: String) {
     with(binding) {
       textViewDesignDetailDescription.text = description
+
+      if (textViewDesignDetailDescription.lineCount > DESCRIPTION_MAX_LINES) {
+        textViewReadMore.show()
+      }
+
       textViewReadMore.setOnClickListener {
         with(textViewDesignDetailDescription) {
           if (maxLines == DESCRIPTION_MAX_LINES) {
@@ -223,14 +261,16 @@ class DesignDetailFragment : BaseFragment() {
         // TODO: Go to face swap
       }
       buttonEditDesignDetail.setOnClickListener {
-        designDetailResponse?.let { designDetailResponse ->
+        viewModel.designDetailResponse.value?.let { designDetailResponse ->
           findNavController().navigate(
               DesignDetailFragmentDirections.actionDesignDetailFragmentToAddOrEditDesignFragment(
                   designDetailResponse))
         }
       }
       textViewDesignDetailDesignedBy.setOnClickListener {
-        // TODO: Go to tailor profile
+        if (authSharedPrefRepository.isUser()) {
+          goToTailorProfile(tailorId)
+        }
       }
 
       textViewDesignDetailTitle.text = title
@@ -246,8 +286,9 @@ class DesignDetailFragment : BaseFragment() {
     with(binding.layoutDesignDetailGeneralInfo) {
       discount?.let {
         showDiscountPrice()
+        textViewDesignDetailAfterDiscountPrice.text = it
         textViewDesignDetailBeforeDiscountPrice.text = price
-        textViewDesignDetailBeforeDiscountPrice.text = it
+        textViewDesignDetailBeforeDiscountPrice.strikeThrough()
       } ?: run {
         textViewDesignDetailPrice.text = price
       }
@@ -258,6 +299,11 @@ class DesignDetailFragment : BaseFragment() {
     with(binding.layoutDesignDetailGeneralInfo) {
       textViewDesignDetailAfterDiscountPrice.show()
       textViewDesignDetailBeforeDiscountPrice.show()
+      textViewDesignDetailPrice.hide()
     }
+  }
+
+  private fun showSuccessAddCartToast() {
+    ToastHelper.showToast(binding.root, getString(R.string.design_added_to_cart))
   }
 }

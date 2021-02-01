@@ -1,21 +1,22 @@
 package com.future.tailormade.tailor_app.feature.dashboard.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.core.model.ui.dashboard.DashboardDesignUiModel
 import com.future.tailormade.tailor_app.core.repository.DashboardRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade.util.extension.orFalse
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class DashboardViewModel @ViewModelInject constructor(
     private val dashboardRepository: DashboardRepository,
@@ -41,22 +42,18 @@ class DashboardViewModel @ViewModelInject constructor(
   private var deletedItem: Int = 0
 
   init {
-    _designs = savedStateHandle.getLiveData(DESIGNS, arrayListOf())
-    _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS, arrayListOf())
+    _designs = savedStateHandle.getLiveData(DESIGNS)
+    _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS)
   }
 
   @ExperimentalCoroutinesApi
   fun fetchTailorDesigns() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        dashboardRepository.getDashboardDesigns(id, page, itemPerPage).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
-          setErrorMessage("Failed to fetch your designs data.")
+        dashboardRepository.getDashboardDesigns(id, page, itemPerPage).onError {
+          setErrorMessage(Constants.FAILED_TO_GET_YOUR_DESIGN)
         }.collectLatest {
-          _designs.value = it
-          savedStateHandle.set(DESIGNS, _designs.value)
+          addToList(it, _designs)
         }
       }
     }
@@ -105,7 +102,7 @@ class DashboardViewModel @ViewModelInject constructor(
 
   private suspend fun deleteDesign(tailorId: String, id: String) {
     dashboardRepository.deleteDashboardDesign(tailorId, id).onError {
-      setErrorMessage(Constants.generateDeleteErrorMessage("design", id))
+      setErrorMessage(Constants.FAILED_TO_DELETE_DESIGN)
     }.collect {
       deletedItem.inc()
     }

@@ -9,6 +9,7 @@
         <item name="android:layout_margin">@dimen/dp_16</item>
         <item name="android:background">@drawable/drawable_bottom_nav_background</item>
         <item name="labelVisibilityMode">unlabeled</item>
+        <item name="layout_behavior">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</item>
     </style>
 
     <!-- Button Style -->
@@ -51,14 +52,16 @@
         <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.Left</item>
         <item name="minWidth">@dimen/dp_0</item>
         <item name="android:minWidth">@dimen/dp_0</item>
-        <item name="android:paddingHorizontal">@dimen/dp_16</item>
+        <item name="android:paddingStart">@dimen/dp_16</item>
+        <item name="android:paddingEnd">@dimen/dp_16</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Right" parent="Theme.TailorMade.Button.Outlined.Rounded">
         <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.Right</item>
         <item name="minWidth">@dimen/dp_0</item>
         <item name="android:minWidth">@dimen/dp_0</item>
-        <item name="android:paddingHorizontal">@dimen/dp_16</item>
+        <item name="android:paddingStart">@dimen/dp_16</item>
+        <item name="android:paddingEnd">@dimen/dp_16</item>
     </style>
 
     <style name="Theme.TailorMade.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
@@ -331,10 +334,6 @@
         <item name="android:textColor">@color/color_black_20</item>
     </style>
 
-    <style name="TextAppearance.TailorMade.Overline.Primary" parent="TextAppearance.TailorMade.Overline">
-        <item name="android:textColor">?colorPrimary</item>
-    </style>
-
     <style name="TextAppearance.TailorMade.Caption.Primary" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">?colorPrimary</item>
     </style>
@@ -375,6 +374,10 @@
     <style name="TextAppearance.TailorMade.Caption.Green" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">@color/color_green_600</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Overline.Primary" parent="TextAppearance.TailorMade.Overline">
+        <item name="android:textColor">?colorPrimary</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Overline.PrimaryDark" parent="TextAppearance.TailorMade.Overline">

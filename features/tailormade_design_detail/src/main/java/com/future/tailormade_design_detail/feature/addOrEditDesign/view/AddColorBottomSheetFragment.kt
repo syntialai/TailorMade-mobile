@@ -55,7 +55,7 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
     return binding.root
   }
 
-  private fun getColorName() = binding.editTextColorName.text.toString()
+  private fun getColorName() = binding.editTextColorName.text()
 
   private fun setColorPickerColor(color: String) {
     val colour = Color.parseColor(color)
@@ -69,9 +69,11 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
       setColorListener(object : ColorEnvelopeListener {
         override fun onColorSelected(envelope: ColorEnvelope?, fromUser: Boolean) {
           envelope?.color?.let { color ->
-            setBackgroundColor(color)
+            binding.viewColorPreview.setBackgroundColor(color)
           }
-          envelope?.hexCode?.let { binding.textViewColorPreview.text = "#$it" }
+          envelope?.hexCode?.let {
+            binding.textViewColorPreview.text = "#$it"
+          }
         }
       })
     }

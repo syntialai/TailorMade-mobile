@@ -1,16 +1,20 @@
 package com.future.tailormade_search.feature.search.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
-import com.future.tailormade_search.core.model.response.SearchTailorResponse
+import com.future.tailormade_router.actions.UserAction
 import com.future.tailormade_search.databinding.FragmentSearchTailorResultBinding
 import com.future.tailormade_search.feature.filter.view.FilterTailorBottomSheetDialogFragment
 import com.future.tailormade_search.feature.search.adapter.SearchTailorListAdapter
@@ -26,9 +30,13 @@ class SearchTailorResultFragment : BaseFragment() {
 
   private lateinit var binding: FragmentSearchTailorResultBinding
 
-  private val viewModel: SearchViewModel by viewModels()
+  private val searchTailorListAdapter by lazy {
+    SearchTailorListAdapter(this::goToTailorProfile)
+  }
+  private val viewModel: SearchViewModel by activityViewModels()
 
-  override fun getLogName() = "com.future.tailormade_search.feature.search.view.SearchTailorResultFragment"
+  override fun getLogName() =
+      "com.future.tailormade_search.feature.search.view.SearchTailorResultFragment"
 
   override fun getScreenName(): String = "Search Tailor Result"
 
@@ -37,16 +45,33 @@ class SearchTailorResultFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentSearchTailorResultBinding.inflate(inflater, container, false)
-
-    with(binding) {
-      groupSortAndFilter.chipFilter.setOnClickListener {
-        showFilterDialog()
-      }
-
-      recyclerViewSearchTailorResult.layoutManager = LinearLayoutManager(context)
+    binding.groupSortAndFilter.chipFilter.setOnClickListener {
+      showFilterDialog()
     }
-
+    setupRecyclerView()
     return binding.root
+  }
+
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
+    viewModel.listOfTailors.observe(viewLifecycleOwner, {
+      it?.let { tailors ->
+        searchTailorListAdapter.submitList(tailors)
+        Log.d("TAILORS", tailors.toString())
+        if (tailors.isEmpty()) {
+          showNoDataState()
+        } else {
+          showRecyclerView()
+        }
+      }
+    })
+  }
+
+  private fun goToTailorProfile(id: String) {
+    context?.let {
+      UserAction.goToTailorProfile(it, id)
+    }
   }
 
   private fun hideNoDataState() {
@@ -57,26 +82,11 @@ class SearchTailorResultFragment : BaseFragment() {
     binding.recyclerViewSearchTailorResult.remove()
   }
 
-  private fun setupAdapter(tailorList: List<SearchTailorResponse>) {
-    val adapter = SearchTailorListAdapter(tailorList)
+  private fun setupRecyclerView() {
     with(binding.recyclerViewSearchTailorResult) {
-      this.adapter = adapter
-      adapter.notifyDataSetChanged()
+      layoutManager = LinearLayoutManager(context)
+      adapter = searchTailorListAdapter
     }
-  }
-
-  override fun setupFragmentObserver() {
-    super.setupFragmentObserver()
-
-    viewModel.listOfTailors.observe(viewLifecycleOwner, {
-      setupAdapter(it)
-      setupAdapter(it)
-      if (it.isEmpty()) {
-        showNoDataState()
-      } else {
-        showRecyclerView()
-      }
-    })
   }
 
   private fun showFilterDialog() {

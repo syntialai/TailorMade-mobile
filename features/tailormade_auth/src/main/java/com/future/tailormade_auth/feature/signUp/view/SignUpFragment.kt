@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
+import com.future.tailormade.util.extension.reset
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade_auth.R
@@ -25,7 +26,7 @@ class SignUpFragment : BaseFragment() {
     fun newInstance() = SignUpFragment()
   }
 
-  private val viewModel: SignUpViewModel by viewModels()
+  private val viewModel: SignUpViewModel by activityViewModels()
 
   private lateinit var binding: FragmentSignUpBinding
 
@@ -41,33 +42,36 @@ class SignUpFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     setupDatePicker()
-
     binding = FragmentSignUpBinding.inflate(inflater, container, false)
     with(binding) {
       textInputBirthDateSignUp.setEndIconOnClickListener {
         showDatePicker()
       }
-
       buttonSubmitForm.setOnClickListener {
-        submitForm(
-            editTextNameSignUp.text(),
-            editTextEmailSignUp.text(),
-            editTextBirthDateSignUp.text(),
-            editTextPasswordSignUp.text(),
-            editTextConfirmPasswordSignUp.text(),
-        )
+        submitForm(editTextNameSignUp.text(), editTextEmailSignUp.text(),
+            editTextBirthDateSignUp.text(), editTextPasswordSignUp.text(),
+            editTextConfirmPasswordSignUp.text())
       }
-
       buttonGoToSignIn.setOnClickListener {
         findNavController().navigateUp()
       }
     }
-
     return binding.root
   }
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
+  override fun onPause() {
+    super.onPause()
+    with(binding) {
+      textInputNameSignUp.reset()
+      textInputEmailSignUp.reset()
+      textInputBirthDateSignUp.reset()
+      textInputPasswordSignUp.reset()
+      textInputConfirmPasswordSignUp.reset()
+    }
+  }
+
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
     showToolbar()
   }
 
@@ -81,30 +85,32 @@ class SignUpFragment : BaseFragment() {
   private fun setFormErrorMessage() {
     with(binding) {
       textInputNameSignUp.error = when {
-        editTextNameSignUp.text().isBlank() -> Constants.NAME_IS_EMPTY
+        editTextNameSignUp.text().isBlank() -> getString(R.string.name_is_empty)
         else -> null
       }
 
       textInputEmailSignUp.error = when {
-        editTextEmailSignUp.text().isBlank() -> Constants.EMAIL_IS_EMPTY
-        editTextEmailSignUp.text().isEmailValid().not() -> Constants.EMAIL_IS_NOT_VALID
+        editTextEmailSignUp.text().isBlank() -> getString(R.string.email_is_empty)
+        editTextEmailSignUp.text().isEmailValid().not() -> getString(R.string.email_is_invalid)
         else -> null
       }
 
       textInputBirthDateSignUp.error = when {
-        editTextBirthDateSignUp.text().isBlank() -> Constants.BIRTH_DATE_IS_NOT_SET
+        editTextBirthDateSignUp.text().isBlank() -> getString(R.string.birth_date_is_not_set)
         else -> null
       }
 
       textInputPasswordSignUp.error = when {
-        editTextPasswordSignUp.text().isBlank() -> Constants.PASSWORD_IS_EMPTY
-        editTextPasswordSignUp.text().length <= 8 -> Constants.PASSWORD_IS_NOT_VALID
+        editTextPasswordSignUp.text().isBlank() -> getString(R.string.password_is_empty)
+        editTextPasswordSignUp.text().length <= 8 -> getString(R.string.password_is_invalid)
         else -> null
       }
 
       textInputConfirmPasswordSignUp.error = when {
-        editTextConfirmPasswordSignUp.text().isBlank() -> Constants.CONFIRM_PASSWORD_IS_EMPTY
-        editTextConfirmPasswordSignUp.text() != editTextPasswordSignUp.text() -> Constants.CONFIRM_PASSWORD_MUST_BE_SAME_WITH_PASSWORD
+        editTextConfirmPasswordSignUp.text().isBlank() -> getString(
+            R.string.confirm_password_is_empty)
+        editTextConfirmPasswordSignUp.text() != editTextPasswordSignUp.text() -> getString(
+            R.string.confirm_password_must_same)
         else -> null
       }
     }
@@ -114,7 +120,8 @@ class SignUpFragment : BaseFragment() {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
         R.string.birth_date_picker_title_label).build()
     birthDatePicker.addOnPositiveButtonClickListener {
-      binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY))
+      binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
+      viewModel.setSignUpBirthDate(it)
     }
   }
 
@@ -124,8 +131,9 @@ class SignUpFragment : BaseFragment() {
 
   private fun submitForm(name: String, email: String, birthDate: String, password: String,
       confirmPassword: String) {
+    hideKeyboard()
     if (isFormValid(name, email, birthDate, password, confirmPassword)) {
-      viewModel.setSignUpInfo(name, email, birthDate, password)
+      viewModel.setSignUpInfo(name, email, password)
       findNavController().navigate(
           SignUpFragmentDirections.actionSignUpFragmentToSelectGenderFragment())
     } else {

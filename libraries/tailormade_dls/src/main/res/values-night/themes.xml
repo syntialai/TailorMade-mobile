@@ -48,7 +48,6 @@
         <item name="chipStyle">@style/Theme.TailorMade.Chip</item>
         <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
         <item name="textInputStyle">@style/Theme.TailorMade.TextInputEditText</item>
-        <item name="autoCompleteTextViewStyle">@style/Theme.TailorMade.TextInputEditText.Dropdown</item>
         <item name="bottomNavigationStyle">@style/Theme.TailorMade.BottomNavigation</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeStyle">@style/Theme.TailorMade.ActionMode</item>

@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.FragmentRecentOrderBinding
 import com.future.tailormade.tailor_app.feature.order.adapter.RecentOrderAdapter
 import com.future.tailormade.tailor_app.feature.order.viewModel.RecentOrderViewModel
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade_router.actions.TailorAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,18 +42,15 @@ class RecentOrderFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentRecentOrderBinding.inflate(inflater, container, false)
     with(binding) {
-      chipFilterAllOrder.setOnClickListener {
-        viewModel.filterAllOrders()
-        chipFilterAllOrder.isChecked = true
-      }
-
       chipFilterAcceptedOrder.setOnClickListener {
-        viewModel.filterAcceptedOrders()
+        viewModel.fetchAcceptedOrders()
+        showEmptyState()
         chipFilterAcceptedOrder.isChecked = true
       }
 
       chipFilterRejectedOrder.setOnClickListener {
-        viewModel.filterRejectedOrders()
+        viewModel.fetchRejectedOrders()
+        showEmptyState()
         chipFilterRejectedOrder.isChecked = true
       }
     }
@@ -60,22 +61,28 @@ class RecentOrderFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    viewModel.fetchIncomingOrders()
-    viewModel.recentOrders.observe(viewLifecycleOwner, {
+    viewModel.fetchAcceptedOrders()
+    viewModel.acceptedOrders.observe(viewLifecycleOwner, {
       recentOrderAdapter.submitList(it)
       if (it.isEmpty()) {
-        hideRecyclerView()
         showEmptyState()
       } else {
         showRecyclerView()
-        hideEmptyState()
+      }
+    })
+    viewModel.rejectedOrders.observe(viewLifecycleOwner, {
+      recentOrderAdapter.submitList(it)
+      if (it.isEmpty()) {
+        showEmptyState()
+      } else {
+        showRecyclerView()
       }
     })
   }
 
   private fun goToOrderDetail(id: String) {
     context?.let { context ->
-      // TODO: Call router and go to order detail
+      TailorAction.goToOrderDetail(context, id)
     }
   }
 
@@ -91,14 +98,22 @@ class RecentOrderFragment : BaseFragment() {
     with(binding.recyclerViewRecentOrder) {
       layoutManager = LinearLayoutManager(context)
       adapter = recentOrderAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
     }
   }
 
   private fun showEmptyState() {
     binding.layoutRecentOrderState.root.show()
+    hideRecyclerView()
   }
 
   private fun showRecyclerView() {
     binding.recyclerViewRecentOrder.show()
+    hideEmptyState()
   }
 }

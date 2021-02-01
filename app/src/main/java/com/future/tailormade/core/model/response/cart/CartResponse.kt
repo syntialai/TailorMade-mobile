@@ -22,7 +22,4 @@ data class CartResponse(
     val tailorName: String? = null,
 
     @Expose
-    val userName: String? = null) {
-
-  fun getMockResponse() = this.copy()
-}
+    val userName: String? = null)

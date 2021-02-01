@@ -1,13 +1,14 @@
 package com.future.tailormade.feature.splash.view
 
-import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.activity.viewModels
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.config.Constants
 import com.future.tailormade.databinding.ActivitySplashScreenBinding
-import com.future.tailormade.feature.main.view.MainActivity
 import com.future.tailormade.feature.splash.viewModel.SplashScreenViewModel
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +28,7 @@ class SplashScreenActivity : BaseActivity() {
   }
 
   private fun goToMain() {
-    startActivity(Intent(this, MainActivity::class.java))
+    UserAction.goToMain(this)
     this.finish()
   }
 
@@ -38,11 +39,13 @@ class SplashScreenActivity : BaseActivity() {
 
   private fun setupObserver() {
     viewModel.isTokenExpired.observe(this, {
-      if (it) {
-        goToSignIn()
-      } else {
-        goToMain()
-      }
+      Handler().postDelayed({
+        if (it) {
+          goToSignIn()
+        } else {
+          goToMain()
+        }
+      }, Constants.REFRESH_DELAY_TIME)
     })
   }
 }

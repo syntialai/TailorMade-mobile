@@ -43,8 +43,7 @@ class DashboardPreviewImageAdapter :
     private val context = view.context
 
     fun bind(data: DashboardDesignResponse) {
-      ImageLoader.loadImageUrl(context, data.image,
-          binding.imageViewPreviewDesign)
+      ImageLoader.loadImageUrl(context, data.image, binding.imageViewPreviewDesign)
     }
   }
 }

@@ -5,6 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface DashboardRepository {
 
-  suspend fun getDashboardTailors(lat: Double,
-      lon: Double, page: Int, itemPerPage: Int): Flow<ArrayList<DashboardTailorUiModel>>
+  suspend fun getDashboardTailors(page: Int, itemPerPage: Int): Flow<ArrayList<DashboardTailorUiModel>>
 }

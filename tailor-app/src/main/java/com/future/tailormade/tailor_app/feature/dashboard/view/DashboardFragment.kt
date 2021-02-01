@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -19,6 +22,7 @@ import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade_router.actions.Action
+import com.future.tailormade_router.actions.TailorAction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,6 +52,8 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   override fun getLogName() =
       "com.future.tailormade.tailor_app.feature.dashboard.view.DashboardFragment"
 
+  override fun getScreenName(): String = getString(R.string.app_name)
+
   override fun getViewModel(): BaseViewModel = viewModel
 
   @ExperimentalCoroutinesApi
@@ -56,37 +62,56 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     (activity as MainActivity).injectMainDashboardView(this)
 
     binding = FragmentDashboardBinding.inflate(inflater, container, false)
-    with(binding) {
-      textViewAddDesign.setOnClickListener {
-        // TODO: Go to add design page
-      }
+    binding.buttonAddDesign.setOnClickListener {
+      goToDesignDetail()
     }
     setupRecyclerView()
     setupSwipeRefreshLayout()
     return binding.root
   }
 
+  @ExperimentalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
+    viewModel.fetchTailorDesigns()
     viewModel.designs.observe(viewLifecycleOwner, {
-      dashboardAdapter.submitList(it)
-      if (it.isEmpty()) {
-        showState()
-        hideRecyclerView()
-      } else {
-        hideState()
-        showRecyclerView()
+      it?.let { designs ->
+        dashboardAdapter.submitList(designs)
+        if (designs.isEmpty()) {
+          showState()
+        } else {
+          showRecyclerView()
+        }
+        binding.swipeRefreshLayoutDashboard.isRefreshing = false
       }
-      binding.swipeRefreshLayoutDashboard.isRefreshing = false
     })
   }
 
+  override fun setAllSelected(selected: Boolean) {
+    viewModel.selectAllDesigns(selected)
+  }
+
+  override fun showConfirmDeleteDialog() {
+    deleteDesignDialog?.setMessage(
+        getDialogMessage(viewModel.selectedDesigns.value?.size.orZero()))?.setPositiveButton(
+        R.string.delete_alert_dialog_delete_button) { dialog, _ ->
+      viewModel.deleteDesigns()
+      dialog.dismiss()
+    }?.show()
+  }
+
   @ExperimentalCoroutinesApi
-  fun setupRecyclerView() {
+  private fun setupRecyclerView() {
     with(binding.recyclerViewTailorDesignsList) {
       layoutManager = GridLayoutManager(context, 2)
       adapter = dashboardAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
 
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -111,25 +136,16 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     }
   }
 
-  override fun setAllSelected(selected: Boolean) {
-    viewModel.selectAllDesigns(selected)
-  }
-
-  override fun showConfirmDeleteDialog() {
-    deleteDesignDialog?.setMessage(
-        getDialogMessage(viewModel.selectedDesigns.value?.size.orZero()))?.setPositiveButton(
-        R.string.delete_alert_dialog_delete_button) { dialog, _ ->
-      viewModel.deleteDesigns()
-      dialog.dismiss()
-    }?.show()
-  }
-
   private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
       R.plurals.delete_design_alert_dialog_content, quantity, quantity)
 
-  private fun goToDesignDetail(id: String) {
+  private fun goToDesignDetail(id: String? = null) {
     context?.let { context ->
-      Action.goToDesignDetail(context, id)
+      id?.let {
+        Action.goToDesignDetail(context, it)
+      } ?: run {
+        TailorAction.goToAddDesignDetail(context)
+      }
     }
   }
 
@@ -148,9 +164,11 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
 
   private fun showRecyclerView() {
     binding.recyclerViewTailorDesignsList.show()
+    hideState()
   }
 
   private fun showState() {
     binding.layoutDashboardState.root.show()
+    hideRecyclerView()
   }
 }

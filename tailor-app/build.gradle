@@ -12,7 +12,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.future.tailormade"
+        applicationId "com.future.tailormade.tailor"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -73,8 +73,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
 
     // Libraries
-    api project(":libraries:tailormade_dls")
-    implementation project(":libraries:tailormade_base")
+    api project(":libraries:tailormade_base")
     implementation project(":libraries:tailormade_router")
 
     // Features
@@ -83,9 +82,6 @@ dependencies {
     implementation project(":features:tailormade_profile")
     implementation project(":features:tailormade_chat")
     implementation project(":features:tailormade_design_detail")
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     // Tests
     testImplementation test.junit
@@ -94,16 +90,11 @@ dependencies {
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
 
-    // Paging
-    testImplementation paging.test_common
-
     // Annotation Processing
     kapt dataBinding.kapt
 
     // Glide
     kapt glide.kapt
-
-    implementation materialDesign
 
     // Dagger 2
     kapt dagger.kapt_processor

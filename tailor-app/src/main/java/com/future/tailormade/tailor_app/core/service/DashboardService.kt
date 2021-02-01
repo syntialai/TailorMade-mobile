@@ -8,5 +8,6 @@ import retrofit2.http.Path
 interface DashboardService {
 
   @DELETE(TailorAppApiUrl.TAILORS_ID_DESIGNS_ID_PATH)
-  fun deleteDesignById(@Path("tailorId") tailorId: String, @Path("id") id: String): BaseResponse
+  suspend fun deleteDesignById(
+      @Path("tailorId") tailorId: String, @Path("id") id: String): BaseResponse
 }

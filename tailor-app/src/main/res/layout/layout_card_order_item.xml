@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_16"
+    android:layout_margin="@dimen/dp_1"
     android:clickable="true"
     android:elevation="@dimen/dp_4"
-    android:focusable="true">
+    android:focusable="true"
+    app:cardElevation="@dimen/dp_4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -112,39 +113,40 @@
 
         <include
             android:id="@+id/layout_order_total"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginHorizontal="@dimen/dp_8"
             android:layout_marginTop="@dimen/dp_12"
             layout="@layout/layout_ordered_total"
             app:layout_constraintStart_toEndOf="@id/image_view_ordered"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_ordered_price" />
 
         <Button
-            android:id="@+id/button_accept_order"
+            android:id="@+id/button_reject_order"
             style="@style/Theme.TailorMade.Button.Outlined.Rounded.Red"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
-            android:text="@string/accept_label"
+            android:text="@string/reject_label"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_order_total"
-            app:layout_constraintEnd_toStartOf="@+id/button_reject_order"
-            app:layout_constraintHorizontal_chainStyle="spread" />
+            app:layout_constraintEnd_toStartOf="@id/button_accept_order" />
 
         <Button
-            android:id="@+id/button_reject_order"
+            android:id="@+id/button_accept_order"
             style="@style/Theme.TailorMade.Button.Outlined.Rounded.Green"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_16"
-            android:text="@string/reject_label"
+            android:text="@string/accept_label"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/button_accept_order"
+            app:layout_constraintStart_toEndOf="@+id/button_reject_order"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_order_total"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintHorizontal_chainStyle="spread" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/group_tailor_button"

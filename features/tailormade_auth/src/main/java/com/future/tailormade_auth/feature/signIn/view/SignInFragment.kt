@@ -8,11 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
+import com.future.tailormade.util.extension.reset
 import com.future.tailormade.util.extension.text
+import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
+import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -40,24 +42,42 @@ class SignInFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentSignInBinding.inflate(inflater, container, false)
-
     with(binding) {
       buttonSignIn.setOnClickListener {
         submitEmailAndPassword(editTextEmailSignIn.text(), editTextPasswordSignIn.text())
+        hideKeyboard()
       }
-
       buttonGoToSignUp.setOnClickListener {
         findNavController().navigate(
             SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
       }
     }
-
     return binding.root
   }
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
+  override fun onPause() {
+    super.onPause()
+    with(binding) {
+      textInputEmailSignIn.reset()
+      textInputPasswordSignIn.reset()
+    }
+  }
+
+  override fun setupFragmentObserver() {
+    super.setupFragmentObserver()
+
     hideToolbar()
+    viewModel.userInfo.observe(viewLifecycleOwner, {
+      it?.let {
+        goToMain()
+      }
+    })
+  }
+
+  private fun goToMain() {
+    context?.let {
+      UserAction.goToMain(it)
+    }
   }
 
   private fun isFormValid(email: String, password: String): Boolean =
@@ -66,13 +86,13 @@ class SignInFragment : BaseFragment() {
   private fun setFormErrorMessage() {
     with(binding) {
       textInputEmailSignIn.error = when {
-        editTextEmailSignIn.text().isBlank() -> Constants.EMAIL_IS_EMPTY
-        editTextEmailSignIn.text().isEmailValid().not() -> Constants.EMAIL_IS_NOT_VALID
+        editTextEmailSignIn.text().isBlank() -> getString(R.string.email_is_empty)
+        editTextEmailSignIn.text().isEmailValid().not() -> getString(R.string.email_is_invalid)
         else -> null
       }
 
       textInputPasswordSignIn.error = when {
-        editTextPasswordSignIn.text().isBlank() -> Constants.PASSWORD_IS_EMPTY
+        editTextPasswordSignIn.text().isBlank() -> getString(R.string.password_is_empty)
         else -> null
       }
     }

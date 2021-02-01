@@ -5,12 +5,12 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.core.model.ui.orderDetail.OrderDetailUiModel
 import com.future.tailormade.tailor_app.core.repository.OrderRepository
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
@@ -31,7 +31,7 @@ class OrderDetailViewModel @ViewModelInject constructor(
     get() = _orderDetailUiModel
 
   init {
-    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL_UI_MODEL, null)
+    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL_UI_MODEL)
   }
 
   fun fetchOrderDetail(id: String) {
@@ -43,9 +43,8 @@ class OrderDetailViewModel @ViewModelInject constructor(
           setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_FETCH_ORDER_DETAIL)
         }.collectLatest {
-          _orderDetailUiModel.value = it
-          savedStateHandle.set(ORDER_DETAIL_UI_MODEL, _orderDetailUiModel.value)
           setFinishLoading()
+          _orderDetailUiModel.value = it
         }
       }
     }

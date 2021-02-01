@@ -14,11 +14,12 @@ class OrderRepositoryImpl @Inject constructor(private val orderService: OrderSer
   override fun getLogName() =
       "com.future.tailormade.tailor_app.core.repository.impl.OrderRepositoryImpl"
 
-  override suspend fun getOrders(tailorId: String, status: String) = flow {
-    val response = orderService.getTailorOrders(tailorId, status).data
+  override suspend fun getOrders(tailorId: String, status: String, page: Int, itemPerPage: Int) = flow {
+    val response = orderService.getTailorOrders(tailorId, status, page, itemPerPage).data
     response?.let { data ->
       emit(data.map { OrderMapper.mapToOrderUiModel(it) } as ArrayList)
     }
+//    emit(DataMock.getOrdersMock())
   }.flowOnIO()
 
   override suspend fun getOrderDetail(tailorId: String, id: String) = flow {
@@ -26,6 +27,7 @@ class OrderRepositoryImpl @Inject constructor(private val orderService: OrderSer
     response?.let { data ->
       emit(OrderMapper.mapToOrderDetailUiModel(data))
     }
+//    emit(DataMock.getOrderDetailMock())
   }.flowOnIO()
 
   override suspend fun acceptOrder(tailorId: String, id: String) = flow {

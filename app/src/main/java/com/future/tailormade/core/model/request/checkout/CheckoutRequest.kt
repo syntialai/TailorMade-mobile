@@ -2,7 +2,7 @@ package com.future.tailormade.core.model.request.checkout
 
 data class CheckoutRequest(
 
-    val measurement: CheckoutMeasurementRequest,
+    val measurements: CheckoutMeasurementRequest,
 
-    val specialInstructions: String? = null
+    val specialInstructions: String
 )

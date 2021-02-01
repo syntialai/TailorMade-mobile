@@ -24,4 +24,8 @@
     <string name="add_size_label">Add Size</string>
     <string name="detail_label">Detail</string>
     <string name="cm_label">cm</string>
+
+    <string name="design_added">Design added.</string>
+    <string name="design_updated">Design updated.</string>
+    <string name="design_added_to_cart">Design successfully added to cart.</string>
 </resources>

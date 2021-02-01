@@ -11,21 +11,7 @@
         android:id="@+id/tab_layout_orders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_item_incoming_orders"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/incoming_label" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_item_recent_orders"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/recent_label" />
-
-    </com.google.android.material.tabs.TabLayout>
+        app:tabMode="fixed" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_orders"

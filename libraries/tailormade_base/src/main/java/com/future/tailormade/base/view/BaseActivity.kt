@@ -1,6 +1,7 @@
 package com.future.tailormade.base.view
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 abstract class BaseActivity : AppCompatActivity() {
+
+  companion object {
+    const val READ_EXTERNAL_STORAGE_PERMISSION = 1001
+  }
 
   open fun getScreenName(): String = "BaseActivity"
 
@@ -52,6 +57,14 @@ abstract class BaseActivity : AppCompatActivity() {
   override fun onDestroy() {
     appLogger.logLifecycleOnDestroy()
     super.onDestroy()
+  }
+
+  fun checkPermission(permission: String, requestCode: Int, onPermitted: () -> Unit) {
+    if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
+      onPermitted.invoke()
+    } else {
+      requestPermissions(arrayOf(permission), requestCode)
+    }
   }
 
   fun hideKeyboard() {

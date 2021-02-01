@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.FragmentIncomingOrderBinding
 import com.future.tailormade.tailor_app.feature.order.adapter.IncomingOrderAdapter
 import com.future.tailormade.tailor_app.feature.order.viewModel.IncomingOrderViewModel
@@ -25,7 +28,7 @@ class IncomingOrderFragment : BaseFragment() {
   private lateinit var binding: FragmentIncomingOrderBinding
 
   private val incomingOrderAdapter by lazy {
-    IncomingOrderAdapter(this::onAcceptOrder, this::onRejectOrder)
+    IncomingOrderAdapter(viewModel::acceptOrder, viewModel::rejectOrder)
   }
   private val viewModel: IncomingOrderViewModel by viewModels()
 
@@ -48,11 +51,9 @@ class IncomingOrderFragment : BaseFragment() {
     viewModel.incomingOrders.observe(viewLifecycleOwner, {
       incomingOrderAdapter.submitList(it)
       if (it.isEmpty()) {
-        hideRecyclerView()
         showEmptyState()
       } else {
         showRecyclerView()
-        hideEmptyState()
       }
     })
     viewModel.hasOrderResponded.observe(viewLifecycleOwner, {
@@ -70,26 +71,26 @@ class IncomingOrderFragment : BaseFragment() {
     binding.recyclerViewIncomingOrder.remove()
   }
 
-  private fun onAcceptOrder(id: String) {
-    viewModel.acceptOrder(id)
-  }
-
-  private fun onRejectOrder(id: String) {
-    viewModel.rejectOrder(id)
-  }
-
   private fun setupRecyclerView() {
     with(binding.recyclerViewIncomingOrder) {
       layoutManager = LinearLayoutManager(context)
       adapter = incomingOrderAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+          setDrawable(it)
+        }
+      })
     }
   }
 
   private fun showEmptyState() {
     binding.layoutIncomingOrderState.root.show()
+    hideRecyclerView()
   }
 
   private fun showRecyclerView() {
     binding.recyclerViewIncomingOrder.show()
+    hideEmptyState()
   }
 }

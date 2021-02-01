@@ -2,11 +2,16 @@ package com.future.tailormade_chat.feature.view
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.util.extension.text
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
+import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_chat.R
 import com.future.tailormade_chat.core.model.entity.ChatRoom
 import com.future.tailormade_chat.databinding.ActivityChatRoomBinding
@@ -22,7 +27,8 @@ import javax.inject.Inject
 class ChatRoomActivity : BaseActivity() {
 
   companion object {
-    private const val PARAM_CHAT_ROOM_ID = "PARAM_CHAT_ROOM_ID"
+    private const val PARAM_CHAT_ROOM_USER_ID = "PARAM_CHAT_ROOM_USER_ID"
+    private const val PARAM_CHAT_ROOM_USER_NAME = "PARAM_CHAT_ROOM_USER_NAME"
   }
 
   @Inject
@@ -37,8 +43,11 @@ class ChatRoomActivity : BaseActivity() {
 
       @RequiresApi(Build.VERSION_CODES.N)
       override fun onDataChange(snapshot: DataSnapshot) {
-        val chatRoom = snapshot.value as ChatRoom
-        adapter.submitList(chatRoom.chats.values.toList())
+        val chatRoom = snapshot.getValue(ChatRoom::class.java)
+        chatRoom?.chats?.let {
+          chatRoomAdapter.submitList(it.toSortedMap().values.toList())
+          binding.recyclerViewChatRoom.scrollToPosition(it.size)
+        }
       }
 
       override fun onCancelled(error: DatabaseError) {
@@ -46,52 +55,86 @@ class ChatRoomActivity : BaseActivity() {
       }
     }
   }
-  private val adapter by lazy {
+  private val chatRoomAdapter by lazy {
     ChatRoomAdapter(authSharedPrefRepository.userId.orEmpty())
   }
+
+  override fun getScreenName(): String = "Chat"
 
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityChatRoomBinding.inflate(layoutInflater)
-    toolbar = binding.topToolbarChatRoom
-
-    with(binding) {
-      layoutInputTextChatRoom.buttonSendMessage.setOnClickListener {
-        sendMessage()
+    setContentView(binding.root)
+    setupToolbar()
+    with(binding.layoutInputTextChatRoom) {
+      buttonSendMessage.setOnClickListener {
+        sendMessage(editTextMessageChatRoom.text())
       }
     }
-
-    setContentView(binding.root)
-    setSupportActionBar(toolbar)
-    setupOnNavigationIconClicked {
-      finish()
-    }
-
-    getIntentData()
+    setupRecyclerView()
+    getChatRoom()
     setupObserver()
   }
 
-  private fun getIntentData() {
-    intent.getStringExtra(PARAM_CHAT_ROOM_ID)?.let { chatRoomId ->
-      viewModel.setChatRoomId(chatRoomId)
+  private fun getChatRoom() {
+    val userId = intent.getStringExtra(PARAM_CHAT_ROOM_USER_ID)
+    val userName = intent.getStringExtra(PARAM_CHAT_ROOM_USER_NAME)
+    userId?.let { id ->
+      userName?.let { name ->
+        viewModel.setChatRoomId(id, name)
+      }
     }
   }
 
+  private fun removeMessage() {
+    binding.layoutInputTextChatRoom.editTextMessageChatRoom.text = null
+    viewModel.setIsSent(null)
+  }
+
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun sendMessage() {
-    if (binding.layoutInputTextChatRoom.editTextMessageChatRoom.text().isBlank().not()) {
+  private fun sendMessage(text: String) {
+    if (text.isNotBlank()) {
       viewModel.sendMessage(binding.layoutInputTextChatRoom.editTextMessageChatRoom.text())
     }
   }
 
   private fun setupObserver() {
-    viewModel.chatRoomId.observe(this, {
-      viewModel.fetchChatRoomData()
-    })
-
     viewModel.chatRoomContent.observe(this, {
       it.addValueEventListener(adapterValueEventListener)
+      viewModel.readChat()
     })
+
+    viewModel.isMessageSent.observe(this, {
+      it?.let { isSent ->
+        if (isSent) {
+          removeMessage()
+        } else {
+          ToastHelper.showToast(
+              binding.recyclerViewChatRoom, getString(R.string.send_message_error_message))
+        }
+      }
+    })
+  }
+
+  private fun setupRecyclerView() {
+    with(binding.recyclerViewChatRoom) {
+      layoutManager = LinearLayoutManager(this@ChatRoomActivity)
+      adapter = chatRoomAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.chat_item_separator)?.let {
+          setDrawable(it)
+        }
+      })
+    }
+  }
+
+  private fun setupToolbar() {
+    toolbar = binding.topToolbarChatRoom
+    setupOnNavigationIconClicked {
+      finish()
+    }
+    setupToolbar(intent.getStringExtra(PARAM_CHAT_ROOM_USER_NAME) ?: getScreenName())
   }
 }

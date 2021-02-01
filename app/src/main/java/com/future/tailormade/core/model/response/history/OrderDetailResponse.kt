@@ -28,5 +28,4 @@ data class OrderDetailResponse(
 
     val userId: String,
 
-    val userName: String
-)
+    val userName: String)
