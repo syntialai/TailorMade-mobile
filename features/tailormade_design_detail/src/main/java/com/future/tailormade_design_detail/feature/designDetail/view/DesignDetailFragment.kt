@@ -113,10 +113,10 @@ class DesignDetailFragment : BaseFragment() {
       })
       viewModel.isAddedToCart.observe(viewLifecycleOwner, {
         it?.let { isAdded ->
-          if (isAdded.second) {
+          if (isAdded.second.isNullOrBlank().not()) {
             when (isAdded.first) {
               TYPE_ADD_TO_CART -> showSuccessAddCartToast()
-              TYPE_CHECKOUT -> checkoutItem(viewModel.designDetailResponse.value?.id.orEmpty())
+              TYPE_CHECKOUT -> checkoutItem(isAdded.second.orEmpty())
             }
           }
         }
