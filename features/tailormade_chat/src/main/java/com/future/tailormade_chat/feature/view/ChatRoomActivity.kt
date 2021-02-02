@@ -46,7 +46,7 @@ class ChatRoomActivity : BaseActivity() {
         val chatRoom = snapshot.getValue(ChatRoom::class.java)
         chatRoom?.chats?.let {
           chatRoomAdapter.submitList(it.toSortedMap().values.toList())
-          binding.recyclerViewChatRoom.scrollToPosition(it.size)
+          binding.recyclerViewChatRoom.scrollToPosition(it.size - 1)
         }
       }
 
