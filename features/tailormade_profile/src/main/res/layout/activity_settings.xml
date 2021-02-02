@@ -18,7 +18,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
-        android:id="@+id/fl_settings"
+        android:id="@+id/layout_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

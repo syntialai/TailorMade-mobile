@@ -32,7 +32,10 @@
     <string name="pref_title_help_settings">Help</string>
     <string name="pref_title_about_settings">About</string>
     <string name="pref_title_sign_out_settings">Sign out</string>
+
     <string name="settings_label">Settings</string>
     <string name="edit_profile_label">Edit Profile</string>
     <string name="design_label">Design</string>
+
+    <string name="about_message">TailorMade is application that connects user and tailor to make some transaction.</string>
 </resources>

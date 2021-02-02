@@ -26,7 +26,6 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.mapper.DesignDetailMapper
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
@@ -129,10 +128,10 @@ class AddOrEditDesignFragment : BaseFragment() {
   }
 
   private fun showSuccessToast() {
-    val message = getString(args.designDetail?.let {
+    val messageId = args.designDetail?.let {
       R.string.design_added
-    } ?: R.string.design_updated)
-    ToastHelper.showToast(binding.root, message)
+    } ?: R.string.design_updated
+    showSuccessToast(messageId)
   }
 
   private fun addSizeChip(text: String, sizeDetail: SizeDetailUiModel) {
