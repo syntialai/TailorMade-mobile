@@ -34,7 +34,9 @@ class CartRepositoryImpl @Inject constructor(private val cartService: CartServic
 
   override suspend fun editCartItemQuantity(userId: String, id: String,
       editQuantityRequest: CartEditQuantityRequest) = flow {
-    emit(cartService.putEditCartItemQuantity(userId, id, editQuantityRequest))
+    cartService.putEditCartItemQuantity(userId, id, editQuantityRequest).data?.let {
+      emit(it)
+    }
   }.flowOnIO()
 
   override suspend fun deleteCartItemById(userId: String, id: String) = flow {
