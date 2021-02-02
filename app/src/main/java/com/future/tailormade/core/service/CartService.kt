@@ -7,6 +7,7 @@ import com.future.tailormade.core.api.AppApiUrl
 import com.future.tailormade.core.model.request.cart.CartEditQuantityRequest
 import com.future.tailormade.core.model.response.cart.CartEditQuantityResponse
 import com.future.tailormade.core.model.response.cart.CartResponse
+import com.future.tailormade_design_detail.core.model.response.AddToCartResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -31,6 +32,6 @@ interface CartService {
       BaseSingleObjectResponse<CartEditQuantityResponse>
 
   @DELETE(AppApiUrl.USERS_ID_WISHLISTS_ID_PATH)
-  suspend fun deleteCartItemById(
-      @Path("userId") userId: String, @Path("id") id: String): BaseResponse
+  suspend fun deleteCartItemById(@Path("userId") userId: String,
+      @Path("id") id: String): BaseSingleObjectResponse<AddToCartResponse>
 }

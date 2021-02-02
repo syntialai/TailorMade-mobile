@@ -115,7 +115,7 @@ class DesignDetailFragment : BaseFragment() {
         it?.let { isAdded ->
           if (isAdded.second.isNullOrBlank().not()) {
             when (isAdded.first) {
-              TYPE_ADD_TO_CART -> showSuccessAddCartToast()
+              TYPE_ADD_TO_CART -> showSuccessToast(R.string.design_added_to_cart)
               TYPE_CHECKOUT -> checkoutItem(isAdded.second.orEmpty())
             }
           }
@@ -301,9 +301,5 @@ class DesignDetailFragment : BaseFragment() {
       textViewDesignDetailBeforeDiscountPrice.show()
       textViewDesignDetailPrice.hide()
     }
-  }
-
-  private fun showSuccessAddCartToast() {
-    ToastHelper.showToast(binding.root, getString(R.string.design_added_to_cart))
   }
 }

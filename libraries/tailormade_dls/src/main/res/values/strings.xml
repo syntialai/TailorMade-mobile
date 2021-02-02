@@ -63,5 +63,6 @@
     <string name="order_total_status_label">Status</string>
 
     <string name="action_close">Close</string>
-    <string name="loading_dialog_text">Please Wait...</string>
+    <string name="loading_dialog_text">Please Wait…</string>
+    <string name="delete_cart_item_text">Cart item deleted.</string>
 </resources>

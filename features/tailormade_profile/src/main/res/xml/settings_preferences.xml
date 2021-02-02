@@ -2,15 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
-        android:key="@string/pref_title_notification_settings"
-        android:icon="@drawable/ic_notification"
-        android:title="@string/pref_title_notification_settings">
-        <intent android:action="android.settings.CHANNEL_NOTIFICATION_SETTINGS" />
-    </Preference>
+        android:key="@string/pref_title_about_settings"
+        android:icon="@drawable/ic_info"
+        android:title="@string/pref_title_about_settings" />
 
     <Preference
         android:key="@string/pref_title_sign_out_settings"
         android:icon="@drawable/ic_sign_out"
-        android:title="@string/pref_title_sign_out_settings">
-    </Preference>
+        android:title="@string/pref_title_sign_out_settings" />
 </PreferenceScreen>

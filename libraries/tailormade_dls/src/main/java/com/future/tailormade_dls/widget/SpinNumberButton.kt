@@ -2,6 +2,7 @@ package com.future.tailormade_dls.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.future.tailormade_dls.databinding.LayoutSpinButtonNumberBinding
@@ -23,21 +24,8 @@ class SpinNumberButton constructor(context: Context, attrs: AttributeSet) :
 
   init {
     setValue(DEFAULT_VALUE)
+    setupListener()
     disableReduceButton()
-  }
-
-  fun add() {
-    spinValue.inc()
-    setValueText()
-    addSpinNumberButtonListener?.invoke(spinValue)
-  }
-
-  fun reduce() {
-    if (spinValue > 1) {
-      spinValue.dec()
-      setValueText()
-      reduceSpinNumberButtonListener?.invoke(spinValue)
-    }
   }
 
   fun getValue(): Int = spinValue
@@ -53,6 +41,31 @@ class SpinNumberButton constructor(context: Context, attrs: AttributeSet) :
 
   fun setReduceSpinNumberButtonListener(listener: (Int) -> Unit) {
     reduceSpinNumberButtonListener = listener
+  }
+
+  private fun add() {
+    spinValue += 1
+    setValueText()
+    addSpinNumberButtonListener?.invoke(spinValue)
+  }
+
+  private fun reduce() {
+    if (spinValue > 1) {
+      spinValue -= 1
+      setValueText()
+      reduceSpinNumberButtonListener?.invoke(spinValue)
+    }
+  }
+
+  private fun setupListener() {
+    with(binding) {
+      spinButtonNumberAdd.setOnClickListener {
+        add()
+      }
+      spinButtonNumberReduce.setOnClickListener {
+        reduce()
+      }
+    }
   }
 
   private fun setValueText() {

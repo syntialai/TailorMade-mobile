@@ -16,6 +16,7 @@ import com.future.tailormade.feature.cart.viewModel.CartViewModel
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_router.actions.Action
 import com.future.tailormade_router.actions.UserAction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,7 +32,7 @@ class CartFragment : BaseFragment() {
 
   private val viewModel: CartViewModel by viewModels()
   private val cartAdapter by lazy {
-    CartAdapter(this::deleteItem, this::checkoutItem, this::editItemQuantityListener,
+    CartAdapter(this::deleteItem, this::checkoutItem, viewModel::editCartItemQuantity,
         this::goToDesignDetail)
   }
   private val deleteAlertDialog by lazy {
@@ -51,6 +52,7 @@ class CartFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
+  @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentCartBinding.inflate(inflater, container, false)
@@ -68,9 +70,18 @@ class CartFragment : BaseFragment() {
         cartAdapter.submitList(carts)
         if (carts.isNotEmpty()) {
           showRecyclerView()
+          cartAdapter.notifyDataSetChanged()
         } else {
           hideRecyclerView()
         }
+      }
+    })
+    viewModel.hasBeenDeleted.observe(viewLifecycleOwner, {
+      it?.let { hasBeenDeleted ->
+         if (hasBeenDeleted) {
+           showSuccessToast(R.string.delete_cart_item_text)
+           viewModel.setHasBeenDeleted(false)
+         }
       }
     })
   }
@@ -87,10 +98,6 @@ class CartFragment : BaseFragment() {
       viewModel.deleteCartItem(id)
       dialog.dismiss()
     }?.show()
-  }
-
-  private fun editItemQuantityListener(id: String, quantity: Int) {
-    viewModel.editCartItemQuantity(id, quantity)
   }
 
   private fun goToDesignDetail(id: String) {

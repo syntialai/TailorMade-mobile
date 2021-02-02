@@ -15,7 +15,6 @@ import com.future.tailormade.util.extension.onError
 import com.future.tailormade.util.extension.orEmptyList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class CartViewModel @ViewModelInject constructor(private val cartRepository: CartRepository,
     private val authSharedPrefRepository: AuthSharedPrefRepository,
@@ -30,6 +29,10 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   private var _cartUiModel = MutableLiveData<ArrayList<CartUiModel>>()
   val cartUiModel: LiveData<ArrayList<CartUiModel>>
     get() = _cartUiModel
+
+  private var _hasBeenDeleted = MutableLiveData<Boolean>()
+  val hasBeenDeleted: LiveData<Boolean>
+    get() = _hasBeenDeleted
 
   init {
     _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL, arrayListOf())
@@ -54,21 +57,6 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
     fetchCartData()
   }
 
-  fun editCartItemQuantity(id: String, quantity: Int) {
-    val request = CartEditQuantityRequest(quantity)
-    launchViewModelScope {
-      authSharedPrefRepository.userId?.let { userId ->
-        cartRepository.editCartItemQuantity(userId, id, request).onError {
-          setErrorMessage(Constants.FAILED_TO_UPDATE_YOUR_CART_ITEM)
-        }.collectLatest { response ->
-          response.data?.let {
-            setQuantity(it.id, it.quantity)
-          }
-        }
-      }
-    }
-  }
-
   fun deleteCartItem(id: String) {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { userId ->
@@ -76,24 +64,48 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
           setErrorMessage(Constants.FAILED_TO_DELETE_CART_ITEM)
         }.collectLatest {
           deleteUiModelItem(id)
+          setHasBeenDeleted(true)
         }
       }
     }
   }
 
+  fun editCartItemQuantity(id: String, quantity: Int) {
+    val request = CartEditQuantityRequest(quantity)
+    launchViewModelScope {
+      authSharedPrefRepository.userId?.let { userId ->
+        cartRepository.editCartItemQuantity(userId, id, request).onError {
+          setErrorMessage(Constants.FAILED_TO_UPDATE_YOUR_CART_ITEM)
+        }.collectLatest {
+          setQuantity(it.id, it.quantity)
+        }
+      }
+    }
+  }
+
+  fun setHasBeenDeleted(value: Boolean) {
+    _hasBeenDeleted.value = value
+  }
+
   private fun deleteUiModelItem(id: String) {
     val cartItemIndex = getCartItemIndex(id)
     cartItemIndex?.let {
-      _cartUiModel.value?.removeAt(it)
+      val carts = getCarts()
+      carts.removeAt(it)
+      _cartUiModel.value = carts
     }
   }
 
   private fun getCartItemIndex(id: String) = _cartUiModel.value?.indexOfFirst { it.id == id }
 
+  private fun getCarts() = _cartUiModel.value.orEmptyList()
+
   private fun setQuantity(id: String, quantity: Int) {
     val cartItemIndex = getCartItemIndex(id)
     cartItemIndex?.let {
-      _cartUiModel.value?.get(it)?.quantity = quantity
+      val carts = getCarts()
+      carts[it].quantity = quantity
+      _cartUiModel.value = carts
     }
   }
 }
