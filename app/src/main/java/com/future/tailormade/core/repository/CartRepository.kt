@@ -1,9 +1,9 @@
 package com.future.tailormade.core.repository
 
-import com.future.tailormade.base.model.response.BaseResponse
 import com.future.tailormade.core.model.request.cart.CartEditQuantityRequest
 import com.future.tailormade.core.model.response.cart.CartEditQuantityResponse
 import com.future.tailormade.core.model.ui.cart.CartUiModel
+import com.future.tailormade_design_detail.core.model.response.AddToCartResponse
 import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
@@ -15,5 +15,5 @@ interface CartRepository {
   suspend fun editCartItemQuantity(userId: String, id: String,
       editQuantityRequest: CartEditQuantityRequest): Flow<CartEditQuantityResponse>
 
-  suspend fun deleteCartItemById(userId: String, id: String): Flow<BaseResponse>
+  suspend fun deleteCartItemById(userId: String, id: String): Flow<AddToCartResponse>
 }

@@ -12,6 +12,7 @@ import com.future.tailormade.core.model.request.cart.CartEditQuantityRequest
 import com.future.tailormade.core.model.ui.cart.CartUiModel
 import com.future.tailormade.core.repository.CartRepository
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orEmptyList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 
@@ -89,16 +90,22 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   private fun deleteUiModelItem(id: String) {
     val cartItemIndex = getCartItemIndex(id)
     cartItemIndex?.let {
-      _cartUiModel.value?.removeAt(it)
+      val carts = getCarts()
+      carts.removeAt(it)
+      _cartUiModel.value = carts
     }
   }
 
   private fun getCartItemIndex(id: String) = _cartUiModel.value?.indexOfFirst { it.id == id }
 
+  private fun getCarts() = _cartUiModel.value.orEmptyList()
+
   private fun setQuantity(id: String, quantity: Int) {
     val cartItemIndex = getCartItemIndex(id)
     cartItemIndex?.let {
-      _cartUiModel.value?.get(it)?.quantity = quantity
+      val carts = getCarts()
+      carts[it].quantity = quantity
+      _cartUiModel.value = carts
     }
   }
 }

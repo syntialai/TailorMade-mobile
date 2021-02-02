@@ -3,6 +3,7 @@ package com.future.tailormade.base.view
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -131,6 +132,12 @@ abstract class BaseFragment : Fragment() {
   fun hideToolbar() {
     activity?.let { activity ->
       (activity as BaseActivity).hideToolbar()
+    }
+  }
+
+  fun showSuccessToast(messageId: Int) {
+    activity?.findViewById<View>(android.R.id.content)?.let {
+      ToastHelper.showToast(it, getString(messageId))
     }
   }
 

@@ -79,7 +79,8 @@ class CartFragment : BaseFragment() {
     viewModel.hasBeenDeleted.observe(viewLifecycleOwner, {
       it?.let { hasBeenDeleted ->
          if (hasBeenDeleted) {
-           showSuccessDeleteToast()
+           showSuccessToast(R.string.delete_cart_item_text)
+           viewModel.setHasBeenDeleted(false)
          }
       }
     })
@@ -136,9 +137,5 @@ class CartFragment : BaseFragment() {
       layoutCartEmptyState.root.remove()
       recyclerViewCartList.show()
     }
-  }
-
-  private fun showSuccessDeleteToast() {
-    ToastHelper.showToast(binding.root, getString(R.string.delete_cart_item_text))
   }
 }
