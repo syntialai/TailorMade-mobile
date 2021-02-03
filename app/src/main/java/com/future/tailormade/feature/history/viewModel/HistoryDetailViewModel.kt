@@ -13,7 +13,6 @@ import com.future.tailormade.core.repository.OrderRepository
 import com.future.tailormade.util.extension.onError
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class HistoryDetailViewModel @ViewModelInject constructor(
     private val orderRepository: OrderRepository,
@@ -31,7 +30,7 @@ class HistoryDetailViewModel @ViewModelInject constructor(
     get() = _orderDetailUiModel
 
   init {
-    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL, null)
+    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL)
   }
 
   @ExperimentalCoroutinesApi

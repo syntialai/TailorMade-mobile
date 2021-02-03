@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         layout="@layout/layout_size_information_detail_skeleton" />
 
-    <TextView
+    <View
         android:id="@+id/text_view_history_detail_special_instructions_title"
         android:layout_width="@dimen/dp_180"
         android:layout_height="@dimen/dp_20"

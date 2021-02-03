@@ -47,7 +47,7 @@ class HistoryDetailFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentHistoryDetailBinding.inflate(inflater, container, false)
-    showSkeleton(binding.root, R.layout.layout_history_detail_skeleton)
+    showSkeleton(binding.layoutHistoryDetail, R.layout.layout_history_detail_skeleton)
     return binding.root
   }
 
