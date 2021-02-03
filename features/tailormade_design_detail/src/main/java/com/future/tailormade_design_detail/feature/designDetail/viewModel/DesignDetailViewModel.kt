@@ -44,8 +44,8 @@ class DesignDetailViewModel @ViewModelInject constructor(
   private var addToCartRequest: AddToCartRequest? = null
 
   init {
-    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE, null)
-    _designDetailUiModel = savedStateHandle.getLiveData(DESIGN_DETAIL_UI_MODEL, null)
+    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE)
+    _designDetailUiModel = savedStateHandle.getLiveData(DESIGN_DETAIL_UI_MODEL)
   }
 
   override fun getLogName() =
