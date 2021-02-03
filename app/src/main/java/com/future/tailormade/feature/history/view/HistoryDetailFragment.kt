@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.core.model.ui.history.OrderDesignUiModel
@@ -46,6 +47,7 @@ class HistoryDetailFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentHistoryDetailBinding.inflate(inflater, container, false)
+    showSkeleton(binding.root, R.layout.layout_history_detail_skeleton)
     return binding.root
   }
 
@@ -64,6 +66,7 @@ class HistoryDetailFragment : BaseFragment() {
         orderDetail.specialInstructions?.let { instruction ->
           showSpecialInstruction(instruction)
         }
+        hideSkeleton()
       }
     })
   }

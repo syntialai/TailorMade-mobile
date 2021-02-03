@@ -22,6 +22,7 @@ object SkeletonHelper {
       recyclerView: RecyclerView, layoutId: Int): RecyclerViewSkeletonScreen.Builder? =
       Skeleton.bind(recyclerView)
           .shimmer(true)
+          .color(R.color.shimmer_color)
           .angle(20)
           .frozen(false)
           .duration(Constants.SHIMMER_DURATION_1200)

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_12">
+
+    <include
+        android:id="@+id/layout_checkout_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_ordered_total_skeleton" />
+
+    <View
+        android:id="@+id/view_checkout_separator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:background="@color/color_grey_F1F1F1" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:useDefaultMargins="true">
+
+        <View
+            android:id="@+id/text_view_checkout_payment_total_label"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_14"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:background="@drawable/drawable_rounded_view" />
+
+        <View
+            android:id="@+id/text_view_checkout_payment_total"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_14"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_gravity="end"
+            android:background="@drawable/drawable_rounded_view" />
+    </GridLayout>
+</LinearLayout>

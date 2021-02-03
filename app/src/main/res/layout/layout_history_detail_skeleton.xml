@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".feature.history.view.HistoryDetailFragment">
+
+    <include
+        android:id="@+id/layout_card_history_detail_order_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_2"
+        layout="@layout/layout_card_history_detail_order_info_skeleton" />
+
+    <View
+        android:id="@+id/text_view_history_detail_payment_info_title"
+        android:layout_width="@dimen/dp_180"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <include
+        android:id="@+id/layout_payment_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_2"
+        layout="@layout/layout_payment_detail_card_skeleton" />
+
+    <View
+        android:id="@+id/view_history_detail_separator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginVertical="@dimen/dp_24"
+        android:background="@color/color_grey_F1F1F1" />
+
+    <include
+        android:id="@+id/layout_design_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_2"
+        layout="@layout/layout_cart_item_no_action_skeleton" />
+
+    <View
+        android:id="@+id/text_view_history_detail_measurement_detail_title"
+        android:layout_width="@dimen/dp_180"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_24"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <include
+        android:id="@+id/layout_size_information_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_size_information_detail_skeleton" />
+
+    <TextView
+        android:id="@+id/text_view_history_detail_special_instructions_title"
+        android:layout_width="@dimen/dp_180"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_history_detail_special_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:background="@drawable/drawable_rounded_view" />
+</LinearLayout>
