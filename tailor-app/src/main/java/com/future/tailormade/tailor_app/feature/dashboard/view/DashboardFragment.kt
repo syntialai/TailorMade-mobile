@@ -66,7 +66,9 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
       goToDesignDetail()
     }
     setupRecyclerView()
+    setupSkeleton()
     setupSwipeRefreshLayout()
+
     return binding.root
   }
 
@@ -83,7 +85,12 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
         } else {
           showRecyclerView()
         }
-        binding.swipeRefreshLayoutDashboard.isRefreshing = false
+        with(binding) {
+          swipeRefreshLayoutDashboard.isRefreshing = false
+          recyclerViewTailorDesignsList.post {
+            hideSkeleton()
+          }
+        }
       }
     })
   }
@@ -99,6 +106,32 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
       viewModel.deleteDesigns()
       dialog.dismiss()
     }?.show()
+  }
+
+  private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
+      R.plurals.delete_design_alert_dialog_content, quantity, quantity)
+
+  private fun goToDesignDetail(id: String? = null) {
+    context?.let { context ->
+      id?.let {
+        Action.goToDesignDetail(context, it)
+      } ?: run {
+        TailorAction.goToAddDesignDetail(context)
+      }
+    }
+  }
+
+  private fun hideRecyclerView() {
+    binding.recyclerViewTailorDesignsList.remove()
+  }
+
+  private fun hideState() {
+    binding.layoutDashboardState.root.remove()
+  }
+
+  private fun selectDesign(id: String) {
+    (activity as MainActivity).startContextualActionMode()
+    viewModel.selectDesign(id)
   }
 
   @ExperimentalCoroutinesApi
@@ -126,40 +159,19 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     }
   }
 
+  private fun setupSkeleton() {
+    skeletonScreen = getSkeleton(binding.recyclerViewTailorDesignsList,
+        R.layout.layout_card_design_skeleton)?.adapter(dashboardAdapter)?.show()
+  }
+
   @ExperimentalCoroutinesApi
-  fun setupSwipeRefreshLayout() {
+  private fun setupSwipeRefreshLayout() {
     binding.swipeRefreshLayoutDashboard.setOnRefreshListener {
       viewModel.refreshFetch()
       if (binding.swipeRefreshLayoutDashboard.isRefreshing.not()) {
         binding.swipeRefreshLayoutDashboard.isRefreshing = true
       }
     }
-  }
-
-  private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
-      R.plurals.delete_design_alert_dialog_content, quantity, quantity)
-
-  private fun goToDesignDetail(id: String? = null) {
-    context?.let { context ->
-      id?.let {
-        Action.goToDesignDetail(context, it)
-      } ?: run {
-        TailorAction.goToAddDesignDetail(context)
-      }
-    }
-  }
-
-  private fun hideRecyclerView() {
-    binding.recyclerViewTailorDesignsList.remove()
-  }
-
-  private fun hideState() {
-    binding.layoutDashboardState.root.remove()
-  }
-
-  private fun selectDesign(id: String) {
-    (activity as MainActivity).startContextualActionMode()
-    viewModel.selectDesign(id)
   }
 
   private fun showRecyclerView() {

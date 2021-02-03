@@ -41,18 +41,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_tailor_designs_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:layout_height="wrap_content" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include
         android:id="@+id/layout_dashboard_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         layout="@layout/layout_dashboard_state"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
