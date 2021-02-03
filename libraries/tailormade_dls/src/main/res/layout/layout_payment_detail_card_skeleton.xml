@@ -6,7 +6,7 @@
     android:padding="@dimen/dp_12">
 
     <include
-        android:id="@+id/layout_checkout_total"
+        android:id="@+id/layout_checkout_payment_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/layout_ordered_total_skeleton" />

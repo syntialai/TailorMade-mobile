@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.core.model.ui.cart.CartDesignUiModel
@@ -47,7 +48,6 @@ class CheckoutFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentCheckoutBinding.inflate(inflater, container, false)
-
     with(binding) {
       buttonCheckoutEditMeasurement.setOnClickListener {
         CheckoutEditMeasurementBottomSheetDialogFragment.newInstance(
@@ -60,6 +60,7 @@ class CheckoutFragment : BaseFragment() {
         }
       }
     }
+    showSkeleton(binding.layoutCheckout, R.layout.layout_checkout_skeleton)
     return binding.root
   }
 
@@ -73,6 +74,7 @@ class CheckoutFragment : BaseFragment() {
     viewModel.cartUiModel.observe(viewLifecycleOwner, {
       setupDesignDetailData(it.design)
       setupPaymentData(it)
+      hideSkeleton()
     })
     viewModel.historyId.observe(viewLifecycleOwner, { id ->
       viewModel.cartUiModel.value?.let {
@@ -114,11 +116,13 @@ class CheckoutFragment : BaseFragment() {
   }
 
   private fun setupPaymentData(data: CartUiModel) {
-    binding.textViewCheckoutPaymentTotal.text = data.totalPayment
-    with(binding.layoutCheckoutTotal) {
-      textViewOrderQuantity.text = data.quantity.toString()
-      textViewOrderTotalDiscount.text = data.totalDiscount
-      textViewOrderTotalPrice.text = data.totalPrice
+    with(binding.layoutCheckoutPaymentDetail) {
+      with(layoutCheckoutTotal) {
+        textViewOrderQuantity.text = data.quantity.toString()
+        textViewOrderTotalDiscount.text = data.totalDiscount
+        textViewOrderTotalPrice.text = data.totalPrice
+      }
+      textViewCheckoutPaymentTotal.text = data.totalPayment
     }
   }
 

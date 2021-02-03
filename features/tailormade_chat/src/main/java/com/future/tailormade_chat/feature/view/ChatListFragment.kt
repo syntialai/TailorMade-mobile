@@ -2,7 +2,6 @@ package com.future.tailormade_chat.feature.view
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,17 +78,8 @@ class ChatListFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentChatListBinding.inflate(inflater, container, false)
 
-    with(binding.recyclerViewChatList) {
-      layoutManager = LinearLayoutManager(context)
-      adapter = chatListAdapter
-
-      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
-        ContextCompat.getDrawable(context, R.drawable.chat_list_separator)?.let {
-          setDrawable(it)
-        }
-      })
-    }
-
+    setupRecyclerView()
+    setupSkeleton()
     setupListener()
     setupDeleteSwipeCallback()
 
@@ -145,6 +135,24 @@ class ChatListFragment : BaseFragment() {
     viewModel.getUserChatSessions()?.addValueEventListener(adapterValueEventListener)
   }
 
+  private fun setupRecyclerView() {
+    with(binding.recyclerViewChatList) {
+      layoutManager = LinearLayoutManager(context)
+      adapter = chatListAdapter
+
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.chat_list_separator)?.let {
+          setDrawable(it)
+        }
+      })
+    }
+  }
+
+  private fun setupSkeleton() {
+    skeletonScreen = getSkeleton(binding.recyclerViewChatList,
+        R.layout.layout_card_chat_skeleton)?.adapter(chatListAdapter)?.count(5)?.show()
+  }
+
   private fun showAlertDialogForDeleteChat(userChatId: String, userName: String, position: Int) {
     deleteAlertDialog?.setMessage(resources.getString(
         R.string.delete_chat_alert_dialog_content) + " $userName")?.setPositiveButton(
@@ -166,8 +174,11 @@ class ChatListFragment : BaseFragment() {
 
   private fun showRecyclerView() {
     with(binding) {
-      recyclerViewChatList.show()
       layoutChatListState.root.remove()
+      recyclerViewChatList.show()
+      recyclerViewChatList.post {
+        hideSkeleton()
+      }
     }
   }
 }
