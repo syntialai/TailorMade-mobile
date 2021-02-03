@@ -8,6 +8,7 @@
         android:id="@+id/layout_history_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_16"
         android:orientation="vertical"
         tools:context=".feature.history.view.HistoryDetailFragment">
 

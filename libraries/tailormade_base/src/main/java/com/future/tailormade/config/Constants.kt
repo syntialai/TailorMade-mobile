@@ -12,8 +12,6 @@ object Constants {
   const val INITIAL_PAGING_PAGE = 0
   const val INITIAL_PAGING_ITEM_PER_PAGE = 20
   const val COMPRESS_IMAGE_QUALITY = 100
-  const val SHIMMER_DURATION_1000 = 1000
-  const val SHIMMER_DURATION_1200 = 1200
   const val TYPE_IMAGE_ALL = "image/*"
   const val TYPE_IMAGE_JPEG = "image/jpeg"
   const val MESSAGES_TYPE_TEXT = "TEXT"

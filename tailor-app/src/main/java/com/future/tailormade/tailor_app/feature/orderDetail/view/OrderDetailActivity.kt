@@ -2,6 +2,7 @@ package com.future.tailormade.tailor_app.feature.orderDetail.view
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.ethanhua.skeleton.SkeletonScreen
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderDesignUiModel
@@ -12,6 +13,7 @@ import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
+import com.future.tailormade.util.view.SkeletonHelper
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +28,11 @@ class OrderDetailActivity : BaseActivity() {
 
   private val viewModel: OrderDetailViewModel by viewModels()
 
+  private var orderDetailSkeletonScreen: SkeletonScreen? = null
+  private var paymentInfoSkeletonScreen: SkeletonScreen? = null
+  private var designDetailSkeletonScreen: SkeletonScreen? = null
+  private var sizeInfoSkeletonScreen: SkeletonScreen? = null
+
   override fun getScreenName(): String = getOrderDetailId() ?: "Order Detail"
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,10 +42,17 @@ class OrderDetailActivity : BaseActivity() {
     setContentView(binding.root)
     setupToolbar(getScreenName())
     setupObserver()
-    showSkeleton(binding.layoutOrderDetail, R.layout.layout_order_detail_skeleton)
+    showSkeletons()
   }
 
   private fun getOrderDetailId() = intent?.getStringExtra(PARAM_ORDER_DETAIL_ID)
+
+  private fun hideSkeletons() {
+    orderDetailSkeletonScreen?.hide()
+    paymentInfoSkeletonScreen?.hide()
+    designDetailSkeletonScreen?.hide()
+    sizeInfoSkeletonScreen?.hide()
+  }
 
   private fun setupDesignDetailData(design: OrderDesignUiModel) {
     with(binding.layoutDesignDetail) {
@@ -96,7 +110,7 @@ class OrderDetailActivity : BaseActivity() {
         orderDetail.specialInstructions?.let { instruction ->
           showSpecialInstruction(instruction)
         }
-        hideSkeleton()
+        hideSkeletons()
       }
     })
   }
@@ -119,6 +133,17 @@ class OrderDetailActivity : BaseActivity() {
       }
       textViewCheckoutPaymentTotal.text = paymentTotal
     }
+  }
+
+  private fun showSkeletons() {
+    orderDetailSkeletonScreen = SkeletonHelper.showSkeleton(
+        binding.layoutCardOrderDetailOrderInfo.root, R.layout.layout_card_order_info_skeleton)
+    paymentInfoSkeletonScreen = SkeletonHelper.showSkeleton(binding.layoutPaymentInfo.root,
+        R.layout.layout_payment_detail_card_skeleton)
+    designDetailSkeletonScreen = SkeletonHelper.showSkeleton(binding.layoutDesignDetail.root,
+        R.layout.layout_card_order_skeleton)
+    sizeInfoSkeletonScreen = SkeletonHelper.showSkeleton(binding.layoutSizeInformationDetail.root,
+        R.layout.layout_size_information_detail_skeleton)
   }
 
   private fun showSpecialInstruction(instruction: String) {

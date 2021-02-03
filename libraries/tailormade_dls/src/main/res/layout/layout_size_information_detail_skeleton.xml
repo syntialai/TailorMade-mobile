@@ -3,7 +3,7 @@
     android:id="@+id/grid_size_information_detail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
+    android:background="?attr/cardBackgroundColor"
     android:columnCount="2"
     android:padding="@dimen/dp_16"
     android:rowCount="5"

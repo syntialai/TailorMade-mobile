@@ -13,19 +13,16 @@ object SkeletonHelper {
   fun showSkeleton(view: View, layoutId: Int): SkeletonScreen = Skeleton.bind(view)
       .load(layoutId)
       .shimmer(true)
-      .duration(Constants.SHIMMER_DURATION_1000)
-      .color(R.color.shimmer_color)
-      .angle(0)
+      .color(R.color.color_black_54)
+      .angle(30)
       .show()
 
   fun getRecyclerViewSkeleton(
       recyclerView: RecyclerView, layoutId: Int): RecyclerViewSkeletonScreen.Builder? =
       Skeleton.bind(recyclerView)
           .shimmer(true)
-          .color(R.color.shimmer_color)
-          .angle(20)
-          .frozen(false)
-          .duration(Constants.SHIMMER_DURATION_1200)
+          .color(R.color.color_black_54)
+          .angle(30)
           .count(10)
           .load(layoutId)
 }
