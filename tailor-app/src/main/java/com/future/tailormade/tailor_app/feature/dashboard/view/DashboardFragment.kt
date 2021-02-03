@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -111,6 +110,13 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
       R.plurals.delete_design_alert_dialog_content, quantity, quantity)
 
+  private fun getDividerItemDecoration(orientation: Int, drawableId: Int) = DividerItemDecoration(context,
+      orientation).apply {
+    ContextCompat.getDrawable(requireContext(), drawableId)?.let {
+      setDrawable(it)
+    }
+  }
+
   private fun goToDesignDetail(id: String? = null) {
     context?.let { context ->
       id?.let {
@@ -140,11 +146,10 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
       layoutManager = GridLayoutManager(context, 2)
       adapter = dashboardAdapter
 
-      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL).apply {
-        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
-          setDrawable(it)
-        }
-      })
+      addItemDecoration(
+          getDividerItemDecoration(GridLayoutManager.HORIZONTAL, R.drawable.item_separator))
+      addItemDecoration(
+          getDividerItemDecoration(GridLayoutManager.VERTICAL, R.drawable.chat_item_separator))
 
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
