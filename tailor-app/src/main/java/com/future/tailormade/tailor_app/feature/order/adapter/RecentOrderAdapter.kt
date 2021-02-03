@@ -42,8 +42,13 @@ class RecentOrderAdapter(private val onClickListener: (String) -> Unit) :
     private val context = itemView.context
 
     fun bind(data: OrderUiModel) {
-      binding.root.setOnClickListener {
-        onClickListener.invoke(data.id)
+      with(binding) {
+        textViewOrderId.text = data.id
+        textViewOrderDate.text = data.orderDate
+
+        root.setOnClickListener {
+          onClickListener.invoke(data.id)
+        }
       }
       bindDesignData(data.design)
       bindOrderTotalData(data.quantity, data.totalPrice, data.totalDiscount, data.status)

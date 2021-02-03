@@ -44,17 +44,16 @@ class RecentOrderFragment : BaseFragment() {
     with(binding) {
       chipFilterAcceptedOrder.setOnClickListener {
         viewModel.fetchAcceptedOrders()
-        showEmptyState()
         chipFilterAcceptedOrder.isChecked = true
       }
 
       chipFilterRejectedOrder.setOnClickListener {
         viewModel.fetchRejectedOrders()
-        showEmptyState()
         chipFilterRejectedOrder.isChecked = true
       }
     }
     setupRecyclerView()
+    setupSkeleton()
     return binding.root
   }
 
@@ -69,6 +68,9 @@ class RecentOrderFragment : BaseFragment() {
       } else {
         showRecyclerView()
       }
+      binding.recyclerViewRecentOrder.post {
+        hideSkeleton()
+      }
     })
     viewModel.rejectedOrders.observe(viewLifecycleOwner, {
       recentOrderAdapter.submitList(it)
@@ -76,6 +78,9 @@ class RecentOrderFragment : BaseFragment() {
         showEmptyState()
       } else {
         showRecyclerView()
+      }
+      binding.recyclerViewRecentOrder.post {
+        hideSkeleton()
       }
     })
   }
@@ -105,6 +110,11 @@ class RecentOrderFragment : BaseFragment() {
         }
       })
     }
+  }
+
+  private fun setupSkeleton() {
+    skeletonScreen = getSkeleton(binding.recyclerViewRecentOrder,
+        R.layout.layout_card_order_item_recent_skeleton)?.adapter(recentOrderAdapter)?.show()
   }
 
   private fun showEmptyState() {

@@ -3,6 +3,7 @@ package com.future.tailormade.tailor_app.feature.orderDetail.view
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.core.model.ui.order.OrderDesignUiModel
 import com.future.tailormade.tailor_app.core.model.ui.orderDetail.OrderDetailMeasurementUiModel
 import com.future.tailormade.tailor_app.databinding.ActivityOrderDetailBinding
@@ -25,34 +26,19 @@ class OrderDetailActivity : BaseActivity() {
 
   private val viewModel: OrderDetailViewModel by viewModels()
 
-  private var orderDetailId: String? = null
-
-  override fun getScreenName(): String = orderDetailId ?: "Order Detail"
+  override fun getScreenName(): String = getOrderDetailId() ?: "Order Detail"
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityOrderDetailBinding.inflate(layoutInflater)
     toolbar = binding.topToolbarOrderDetail
     setContentView(binding.root)
-
-    orderDetailId = intent?.getStringExtra(PARAM_ORDER_DETAIL_ID)
     setupToolbar(getScreenName())
-    orderDetailId?.let { id ->
-      viewModel.fetchOrderDetail(id)
-    }
-    viewModel.orderDetailUiModel.observe(this, {
-      it?.let { orderDetail ->
-        setupOrderInfoData(orderDetail.id, orderDetail.orderedBy, orderDetail.orderDate)
-        setupPaymentData(orderDetail.quantity, orderDetail.totalPrice, orderDetail.totalDiscount,
-            orderDetail.paymentTotal)
-        setupDesignDetailData(orderDetail.design)
-        setupMeasurementDetailData(orderDetail.measurement)
-        orderDetail.specialInstructions?.let { instruction ->
-          showSpecialInstruction(instruction)
-        }
-      }
-    })
+    setupObserver()
+    showSkeleton(binding.layoutOrderDetail, R.layout.layout_order_detail_skeleton)
   }
+
+  private fun getOrderDetailId() = intent?.getStringExtra(PARAM_ORDER_DETAIL_ID)
 
   private fun setupDesignDetailData(design: OrderDesignUiModel) {
     with(binding.layoutDesignDetail) {
@@ -94,6 +80,25 @@ class OrderDetailActivity : BaseActivity() {
       textViewSizeInseam.text = measurements.inseam
       textViewSizeNeckToWaist.text = measurements.neckToWaist
     }
+  }
+
+  private fun setupObserver() {
+    getOrderDetailId()?.let { id ->
+      viewModel.fetchOrderDetail(id)
+    }
+    viewModel.orderDetailUiModel.observe(this, {
+      it?.let { orderDetail ->
+        setupOrderInfoData(orderDetail.id, orderDetail.orderedBy, orderDetail.orderDate)
+        setupPaymentData(orderDetail.quantity, orderDetail.totalPrice, orderDetail.totalDiscount,
+            orderDetail.paymentTotal)
+        setupDesignDetailData(orderDetail.design)
+        setupMeasurementDetailData(orderDetail.measurement)
+        orderDetail.specialInstructions?.let { instruction ->
+          showSpecialInstruction(instruction)
+        }
+        hideSkeleton()
+      }
+    })
   }
 
   private fun setupOrderInfoData(orderId: String, orderedBy: String, orderDate: String) {

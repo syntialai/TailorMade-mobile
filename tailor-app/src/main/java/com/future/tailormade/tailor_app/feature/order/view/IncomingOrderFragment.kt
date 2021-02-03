@@ -41,6 +41,7 @@ class IncomingOrderFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentIncomingOrderBinding.inflate(inflater, container, false)
     setupRecyclerView()
+    setupSkeleton()
     return binding.root
   }
 
@@ -54,6 +55,9 @@ class IncomingOrderFragment : BaseFragment() {
         showEmptyState()
       } else {
         showRecyclerView()
+      }
+      binding.recyclerViewIncomingOrder.post {
+        hideSkeleton()
       }
     })
     viewModel.hasOrderResponded.observe(viewLifecycleOwner, {
@@ -82,6 +86,11 @@ class IncomingOrderFragment : BaseFragment() {
         }
       })
     }
+  }
+
+  private fun setupSkeleton() {
+    skeletonScreen = getSkeleton(binding.recyclerViewIncomingOrder,
+        R.layout.layout_card_order_item_incoming_skeleton)?.adapter(incomingOrderAdapter)?.show()
   }
 
   private fun showEmptyState() {
