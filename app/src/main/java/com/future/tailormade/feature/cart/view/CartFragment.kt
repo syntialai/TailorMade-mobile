@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.R
@@ -16,7 +18,6 @@ import com.future.tailormade.feature.cart.viewModel.CartViewModel
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
-import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_router.actions.Action
 import com.future.tailormade_router.actions.UserAction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -57,6 +58,7 @@ class CartFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     binding = FragmentCartBinding.inflate(inflater, container, false)
     setupRecyclerView()
+    setupSkeleton()
     return binding.root
   }
 
@@ -73,6 +75,9 @@ class CartFragment : BaseFragment() {
           cartAdapter.notifyDataSetChanged()
         } else {
           hideRecyclerView()
+        }
+        binding.recyclerViewCartList.post {
+          hideSkeleton()
         }
       }
     })
@@ -119,6 +124,12 @@ class CartFragment : BaseFragment() {
       layoutManager = LinearLayoutManager(context)
       adapter = cartAdapter
 
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
+        ContextCompat.getDrawable(context, R.drawable.chat_item_separator)?.let {
+          setDrawable(it)
+        }
+      })
+
       addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -130,6 +141,11 @@ class CartFragment : BaseFragment() {
         }
       })
     }
+  }
+
+  private fun setupSkeleton() {
+    skeletonScreen = getSkeleton(binding.recyclerViewCartList,
+        R.layout.layout_cart_item_skeleton)?.adapter(cartAdapter)?.show()
   }
 
   private fun showRecyclerView() {
