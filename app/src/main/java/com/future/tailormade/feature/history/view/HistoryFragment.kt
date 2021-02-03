@@ -52,6 +52,7 @@ class HistoryFragment : BaseFragment() {
     binding = FragmentHistoryBinding.inflate(inflater, container, false)
     setupRecyclerView()
     setupSwipeRefreshLayout()
+    setupSkeleton()
     return binding.root
   }
 
@@ -64,13 +65,16 @@ class HistoryFragment : BaseFragment() {
       it?.let { orders ->
         historyAdapter.submitList(orders)
         if (orders.isNotEmpty()) {
-          hideState()
           showRecyclerView()
         } else {
-          hideRecyclerView()
           showState()
         }
-        binding.swipeRefreshLayoutHistory.isRefreshing = false
+        with(binding) {
+          swipeRefreshLayoutHistory.isRefreshing = false
+          recyclerViewHistoryList.post {
+            hideSkeleton()
+          }
+        }
       }
     })
   }
@@ -88,14 +92,6 @@ class HistoryFragment : BaseFragment() {
     binding.layoutHistoryState.root.remove()
   }
 
-  private fun showRecyclerView() {
-    binding.recyclerViewHistoryList.show()
-  }
-
-  private fun showState() {
-    binding.layoutHistoryState.root.show()
-  }
-
   @ExperimentalCoroutinesApi
   private fun setupRecyclerView() {
     with(binding.recyclerViewHistoryList) {
@@ -103,7 +99,7 @@ class HistoryFragment : BaseFragment() {
       adapter = historyAdapter
 
       addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL).apply {
-        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
+        ContextCompat.getDrawable(context, R.drawable.chat_item_separator)?.let {
           setDrawable(it)
         }
       })
@@ -121,6 +117,11 @@ class HistoryFragment : BaseFragment() {
     }
   }
 
+  private fun setupSkeleton() {
+    skeletonScreen = getSkeleton(binding.recyclerViewHistoryList,
+        R.layout.layout_history_card_item_skeleton)?.adapter(historyAdapter)?.show()
+  }
+
   @ExperimentalCoroutinesApi
   private fun setupSwipeRefreshLayout() {
     binding.swipeRefreshLayoutHistory.setOnRefreshListener {
@@ -129,5 +130,15 @@ class HistoryFragment : BaseFragment() {
         binding.swipeRefreshLayoutHistory.isRefreshing = true
       }
     }
+  }
+
+  private fun showRecyclerView() {
+    binding.recyclerViewHistoryList.show()
+    hideState()
+  }
+
+  private fun showState() {
+    binding.layoutHistoryState.root.show()
+    hideRecyclerView()
   }
 }

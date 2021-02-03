@@ -124,4 +124,8 @@ dependencies {
     api firebase.database
     api firebase.storage
     api firebase.auth
+
+    // Skeleton and Shimmer Layout
+    api skeleton
+    api shimmer_layout
 }
