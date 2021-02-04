@@ -15,6 +15,7 @@ import com.future.tailormade.util.extension.isPhoneNumberValid
 import com.future.tailormade.util.extension.orTrue
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.extension.toDateString
+import com.future.tailormade.util.extension.validateInput
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentEditProfileBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
@@ -52,7 +53,6 @@ class EditProfileFragment : BaseFragment() {
       savedInstanceState: Bundle?): View {
     setupDatePicker()
     binding = FragmentEditProfileBinding.inflate(inflater, container, false)
-
     with(binding) {
       buttonSubmitEditProfileForm.setOnClickListener {
         submitForm(editTextNameEditProfile.text(),
@@ -66,7 +66,7 @@ class EditProfileFragment : BaseFragment() {
         showDatePicker()
       }
     }
-
+    setupValidator()
     return binding.root
   }
 
@@ -78,6 +78,9 @@ class EditProfileFragment : BaseFragment() {
 
   private fun isFormValid(name: String, phoneNumber: String?) =
       name.isNotBlank() && viewModel.isBirthDateValid() && (phoneNumber?.isPhoneNumberValid().orTrue())
+
+  private fun isPhoneNumberValid(text: String) = Pair(text.isPhoneNumberValid(),
+      getString(R.string.phone_number_invalid))
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -129,6 +132,17 @@ class EditProfileFragment : BaseFragment() {
         editTextLocationEditProfile.setText(it.location?.address.orEmpty())
       }
     })
+  }
+
+  private fun setupValidator() {
+    with(binding) {
+      editTextNameEditProfile.validateInput(textInputNameEditProfile,
+          getString(R.string.name_is_empty))
+      editTextBirthDateEditProfile.validateInput(textInputBirthDateEditProfile,
+          getString(R.string.birth_date_is_not_set))
+      editTextPhoneNumberEditProfile.validateInput(textInputPhoneNumberEditProfile, null,
+          ::isPhoneNumberValid)
+    }
   }
 
   private fun showDatePicker() {

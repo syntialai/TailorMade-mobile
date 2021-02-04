@@ -24,6 +24,7 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.text
+import com.future.tailormade.util.extension.validateInput
 import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_design_detail.R
@@ -60,9 +61,9 @@ class AddOrEditDesignFragment : BaseFragment() {
   override fun getLogName() =
       "com.future.tailormade_design_detail.feature.addOrEditDesign.view.AddOrEditDesignFragment"
 
-  override fun getScreenName() = args.designDetail?.let {
-    "Edit Design"
-  } ?: "Add Design"
+  override fun getScreenName() = getString(args.designDetail?.let {
+    R.string.edit_design_label
+  } ?: R.string.add_design_label)
 
   override fun getViewModel(): BaseViewModel = viewModel
 
@@ -86,6 +87,7 @@ class AddOrEditDesignFragment : BaseFragment() {
       }
     }
     hideImagePreview()
+    setupValidator()
     return binding.root
   }
 
@@ -188,6 +190,10 @@ class AddOrEditDesignFragment : BaseFragment() {
     }
     setClickable(true)
   }
+
+  private fun isDiscountValid(text: String) = Pair(
+      viewModel.isPriceValid(binding.editTextDesignPrice.text(), text),
+      getString(R.string.design_discount_invalid))
 
   private fun isImagePreviewShown() = binding.layoutAddOrEditImage.groupFilledImageState.isShown
 
@@ -308,29 +314,39 @@ class AddOrEditDesignFragment : BaseFragment() {
 
   private fun setErrorMessage(name: String, price: String, discount: String, description: String) {
     with(binding) {
-      editTextDesignName.error = if (name.isBlank()) {
-        Constants.DESIGN_NAME_IS_EMPTY
-      } else {
-        null
-      }
-
-      editTextDesignPrice.error = if (price.isBlank()) {
-        Constants.DESIGN_PRICE_IS_EMPTY
-      } else {
-        null
-      }
-
-      editTextDesignDiscount.error = when {
-        discount.isBlank() -> Constants.DESIGN_DISCOUNT_IS_EMPTY
-        viewModel.isPriceValid(price, discount).not() -> Constants.DESIGN_DISCOUNT_CANT_BE_HIGHER_THAN_PRICE
+      editTextDesignName.error = when {
+        name.isBlank() -> getString(R.string.design_name_is_empty)
         else -> null
       }
 
-      editTextDesignDescription.error = if (description.isBlank()) {
-        Constants.DESIGN_DESCRIPTION_IS_EMPTY
-      } else {
-        null
+      editTextDesignPrice.error = when {
+        price.isBlank() -> getString(R.string.design_price_is_empty)
+        else -> null
       }
+
+      editTextDesignDiscount.error = when {
+        discount.isBlank() -> getString(R.string.design_discount_is_empty)
+        viewModel.isPriceValid(price, discount).not() -> getString(R.string.design_discount_invalid)
+        else -> null
+      }
+
+      editTextDesignDescription.error = when {
+        description.isBlank() -> getString(R.string.design_description_is_empty)
+        else -> null
+      }
+    }
+  }
+
+  private fun setupValidator() {
+    with(binding) {
+      editTextDesignName.validateInput(textInputDesignName,
+          getString(R.string.design_name_is_empty))
+      editTextDesignPrice.validateInput(textInputDesignPrice,
+          getString(R.string.design_price_is_empty))
+      editTextDesignDiscount.validateInput(textInputDesignDiscount,
+          getString(R.string.design_discount_is_empty), ::isDiscountValid)
+      editTextDesignDescription.validateInput(textInputDesignDescription,
+          getString(R.string.design_description_is_empty))
     }
   }
 }

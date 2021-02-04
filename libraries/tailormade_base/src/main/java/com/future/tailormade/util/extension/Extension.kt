@@ -50,22 +50,23 @@ fun EditText.debounceOnTextChanged(scope: CoroutineScope, listener: (String) -> 
   }
 }
 
-fun EditText.validateInput(errorMessage: String?,
-    vararg validators: (String, Int) -> Pair<Boolean, String>) {
-  doOnTextChanged { text, _, _, count ->
-    if (count == 0) {
+fun EditText.validateInput(textInputLayout: TextInputLayout, errorMessage: String?,
+    vararg validators: (String) -> Pair<Boolean, String>) {
+  doOnTextChanged { text, _, _, _ ->
+    if (text.isNullOrBlank()) {
       errorMessage?.let {
-        error = it
+        textInputLayout.error = it
       }
       return@doOnTextChanged
     }
     validators.forEach { validator ->
-      val validateResult = validator.invoke(text.toString(), count)
-      if (validateResult.first) {
-        error = validateResult.second
+      val validateResult = validator.invoke(text.toString())
+      if (validateResult.first.not()) {
+        textInputLayout.error = validateResult.second
         return@doOnTextChanged
       }
     }
+    textInputLayout.error = null
   }
 }
 
