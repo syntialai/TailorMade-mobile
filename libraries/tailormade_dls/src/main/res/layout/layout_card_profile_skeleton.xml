@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/dp_16"
+    android:paddingVertical="@dimen/dp_12">
+
+    <View
+        android:id="@+id/image_view_profile"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:background="@drawable/drawable_rounded_view"
+        app:layout_constraintBottom_toBottomOf="@id/button_chat_tailor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_view_profile_name" />
+
+    <View
+        android:id="@+id/text_view_profile_name"
+        android:layout_width="@dimen/dp_150"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_16"
+        android:background="@drawable/drawable_rounded_view"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_profile_city"
+        app:layout_constraintStart_toEndOf="@id/image_view_profile"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/text_view_profile_city"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_14"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/drawable_rounded_view"
+        app:layout_constraintBottom_toTopOf="@+id/button_chat_tailor"
+        app:layout_constraintStart_toEndOf="@id/image_view_profile"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_profile_name" />
+
+    <View
+        android:id="@+id/button_chat_tailor"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@drawable/drawable_rounded_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_profile"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_profile_city" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

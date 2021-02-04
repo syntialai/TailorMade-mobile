@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.util.extension.remove
+import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
@@ -39,10 +41,12 @@ class TailorProfileActivity : BaseActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityTailorProfileBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    binding.layoutProfileInfo.buttonChatTailor.show()
     setupToolbar()
     setupViewPager()
     setupTabLayout()
     setupObserver()
+    showSkeleton(binding.layoutProfileInfo.root, R.layout.layout_card_profile_skeleton)
   }
 
   @ExperimentalCoroutinesApi
@@ -55,6 +59,7 @@ class TailorProfileActivity : BaseActivity() {
     viewModel.profileInfoUiModel.observe(this, {
       it?.let { profileInfo ->
         setupProfileData(profileInfo)
+        hideSkeleton()
       }
     })
   }
@@ -68,7 +73,11 @@ class TailorProfileActivity : BaseActivity() {
       }
 
       textViewProfileName.text = data.name
-      textViewProfileCity.text = data.address
+      if (data.address.isBlank()) {
+        textViewProfileCity.remove()
+      } else {
+        textViewProfileCity.text = data.address
+      }
 
       ImageLoader.loadImageUrlWithFitCenterAndPlaceholder(this@TailorProfileActivity,
           data.image.orEmpty(),
