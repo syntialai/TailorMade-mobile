@@ -37,11 +37,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
         android:src="@drawable/ic_location"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/text_view_about_address_value"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_about_title"
         app:tint="?colorPrimary"
+        tools:visibility="visible"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -52,9 +54,11 @@
         android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_4"
         android:text="@string/about_address_value"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_about_address"
-        app:layout_constraintTop_toTopOf="@id/image_view_about_address" />
+        app:layout_constraintTop_toTopOf="@id/image_view_about_address"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/image_view_about_occupation"

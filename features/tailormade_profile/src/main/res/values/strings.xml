@@ -15,9 +15,9 @@
     <string name="about_major_label">What\'s your department/majors?</string>
     <string name="about_education_city_label">Where city do you study?</string>
     <string name="about_address_value">Lives in <b>%s</b></string>
-    <string name="about_occupation_value"> as <b>%s</b></string>
-    <string name="about_occupation_company_value"> at<b>%s</b></string>
-    <string name="about_school_value"> at <b>%s</b></string>
+    <string name="about_occupation_value">as <b>%s</b></string>
+    <string name="about_occupation_company_value">at <b>%s</b></string>
+    <string name="about_school_value">at <b>%s</b></string>
     <string name="about_school_major_value"> in <b>%s</b> major</string>
 
     <string name="type_about">ABOUT</string>

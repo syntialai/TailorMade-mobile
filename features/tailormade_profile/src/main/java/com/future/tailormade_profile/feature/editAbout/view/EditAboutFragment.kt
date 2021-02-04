@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.BaseFragment
@@ -29,7 +28,7 @@ class EditAboutFragment : BaseFragment() {
   }
 
   private val editAboutViewModel: EditAboutViewModel by viewModels()
-  private val editProfileViewModel: EditProfileViewModel by activityViewModels()
+  private val editProfileViewModel: EditProfileViewModel by viewModels()
 
   private lateinit var binding: FragmentEditAboutBinding
 

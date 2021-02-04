@@ -1,6 +1,5 @@
 package com.future.tailormade_profile.feature.profile.viewModel
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -42,9 +41,9 @@ class ProfileDesignViewModel @ViewModelInject constructor(
       profileRepository.getProfileDesigns(id, page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("tailor designs"))
       }.collectLatest {
-        Log.d(IMAGES, it.toString())
+//        Log.d(IMAGES, it.toString())
         addToList(it, _images)
-        Log.d(IMAGES, _images.value.toString())
+//        Log.d(IMAGES, _images.value.toString())
       }
     }
   }

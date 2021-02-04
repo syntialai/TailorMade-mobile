@@ -16,8 +16,7 @@ import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class ProfileAboutFragment : BaseFragment() {
+@AndroidEntryPoint class ProfileAboutFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = ProfileAboutFragment()
@@ -73,32 +72,38 @@ class ProfileAboutFragment : BaseFragment() {
   }
 
   private fun setAddressData(address: String) {
-    binding.textViewAboutAddressValue.text = getString(R.string.about_address_value, address)
+    with(binding) {
+      imageViewAboutAddress.show()
+      textViewAboutAddressValue.show()
+      textViewAboutAddressValue.text = getString(R.string.about_address_value, address)
+    }
   }
 
   private fun setEducationData(education: Education) {
-    binding.imageViewAboutSchool.show()
-    binding.textViewAboutSchoolValue.show()
+    with(binding) {
+      imageViewAboutSchool.show()
+      textViewAboutSchoolValue.show()
 
-    (getString(R.string.studied_label) + education.school?.let {
-      getString(R.string.about_school_value, it)
-    }.orEmpty() + education.major?.let {
-      getString(R.string.about_school_major_value, it)
-    }.orEmpty()).also {
-      binding.textViewAboutSchoolValue.text = it
+      val schoolValue = getStringValue(education.school, R.string.about_school_value)
+      val majorValue = getStringValue(education.major, R.string.about_school_major_value)
+      textViewAboutSchoolValue.text = getString(R.string.studied_label) + schoolValue + majorValue
     }
   }
 
   private fun setOccupationData(occupation: Occupation) {
-    binding.imageViewAboutOccupation.show()
-    binding.textViewAboutOccupationValue.show()
+    with(binding) {
+      imageViewAboutOccupation.show()
+      textViewAboutOccupationValue.show()
 
-    (getString(R.string.works_label) + occupation.job?.let {
-      getString(R.string.about_occupation_value, it)
-    }.orEmpty() + occupation.company?.let {
-      getString(R.string.about_occupation_company_value, it)
-    }.orEmpty()).also {
-      binding.textViewAboutOccupationValue.text = it
+      val occupationValue = getStringValue(occupation.job, R.string.about_occupation_value)
+      val companyValue = getStringValue(occupation.company, R.string.about_occupation_company_value)
+      textViewAboutOccupationValue.text = getString(R.string.works_label) + occupationValue + companyValue
     }
+  }
+
+  private fun getStringValue(text: String?, templateId: Int) = if (text.isNullOrBlank()) {
+    ""
+  } else {
+    " ${getString(templateId, text)}"
   }
 }

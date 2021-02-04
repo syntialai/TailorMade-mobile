@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.future.tailormade.base.view.BaseActivity
+import androidx.fragment.app.activityViewModels
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.image.ImageHelper
@@ -26,7 +25,7 @@ class ProfileFragment : BaseFragment() {
     fun newInstance() = ProfileFragment()
   }
 
-  private val viewModel: ProfileViewModel by viewModels()
+  private val viewModel: ProfileViewModel by activityViewModels()
 
   private lateinit var fragmentProfileBinding: FragmentProfileBinding
   private lateinit var layoutCardProfileWithEditBinding: LayoutCardProfileWithEditBinding

@@ -1,9 +1,12 @@
 package com.future.tailormade_profile.core.model.response
 
+import android.os.Parcelable
 import com.future.tailormade_profile.core.model.entity.Education
 import com.future.tailormade_profile.core.model.entity.Location
 import com.future.tailormade_profile.core.model.entity.Occupation
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ProfileInfoResponse(
 
     val id: String,
@@ -20,5 +23,4 @@ data class ProfileInfoResponse(
 
     val occupation: Occupation? = null,
 
-    val education: Education? = null
-)
+    val education: Education? = null) : Parcelable
