@@ -103,8 +103,8 @@ abstract class BaseFragment : Fragment() {
 
     getViewModel()?.errorMessage?.observe(viewLifecycleOwner, { error ->
       hideKeyboard()
-      if (error != null && context != null && view != null) {
-        ToastHelper.showErrorToast(requireContext(), requireView(), error)
+      if (error != null && context != null) {
+        showErrorToast(requireContext(), error)
       }
     })
   }
@@ -136,6 +136,12 @@ abstract class BaseFragment : Fragment() {
   fun hideToolbar() {
     activity?.let { activity ->
       (activity as BaseActivity).hideToolbar()
+    }
+  }
+
+  private fun showErrorToast(context: Context, message: String) {
+    activity?.findViewById<View>(android.R.id.content)?.let {
+      ToastHelper.showErrorToast(context, it, message)
     }
   }
 

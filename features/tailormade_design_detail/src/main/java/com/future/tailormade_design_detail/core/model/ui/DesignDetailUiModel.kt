@@ -27,4 +27,4 @@ data class DesignDetailUiModel(
 
 		var color: List<ColorResponse>,
 
-		var category: List<String>): Parcelable
+		var category: List<String>?): Parcelable
