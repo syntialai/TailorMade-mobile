@@ -11,6 +11,7 @@ import com.future.tailormade.R
 import com.future.tailormade.core.model.ui.dashboard.DashboardTailorUiModel
 import com.future.tailormade.databinding.LayoutDashboardTailorBinding
 import com.future.tailormade.util.extension.show
+import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.image.ImageLoader
 
 class DashboardAdapter(private val onClickListener: (String) -> Unit,
