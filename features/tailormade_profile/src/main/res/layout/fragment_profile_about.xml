@@ -134,7 +134,7 @@
         android:id="@+id/image_view_no_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/illustration_no_data"
+        android:src="@drawable/illustration_no_about_data"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
