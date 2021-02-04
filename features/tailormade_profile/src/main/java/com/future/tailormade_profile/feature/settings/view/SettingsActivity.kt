@@ -60,7 +60,7 @@ class SettingsActivity : BaseActivity() {
     private fun signOut() {
       context?.let { context ->
         authSharedPrefRepository.clearSharedPrefs()
-        activity?.finishAndRemoveTask()
+        requireActivity().finishAndRemoveTask()
         Action.goToSignIn(context)
       }
     }
