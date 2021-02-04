@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.setPadding
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentProfileDesignBinding
 import com.future.tailormade_profile.feature.profile.adapter.ProfileDesignAdapter
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileDesignViewModel
+import com.future.tailormade_profile.feature.profile.viewModel.TailorProfileViewModel
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,12 +33,15 @@ class ProfileDesignFragment : BaseFragment() {
 
   private lateinit var binding: FragmentProfileDesignBinding
 
+  private val profileViewModel: TailorProfileViewModel by activityViewModels()
   private val viewModel: ProfileDesignViewModel by viewModels()
+
   private val profileDesignAdapter by lazy {
     ProfileDesignAdapter(::goToDesignDetailPage)
   }
 
-  override fun getLogName() = "com.future.tailormade_profile.feature.profile.view.ProfileDesignFragment"
+  override fun getLogName() =
+      "com.future.tailormade_profile.feature.profile.view.ProfileDesignFragment"
 
   override fun getViewModel(): BaseViewModel = viewModel
 
@@ -52,7 +57,9 @@ class ProfileDesignFragment : BaseFragment() {
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
-    viewModel.fetchImages()
+    profileViewModel.tailorId.observe(viewLifecycleOwner, {
+      viewModel.fetchImages(it)
+    })
     viewModel.images.observe(viewLifecycleOwner, {
       profileDesignAdapter.submitList(it)
     })
@@ -67,7 +74,7 @@ class ProfileDesignFragment : BaseFragment() {
   @ExperimentalCoroutinesApi
   private fun setupRecyclerView() {
     with(binding.recyclerViewProfileDesign) {
-      layoutManager = GridLayoutManager(context, 3)
+      layoutManager = GridLayoutManager(context, 2)
       adapter = profileDesignAdapter
       setPadding(resources.getDimensionPixelSize(R.dimen.dp_4))
       clipToPadding = false

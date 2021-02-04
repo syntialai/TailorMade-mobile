@@ -16,7 +16,8 @@ import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint class ProfileAboutFragment : BaseFragment() {
+@AndroidEntryPoint
+class ProfileAboutFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = ProfileAboutFragment()
