@@ -1,30 +1,23 @@
 package com.future.tailormade.util.extension
 
 import android.graphics.Paint
-import android.os.Build
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
-import com.future.tailormade.base.view.ViewState
-import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.coroutine.CoroutineHelper
 import com.google.android.material.textfield.TextInputLayout
-import java.sql.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onStart
 
 /**
  * Flow extension functions
@@ -53,6 +46,25 @@ fun EditText.debounceOnTextChanged(scope: CoroutineScope, listener: (String) -> 
     val debounce = CoroutineHelper.debounce(scope = scope, destinationFunction = listener)
     if (count >= Constants.MIN_QUERY_SEARCH_LENGTH) {
       debounce.invoke(text.toString())
+    }
+  }
+}
+
+fun EditText.validateInput(errorMessage: String?,
+    vararg validators: (String, Int) -> Pair<Boolean, String>) {
+  doOnTextChanged { text, _, _, count ->
+    if (count == 0) {
+      errorMessage?.let {
+        error = it
+      }
+      return@doOnTextChanged
+    }
+    validators.forEach { validator ->
+      val validateResult = validator.invoke(text.toString(), count)
+      if (validateResult.first) {
+        error = validateResult.second
+        return@doOnTextChanged
+      }
     }
   }
 }

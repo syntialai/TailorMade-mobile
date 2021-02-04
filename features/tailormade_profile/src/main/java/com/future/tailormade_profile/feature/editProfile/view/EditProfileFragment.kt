@@ -12,6 +12,7 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.debounceOnTextChanged
 import com.future.tailormade.util.extension.isPhoneNumberValid
+import com.future.tailormade.util.extension.orTrue
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade_profile.R
@@ -30,8 +31,6 @@ class EditProfileFragment : BaseFragment() {
   }
 
   private val viewModel: EditProfileViewModel by viewModels()
-
-  private var birthDate: Long = 0L
 
   private lateinit var binding: FragmentEditProfileBinding
   private lateinit var birthDatePicker: MaterialDatePicker<Long>
@@ -56,8 +55,8 @@ class EditProfileFragment : BaseFragment() {
 
     with(binding) {
       buttonSubmitEditProfileForm.setOnClickListener {
-        submitForm(editTextNameEditProfile.text(), editTextPhoneNumberEditProfile.text(),
-            editTextBirthDateEditProfile.text(), editTextLocationEditProfile.text())
+        submitForm(editTextNameEditProfile.text(),
+            editTextPhoneNumberEditProfile.text(), editTextLocationEditProfile.text())
       }
 
       editTextLocationEditProfile.debounceOnTextChanged(
@@ -77,8 +76,8 @@ class EditProfileFragment : BaseFragment() {
     setupLocationObserver()
   }
 
-  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) =
-      name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid() ?: true)
+  private fun isFormValid(name: String, phoneNumber: String?) =
+      name.isNotBlank() && viewModel.isBirthDateValid() && (phoneNumber?.isPhoneNumberValid().orTrue())
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -104,8 +103,8 @@ class EditProfileFragment : BaseFragment() {
     birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
         getString(R.string.birth_date_picker_title_label)).build()
     birthDatePicker.addOnPositiveButtonClickListener {
-      birthDate = it
       binding.editTextBirthDateEditProfile.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
+      viewModel.setBirthDate(it)
     }
   }
 
@@ -138,9 +137,9 @@ class EditProfileFragment : BaseFragment() {
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  private fun submitForm(name: String, phoneNumber: String, birthDate: String, location: String) {
-    if (isFormValid(name, birthDate, phoneNumber)) {
-      viewModel.updateBasicInfo(name, this.birthDate, phoneNumber, location)
+  private fun submitForm(name: String, phoneNumber: String, location: String) {
+    if (isFormValid(name, phoneNumber)) {
+      viewModel.updateBasicInfo(name, phoneNumber, location)
     } else {
       setFormErrorMessage()
     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +11,7 @@
         style="@style/TextAppearance.TailorMade.Headline3.Bold"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_56"
+        android:layout_marginTop="@dimen/dp_40"
         android:text="@string/get_started_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,16 +32,18 @@
         android:id="@+id/text_input_name_sign_up"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
         android:hint="@string/name_label"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@id/text_input_email_sign_up"
+        app:layout_constraintTop_toBottomOf="@id/text_view_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_name_sign_up"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,14 +53,15 @@
         android:layout_height="wrap_content"
         android:hint="@string/email_label"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@id/text_input_birth_date_sign_up"
+        app:layout_constraintTop_toBottomOf="@id/text_input_name_sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_email_sign_up"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,23 +72,23 @@
         android:hint="@string/birth_date_label"
         app:endIconDrawable="@drawable/ic_date"
         app:endIconMode="custom"
-        app:errorEnabled="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:errorIconDrawable="@null"
+        app:layout_constraintTop_toBottomOf="@id/text_input_email_sign_up"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_birth_date_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none" />
+            android:editable="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_password_sign_up"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
         android:hint="@string/password_label"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
@@ -119,15 +121,15 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/button_submit_form"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_40"
-            android:text="@string/next_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_confirm_password_sign_up" />
+    <Button
+        android:id="@+id/button_submit_form"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:text="@string/next_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_go_to_sign_in"
+        app:layout_constraintTop_toBottomOf="@id/text_input_confirm_password_sign_up" />
 
     <TextView
         android:id="@+id/text_go_to_sign_in_label"

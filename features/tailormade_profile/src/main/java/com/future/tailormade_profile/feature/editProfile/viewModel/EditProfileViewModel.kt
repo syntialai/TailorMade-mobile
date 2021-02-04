@@ -9,6 +9,7 @@ import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
 import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.repository.ProfileRepository
@@ -38,31 +39,23 @@ class EditProfileViewModel @ViewModelInject constructor(
   val listOfLocations: LiveData<List<String>>
     get() = _listOfLocations
 
+  private var _birthDate: Long? = null
+
   init {
     _profileInfo = savedStateHandle.getLiveData(PROFILE_INFO)
     getBasicInfo()
   }
 
-  private fun getBasicInfo() {
-    launchViewModelScope {
-      authSharedPrefRepository.userId?.let { id ->
-        profileRepository.getProfileInfo(id).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
-          setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
-        }.collectLatest { data ->
-          setFinishLoading()
-          _profileInfo.value = data.response
-        }
-      }
-    }
+  fun isBirthDateValid() = _birthDate.orZero() > 0
+
+  fun setBirthDate(birthDate: Long) {
+    _birthDate = birthDate
   }
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  fun updateBasicInfo(name: String, birthDate: Long, phoneNumber: String?, location: String?) {
-    val request = UpdateProfileRequest(name, birthDate, phoneNumber.orEmpty(),
+  fun updateBasicInfo(name: String, phoneNumber: String?, location: String?) {
+    val request = UpdateProfileRequest(name, _birthDate.orZero(), phoneNumber.orEmpty(),
         location.orEmpty())
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
@@ -89,6 +82,23 @@ class EditProfileViewModel @ViewModelInject constructor(
           item.display_name.orEmpty()
         }
         _listOfLocations.value = response
+      }
+    }
+  }
+
+  private fun getBasicInfo() {
+    launchViewModelScope {
+      authSharedPrefRepository.userId?.let { id ->
+        profileRepository.getProfileInfo(id).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
+          setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
+        }.collectLatest { data ->
+          setFinishLoading()
+          _profileInfo.value = data.response
+          _birthDate = data.response.birthDate
+        }
       }
     }
   }
