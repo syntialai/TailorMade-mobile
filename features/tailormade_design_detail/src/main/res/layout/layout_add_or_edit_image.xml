@@ -21,6 +21,7 @@
 
     <TextView
         android:id="@+id/text_view_add_design_image_label"
+        style="@style/TextAppearance.TailorMade.Caption.BlackMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/dp_16"

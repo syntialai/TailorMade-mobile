@@ -10,7 +10,8 @@ object DataMock {
   private const val USER_ID = "USER_ID"
   private const val USER_NAME = "USER_NAME"
 
-  private val profileLocation = Location("", "", "Medan", "Sumatera Utara", "Indonesia", "")
+  private val profileLocation = Location(2.55f, 2.56f, "Medan", "Sumatera Utara", "Indonesia", "",
+      "", "")
 
   fun getProfileInfoMock() = ProfileInfoResponse(id = USER_ID, name = USER_NAME,
       image = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png",

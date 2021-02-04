@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.FragmentIncomingOrderBinding
 import com.future.tailormade.tailor_app.feature.order.adapter.IncomingOrderAdapter
@@ -61,8 +62,15 @@ class IncomingOrderFragment : BaseFragment() {
       }
     })
     viewModel.hasOrderResponded.observe(viewLifecycleOwner, {
-      if (it) {
-        viewModel.fetchIncomingOrders()
+      it?.let {
+        if (it.second) {
+          viewModel.fetchIncomingOrders()
+          showSuccessToast(if (it.first == Constants.STATUS_ACCEPTED) {
+            R.string.order_accepted
+          } else {
+            R.string.order_rejected
+          })
+        }
       }
     })
   }

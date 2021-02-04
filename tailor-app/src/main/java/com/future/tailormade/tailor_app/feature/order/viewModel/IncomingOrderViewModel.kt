@@ -32,8 +32,8 @@ class IncomingOrderViewModel @ViewModelInject constructor(
   val incomingOrders: LiveData<ArrayList<OrderUiModel>>
     get() = _incomingOrders
 
-  private var _hasOrderResponded = MutableLiveData<Boolean>()
-  val hasOrderResponded: LiveData<Boolean>
+  private var _hasOrderResponded = MutableLiveData<Pair<String, Boolean>>()
+  val hasOrderResponded: LiveData<Pair<String, Boolean>>
     get() = _hasOrderResponded
 
   init {
@@ -41,6 +41,7 @@ class IncomingOrderViewModel @ViewModelInject constructor(
   }
 
   fun fetchIncomingOrders() {
+    _hasOrderResponded.value = null
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { tailorId ->
         orderRepository.getOrders(tailorId, OrderStatus.Incoming.name, page, itemPerPage).onError {
@@ -63,9 +64,9 @@ class IncomingOrderViewModel @ViewModelInject constructor(
       authSharedPrefRepository.userId?.let { tailorId ->
         orderRepository.acceptOrder(tailorId, id).onError {
           setErrorMessage(Constants.FAILED_TO_ACCEPT_ORDER)
-          setHasResponded(false)
+          setHasResponded(Constants.STATUS_ACCEPTED, false)
         }.collect {
-          setHasResponded(true)
+          setHasResponded(Constants.STATUS_ACCEPTED, true)
         }
       }
     }
@@ -76,15 +77,15 @@ class IncomingOrderViewModel @ViewModelInject constructor(
       authSharedPrefRepository.userId?.let { tailorId ->
         orderRepository.rejectOrder(tailorId, id).onError {
           setErrorMessage(Constants.FAILED_TO_REJECT_ORDER)
-          setHasResponded(false)
+          setHasResponded(Constants.STATUS_REJECTED, false)
         }.collect {
-          setHasResponded(true)
+          setHasResponded(Constants.STATUS_REJECTED, true)
         }
       }
     }
   }
 
-  private fun setHasResponded(value: Boolean) {
-    _hasOrderResponded.value = value
+  private fun setHasResponded(type: String, value: Boolean) {
+    _hasOrderResponded.value = Pair(type, value)
   }
 }

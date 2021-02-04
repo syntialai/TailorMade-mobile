@@ -90,6 +90,9 @@ class TailorProfileActivity : BaseActivity() {
 
   private fun setupToolbar() {
     toolbar = binding.topToolbarProfile
+    setupOnNavigationIconClicked {
+      this.finish()
+    }
     setupToolbar(getTailorId() ?: getScreenName())
   }
 

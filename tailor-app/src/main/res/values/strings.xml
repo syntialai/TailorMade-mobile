@@ -23,6 +23,8 @@
     <string name="rejected_label">Rejected</string>
     <string name="accepted_label">Accepted</string>
     <string name="all_label">All</string>
+    <string name="order_accepted">Order accepted.</string>
+    <string name="order_rejected">Order rejected.</string>
 
     <!-- Order Detail -->
     <string name="order_id_label">Order ID</string>

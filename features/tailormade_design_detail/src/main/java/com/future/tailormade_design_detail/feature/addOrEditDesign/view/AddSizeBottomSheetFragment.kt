@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.future.tailormade.base.view.BaseBottomSheetDialogFragment
-import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.text
+import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.databinding.FragmentAddSizeBottomSheetBinding
 
@@ -80,27 +80,27 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
   private fun setErrorMessage() {
     with(binding) {
       if (editTextSizeName.text().isBlank()) {
-        editTextSizeName.error = Constants.SIZE_NAME_IS_EMPTY
+        editTextSizeName.error = getString(R.string.size_name_is_empty)
       }
 
       if (editTextSizeChest.text().isBlank()) {
-        editTextSizeChest.error = Constants.CHEST_SIZE_IS_EMPTY
+        editTextSizeChest.error = getString(R.string.chest_size_is_empty)
       }
 
       if (editTextSizeWaist.text().isBlank()) {
-        editTextSizeWaist.error = Constants.WAIST_SIZE_IS_EMPTY
+        editTextSizeWaist.error = getString(R.string.waist_size_is_empty)
       }
 
       if (editTextSizeHips.text().isBlank()) {
-        editTextSizeHips.error = Constants.HIPS_SIZE_IS_EMPTY
+        editTextSizeHips.error = getString(R.string.hips_size_is_empty)
       }
 
       if (editTextSizeNeckToWaist.text().isBlank()) {
-        editTextSizeNeckToWaist.error = Constants.NECK_TO_WAIST_SIZE_IS_EMPTY
+        editTextSizeNeckToWaist.error = getString(R.string.neck_to_waist_size_is_empty)
       }
 
       if (editTextSizeInseam.text().isBlank()) {
-        editTextSizeInseam.error = Constants.INSEAM_SIZE_IS_EMPTY
+        editTextSizeInseam.error = getString(R.string.inseam_size_is_empty)
       }
     }
   }

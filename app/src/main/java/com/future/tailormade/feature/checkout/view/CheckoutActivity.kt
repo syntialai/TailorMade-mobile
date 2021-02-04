@@ -26,6 +26,10 @@ class CheckoutActivity : BaseActivity() {
     getCartItemId()
   }
 
+  override fun onBackPressed() {
+    onNavigationIconClicked?.invoke()
+  }
+
   private fun getCartItemId() {
     intent?.getStringExtra(PARAM_CART_ITEM_ID)?.let {
       viewModel.setId(it)

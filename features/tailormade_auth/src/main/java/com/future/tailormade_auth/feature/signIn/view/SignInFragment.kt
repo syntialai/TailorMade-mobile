@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.extension.isEmailValid
-import com.future.tailormade.util.extension.reset
 import com.future.tailormade.util.extension.text
+import com.future.tailormade.util.extension.validateInput
 import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignInBinding
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
@@ -45,22 +45,14 @@ class SignInFragment : BaseFragment() {
     with(binding) {
       buttonSignIn.setOnClickListener {
         submitEmailAndPassword(editTextEmailSignIn.text(), editTextPasswordSignIn.text())
-        hideKeyboard()
       }
       buttonGoToSignUp.setOnClickListener {
         findNavController().navigate(
             SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
       }
     }
+    setupValidator()
     return binding.root
-  }
-
-  override fun onPause() {
-    super.onPause()
-    with(binding) {
-      textInputEmailSignIn.reset()
-      textInputPasswordSignIn.reset()
-    }
   }
 
   override fun setupFragmentObserver() {
@@ -80,6 +72,9 @@ class SignInFragment : BaseFragment() {
     }
   }
 
+  private fun isEmailValid(text: String) = Pair(text.isEmailValid(),
+      getString(R.string.email_is_invalid))
+
   private fun isFormValid(email: String, password: String): Boolean =
     email.isNotBlank() && email.isEmailValid() && password.isNotBlank()
 
@@ -98,9 +93,19 @@ class SignInFragment : BaseFragment() {
     }
   }
 
+  private fun setupValidator() {
+    with(binding) {
+      editTextEmailSignIn.validateInput(textInputEmailSignIn, getString(R.string.email_is_empty),
+          ::isEmailValid)
+      editTextPasswordSignIn.validateInput(textInputPasswordSignIn,
+          getString(R.string.password_is_empty))
+    }
+  }
+
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   private fun submitEmailAndPassword(email: String, password: String) {
+    hideKeyboard()
     if (isFormValid(email, password)) {
       viewModel.signIn(email, password)
     } else {

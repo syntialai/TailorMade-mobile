@@ -1,5 +1,9 @@
 package com.future.tailormade_profile.core.model.response
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class ProfileDesignResponse(
 
     val id: String,
@@ -12,5 +16,4 @@ data class ProfileDesignResponse(
 
     val discount: Double,
 
-    val active: Boolean
-)
+    val active: Boolean) : Parcelable

@@ -10,9 +10,9 @@ import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.isEmailValid
-import com.future.tailormade.util.extension.reset
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.extension.toDateString
+import com.future.tailormade.util.extension.validateInput
 import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignUpBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
@@ -56,18 +56,8 @@ class SignUpFragment : BaseFragment() {
         findNavController().navigateUp()
       }
     }
+    setupValidator()
     return binding.root
-  }
-
-  override fun onPause() {
-    super.onPause()
-    with(binding) {
-      textInputNameSignUp.reset()
-      textInputEmailSignUp.reset()
-      textInputBirthDateSignUp.reset()
-      textInputPasswordSignUp.reset()
-      textInputConfirmPasswordSignUp.reset()
-    }
   }
 
   override fun setupFragmentObserver() {
@@ -75,12 +65,21 @@ class SignUpFragment : BaseFragment() {
     showToolbar()
   }
 
+  private fun isConfirmPasswordValid(text: String) = Pair(
+      text == binding.editTextPasswordSignUp.text(), getString(R.string.confirm_password_must_same))
+
+  private fun isEmailValid(text: String) = Pair(text.isEmailValid(),
+      getString(R.string.email_is_invalid))
+
   private fun isFormValid(name: String, email: String, birthDate: String,
       password: String, confirmPassword: String): Boolean =
     name.isNotBlank() && email.isNotBlank() && email.isEmailValid()
             && birthDate.isNotBlank() && password.isNotBlank()
             && password.length >= Constants.MIN_PASSWORD_LENGTH
             && confirmPassword.isNotBlank() && confirmPassword == password
+
+  private fun isPasswordValid(text: String) = Pair(text.length >= Constants.MIN_PASSWORD_LENGTH,
+      getString(R.string.password_is_invalid))
 
   private fun setFormErrorMessage() {
     with(binding) {
@@ -122,6 +121,20 @@ class SignUpFragment : BaseFragment() {
     birthDatePicker.addOnPositiveButtonClickListener {
       binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
       viewModel.setSignUpBirthDate(it)
+    }
+  }
+
+  private fun setupValidator() {
+    with(binding) {
+      editTextNameSignUp.validateInput(textInputNameSignUp, getString(R.string.name_is_empty))
+      editTextEmailSignUp.validateInput(textInputEmailSignUp, getString(R.string.email_is_empty),
+          ::isEmailValid)
+      editTextBirthDateSignUp.validateInput(textInputBirthDateSignUp,
+          getString(R.string.birth_date_is_not_set))
+      editTextPasswordSignUp.validateInput(textInputPasswordSignUp,
+          getString(R.string.password_is_empty), ::isPasswordValid)
+      editTextConfirmPasswordSignUp.validateInput(textInputConfirmPasswordSignUp,
+          getString(R.string.confirm_password_is_empty), ::isConfirmPasswordValid)
     }
   }
 

@@ -15,9 +15,9 @@
     <string name="about_major_label">What\'s your department/majors?</string>
     <string name="about_education_city_label">Where city do you study?</string>
     <string name="about_address_value">Lives in <b>%s</b></string>
-    <string name="about_occupation_value"> as <b>%s</b></string>
-    <string name="about_occupation_company_value"> at<b>%s</b></string>
-    <string name="about_school_value"> at <b>%s</b></string>
+    <string name="about_occupation_value">as <b>%s</b></string>
+    <string name="about_occupation_company_value">at <b>%s</b></string>
+    <string name="about_school_value">at <b>%s</b></string>
     <string name="about_school_major_value"> in <b>%s</b> major</string>
 
     <string name="type_about">ABOUT</string>
@@ -25,6 +25,9 @@
 
     <!-- Error messages -->
     <string name="phone_number_invalid">Phone number is not valid.</string>
+
+    <!-- Success message -->
+    <string name="profile_updated">Profile updated.</string>
 
     <!-- Preference Titles -->
     <string name="pref_title_invite_friends_settings">Invite friends</string>
