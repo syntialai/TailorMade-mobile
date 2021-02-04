@@ -41,7 +41,7 @@ class ProfileDesignAdapter(private val onClickListener: (String) -> Unit) :
     fun bind(data: ProfileDesignResponse) {
       with(binding) {
         ImageLoader.loadImageUrl(context, data.image, imageViewProfileDesign)
-        root.setOnClickListener {
+        imageViewProfileDesign.setOnClickListener {
           onClickListener.invoke(data.id)
         }
       }

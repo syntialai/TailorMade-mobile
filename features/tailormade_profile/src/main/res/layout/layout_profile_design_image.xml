@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/image_view_profile_design"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_180"
+        android:layout_height="@dimen/dp_200"
         android:clickable="true"
         android:focusable="true"
         android:scaleType="centerCrop"
