@@ -26,6 +26,9 @@
     <!-- Error messages -->
     <string name="phone_number_invalid">Phone number is not valid.</string>
 
+    <!-- Success message -->
+    <string name="profile_updated">Profile updated.</string>
+
     <!-- Preference Titles -->
     <string name="pref_title_invite_friends_settings">Invite friends</string>
     <string name="pref_title_notification_settings">Notification</string>

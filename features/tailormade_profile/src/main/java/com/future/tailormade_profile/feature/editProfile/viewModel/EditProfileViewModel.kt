@@ -1,5 +1,6 @@
 package com.future.tailormade_profile.feature.editProfile.viewModel
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -10,7 +11,9 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade.util.extension.orZero
+import com.future.tailormade_profile.core.model.entity.Location
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
+import com.future.tailormade_profile.core.model.response.LocationResponse
 import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,7 +42,13 @@ class EditProfileViewModel @ViewModelInject constructor(
   val listOfLocations: LiveData<List<String>>
     get() = _listOfLocations
 
+  private var _isUpdated = MutableLiveData<Boolean>()
+  val isUpdated: LiveData<Boolean>
+    get() = _isUpdated
+
   private var _birthDate: Long? = null
+  private var _location: Location? = null
+  private var locations = arrayListOf<LocationResponse>()
 
   init {
     _profileInfo = savedStateHandle.getLiveData(PROFILE_INFO)
@@ -52,11 +61,22 @@ class EditProfileViewModel @ViewModelInject constructor(
     _birthDate = birthDate
   }
 
+  fun setLocation(position: Int) {
+    val location = locations[position]
+    _location = Location(lat = location.lat.toFloat(), lon = location.lon.toFloat(),
+        address = location.display_name.orEmpty(),
+        district = location.address?.city_district.orEmpty(),
+        city = location.address?.city.orEmpty(), province = location.address?.state.orEmpty(),
+        country = location.address?.country.orEmpty(),
+        postCode = location.address?.postcode.orEmpty())
+    Log.d("LOCATION", _location.toString())
+  }
+
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  fun updateBasicInfo(name: String, phoneNumber: String?, location: String?) {
-    val request = UpdateProfileRequest(name, _birthDate.orZero(), phoneNumber.orEmpty(),
-        location.orEmpty())
+  fun updateBasicInfo(name: String, phoneNumber: String?) {
+    val request = UpdateProfileRequest(name = name, birthDate = _birthDate.orZero(),
+        phoneNumber = phoneNumber.orEmpty(), location = _location)
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
         profileRepository.updateProfileInfo(id, request).onStart {
@@ -67,6 +87,7 @@ class EditProfileViewModel @ViewModelInject constructor(
         }.collectLatest { response ->
           setFinishLoading()
           _profileInfo.value = response
+          _isUpdated.value = true
         }
       }
     }
@@ -78,6 +99,7 @@ class EditProfileViewModel @ViewModelInject constructor(
       profileRepository.searchLocation(query).onError {
         setErrorMessage(it.message.orEmpty())
       }.collectLatest {
+        locations = it
         val response = it.map { item ->
           item.display_name.orEmpty()
         }

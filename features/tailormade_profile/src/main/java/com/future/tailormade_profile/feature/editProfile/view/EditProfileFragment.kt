@@ -12,7 +12,6 @@ import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.debounceOnTextChanged
 import com.future.tailormade.util.extension.isPhoneNumberValid
-import com.future.tailormade.util.extension.orTrue
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade.util.extension.validateInput
@@ -55,12 +54,14 @@ class EditProfileFragment : BaseFragment() {
     binding = FragmentEditProfileBinding.inflate(inflater, container, false)
     with(binding) {
       buttonSubmitEditProfileForm.setOnClickListener {
-        submitForm(editTextNameEditProfile.text(),
-            editTextPhoneNumberEditProfile.text(), editTextLocationEditProfile.text())
+        submitForm(editTextNameEditProfile.text(), editTextPhoneNumberEditProfile.text())
       }
 
       editTextLocationEditProfile.debounceOnTextChanged(
           viewModel.viewModelScope, viewModel::updateLocations)
+      editTextLocationEditProfile.setOnItemClickListener { _, _, position, _ ->
+        viewModel.setLocation(position)
+      }
 
       textInputBirthDateEditProfile.setEndIconOnClickListener {
         showDatePicker()
@@ -74,12 +75,21 @@ class EditProfileFragment : BaseFragment() {
     super.setupFragmentObserver()
     setupProfileDataObserver()
     setupLocationObserver()
+
+    viewModel.isUpdated.observe(viewLifecycleOwner, {
+      it?.let { isUpdated ->
+        if (isUpdated) {
+          onNavigationIconClicked()
+        }
+      }
+    })
   }
 
-  private fun isFormValid(name: String, phoneNumber: String?) =
-      name.isNotBlank() && viewModel.isBirthDateValid() && (phoneNumber?.isPhoneNumberValid().orTrue())
+  private fun isFormValid(name: String, phoneNumber: String?) = name.isNotBlank()
+      && viewModel.isBirthDateValid()
+      && (phoneNumber.isNullOrBlank() || phoneNumber.isPhoneNumberValid())
 
-  private fun isPhoneNumberValid(text: String) = Pair(text.isPhoneNumberValid(),
+  private fun isPhoneNumberValid(text: String) = Pair(text.isBlank() || text.isPhoneNumberValid(),
       getString(R.string.phone_number_invalid))
 
   private fun setFormErrorMessage() {
@@ -127,7 +137,8 @@ class EditProfileFragment : BaseFragment() {
     viewModel.profileInfo.observe(viewLifecycleOwner, {
       with(binding) {
         editTextNameEditProfile.setText(it.name)
-        editTextBirthDateEditProfile.setText(it.birthDate.toDateString(Constants.DD_MMMM_YYYY))
+        editTextBirthDateEditProfile.setText(
+            it.birthDate.toDateString(Constants.DD_MMMM_YYYY, true))
         editTextPhoneNumberEditProfile.setText(it.phoneNumber.orEmpty())
         editTextLocationEditProfile.setText(it.location?.address.orEmpty())
       }
@@ -151,9 +162,9 @@ class EditProfileFragment : BaseFragment() {
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  private fun submitForm(name: String, phoneNumber: String, location: String) {
+  private fun submitForm(name: String, phoneNumber: String) {
     if (isFormValid(name, phoneNumber)) {
-      viewModel.updateBasicInfo(name, phoneNumber, location)
+      viewModel.updateBasicInfo(name, phoneNumber)
     } else {
       setFormErrorMessage()
     }

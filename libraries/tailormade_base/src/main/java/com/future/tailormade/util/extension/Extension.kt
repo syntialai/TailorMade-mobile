@@ -113,7 +113,8 @@ fun View.setVisibility(value: Boolean) {
 /**
  * Validate string extension functions
  */
-fun String.isPhoneNumberValid(): Boolean = Patterns.PHONE.matcher(this).matches()
+fun String.isPhoneNumberValid(): Boolean = Patterns.PHONE.matcher(
+    this).matches() && this.length >= Constants.MIN_PHONE_NUMBER_LENGTH
 
 fun String.isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 

@@ -8,6 +8,7 @@ object Constants {
   const val MIN_DEBOUNCE_TIME = 300L
   const val MIN_PASSWORD_LENGTH = 8
   const val MIN_QUERY_SEARCH_LENGTH = 3
+  const val MIN_PHONE_NUMBER_LENGTH = 10
   const val REFRESH_DELAY_TIME = 600L
   const val INITIAL_PAGING_PAGE = 0
   const val INITIAL_PAGING_ITEM_PER_PAGE = 20
