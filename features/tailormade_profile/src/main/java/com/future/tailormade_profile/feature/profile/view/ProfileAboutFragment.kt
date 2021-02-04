@@ -11,18 +11,22 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.core.model.entity.Education
 import com.future.tailormade_profile.core.model.entity.Occupation
+import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
 import com.future.tailormade_profile.databinding.FragmentProfileAboutBinding
 import com.future.tailormade_profile.feature.profile.viewModel.ProfileViewModel
+import com.future.tailormade_profile.feature.profile.viewModel.TailorProfileViewModel
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint class ProfileAboutFragment : BaseFragment() {
+@AndroidEntryPoint
+class ProfileAboutFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = ProfileAboutFragment()
   }
 
   private val viewModel: ProfileViewModel by activityViewModels()
+  private val tailorProfileViewModel: TailorProfileViewModel by activityViewModels()
 
   private lateinit var binding: FragmentProfileAboutBinding
 
@@ -43,25 +47,13 @@ import dagger.hilt.android.AndroidEntryPoint
     super.setupFragmentObserver()
 
     viewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
-      it?.let { profile ->
-        if (viewModel.isUser()) {
-          binding.textViewEditAbout.show()
-        }
-
-        profile.location?.address?.let { address ->
-          setAddressData(address)
-        }
-        profile.occupation?.let { occupation ->
-          if (occupation.company.isNullOrBlank().not() || occupation.job.isNullOrBlank().not()) {
-            setOccupationData(occupation)
-          }
-        }
-        profile.education?.let { education ->
-          if (education.school.isNullOrBlank().not() || education.major.isNullOrBlank().not()) {
-            setEducationData(education)
-          }
-        }
+      if (viewModel.isUser()) {
+        binding.textViewEditAbout.show()
       }
+      setAboutData(it)
+    })
+    tailorProfileViewModel.profileInfoUiModel.observe(viewLifecycleOwner, {
+      setAboutData(it)
     })
   }
 
@@ -71,33 +63,48 @@ import dagger.hilt.android.AndroidEntryPoint
     }
   }
 
+  private fun setAboutData(profile: ProfileInfoUiModel) {
+    if (viewModel.isNoAboutData()) {
+      binding.imageViewNoData.show()
+    } else {
+      profile.location?.address?.let { address ->
+        setAddressData(address)
+      }
+      profile.occupation?.let { occupation ->
+        if (occupation.company.isNullOrBlank().not() || occupation.job.isNullOrBlank().not()) {
+          setOccupationData(occupation)
+        }
+      }
+      profile.education?.let { education ->
+        if (education.school.isNullOrBlank().not() || education.major.isNullOrBlank().not()) {
+          setEducationData(education)
+        }
+      }
+    }
+  }
+
   private fun setAddressData(address: String) {
     with(binding) {
-      imageViewAboutAddress.show()
-      textViewAboutAddressValue.show()
       textViewAboutAddressValue.text = getString(R.string.about_address_value, address)
+      groupAddress.show()
     }
   }
 
   private fun setEducationData(education: Education) {
     with(binding) {
-      imageViewAboutSchool.show()
-      textViewAboutSchoolValue.show()
-
       val schoolValue = getStringValue(education.school, R.string.about_school_value)
       val majorValue = getStringValue(education.major, R.string.about_school_major_value)
       textViewAboutSchoolValue.text = getString(R.string.studied_label) + schoolValue + majorValue
+      groupSchool.show()
     }
   }
 
   private fun setOccupationData(occupation: Occupation) {
     with(binding) {
-      imageViewAboutOccupation.show()
-      textViewAboutOccupationValue.show()
-
       val occupationValue = getStringValue(occupation.job, R.string.about_occupation_value)
       val companyValue = getStringValue(occupation.company, R.string.about_occupation_company_value)
       textViewAboutOccupationValue.text = getString(R.string.works_label) + occupationValue + companyValue
+      groupOccupation.show()
     }
   }
 

@@ -68,6 +68,12 @@ class EditAboutFragment : BaseFragment() {
     super.setupFragmentObserver()
     setupAboutDataObserver()
     setupLocationObserver()
+
+    editAboutViewModel.isUpdated.observe(viewLifecycleOwner, {
+      if (it) {
+        onNavigationIconClicked()
+      }
+    })
   }
 
   private fun setupAboutDataObserver() {

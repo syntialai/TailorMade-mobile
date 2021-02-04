@@ -6,7 +6,8 @@
 
         <activity
             android:name=".feature.view.ChatRoomActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
 
             <intent-filter>
                 <action android:name="com.future.tailormade.chatRoom.open" />

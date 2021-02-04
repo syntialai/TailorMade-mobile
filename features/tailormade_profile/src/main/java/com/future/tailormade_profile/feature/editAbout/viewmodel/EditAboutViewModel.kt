@@ -34,6 +34,10 @@ class EditAboutViewModel @ViewModelInject constructor(
   val profileAbout: LiveData<ProfileAboutResponse>
     get() = _profileAbout
 
+  private var _isUpdated = MutableLiveData<Boolean>()
+  val isUpdated: LiveData<Boolean>
+    get() = _isUpdated
+
   init {
     _profileAbout = savedStateHandle.getLiveData(PROFILE_ABOUT)
   }
@@ -51,6 +55,7 @@ class EditAboutViewModel @ViewModelInject constructor(
         }.collectLatest {
           setFinishLoading()
           _profileAbout.value = it
+          _isUpdated.value = true
         }
       }
     }

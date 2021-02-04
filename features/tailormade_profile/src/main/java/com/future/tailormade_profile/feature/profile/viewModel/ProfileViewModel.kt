@@ -1,6 +1,5 @@
 package com.future.tailormade_profile.feature.profile.viewModel
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -15,7 +14,6 @@ import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class ProfileViewModel @ViewModelInject constructor(
     private val profileRepository: ProfileRepository,
@@ -42,13 +40,9 @@ class ProfileViewModel @ViewModelInject constructor(
   fun fetchProfileInfo() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        profileRepository.getProfileInfo(id).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
+        profileRepository.getProfileInfo(id).onError {
           setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
         }.collectLatest {
-          setFinishLoading()
           _profileInfoUiModel.value = it.uiModel
         }
       }
@@ -56,6 +50,13 @@ class ProfileViewModel @ViewModelInject constructor(
   }
 
   fun getUserGender() = authSharedPrefRepository.userGender
+
+  fun isNoAboutData(): Boolean {
+    val profile = _profileInfoUiModel.value
+    return profile?.let {
+      it.location == null && it.education == null && it.address.isBlank()
+    } ?: true
+  }
 
   fun isUser() = authSharedPrefRepository.userId == _profileInfoUiModel.value?.id
 }

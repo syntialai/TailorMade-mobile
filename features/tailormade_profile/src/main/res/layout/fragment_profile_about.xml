@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     android:padding="@dimen/dp_16"
     tools:context=".feature.profile.view.ProfileAboutFragment">
@@ -37,13 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
         android:src="@drawable/ic_location"
-        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/text_view_about_address_value"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_about_title"
         app:tint="?colorPrimary"
-        tools:visibility="visible"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -54,11 +52,9 @@
         android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_4"
         android:text="@string/about_address_value"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_about_address"
-        app:layout_constraintTop_toTopOf="@id/image_view_about_address"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toTopOf="@id/image_view_about_address" />
 
     <ImageView
         android:id="@+id/image_view_about_occupation"
@@ -66,14 +62,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
         android:src="@drawable/ic_company"
-        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/text_view_about_occupation_value"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_about_address_value"
         app:tint="?colorPrimary"
-        tools:ignore="ContentDescription"
-        tools:visibility="visible" />
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/text_view_about_occupation_value"
@@ -83,11 +77,9 @@
         android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_4"
         android:text="@string/about_occupation_value"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_about_occupation"
-        app:layout_constraintTop_toTopOf="@id/image_view_about_occupation"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toTopOf="@id/image_view_about_occupation" />
 
     <ImageView
         android:id="@+id/image_view_about_school"
@@ -95,14 +87,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
         android:src="@drawable/ic_school"
-        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/text_view_about_school_value"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_about_occupation_value"
         app:tint="?colorPrimary"
-        tools:ignore="ContentDescription"
-        tools:visibility="visible" />
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/text_view_about_school_value"
@@ -112,10 +102,45 @@
         android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_4"
         android:text="@string/about_school_value"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_about_school"
-        app:layout_constraintTop_toTopOf="@id/image_view_about_school"
+        app:layout_constraintTop_toTopOf="@id/image_view_about_school" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="image_view_about_address, text_view_about_address_value"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_school"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="image_view_about_school, text_view_about_school_value"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_occupation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="image_view_about_occupation, text_view_about_occupation_value"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/image_view_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/illustration_no_data"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="ContentDescription"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
