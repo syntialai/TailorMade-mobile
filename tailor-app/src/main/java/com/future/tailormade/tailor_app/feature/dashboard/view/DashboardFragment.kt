@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -66,7 +65,9 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
       goToDesignDetail()
     }
     setupRecyclerView()
+    setupSkeleton()
     setupSwipeRefreshLayout()
+
     return binding.root
   }
 
@@ -83,7 +84,12 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
         } else {
           showRecyclerView()
         }
-        binding.swipeRefreshLayoutDashboard.isRefreshing = false
+        with(binding) {
+          swipeRefreshLayoutDashboard.isRefreshing = false
+          recyclerViewTailorDesignsList.post {
+            hideSkeleton()
+          }
+        }
       }
     })
   }
@@ -101,43 +107,15 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
     }?.show()
   }
 
-  @ExperimentalCoroutinesApi
-  private fun setupRecyclerView() {
-    with(binding.recyclerViewTailorDesignsList) {
-      layoutManager = GridLayoutManager(context, 2)
-      adapter = dashboardAdapter
-
-      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL).apply {
-        ContextCompat.getDrawable(context, R.drawable.item_separator)?.let {
-          setDrawable(it)
-        }
-      })
-
-      addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-          super.onScrolled(recyclerView, dx, dy)
-
-          if (isLastItemViewed(recyclerView, viewModel.designs.value?.size.orZero())) {
-            viewModel.fetchMore()
-          }
-        }
-      })
-    }
-  }
-
-  @ExperimentalCoroutinesApi
-  fun setupSwipeRefreshLayout() {
-    binding.swipeRefreshLayoutDashboard.setOnRefreshListener {
-      viewModel.refreshFetch()
-      if (binding.swipeRefreshLayoutDashboard.isRefreshing.not()) {
-        binding.swipeRefreshLayoutDashboard.isRefreshing = true
-      }
-    }
-  }
-
   private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
       R.plurals.delete_design_alert_dialog_content, quantity, quantity)
+
+  private fun getDividerItemDecoration(orientation: Int, drawableId: Int) = DividerItemDecoration(context,
+      orientation).apply {
+    ContextCompat.getDrawable(requireContext(), drawableId)?.let {
+      setDrawable(it)
+    }
+  }
 
   private fun goToDesignDetail(id: String? = null) {
     context?.let { context ->
@@ -160,6 +138,45 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   private fun selectDesign(id: String) {
     (activity as MainActivity).startContextualActionMode()
     viewModel.selectDesign(id)
+  }
+
+  @ExperimentalCoroutinesApi
+  private fun setupRecyclerView() {
+    with(binding.recyclerViewTailorDesignsList) {
+      layoutManager = GridLayoutManager(context, 2)
+      adapter = dashboardAdapter
+
+      addItemDecoration(
+          getDividerItemDecoration(GridLayoutManager.HORIZONTAL, R.drawable.item_separator))
+      addItemDecoration(
+          getDividerItemDecoration(GridLayoutManager.VERTICAL, R.drawable.chat_item_separator))
+
+      addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          super.onScrolled(recyclerView, dx, dy)
+
+          if (isLastItemViewed(recyclerView, viewModel.designs.value?.size.orZero())) {
+            viewModel.fetchMore()
+          }
+        }
+      })
+    }
+  }
+
+  private fun setupSkeleton() {
+    skeletonScreen = getSkeleton(binding.recyclerViewTailorDesignsList,
+        R.layout.layout_card_design_skeleton)?.adapter(dashboardAdapter)?.show()
+  }
+
+  @ExperimentalCoroutinesApi
+  private fun setupSwipeRefreshLayout() {
+    binding.swipeRefreshLayoutDashboard.setOnRefreshListener {
+      viewModel.refreshFetch()
+      if (binding.swipeRefreshLayoutDashboard.isRefreshing.not()) {
+        binding.swipeRefreshLayoutDashboard.isRefreshing = true
+      }
+    }
   }
 
   private fun showRecyclerView() {

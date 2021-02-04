@@ -136,7 +136,8 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
     else -> true
   }
 
-  private fun getDesignColorRequest(name: String, color: String) = DesignColorRequest(name, color)
+  private fun getDesignColorRequest(name: String, color: String) = DesignColorRequest(color = color,
+      name = name)
 
   private fun getDesignSizeRequest(name: String, sizeDetail: SizeDetailUiModel) = DesignSizeRequest(
       name, mapToSizeDetailRequest(sizeDetail))

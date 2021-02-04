@@ -31,7 +31,9 @@ class MainActivity : BaseActivity() {
     setContentView(binding.root)
     setSupportActionBar(toolbar)
     setupNavController()
-    setupBottomNav()
+    if (savedInstanceState == null) {
+      setupBottomNav()
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -56,6 +58,11 @@ class MainActivity : BaseActivity() {
       }
       else -> super.onOptionsItemSelected(item)
     }
+  }
+
+  override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    super.onRestoreInstanceState(savedInstanceState)
+    setupBottomNav()
   }
 
   private fun setupBottomNav() {

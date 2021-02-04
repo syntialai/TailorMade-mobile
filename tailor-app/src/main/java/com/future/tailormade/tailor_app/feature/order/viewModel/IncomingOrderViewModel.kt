@@ -37,7 +37,7 @@ class IncomingOrderViewModel @ViewModelInject constructor(
     get() = _hasOrderResponded
 
   init {
-    _incomingOrders = savedStateHandle.getLiveData(INCOMING_ORDERS, arrayListOf())
+    _incomingOrders = savedStateHandle.getLiveData(INCOMING_ORDERS)
   }
 
   fun fetchIncomingOrders() {

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_1">
+
+    <View
+        android:id="@+id/image_view_design"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:background="?attr/colorSurface2"
+        app:layout_constraintBottom_toTopOf="@id/text_view_design_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_rounded_separator"
+        style="@style/Theme.TailorMade.CornerRounded.Top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_8"
+        android:background="@drawable/drawable_rounded_top_background"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_design"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/text_view_design_name"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginHorizontal="@dimen/dp_8"
+        android:background="@drawable/drawable_rounded_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_rounded_separator" />
+
+    <TextView
+        android:id="@+id/text_view_design_price"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginHorizontal="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:background="@drawable/drawable_rounded_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_design_name"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

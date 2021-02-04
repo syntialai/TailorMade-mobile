@@ -18,7 +18,6 @@ import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
@@ -33,8 +32,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@AndroidEntryPoint
-class DesignDetailFragment : BaseFragment() {
+@AndroidEntryPoint class DesignDetailFragment : BaseFragment() {
 
   companion object {
     private const val DESCRIPTION_MAX_LINES = 3
@@ -44,15 +42,13 @@ class DesignDetailFragment : BaseFragment() {
     fun newInstance() = DesignDetailFragment()
   }
 
-  @Inject
-  lateinit var authSharedPrefRepository: AuthSharedPrefRepository
+  @Inject lateinit var authSharedPrefRepository: AuthSharedPrefRepository
 
   private val viewModel: DesignDetailViewModel by viewModels()
 
   private lateinit var binding: FragmentDesignDetailBinding
 
-  override fun getLogName() =
-      "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
+  override fun getLogName() = "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
 
   override fun getScreenName(): String = "Design Detail"
 
@@ -69,11 +65,12 @@ class DesignDetailFragment : BaseFragment() {
     if (authSharedPrefRepository.isTailor()) {
       hideCustomerFeatures()
     }
+    showSkeleton(binding.layoutDesignDetail, R.layout.layout_design_detail_skeleton)
     return binding.root
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when(item.itemId) {
+    return when (item.itemId) {
       R.id.item_search -> {
         goToSearch()
         true
@@ -82,8 +79,8 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
-  @InternalCoroutinesApi
   @ExperimentalCoroutinesApi
+  @InternalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
@@ -102,6 +99,7 @@ class DesignDetailFragment : BaseFragment() {
         setupChooseSizeChips(designDetailUiModel.size)
         setupChooseColorChips(designDetailUiModel.color)
         setupDescription(designDetailUiModel.description)
+        hideSkeleton()
       }
     })
 

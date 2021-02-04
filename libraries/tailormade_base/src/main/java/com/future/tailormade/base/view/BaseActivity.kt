@@ -3,11 +3,15 @@ package com.future.tailormade.base.view
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.ethanhua.skeleton.SkeletonScreen
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.logger.AppLogger
+import com.future.tailormade.util.view.SkeletonHelper
 import com.google.android.material.appbar.MaterialToolbar
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +32,8 @@ abstract class BaseActivity : AppCompatActivity() {
   protected var toolbar: MaterialToolbar? = null
 
   protected var appLogger = AppLogger.create(this.getScreenName())
+
+  private var skeletonScreen: SkeletonScreen? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     appLogger.logLifecycleOnCreate()
@@ -112,5 +118,16 @@ abstract class BaseActivity : AppCompatActivity() {
 
   fun showToolbar() {
     toolbar?.show()
+  }
+
+  fun getSkeleton(recyclerView: RecyclerView,
+      layoutId: Int) = SkeletonHelper.getRecyclerViewSkeleton(recyclerView, layoutId)
+
+  fun hideSkeleton() {
+    skeletonScreen?.hide()
+  }
+
+  fun showSkeleton(view: View, layoutId: Int) {
+    skeletonScreen = SkeletonHelper.showSkeleton(view, layoutId)
   }
 }

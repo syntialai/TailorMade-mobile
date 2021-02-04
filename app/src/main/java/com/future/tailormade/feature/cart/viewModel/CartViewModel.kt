@@ -35,7 +35,7 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
     get() = _hasBeenDeleted
 
   init {
-    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL, arrayListOf())
+    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL)
   }
 
   @ExperimentalCoroutinesApi

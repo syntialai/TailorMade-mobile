@@ -43,6 +43,9 @@ class IncomingOrderAdapter(private val onAcceptOrderListener: (String) -> Unit,
 
     fun bind(data: OrderUiModel) {
       with(binding) {
+        textViewOrderId.text = data.id
+        textViewOrderDate.text = data.orderDate
+
         groupTailorButton.show()
         buttonAcceptOrder.setOnClickListener {
           onAcceptOrderListener.invoke(data.id)

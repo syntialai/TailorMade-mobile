@@ -17,7 +17,7 @@ object OrderMapper {
 
   fun mapToOrderUiModel(order: OrderResponse) = OrderUiModel(
       id = order.id,
-      orderDate = order.createdAt.toDateString(Constants.DD_MMM_YYYY),
+      orderDate = order.createdAt.toDateString(Constants.DD_MMM_YYYY, true),
       quantity = order.quantity.toString(),
       totalPrice = order.totalPrice.toIndonesiaCurrencyFormat(),
       totalDiscount = order.totalDiscount.toIndonesiaCurrencyFormat(),
@@ -27,7 +27,7 @@ object OrderMapper {
 
   fun mapToOrderDetailUiModel(orderDetail: OrderDetailResponse) = OrderDetailUiModel(
       id = orderDetail.id,
-      orderDate = orderDetail.createdAt.toDateString(Constants.DD_MMMM_YYYY_HH_MM_SS),
+      orderDate = orderDetail.createdAt.toDateString(Constants.DD_MMMM_YYYY_HH_MM_SS, true),
       orderedBy = orderDetail.userName,
       quantity = orderDetail.quantity.toString(),
       status = orderDetail.status,

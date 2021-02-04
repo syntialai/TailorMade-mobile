@@ -8,9 +8,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ethanhua.skeleton.SkeletonScreen
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.util.logger.AppLogger
 import com.future.tailormade.util.view.DialogHelper
+import com.future.tailormade.util.view.SkeletonHelper
 import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_router.actions.Action
 
@@ -27,6 +29,8 @@ abstract class BaseFragment : Fragment() {
   protected abstract fun getViewModel(): BaseViewModel?
 
   protected open var loadingDialog: Dialog? = null
+
+  protected var skeletonScreen: SkeletonScreen? = null
 
   override fun onAttach(context: Context) {
     appLogger.logLifecycleOnAttach()
@@ -165,5 +169,16 @@ abstract class BaseFragment : Fragment() {
           activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
       inputManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
+  }
+
+  fun getSkeleton(recyclerView: RecyclerView,
+      layoutId: Int) = SkeletonHelper.getRecyclerViewSkeleton(recyclerView, layoutId)
+
+  fun hideSkeleton() {
+    skeletonScreen?.hide()
+  }
+
+  fun showSkeleton(view: View, layoutId: Int) {
+    skeletonScreen = SkeletonHelper.showSkeleton(view, layoutId)
   }
 }

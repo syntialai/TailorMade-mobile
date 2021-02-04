@@ -18,5 +18,4 @@ data class OrderDesignUiModel(
 
     var size: String,
 
-    var title: String
-): Parcelable
+    var title: String) : Parcelable
