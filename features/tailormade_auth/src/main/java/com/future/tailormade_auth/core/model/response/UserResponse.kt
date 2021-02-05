@@ -14,9 +14,7 @@ data class UserResponse (
 
   val email: String = "",
 
-  val birthDate: String = "",
+  val gender: String,
 
-  val gender: GenderEnum = GenderEnum.Anonymous,
-
-  val role: RoleEnum = RoleEnum.ROLE_USER
+  val role: String
 ): Parcelable

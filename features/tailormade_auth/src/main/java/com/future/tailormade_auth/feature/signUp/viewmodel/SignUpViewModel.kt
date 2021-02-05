@@ -78,8 +78,8 @@ class SignUpViewModel @ViewModelInject constructor(
       userId = user.id
       name = user.name
       username = user.email
-      userRole = user.role.ordinal
-      userGender = user.gender.ordinal
+      userRole = RoleEnum.valueOf(user.role).ordinal
+      userGender = GenderEnum.valueOf(user.gender).ordinal
     }
   }
 
