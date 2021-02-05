@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/dp_1"
+            android:paddingBottom="@dimen/dp_72"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,9 +28,9 @@
 
     <include
         android:id="@+id/layout_dashboard_state"
-        layout="@layout/layout_dashboard_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        layout="@layout/layout_dashboard_state"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

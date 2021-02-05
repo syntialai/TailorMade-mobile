@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_4"
             android:text="@string/chat_content_send_time_label"
-            android:textColor="@color/color_black_54"
             app:layout_constraintTop_toBottomOf="@id/text_view_chat_content_send_text"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

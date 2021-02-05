@@ -45,8 +45,7 @@ class ChatRoomActivity : BaseActivity() {
         val chatRoom = snapshot.getValue(ChatRoom::class.java)
         chatRoom?.chats?.let {
           chatRoomAdapter.submitList(it.toSortedMap().values.toList())
-          chatRoomAdapter.notifyDataSetChanged()
-          binding.recyclerViewChatRoom.scrollToPosition(it.size - 1)
+          scrollRecyclerView(it.size - 1)
         }
       }
 
@@ -90,6 +89,10 @@ class ChatRoomActivity : BaseActivity() {
   private fun removeMessage() {
     binding.layoutInputTextChatRoom.editTextMessageChatRoom.text = null
     viewModel.setIsSent(null)
+  }
+
+  private fun scrollRecyclerView(position: Int) {
+    binding.recyclerViewChatRoom.scrollToPosition(position)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
