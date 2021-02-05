@@ -27,12 +27,6 @@ class AuthRepositoryImpl @Inject constructor(private val authService: AuthServic
 //    emit(getTokenResponse())
   }.flowOnIO()
 
-  override suspend fun activateTailor(id: String) = flow {
-    authService.activateTailor(id).data?.let {
-      emit(it)
-    }
-  }.flowOnIO()
-
   override suspend fun signIn(signInRequest: SignInRequest): Flow<SignInResponse> = flow {
     authLoginService.signIn(signInRequest).data?.let {
       emit(it)

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,31 +42,32 @@
         <RadioButton
             android:id="@+id/radio_button_select_gender_male"
             style="@style/Theme.TailorMade.RadioImageButton"
-            android:checked="true"
-            android:drawableTop="@drawable/drawable_gender_male"
-            android:text="@string/gender_male_label" />
+            android:drawableTop="@drawable/drawable_male_selector"
+            android:text="@string/gender_male_label"
+            android:textColor="@color/color_primary_800" />
 
         <RadioButton
             android:id="@+id/radio_button_select_gender_female"
             style="@style/Theme.TailorMade.RadioImageButton"
-            android:drawableTop="@drawable/drawable_gender_female"
+            android:drawableTop="@drawable/drawable_female_selector"
             android:text="@string/gender_female_label" />
 
         <RadioButton
             android:id="@+id/radio_button_select_gender_other"
             style="@style/Theme.TailorMade.RadioImageButton"
-            android:drawableTop="@drawable/ic_account"
+            android:checked="true"
+            android:drawableTop="@drawable/drawable_anonymous_selector"
             android:text="@string/gender_other_label" />
 
     </RadioGroup>
 
-        <Button
-            android:id="@+id/button_submit_gender"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:text="@string/next_label"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/button_submit_gender"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
