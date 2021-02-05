@@ -48,6 +48,7 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
     fun bind(data: DashboardTailorUiModel) {
       with(binding.layoutCardTailor) {
         textViewProfileName.text = data.name
+        setupLocation(data.location)
         with(buttonChatTailor) {
           show()
           setOnClickListener {
@@ -55,19 +56,13 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
           }
         }
 
-        data.location?.let {
-          textViewProfileCity.text = it
-        } ?: run {
-          textViewProfileCity.remove()
-        }
-
         ImageLoader.loadImageUrlWithFitCenterAndPlaceholder(context, data.image.orEmpty(),
             R.drawable.illustration_dashboard_tailor_profile, imageViewProfile, true)
 
         data.designs?.let { designs ->
           if (designs.isNotEmpty()) {
-            showPreview()
             setupPreviewImageAdapter()
+            binding.textViewPreviewLabel.show()
             previewImageAdapter.submitList(designs)
           }
         }
@@ -78,16 +73,21 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
       }
     }
 
+    private fun setupLocation(location: String?) {
+      with(binding.layoutCardTailor.textViewProfileCity) {
+        if (location.isNullOrBlank()) {
+          remove()
+        } else {
+          text = location
+        }
+      }
+    }
+
     private fun setupPreviewImageAdapter() {
       binding.recyclerViewPreviewDesigns.apply {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         adapter = previewImageAdapter
       }
-    }
-
-    private fun showPreview() {
-      binding.viewSeparator.show()
-      binding.textViewPreviewLabel.show()
     }
   }
 }

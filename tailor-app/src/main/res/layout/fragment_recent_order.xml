@@ -36,6 +36,7 @@
         android:id="@+id/recycler_view_recent_order"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_72"
         app:layout_constraintTop_toBottomOf="@id/chip_group_filter_order"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -26,7 +26,7 @@ data class DesignDetailResponse(
 
     val color: List<ColorResponse>,
 
-    val category: List<String>,
+    val category: List<String>?,
 
     val active: Boolean
 ): Parcelable

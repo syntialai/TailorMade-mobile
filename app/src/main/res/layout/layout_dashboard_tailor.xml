@@ -22,21 +22,13 @@
             android:layout_height="wrap_content"
             layout="@layout/layout_card_profile" />
 
-        <View
-            android:id="@+id/view_separator"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_margin="@dimen/dp_12"
-            android:background="@color/color_black_20"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
         <TextView
             android:id="@+id/text_view_preview_label"
             style="@style/TextAppearance.TailorMade.Subtitle2.BlackHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_12"
             android:text="@string/preview_label"
             android:visibility="gone"
             tools:visibility="visible" />

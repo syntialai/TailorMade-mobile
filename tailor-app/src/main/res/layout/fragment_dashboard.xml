@@ -41,7 +41,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_tailor_designs_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_72" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
