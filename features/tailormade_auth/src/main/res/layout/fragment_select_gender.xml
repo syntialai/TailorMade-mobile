@@ -43,8 +43,7 @@
             android:id="@+id/radio_button_select_gender_male"
             style="@style/Theme.TailorMade.RadioImageButton"
             android:drawableTop="@drawable/drawable_male_selector"
-            android:text="@string/gender_male_label"
-            android:textColor="@color/color_primary_800" />
+            android:text="@string/gender_male_label" />
 
         <RadioButton
             android:id="@+id/radio_button_select_gender_female"
@@ -57,7 +56,8 @@
             style="@style/Theme.TailorMade.RadioImageButton"
             android:checked="true"
             android:drawableTop="@drawable/drawable_anonymous_selector"
-            android:text="@string/gender_other_label" />
+            android:text="@string/gender_other_label"
+            android:textColor="@color/color_primary_800" />
 
     </RadioGroup>
 
