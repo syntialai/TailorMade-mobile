@@ -10,6 +10,7 @@ object UserAction {
    */
   private const val PARAM_CART_ITEM_ID = "PARAM_CART_ITEM_ID"
   private const val PARAM_TAILOR_ID = "PARAM_TAILOR_ID"
+  private const val PARAM_TAILOR_NAME = "PARAM_TAILOR_NAME"
 
   /**
    * Action name
@@ -36,8 +37,9 @@ object UserAction {
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       })
 
-  fun goToTailorProfile(context: Context, tailorId: String) = context.startActivity(
+  fun goToTailorProfile(context: Context, tailorId: String, tailorName: String) = context.startActivity(
       Action.getIntent(context, ACTION_OPEN_TAILOR_PROFILE).apply {
         putExtra(PARAM_TAILOR_ID, tailorId)
+        putExtra(PARAM_TAILOR_NAME, tailorName)
       })
 }

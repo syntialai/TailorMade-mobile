@@ -68,9 +68,9 @@ class SearchTailorResultFragment : BaseFragment() {
     })
   }
 
-  private fun goToTailorProfile(id: String) {
+  private fun goToTailorProfile(id: String, name: String) {
     context?.let {
-      UserAction.goToTailorProfile(it, id)
+      UserAction.goToTailorProfile(it, id, name)
     }
   }
 

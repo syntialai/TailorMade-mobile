@@ -11,7 +11,7 @@ import com.future.tailormade_dls.databinding.LayoutCardProfileBinding
 import com.future.tailormade_search.R
 import com.future.tailormade_search.core.model.response.SearchTailorResponse
 
-class SearchTailorListAdapter(private val onClickListener: (String) -> Unit) :
+class SearchTailorListAdapter(private val onClickListener: (String, String) -> Unit) :
     ListAdapter<SearchTailorResponse, SearchTailorListAdapter.SearchTailorListViewHolder>(
         diffCallback) {
 
@@ -48,7 +48,7 @@ class SearchTailorListAdapter(private val onClickListener: (String) -> Unit) :
             R.drawable.illustration_dashboard_tailor_profile, imageViewProfile, true)
 
         root.setOnClickListener {
-          onClickListener.invoke(data.id)
+          onClickListener.invoke(data.id, data.name)
         }
       }
     }

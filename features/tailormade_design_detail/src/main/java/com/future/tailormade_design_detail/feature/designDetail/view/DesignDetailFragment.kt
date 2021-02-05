@@ -165,9 +165,9 @@ import kotlinx.coroutines.InternalCoroutinesApi
     }
   }
 
-  private fun goToTailorProfile(tailorId: String) {
+  private fun goToTailorProfile(tailorId: String, tailorName: String) {
     context?.let { context ->
-      UserAction.goToTailorProfile(context, tailorId)
+      UserAction.goToTailorProfile(context, tailorId, tailorName)
     }
   }
 
@@ -267,7 +267,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
       }
       textViewDesignDetailDesignedBy.setOnClickListener {
         if (authSharedPrefRepository.isUser()) {
-          goToTailorProfile(tailorId)
+          goToTailorProfile(tailorId, tailorName)
         }
       }
 
