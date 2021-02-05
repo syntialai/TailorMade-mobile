@@ -11,10 +11,6 @@ import retrofit2.http.Path
 
 interface AuthService {
 
-  @POST(AuthApiUrl.USERS_ID_ACTIVATE_TAILOR_PATH)
-  suspend fun activateTailor(
-      @Path("id") id: String): BaseSingleObjectResponse<ActivateTailorResponse>
-
   @POST(AuthApiUrl.USER_REFRESH_TOKEN_PATH)
   suspend fun refreshToken(
       @Body RefreshTokenRequest: RefreshTokenRequest): BaseSingleObjectResponse<TokenResponse>

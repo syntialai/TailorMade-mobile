@@ -16,6 +16,4 @@ interface AuthRepository {
   suspend fun signUp(signUpRequest: SignUpRequest): Flow<UserResponse>
 
   suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): Flow<TokenDetailResponse>
-
-  suspend fun activateTailor(id: String): Flow<ActivateTailorResponse>
 }

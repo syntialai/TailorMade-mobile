@@ -32,7 +32,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@AndroidEntryPoint class DesignDetailFragment : BaseFragment() {
+@AndroidEntryPoint
+class DesignDetailFragment : BaseFragment() {
 
   companion object {
     private const val DESCRIPTION_MAX_LINES = 3
@@ -67,16 +68,6 @@ import kotlinx.coroutines.InternalCoroutinesApi
     }
     showSkeleton(binding.layoutDesignDetail, R.layout.layout_design_detail_skeleton)
     return binding.root
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-      R.id.item_search -> {
-        goToSearch()
-        true
-      }
-      else -> super.onOptionsItemSelected(item)
-    }
   }
 
   @ExperimentalCoroutinesApi
@@ -159,15 +150,9 @@ import kotlinx.coroutines.InternalCoroutinesApi
     }
   }
 
-  private fun goToSearch() {
+  private fun goToTailorProfile(tailorId: String, tailorName: String) {
     context?.let { context ->
-      Action.goToSearch(context)
-    }
-  }
-
-  private fun goToTailorProfile(tailorId: String) {
-    context?.let { context ->
-      UserAction.goToTailorProfile(context, tailorId)
+      UserAction.goToTailorProfile(context, tailorId, tailorName)
     }
   }
 
@@ -267,7 +252,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
       }
       textViewDesignDetailDesignedBy.setOnClickListener {
         if (authSharedPrefRepository.isUser()) {
-          goToTailorProfile(tailorId)
+          goToTailorProfile(tailorId, tailorName)
         }
       }
 

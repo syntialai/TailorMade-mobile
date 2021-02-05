@@ -80,9 +80,9 @@ class DashboardFragment : BaseFragment() {
     }
   }
 
-  private fun goToTailorProfile(tailorId: String) {
+  private fun goToTailorProfile(tailorId: String, tailorName: String) {
     context?.let {
-      UserAction.goToTailorProfile(it, tailorId)
+      UserAction.goToTailorProfile(it, tailorId, tailorName)
     }
   }
 

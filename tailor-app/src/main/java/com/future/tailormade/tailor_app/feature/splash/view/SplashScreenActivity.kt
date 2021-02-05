@@ -5,7 +5,7 @@ import android.os.Handler
 import androidx.activity.viewModels
 import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.config.Constants
-import com.future.tailormade.feature.splash.viewModel.SplashScreenViewModel
+import com.future.tailormade.tailor_app.feature.splash.viewModel.SplashScreenViewModel
 import com.future.tailormade.tailor_app.databinding.ActivitySplashScreenBinding
 import com.future.tailormade_router.actions.Action
 import com.future.tailormade_router.actions.TailorAction
