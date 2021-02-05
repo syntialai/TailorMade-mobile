@@ -32,7 +32,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@AndroidEntryPoint class DesignDetailFragment : BaseFragment() {
+@AndroidEntryPoint
+class DesignDetailFragment : BaseFragment() {
 
   companion object {
     private const val DESCRIPTION_MAX_LINES = 3
@@ -67,16 +68,6 @@ import kotlinx.coroutines.InternalCoroutinesApi
     }
     showSkeleton(binding.layoutDesignDetail, R.layout.layout_design_detail_skeleton)
     return binding.root
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-      R.id.item_search -> {
-        goToSearch()
-        true
-      }
-      else -> super.onOptionsItemSelected(item)
-    }
   }
 
   @ExperimentalCoroutinesApi
@@ -156,12 +147,6 @@ import kotlinx.coroutines.InternalCoroutinesApi
       viewModel.designDetailResponse.value?.let {
         Action.goToChatRoom(context, it.tailorId, it.tailorName)
       }
-    }
-  }
-
-  private fun goToSearch() {
-    context?.let { context ->
-      Action.goToSearch(context)
     }
   }
 
