@@ -3,22 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/dp_2"
-    android:background="@drawable/drawable_chat_reply"
-    android:elevation="@dimen/dp_4"
-    android:paddingHorizontal="@dimen/dp_12"
-    android:paddingVertical="@dimen/dp_8">
+    android:paddingStart="@dimen/dp_0"
+    android:paddingEnd="@dimen/dp_16">
 
     <TextView
         android:id="@+id/text_view_chat_content_reply_text"
         style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_12"
+        android:background="@drawable/drawable_chat_reply"
+        android:elevation="@dimen/dp_4"
+        android:paddingHorizontal="@dimen/dp_12"
+        android:paddingVertical="@dimen/dp_8"
         android:text="@string/chat_content_label"
         android:textColor="@color/color_black_87"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/text_view_chat_content_reply_time"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -26,9 +25,9 @@
         style="@style/TextAppearance.TailorMade.Overline.BlackMedium2"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/dp_4"
         android:text="@string/chat_content_reply_time_label"
         android:textColor="@color/color_black_54"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_chat_content_reply_text"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_chat_content_reply_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
