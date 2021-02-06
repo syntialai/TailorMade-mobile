@@ -28,7 +28,9 @@ class AuthSharedPrefRepository private constructor(context: Context) {
   }
 
   fun clearSharedPrefs() {
+    val role = userRole
     sharedPreferences.edit().clear().apply()
+    userRole = role
   }
 
   var accessToken: String?

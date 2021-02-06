@@ -44,7 +44,8 @@ class SignInViewModel @ViewModelInject constructor(
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   fun signIn(email: String, password: String) {
-    val signInRequest = SignInRequest(email, password)
+    val role = RoleEnum.values()[authSharedPrefRepository.userRole]
+    val signInRequest = SignInRequest(email, password, role)
 
     launchViewModelScope {
       authRepository.signIn(signInRequest).onStart {

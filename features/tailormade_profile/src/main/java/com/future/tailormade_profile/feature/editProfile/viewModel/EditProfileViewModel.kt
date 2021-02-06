@@ -1,6 +1,5 @@
 package com.future.tailormade_profile.feature.editProfile.viewModel
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -35,6 +34,12 @@ class EditProfileViewModel @ViewModelInject constructor(
       "com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel"
 
   private var _profileInfo = MutableLiveData<ProfileInfoResponse>()
+    set(value) {
+      field = value
+      value.value?.let {
+        setData(it)
+      }
+    }
   val profileInfo: LiveData<ProfileInfoResponse>
     get() = _profileInfo
 
@@ -69,7 +74,6 @@ class EditProfileViewModel @ViewModelInject constructor(
         city = location.address?.city.orEmpty(), province = location.address?.state.orEmpty(),
         country = location.address?.country.orEmpty(),
         postCode = location.address?.postcode.orEmpty())
-    Log.d("LOCATION", _location.toString())
   }
 
   @ExperimentalCoroutinesApi
@@ -119,9 +123,13 @@ class EditProfileViewModel @ViewModelInject constructor(
         }.collectLatest { data ->
           setFinishLoading()
           _profileInfo.value = data.response
-          _birthDate = data.response.birthDate
         }
       }
     }
+  }
+
+  private fun setData(response: ProfileInfoResponse) {
+    _birthDate = response.birthDate
+    _location = response.location
   }
 }
