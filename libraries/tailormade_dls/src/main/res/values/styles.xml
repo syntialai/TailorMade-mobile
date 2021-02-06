@@ -144,8 +144,8 @@
         <item name="android:button">@null</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:drawablePadding">@dimen/dp_24</item>
-        <item name="android:layout_marginStart">@dimen/dp_16</item>
-        <item name="android:layout_marginEnd">@dimen/dp_16</item>
+        <item name="android:layout_marginStart">@dimen/dp_8</item>
+        <item name="android:layout_marginEnd">@dimen/dp_8</item>
         <item name="android:textAppearance">@style/TextAppearance.TailorMade.Subtitle1.BlackMedium</item>
     </style>
 

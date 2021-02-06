@@ -50,7 +50,8 @@ class SignUpViewModel @ViewModelInject constructor(
 
   private fun getSignInInfo() = SignInRequest(
     signUpRequest?.email.orEmpty(),
-    signUpRequest?.password.orEmpty()
+    signUpRequest?.password.orEmpty(),
+    signUpRequest?.role ?: getRole()
   )
 
   private fun getGenderEnum(gender: String) = when(gender) {
@@ -69,8 +70,7 @@ class SignUpViewModel @ViewModelInject constructor(
   }
 
   fun setSignUpGender(gender: String) {
-    val role = RoleEnum.values()[authSharedPrefRepository.userRole]
-    signUpRequest = signUpRequest?.copy(gender = getGenderEnum(gender), role = role)
+    signUpRequest = signUpRequest?.copy(gender = getGenderEnum(gender), role = getRole())
   }
 
   private fun saveUserData(user: UserResponse) {
@@ -109,6 +109,8 @@ class SignUpViewModel @ViewModelInject constructor(
       }
     }
   }
+
+  private fun getRole() = RoleEnum.values()[authSharedPrefRepository.userRole]
 
   private fun updateToken(token: TokenDetailResponse) {
     with(authSharedPrefRepository) {

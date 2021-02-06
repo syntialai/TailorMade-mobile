@@ -45,13 +45,15 @@ abstract class BaseFragment : Fragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     appLogger.logLifecycleOnActivityCreated()
     super.onActivityCreated(savedInstanceState)
+    setupFragmentObserver()
+  }
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
     activity?.let { activity ->
       (activity as BaseActivity).setupOnNavigationIconClicked(::onNavigationIconClicked)
       activity.setupToolbar(getScreenName())
     }
-
-    setupFragmentObserver()
   }
 
   override fun onStart() {

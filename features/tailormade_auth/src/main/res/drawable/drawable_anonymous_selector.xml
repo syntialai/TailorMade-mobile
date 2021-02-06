@@ -6,6 +6,7 @@
             android:tint="?attr/colorPrimary" />
     </item>
     <item android:state_checked="false">
-        <bitmap android:src="@drawable/drawable_anonymous" />
+        <bitmap android:src="@drawable/drawable_anonymous"
+            android:tint="@color/color_black_38" />
     </item>
 </selector>
