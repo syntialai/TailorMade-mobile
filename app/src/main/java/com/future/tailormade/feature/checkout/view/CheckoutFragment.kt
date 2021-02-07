@@ -60,7 +60,7 @@ class CheckoutFragment : BaseFragment() {
         }
       }
     }
-    showSkeleton(binding.layoutCheckout, R.layout.layout_checkout_skeleton)
+    showSkeleton(binding.root, R.layout.layout_checkout_skeleton)
     return binding.root
   }
 

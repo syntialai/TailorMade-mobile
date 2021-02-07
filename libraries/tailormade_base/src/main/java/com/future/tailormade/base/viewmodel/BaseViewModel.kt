@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
-  protected var appLogger = AppLogger.create(this.getLogName())
+  protected var appLogger = AppLogger(this.getLogName())
 
   protected abstract fun getLogName(): String
 

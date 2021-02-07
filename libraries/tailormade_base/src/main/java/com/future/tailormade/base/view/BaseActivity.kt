@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ethanhua.skeleton.SkeletonScreen
+import com.future.tailormade.R
+import com.future.tailormade.util.extension.getColorResFromAttrs
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.logger.AppLogger
@@ -31,7 +33,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
   protected var toolbar: MaterialToolbar? = null
 
-  protected var appLogger = AppLogger.create(this.getScreenName())
+  protected var appLogger = AppLogger(this.getScreenName())
 
   private var skeletonScreen: SkeletonScreen? = null
 
@@ -120,14 +122,19 @@ abstract class BaseActivity : AppCompatActivity() {
     toolbar?.show()
   }
 
-  fun getSkeleton(recyclerView: RecyclerView,
-      layoutId: Int) = SkeletonHelper.getRecyclerViewSkeleton(recyclerView, layoutId)
+  fun getSkeleton(view: View, layoutId: Int): SkeletonScreen = SkeletonHelper.getSkeleton(view,
+      layoutId).color(getColorSurface()).show()
+
+  fun getRecyclerViewSkeleton(recyclerView: RecyclerView, layoutId: Int) = SkeletonHelper.getRecyclerViewSkeleton(
+      recyclerView, layoutId)?.color(R.color.color_black_54)
 
   fun hideSkeleton() {
     skeletonScreen?.hide()
   }
 
   fun showSkeleton(view: View, layoutId: Int) {
-    skeletonScreen = SkeletonHelper.showSkeleton(view, layoutId)
+    skeletonScreen = SkeletonHelper.getSkeleton(view, layoutId).color(getColorSurface()).show()
   }
+
+  private fun getColorSurface() = getColorResFromAttrs(R.attr.colorSurface)
 }

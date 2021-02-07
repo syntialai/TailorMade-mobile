@@ -4,13 +4,6 @@ import timber.log.Timber
 
 class AppLogger(private val logName: String) {
 
-    companion object {
-
-        fun create(logName: String): AppLogger {
-            return AppLogger(logName)
-        }
-    }
-
     fun logLifecycleOnCreate() {
         logInfo("Lifecycle OnCreate")
     }
