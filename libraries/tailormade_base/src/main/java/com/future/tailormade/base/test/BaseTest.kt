@@ -1,5 +1,7 @@
 package com.future.tailormade.base.test
 
+import com.future.tailormade.base.model.enums.GenderEnum
+import com.future.tailormade.base.model.enums.RoleEnum
 import com.future.tailormade.base.model.response.BaseListResponse
 import com.future.tailormade.base.model.response.BasePagingResponse
 import com.future.tailormade.base.model.response.BaseResponse
@@ -22,15 +24,19 @@ abstract class BaseTest {
     const val STATUS_UNAUTHORIZED = "UNAUTHORIZED"
     const val CODE_NOT_FOUND = 404
     const val STATUS_NOT_FOUND = "NOT_FOUND"
+
+    const val USER_ID = "USER ID"
+    const val USER_NAME = "USER NAME"
+    const val USER_EMAIL = "user@mail.com"
+    const val USER_BIRTHDATE = 161188911L
+    const val USER_PASSWORD = "userPassword"
+    val USER_ROLE = RoleEnum.ROLE_USER
+    val USER_GENDER = GenderEnum.Anonymous
   }
 
   abstract fun setUp()
 
   abstract fun tearDown()
-
-  protected fun <T> getFlowResponse(data: T) = flow {
-    emit(data)
-  }.flowOnIO()
 
   protected fun <T> generateListBaseResponse(code: Int? = null, status: String? = null,
       data: List<T>): BaseListResponse<T> {
