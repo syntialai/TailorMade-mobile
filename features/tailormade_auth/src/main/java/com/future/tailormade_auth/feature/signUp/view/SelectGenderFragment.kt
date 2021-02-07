@@ -67,6 +67,7 @@ class SelectGenderFragment : BaseFragment() {
 
   private fun goToMain() {
     context?.let {
+      activity?.finishAndRemoveTask()
       UserAction.goToMain(it)
     }
   }
