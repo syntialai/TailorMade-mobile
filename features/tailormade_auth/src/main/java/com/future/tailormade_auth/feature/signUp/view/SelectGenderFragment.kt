@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
+import com.future.tailormade.base.model.enums.GenderEnum
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_auth.R

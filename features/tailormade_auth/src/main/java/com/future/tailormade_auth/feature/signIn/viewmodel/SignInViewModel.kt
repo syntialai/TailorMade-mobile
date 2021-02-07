@@ -6,6 +6,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.model.enums.GenderEnum
+import com.future.tailormade.base.model.enums.RoleEnum
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
@@ -43,7 +45,8 @@ class SignInViewModel @ViewModelInject constructor(
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   fun signIn(email: String, password: String) {
-    val signInRequest = SignInRequest(email, password)
+    val role = RoleEnum.values()[authSharedPrefRepository.userRole]
+    val signInRequest = SignInRequest(email, password, role)
 
     launchViewModelScope {
       authRepository.signIn(signInRequest).onStart {
@@ -65,8 +68,8 @@ class SignInViewModel @ViewModelInject constructor(
       userId = user.id
       username = user.email
       name = user.name
-      userRole = user.role.ordinal
-      userGender = user.gender.ordinal
+      userRole = RoleEnum.valueOf(user.role).ordinal
+      userGender = GenderEnum.valueOf(user.gender).ordinal
     }
     _userInfo.value = user
   }

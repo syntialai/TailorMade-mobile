@@ -24,6 +24,7 @@ class TailorProfileActivity : BaseActivity() {
 
   companion object {
     private const val PARAM_TAILOR_ID = "PARAM_TAILOR_ID"
+    private const val PARAM_TAILOR_NAME = "PARAM_TAILOR_NAME"
   }
 
   @Inject
@@ -41,12 +42,14 @@ class TailorProfileActivity : BaseActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityTailorProfileBinding.inflate(layoutInflater)
     setContentView(binding.root)
-    binding.layoutProfileInfo.buttonChatTailor.show()
     setupToolbar()
+    with(binding.layoutProfileInfo) {
+      buttonChatTailor.show()
+      showSkeleton(root, R.layout.layout_card_profile_skeleton)
+    }
     setupViewPager()
     setupTabLayout()
     setupObserver()
-    showSkeleton(binding.layoutProfileInfo.root, R.layout.layout_card_profile_skeleton)
   }
 
   @ExperimentalCoroutinesApi
@@ -65,6 +68,8 @@ class TailorProfileActivity : BaseActivity() {
   }
 
   private fun getTailorId() = intent.getStringExtra(PARAM_TAILOR_ID)
+
+  private fun getTailorName() = intent.getStringExtra(PARAM_TAILOR_NAME)
 
   private fun setupProfileData(data: ProfileInfoUiModel) {
     with(binding.layoutProfileInfo) {
@@ -100,9 +105,9 @@ class TailorProfileActivity : BaseActivity() {
   private fun setupToolbar() {
     toolbar = binding.topToolbarProfile
     setupOnNavigationIconClicked {
-      this.finish()
+      finish()
     }
-    setupToolbar(getTailorId() ?: getScreenName())
+    setupToolbar(getTailorName() ?: getScreenName())
   }
 
   private fun setupViewPager() {

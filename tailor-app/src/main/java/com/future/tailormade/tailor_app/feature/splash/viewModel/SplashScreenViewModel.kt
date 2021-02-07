@@ -1,4 +1,4 @@
-package com.future.tailormade.feature.splash.viewModel
+package com.future.tailormade.tailor_app.feature.splash.viewModel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -15,7 +15,8 @@ import kotlinx.coroutines.flow.collectLatest
 class SplashScreenViewModel @ViewModelInject constructor(private val authRepository: AuthRepository,
     private val authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
 
-  override fun getLogName(): String = "com.future.tailormade.feature.splash.viewModel.SplashScreenViewModel"
+  override fun getLogName(): String =
+      "com.future.tailormade.tailor_app.feature.splash.viewModel.SplashScreenViewModel"
 
   private var _isTokenExpired = MutableLiveData<Boolean>()
   val isTokenExpired: LiveData<Boolean>

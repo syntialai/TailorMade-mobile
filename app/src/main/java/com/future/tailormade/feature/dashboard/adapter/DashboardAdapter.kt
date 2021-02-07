@@ -14,7 +14,7 @@ import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.image.ImageLoader
 
-class DashboardAdapter(private val onClickListener: (String) -> Unit,
+class DashboardAdapter(private val onClickListener: (String, String) -> Unit,
     private val onChatButtonClickListener: (String, String) -> Unit) :
     ListAdapter<DashboardTailorUiModel, DashboardAdapter.DashboardViewHolder>(diffCallback) {
 
@@ -69,7 +69,7 @@ class DashboardAdapter(private val onClickListener: (String) -> Unit,
       }
 
       binding.root.setOnClickListener {
-        onClickListener.invoke(data.id)
+        onClickListener.invoke(data.id, data.name)
       }
     }
 

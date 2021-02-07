@@ -50,8 +50,14 @@ class SignUpViewModel @ViewModelInject constructor(
 
   private fun getSignInInfo() = SignInRequest(
     signUpRequest?.email.orEmpty(),
-    signUpRequest?.password.orEmpty()
+    signUpRequest?.password.orEmpty(),
+    signUpRequest?.role ?: getRole()
   )
+
+  private fun getGenderEnum(gender: String) = when(gender) {
+    "Other" -> GenderEnum.Anonymous
+    else -> GenderEnum.valueOf(gender)
+  }
 
   fun setSignUpInfo(name: String, email: String, password: String) {
     birthDate?.let {
@@ -64,8 +70,7 @@ class SignUpViewModel @ViewModelInject constructor(
   }
 
   fun setSignUpGender(gender: String) {
-    val role = RoleEnum.values()[authSharedPrefRepository.userRole]
-    signUpRequest = signUpRequest?.copy(gender = GenderEnum.valueOf(gender), role = role)
+    signUpRequest = signUpRequest?.copy(gender = getGenderEnum(gender), role = getRole())
   }
 
   private fun saveUserData(user: UserResponse) {
@@ -73,21 +78,8 @@ class SignUpViewModel @ViewModelInject constructor(
       userId = user.id
       name = user.name
       username = user.email
-      userRole = user.role.ordinal
-      userGender = user.gender.ordinal
-    }
-  }
-
-  @ExperimentalCoroutinesApi
-  fun activateTailor() {
-    authSharedPrefRepository.userId?.let { id ->
-      launchViewModelScope {
-        authRepository.activateTailor(id).onError { error ->
-          appLogger.logOnError(error.message.orEmpty(), error)
-        }.collectLatest {
-          authSharedPrefRepository.userRole = it.role ?: RoleEnum.ROLE_USER.ordinal
-        }
-      }
+      userRole = RoleEnum.valueOf(user.role).ordinal
+      userGender = GenderEnum.valueOf(user.gender).ordinal
     }
   }
 
@@ -117,6 +109,8 @@ class SignUpViewModel @ViewModelInject constructor(
       }
     }
   }
+
+  private fun getRole() = RoleEnum.values()[authSharedPrefRepository.userRole]
 
   private fun updateToken(token: TokenDetailResponse) {
     with(authSharedPrefRepository) {
