@@ -39,6 +39,10 @@ class SignUpFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel = viewModel
 
+  override fun onNavigationIconClicked() {
+    findNavController().navigateUp()
+  }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     setupDatePicker()

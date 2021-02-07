@@ -16,4 +16,8 @@ class SignInActivity : BaseActivity() {
     toolbar = binding.topToolbarSignIn
     setContentView(binding.root)
   }
+
+  override fun onBackPressed() {
+    // No Implementation Needed
+  }
 }

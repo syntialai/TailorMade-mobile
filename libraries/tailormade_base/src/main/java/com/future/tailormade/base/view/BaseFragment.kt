@@ -181,6 +181,9 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
+  fun getSkeleton(view: View, layoutId: Int): SkeletonScreen = SkeletonHelper.getSkeleton(view,
+      layoutId).color(getColorSurface()).show()
+
   fun getSkeleton(recyclerView: RecyclerView, layoutId: Int) = SkeletonHelper.getRecyclerViewSkeleton(
       recyclerView, layoutId)?.color(R.color.color_black_54)
 
