@@ -13,7 +13,6 @@ import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.strikeThrough
 import com.future.tailormade.util.image.ImageLoader
-import com.future.tailormade.util.view.SkeletonHelper
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -136,13 +135,13 @@ class OrderDetailActivity : BaseActivity() {
   }
 
   private fun showSkeletons() {
-    orderDetailSkeletonScreen = SkeletonHelper.showSkeleton(
-        binding.layoutCardOrderDetailOrderInfo.root, R.layout.layout_card_order_info_skeleton)
-    paymentInfoSkeletonScreen = SkeletonHelper.showSkeleton(binding.layoutPaymentInfo.root,
+    orderDetailSkeletonScreen = getSkeleton(binding.layoutCardOrderDetailOrderInfo.root,
+        R.layout.layout_card_order_info_skeleton)
+    paymentInfoSkeletonScreen = getSkeleton(binding.layoutPaymentInfo.root,
         R.layout.layout_payment_detail_card_skeleton)
-    designDetailSkeletonScreen = SkeletonHelper.showSkeleton(binding.layoutDesignDetail.root,
+    designDetailSkeletonScreen = getSkeleton(binding.layoutDesignDetail.root,
         R.layout.layout_card_order_skeleton)
-    sizeInfoSkeletonScreen = SkeletonHelper.showSkeleton(binding.layoutSizeInformationDetail.root,
+    sizeInfoSkeletonScreen = getSkeleton(binding.layoutSizeInformationDetail.root,
         R.layout.layout_size_information_detail_skeleton)
   }
 

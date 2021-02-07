@@ -51,9 +51,15 @@ class DashboardFragment : BaseFragment() {
     binding = FragmentDashboardBinding.inflate(inflater, container, false)
     setupRecyclerView()
     setupSwipeRefreshLayout()
-    hideRecyclerView()
     showState()
     return binding.root
+  }
+
+  @ExperimentalCoroutinesApi
+  override fun onResume() {
+    super.onResume()
+    binding.swipeRefreshLayoutDashboard.isRefreshing = true
+    viewModel.fetchDashboardTailors()
   }
 
   @ExperimentalCoroutinesApi
@@ -64,10 +70,8 @@ class DashboardFragment : BaseFragment() {
     viewModel.tailors.observe(viewLifecycleOwner, {
       dashboardAdapter.submitList(it)
       if (it.isNotEmpty()) {
-        hideState()
         showRecyclerView()
       } else {
-        hideRecyclerView()
         showState()
       }
       binding.swipeRefreshLayoutDashboard.isRefreshing = false
@@ -86,20 +90,18 @@ class DashboardFragment : BaseFragment() {
     }
   }
 
-  private fun hideRecyclerView() {
-    binding.recyclerViewTailorList.remove()
-  }
-
-  private fun hideState() {
-    binding.layoutDashboardState.root.remove()
-  }
-
   private fun showRecyclerView() {
-    binding.recyclerViewTailorList.show()
+    with(binding) {
+      recyclerViewTailorList.show()
+      layoutDashboardState.root.remove()
+    }
   }
 
   private fun showState() {
-    binding.layoutDashboardState.root.show()
+    with(binding) {
+      recyclerViewTailorList.remove()
+      layoutDashboardState.root.show()
+    }
   }
 
   @ExperimentalCoroutinesApi

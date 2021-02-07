@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ethanhua.skeleton.SkeletonScreen
+import com.future.tailormade.R
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.util.extension.getColorResFromAttrs
 import com.future.tailormade.util.logger.AppLogger
 import com.future.tailormade.util.view.DialogHelper
 import com.future.tailormade.util.view.SkeletonHelper
@@ -24,7 +26,7 @@ abstract class BaseFragment : Fragment() {
 
   open fun onNavigationIconClicked(): Unit? = null
 
-  protected var appLogger = AppLogger.create(this.getLogName())
+  protected var appLogger = AppLogger(this.getLogName())
 
   protected abstract fun getViewModel(): BaseViewModel?
 
@@ -179,14 +181,19 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
-  fun getSkeleton(recyclerView: RecyclerView,
-      layoutId: Int) = SkeletonHelper.getRecyclerViewSkeleton(recyclerView, layoutId)
+  fun getSkeleton(view: View, layoutId: Int): SkeletonScreen = SkeletonHelper.getSkeleton(view,
+      layoutId).color(getColorSurface()).show()
+
+  fun getSkeleton(recyclerView: RecyclerView, layoutId: Int) = SkeletonHelper.getRecyclerViewSkeleton(
+      recyclerView, layoutId)?.color(R.color.color_black_54)
 
   fun hideSkeleton() {
     skeletonScreen?.hide()
   }
 
   fun showSkeleton(view: View, layoutId: Int) {
-    skeletonScreen = SkeletonHelper.showSkeleton(view, layoutId)
+    skeletonScreen = SkeletonHelper.getSkeleton(view, layoutId).color(getColorSurface()).show()
   }
+
+  private fun getColorSurface() = requireContext().getColorResFromAttrs(R.attr.colorSurface)
 }

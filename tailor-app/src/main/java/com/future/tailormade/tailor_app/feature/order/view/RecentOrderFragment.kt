@@ -46,7 +46,6 @@ class RecentOrderFragment : BaseFragment() {
         viewModel.fetchAcceptedOrders()
         chipFilterAcceptedOrder.isChecked = true
       }
-
       chipFilterRejectedOrder.setOnClickListener {
         viewModel.fetchRejectedOrders()
         chipFilterRejectedOrder.isChecked = true
@@ -55,6 +54,12 @@ class RecentOrderFragment : BaseFragment() {
     setupRecyclerView()
     setupSkeleton()
     return binding.root
+  }
+
+  override fun onResume() {
+    super.onResume()
+    setupSkeleton()
+    refreshPage()
   }
 
   override fun setupFragmentObserver() {
@@ -91,12 +96,14 @@ class RecentOrderFragment : BaseFragment() {
     }
   }
 
-  private fun hideEmptyState() {
-    binding.layoutRecentOrderState.root.remove()
-  }
-
-  private fun hideRecyclerView() {
-    binding.recyclerViewRecentOrder.remove()
+  private fun refreshPage() {
+    with(binding) {
+      if (chipFilterAcceptedOrder.isChecked) {
+        viewModel.fetchAcceptedOrders()
+      } else {
+        viewModel.fetchRejectedOrders()
+      }
+    }
   }
 
   private fun setupRecyclerView() {
@@ -118,12 +125,16 @@ class RecentOrderFragment : BaseFragment() {
   }
 
   private fun showEmptyState() {
-    binding.layoutRecentOrderState.root.show()
-    hideRecyclerView()
+    with(binding) {
+      layoutRecentOrderState.root.show()
+      recyclerViewRecentOrder.remove()
+    }
   }
 
   private fun showRecyclerView() {
-    binding.recyclerViewRecentOrder.show()
-    hideEmptyState()
+    with(binding) {
+      recyclerViewRecentOrder.show()
+      layoutRecentOrderState.root.remove()
+    }
   }
 }

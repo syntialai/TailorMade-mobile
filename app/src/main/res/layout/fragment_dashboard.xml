@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/dp_1"
-            android:layout_marginTop="@dimen/dp_2"
+            android:paddingTop="@dimen/dp_2"
             android:paddingBottom="@dimen/dp_72"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"

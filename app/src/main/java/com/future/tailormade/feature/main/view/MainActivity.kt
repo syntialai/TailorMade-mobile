@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.forEach
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.databinding.ActivityMainBinding
-import com.future.tailormade.feature.cart.view.CartFragmentDirections
-import com.future.tailormade.feature.dashboard.view.DashboardFragmentDirections
-import com.future.tailormade_chat.feature.view.ChatListFragmentDirections
-import com.future.tailormade_profile.feature.profile.view.ProfileFragmentDirections
+import com.future.tailormade.feature.cart.view.CartFragment
+import com.future.tailormade.feature.dashboard.view.DashboardFragment
+import com.future.tailormade_chat.feature.view.ChatListFragment
+import com.future.tailormade_profile.feature.profile.view.ProfileFragment
 import com.future.tailormade_router.actions.Action
 import com.future.tailormade_router.actions.UserAction
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,9 +19,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
+  private lateinit var activeFragment: BaseFragment
+
   private lateinit var binding: ActivityMainBinding
 
-  private lateinit var navController: NavController
+  private val dashboardFragment by lazy { DashboardFragment.newInstance() }
+  private val chatFragment by lazy { ChatListFragment.newInstance() }
+  private val cartFragment by lazy { CartFragment.newInstance() }
+  private val profileFragment by lazy { ProfileFragment.newInstance() }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -30,9 +34,9 @@ class MainActivity : BaseActivity() {
     toolbar = binding.topToolbarMain
     setContentView(binding.root)
     setSupportActionBar(toolbar)
-    setupNavController()
     if (savedInstanceState == null) {
       setupBottomNav()
+      setupFragments()
     }
   }
 
@@ -63,6 +67,7 @@ class MainActivity : BaseActivity() {
   override fun onRestoreInstanceState(savedInstanceState: Bundle) {
     super.onRestoreInstanceState(savedInstanceState)
     setupBottomNav()
+    setupFragments()
   }
 
   private fun setupBottomNav() {
@@ -73,8 +78,7 @@ class MainActivity : BaseActivity() {
           true
         }
         R.id.menu_chat -> {
-          resetOptionsMenu()
-          navController.navigate(ChatListFragmentDirections.actionGlobalChatListFragment())
+          goToChat()
           true
         }
         R.id.menu_cart -> {
@@ -90,31 +94,43 @@ class MainActivity : BaseActivity() {
     }
   }
 
-  private fun setupNavController() {
-    val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_main_fragment) as NavHostFragment
-    navController = hostFragment.navController
+  private fun setupFragments() {
+    supportFragmentManager.beginTransaction().add(
+        binding.frameLayoutContent.id, dashboardFragment).addToBackStack(null).commit()
+    activeFragment = dashboardFragment
+  }
+
+  private fun showFragment(fragment: BaseFragment) {
+    supportFragmentManager.beginTransaction().replace(
+        binding.frameLayoutContent.id, fragment).addToBackStack(null).commit()
+    activeFragment = fragment
   }
 
   private fun goToCart() {
     resetOptionsMenu()
     showOptionMenu(R.id.menu_order)
-    navController.navigate(CartFragmentDirections.actionGlobalCartFragment())
+    showFragment(cartFragment)
+  }
+
+  private fun goToChat() {
+    resetOptionsMenu()
+    showFragment(chatFragment)
   }
 
   private fun goToDashboard() {
     setDashboardOptionMenu()
-    navController.navigate(DashboardFragmentDirections.actionGlobalDashboardFragment())
-  }
-
-  private fun setDashboardOptionMenu() {
-    resetOptionsMenu()
-    showOptionMenu(R.id.menu_search)
+    showFragment(dashboardFragment)
   }
 
   private fun goToProfile() {
     resetOptionsMenu()
     showOptionMenu(R.id.menu_settings)
-    navController.navigate(ProfileFragmentDirections.actionGlobalProfileFragment())
+    showFragment(profileFragment)
+  }
+
+  private fun setDashboardOptionMenu() {
+    resetOptionsMenu()
+    showOptionMenu(R.id.menu_search)
   }
 
   private fun resetOptionsMenu() {

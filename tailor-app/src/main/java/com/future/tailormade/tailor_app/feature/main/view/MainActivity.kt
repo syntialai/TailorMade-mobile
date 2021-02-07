@@ -5,29 +5,33 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.forEach
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.ActivityMainBinding
-import com.future.tailormade.tailor_app.feature.dashboard.view.DashboardFragmentDirections
+import com.future.tailormade.tailor_app.feature.dashboard.view.DashboardFragment
 import com.future.tailormade.tailor_app.feature.main.contract.MainDashboardView
-import com.future.tailormade.tailor_app.feature.order.view.OrderListFragmentDirections
-import com.future.tailormade_chat.feature.view.ChatListFragmentDirections
-import com.future.tailormade_profile.feature.profile.view.ProfileFragmentDirections
+import com.future.tailormade.tailor_app.feature.order.view.OrderListFragment
+import com.future.tailormade_chat.feature.view.ChatListFragment
+import com.future.tailormade_profile.feature.profile.view.ProfileFragment
 import com.future.tailormade_router.actions.Action
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
-  private var mainDashboardView: MainDashboardView? = null
+  private lateinit var activeFragment: BaseFragment
 
   private lateinit var binding: ActivityMainBinding
 
-  private lateinit var navController: NavController
+  private val dashboardFragment by lazy { DashboardFragment.newInstance() }
+  private val chatFragment by lazy { ChatListFragment.newInstance() }
+  private val orderFragment by lazy { OrderListFragment.newInstance() }
+  private val profileFragment by lazy { ProfileFragment.newInstance() }
 
   private var actionMode: ActionMode? = null
+
+  private var mainDashboardView: MainDashboardView? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -35,8 +39,10 @@ class MainActivity : BaseActivity() {
     toolbar = binding.topToolbarMain
     setContentView(binding.root)
     setSupportActionBar(toolbar)
-    setupNavController()
-    setupBottomNav()
+    if (savedInstanceState == null) {
+      setupBottomNav()
+      setupFragments()
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -55,6 +61,12 @@ class MainActivity : BaseActivity() {
       true
     }
     else -> super.onOptionsItemSelected(item)
+  }
+
+  override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    super.onRestoreInstanceState(savedInstanceState)
+    setupBottomNav()
+    setupFragments()
   }
 
   fun injectMainDashboardView(view: MainDashboardView) {
@@ -117,27 +129,34 @@ class MainActivity : BaseActivity() {
 
   private fun goToDashboard() {
     showDashboardOrOrderOptionsMenu()
-    navController.navigate(DashboardFragmentDirections.actionGlobalDashboardFragment())
+    showFragment(dashboardFragment)
   }
 
   private fun goToChatList() {
     resetOptionsMenu()
-    navController.navigate(ChatListFragmentDirections.actionGlobalChatListFragment())
+    showFragment(chatFragment)
   }
 
   private fun goToOrderList() {
     showDashboardOrOrderOptionsMenu()
-    navController.navigate(OrderListFragmentDirections.actionGlobalOrderListFragment())
+    showFragment(orderFragment)
   }
 
   private fun goToProfile() {
     showProfileOptionsMenu()
-    navController.navigate(ProfileFragmentDirections.actionGlobalProfileFragment())
+    showFragment(profileFragment)
   }
 
-  private fun setupNavController() {
-    val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_main_fragment) as NavHostFragment
-    navController = hostFragment.navController
+  private fun setupFragments() {
+    supportFragmentManager.beginTransaction().add(
+        binding.frameLayoutContent.id, dashboardFragment).addToBackStack(null).commit()
+    activeFragment = dashboardFragment
+  }
+
+  private fun showFragment(fragment: BaseFragment) {
+    supportFragmentManager.beginTransaction().replace(
+        binding.frameLayoutContent.id, fragment).addToBackStack(null).commit()
+    activeFragment = fragment
   }
 
   private fun showDashboardOrOrderOptionsMenu() {

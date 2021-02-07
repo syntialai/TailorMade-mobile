@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.ethanhua.skeleton.SkeletonScreen
 import com.future.tailormade.R
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -34,6 +35,9 @@ class CheckoutFragment : BaseFragment() {
 
   private val viewModel: CheckoutViewModel by activityViewModels()
 
+  private var paymentInfoSkeletonScreen: SkeletonScreen? = null
+  private var designDetailSkeletonScreen: SkeletonScreen? = null
+
   override fun getLogName() = "com.future.tailormade.feature.checkout.view.CheckoutFragment"
 
   override fun getScreenName(): String = "Checkout"
@@ -60,7 +64,7 @@ class CheckoutFragment : BaseFragment() {
         }
       }
     }
-    showSkeleton(binding.layoutCheckout, R.layout.layout_checkout_skeleton)
+    setupSkeleton()
     return binding.root
   }
 
@@ -74,7 +78,8 @@ class CheckoutFragment : BaseFragment() {
     viewModel.cartUiModel.observe(viewLifecycleOwner, {
       setupDesignDetailData(it.design)
       setupPaymentData(it)
-      hideSkeleton()
+      paymentInfoSkeletonScreen?.hide()
+      designDetailSkeletonScreen?.hide()
     })
     viewModel.historyId.observe(viewLifecycleOwner, { id ->
       viewModel.cartUiModel.value?.let {
@@ -124,6 +129,13 @@ class CheckoutFragment : BaseFragment() {
       }
       textViewCheckoutPaymentTotal.text = data.totalPayment
     }
+  }
+
+  private fun setupSkeleton() {
+    paymentInfoSkeletonScreen = getSkeleton(binding.layoutDesignDetail.root,
+        R.layout.layout_cart_item_no_action_skeleton)
+    designDetailSkeletonScreen = getSkeleton(binding.layoutCheckoutPaymentDetail.root,
+        R.layout.layout_payment_detail_card_skeleton)
   }
 
   private fun showDiscount() {

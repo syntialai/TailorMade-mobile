@@ -1,11 +1,15 @@
 package com.future.tailormade.util.extension
 
+import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Paint
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorRes
 import androidx.core.widget.doOnTextChanged
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.coroutine.CoroutineHelper
@@ -108,6 +112,15 @@ fun View.setVisibility(value: Boolean) {
   } else {
     this.remove()
   }
+}
+
+@ColorRes
+fun Context.getColorResFromAttrs(@AttrRes attr: Int): Int {
+  val attrs = intArrayOf(attr)
+  val typedArray: TypedArray = obtainStyledAttributes(attrs)
+  val colorRes: Int = typedArray.getResourceId(0, android.R.color.black)
+  typedArray.recycle()
+  return colorRes
 }
 
 /**

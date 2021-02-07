@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.model.enums.GenderEnum
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
@@ -33,6 +34,10 @@ class SelectGenderFragment : BaseFragment() {
       "com.future.tailormade_auth.feature.signUp.view.SelectGenderFragment"
 
   override fun getViewModel(): BaseViewModel = viewModel
+
+  override fun onNavigationIconClicked() {
+    findNavController().navigateUp()
+  }
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
@@ -62,6 +67,7 @@ class SelectGenderFragment : BaseFragment() {
 
   private fun goToMain() {
     context?.let {
+      activity?.finishAndRemoveTask()
       UserAction.goToMain(it)
     }
   }
