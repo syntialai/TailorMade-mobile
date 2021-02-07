@@ -75,12 +75,10 @@ class IncomingOrderFragment : BaseFragment() {
     })
   }
 
-  private fun hideEmptyState() {
-    binding.layoutIncomingOrderState.root.remove()
-  }
-
-  private fun hideRecyclerView() {
-    binding.recyclerViewIncomingOrder.remove()
+  override fun onResume() {
+    super.onResume()
+    setupSkeleton()
+    viewModel.fetchIncomingOrders()
   }
 
   private fun setupRecyclerView() {
@@ -102,12 +100,16 @@ class IncomingOrderFragment : BaseFragment() {
   }
 
   private fun showEmptyState() {
-    binding.layoutIncomingOrderState.root.show()
-    hideRecyclerView()
+    with(binding) {
+      layoutIncomingOrderState.root.show()
+      recyclerViewIncomingOrder.remove()
+    }
   }
 
   private fun showRecyclerView() {
-    binding.recyclerViewIncomingOrder.show()
-    hideEmptyState()
+    with(binding) {
+      recyclerViewIncomingOrder.show()
+      layoutIncomingOrderState.root.remove()
+    }
   }
 }

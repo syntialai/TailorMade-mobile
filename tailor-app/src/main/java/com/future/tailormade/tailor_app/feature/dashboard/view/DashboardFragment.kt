@@ -72,6 +72,13 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   }
 
   @ExperimentalCoroutinesApi
+  override fun onResume() {
+    super.onResume()
+    binding.swipeRefreshLayoutDashboard.isRefreshing = true
+    viewModel.fetchTailorDesigns()
+  }
+
+  @ExperimentalCoroutinesApi
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
 
