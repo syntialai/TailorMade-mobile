@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_16"
+    android:orientation="vertical"
+    tools:context=".feature.checkout.view.ThanksForOrderFragment">
+
+    <ImageView
+        android:id="@+id/image_view_thank_you"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/illustration_thank_you"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        style="@style/TextAppearance.TailorMade.Headline3.BlackHigh.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_32"
+        android:text="@string/thank_you_for_order_label"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/TextAppearance.TailorMade.Body1.BlackMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="@string/thank_you_for_order_content_label"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/TextAppearance.TailorMade.Subtitle2.BlackMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/payment_total_label"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/text_view_thank_you_payment_total"
+        style="@style/TextAppearance.TailorMade.Headline3.Primary.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        tools:text="@string/payment_total_label" />
+
+    <TextView
+        style="@style/TextAppearance.TailorMade.Subtitle2.BlackMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/total_discount_got_label"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/text_view_thank_you_total_discount"
+        style="@style/TextAppearance.TailorMade.Headline3.PrimaryDark.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        tools:text="@string/total_discount_got_label" />
+
+    <Button
+        android:id="@+id/button_thank_you_go_to_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/show_order_history_label" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/color_grey_F1F1F1" />
+
+    <TextView
+        style="@style/TextAppearance.TailorMade.Subtitle1.BlackHigh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/design_you_ordered_label" />
+
+    <include
+        android:id="@+id/layout_design_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_16"
+        layout="@layout/layout_cart_item" />
+
+</LinearLayout>

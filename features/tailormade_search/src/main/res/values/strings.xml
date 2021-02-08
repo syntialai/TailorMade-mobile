@@ -1,0 +1,28 @@
+<resources>
+    <string name="search_state">Find anything you want!</string>
+    <string name="search_description_state">Type any design category or tailors.</string>
+    <string name="search_label">Search</string>
+    <string name="design_label">Design</string>
+    <string name="tailor_label">Tailor</string>
+    <string name="search_no_data_state">Oops! No results found</string>
+    <string name="search_description_no_data_state">Try searching with another keyword.</string>
+    <string name="filter_label">Filter</string>
+    <string name="sort_newest_label">Newest</string>
+    <string name="sort_oldest_label">Oldest</string>
+    <string name="sort_a_to_z_label">A to Z</string>
+    <string name="sort_z_to_a_label">Z to A</string>
+    <string name="filter_designs_label">Filter Designs</string>
+    <string name="price_label">Price</string>
+    <string name="category_label">Category</string>
+    <string name="show_all_label">Show all</string>
+    <string name="separator">-</string>
+    <string name="tailor_location_label">Tailor\'s Location</string>
+    <string name="apply_label">Apply</string>
+    <string name="filter_tailors_label">Filter Tailors</string>
+    <string name="lowest_price_hint">Rp1000</string>
+    <string name="highest_price_hint">Rp1000000</string>
+    <string name="search_design_empty_state_title">Design not found.</string>
+    <string name="search_design_empty_state">Try to find design with another keyword.</string>
+    <string name="search_tailor_empty_state_title">Tailor not found.</string>
+    <string name="search_tailor_empty_state">Try to find tailor with another keyword.</string>
+</resources>

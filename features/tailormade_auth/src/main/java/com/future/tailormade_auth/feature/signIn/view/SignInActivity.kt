@@ -13,6 +13,11 @@ class SignInActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivitySignInBinding.inflate(layoutInflater)
+    toolbar = binding.topToolbarSignIn
     setContentView(binding.root)
+  }
+
+  override fun onBackPressed() {
+    // No Implementation Needed
   }
 }

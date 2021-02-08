@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.future.tailormade_profile">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application android:theme="@style/Theme.TailorMade">
+        <activity android:name=".feature.profile.view.TailorProfileActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.future.tailormade.tailorProfile.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".feature.settings.view.SettingsActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.future.tailormade.settings.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".feature.editProfile.view.EditProfileActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.future.tailormade.editProfile.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

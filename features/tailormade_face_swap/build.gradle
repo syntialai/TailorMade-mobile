@@ -1,0 +1,73 @@
+plugins {
+  id 'com.android.dynamic-feature'
+  id 'kotlin-android'
+  id 'kotlin-kapt'
+  id 'kotlin-android-extensions'
+}
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  defaultConfig {
+    applicationId "com.future.tailormade_face_swap"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode rootProject.ext.versionCode
+    versionName rootProject.ext.versionName
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  buildFeatures {
+    viewBinding true
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  kotlinOptions {
+    jvmTarget = versions.jvm
+  }
+
+  externalNativeBuild {
+    cmake {
+      path file('../../CMakeLists.txt')
+    }
+  }
+}
+
+dependencies {
+  implementation project(":app")
+
+  // Face swap libraries
+  implementation project(":libraries:opencv_sdk")
+  implementation project(":libraries:dlib")
+
+  implementation materialDesign
+
+  // Tests
+  testImplementation test.junit
+  testImplementation test.androidx_core
+  testImplementation test.mockito
+  androidTestImplementation androidTest.junit
+  androidTestImplementation androidTest.espresso
+
+  // Annotation Processing
+  kapt dataBinding.kapt
+
+  // Glide
+  kapt glide.kapt
+
+  // Dagger 2
+  kapt dagger.kapt_processor
+  kapt dagger.kapt_compiler
+}

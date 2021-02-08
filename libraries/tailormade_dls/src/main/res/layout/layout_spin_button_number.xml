@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_40"
+    android:orientation="horizontal">
 
-    <FrameLayout
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/spin_button_number_group"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_40">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/spin_button_number_group"
+        <Button
+            android:id="@+id/spin_button_number_reduce"
+            style="@style/Theme.TailorMade.Button.Outlined.Rounded.Left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/dp_40"
+            android:text="@string/spin_number_reduce_label" />
 
-            <Button
-                android:id="@+id/spin_button_number_reduce"
-                style="@style/Theme.TailorMade.Button.Outlined.Rounded.Left"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/spin_number_reduce_label" />
+        <Button
+            android:id="@+id/spin_number_value"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:enabled="false"
+            android:minWidth="@dimen/dp_0"
+            android:paddingHorizontal="@dimen/dp_16"
+            android:text="@string/spin_number_value_label" />
 
-            <Button
-                android:id="@+id/spin_number_value"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:enabled="false"
-                android:text="@string/spin_number_value_label" />
+        <Button
+            android:id="@+id/spin_button_number_add"
+            style="@style/Theme.TailorMade.Button.Outlined.Rounded.Right"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:text="@string/spin_number_add_label" />
 
-            <Button
-                android:id="@+id/spin_button_number_add"
-                style="@style/Theme.TailorMade.Button.Outlined.Rounded.Right"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/spin_number_add_label" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-    </FrameLayout>
-</layout>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+</LinearLayout>

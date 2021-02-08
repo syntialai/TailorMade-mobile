@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".feature.checkout.view.CheckoutFragment">
+
+    <include
+        android:id="@+id/layout_design_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_1"
+        layout="@layout/layout_cart_item" />
+
+    <Button
+        android:id="@+id/button_checkout_edit_measurement"
+        style="@style/Theme.TailorMade.Button.Outlined.Rounded"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_16"
+        android:drawableEnd="@drawable/ic_edit"
+        android:text="@string/edit_measurement_label" />
+
+    <TextView
+        android:id="@+id/text_view_special_instruction_label"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:text="@string/special_instructions_label" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_special_instruction"
+        style="@style/Theme.TailorMade.TextInputEditText.Outlined.Rounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:labelFor="@id/text_view_special_instruction_label">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_special_instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="5" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include
+        android:id="@+id/layout_checkout_payment_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_1"
+        android:layout_marginVertical="@dimen/dp_16"
+        layout="@layout/layout_payment_detail_card" />
+
+    <Button
+        android:id="@+id/button_checkout_make_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="@string/make_order_label" />
+</LinearLayout>

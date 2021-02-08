@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grid_size_information_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/cardBackgroundColor"
+    android:columnCount="2"
+    android:padding="@dimen/dp_16"
+    android:rowCount="5"
+    android:useDefaultMargins="true">
+
+    <View
+        android:id="@+id/text_view_size_chest_label"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_chest"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_waist_label"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_waist"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_hips_label"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_hips"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_neck_to_waist_label"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_neck_to_waist"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_inseam_label"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_size_inseam"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="4"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        android:background="@drawable/drawable_rounded_view" />
+</GridLayout>

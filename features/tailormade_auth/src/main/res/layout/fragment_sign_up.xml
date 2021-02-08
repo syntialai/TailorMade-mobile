@@ -1,157 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature.signUp.view.SignUpFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".feature.signUp.view.SignUpFragment">
+    <TextView
+        android:id="@+id/text_view_title"
+        style="@style/TextAppearance.TailorMade.Headline3.Bold"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:text="@string/get_started_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_view_title"
-            style="@style/TextAppearance.TailorMade.Headline3.Bold"
-            android:layout_width="@dimen/dp_0"
+    <TextView
+        android:id="@+id/text_view_description"
+        style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:text="@string/enter_info_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_name_sign_up"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:hint="@string/name_label"
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/text_view_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_name_sign_up"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_80"
-            android:text="@string/get_started_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:inputType="text" />
 
-        <TextView
-            android:id="@+id/text_view_description"
-            style="@style/TextAppearance.TailorMade.Body2.BlackHigh"
-            android:layout_width="@dimen/dp_0"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_email_sign_up"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_label"
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/text_input_name_sign_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_email_sign_up"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_4"
-            android:text="@string/enter_info_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+            android:inputType="textEmailAddress" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_name_sign_up"
-            android:layout_width="@dimen/dp_0"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_birth_date_sign_up"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:hint="@string/birth_date_label"
+        app:endIconDrawable="@drawable/ic_date"
+        app:endIconMode="custom"
+        app:errorIconDrawable="@null"
+        app:layout_constraintTop_toBottomOf="@id/text_input_email_sign_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_birth_date_sign_up"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name_label"
-            app:errorEnabled="true"
-            app:layout_constraintBottom_toTopOf="@id/text_input_email_sign_up"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:editable="false" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_name_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_password_sign_up"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:hint="@string/password_label"
+        app:endIconMode="password_toggle"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_birth_date_sign_up">
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_email_sign_up"
-            android:layout_width="@dimen/dp_0"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_password_sign_up"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email_label"
-            app:errorEnabled="true"
-            app:layout_constraintBottom_toTopOf="@id/text_input_birth_date_sign_up"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_email_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_confirm_password_sign_up"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:hint="@string/confirm_password_label"
+        app:endIconMode="password_toggle"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_password_sign_up">
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_birth_date_sign_up"
-            android:layout_width="@dimen/dp_0"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_confirm_password_sign_up"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/birth_date_label"
-            app:endIconDrawable="@drawable/ic_date"
-            app:endIconMode="custom"
-            app:errorEnabled="true"
-            android:layout_marginTop="@dimen/dp_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_birth_date_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/button_submit_form"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:text="@string/next_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_go_to_sign_in"
+        app:layout_constraintTop_toBottomOf="@id/text_input_confirm_password_sign_up" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_password_sign_up"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:hint="@string/password_label"
-            app:endIconMode="password_toggle"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_birth_date_sign_up">
+    <TextView
+        android:id="@+id/text_go_to_sign_in_label"
+        style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/have_account_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_go_to_sign_in"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_go_to_sign_in" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_password_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/button_go_to_sign_in"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_go_to_sign_in_label" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_confirm_password_sign_up"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:hint="@string/confirm_password_label"
-            app:endIconMode="password_toggle"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_password_sign_up">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_confirm_password_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/button_submit_form"
-            style="@style/Theme.TailorMade.Button.Rounded"
-            android:layout_width="@dimen/dp_0"
-            android:layout_marginTop="@dimen/dp_40"
-            android:text="@string/next_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_confirm_password_sign_up" />
-
-        <TextView
-            android:id="@+id/text_go_to_sign_in_label"
-            style="@style/TextAppearance.TailorMade.Body1.BlackHigh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/have_account_label"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_go_to_sign_in"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/button_go_to_sign_in" />
-
-        <Button
-            android:id="@+id/button_go_to_sign_in"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_in_label"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text_go_to_sign_in_label" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

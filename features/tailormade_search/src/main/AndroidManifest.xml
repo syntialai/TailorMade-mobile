@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.future.tailormade_search">
+
+    <application android:theme="@style/Theme.TailorMade">
+        <activity
+            android:name="com.future.tailormade_search.feature.search.view.SearchActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.future.tailormade.search.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurface2">
+
+    <include
+        android:id="@+id/layout_design_detail_general_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_design_detail_general_info_skeleton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_size_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="?attr/cardBackgroundColor"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_design_detail_general_info">
+
+        <View
+            android:id="@+id/text_view_size_info_label"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_24"
+            android:background="@drawable/drawable_rounded_view" />
+
+        <View
+            android:id="@+id/text_view_choose_size_label"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="@drawable/drawable_rounded_view" />
+
+        <View
+            android:id="@+id/chip_group_choose_size"
+            android:layout_width="@dimen/dp_64"
+            android:layout_height="@dimen/dp_36"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@drawable/drawable_rounded_view" />
+
+        <View
+            android:id="@+id/view_size_info_separator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="?attr/colorSurface2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chip_group_choose_size" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layout_size_information_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_size_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        layout="@layout/layout_size_information_detail_skeleton" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_color_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="?attr/cardBackgroundColor"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_size_information_detail">
+
+        <View
+            android:id="@+id/text_view_available_color_label"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@drawable/drawable_rounded_view" />
+
+        <View
+            android:id="@+id/chip_group_choose_color"
+            android:layout_width="@dimen/dp_64"
+            android:layout_height="@dimen/dp_36"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@drawable/drawable_rounded_view" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_description_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="?attr/cardBackgroundColor"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_color_info">
+
+        <View
+            android:id="@+id/text_view_design_detail_description_label"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@drawable/drawable_rounded_view" />
+
+        <View
+            android:id="@+id/text_view_design_detail_description"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginVertical="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@drawable/drawable_rounded_view" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

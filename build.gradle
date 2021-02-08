@@ -3,15 +3,19 @@ apply from: 'dependencies.gradle'
 
 buildscript {
     ext {
-        kotlin_version = "1.4.10"
+        kotlin_version = "1.4.21"
         navigation_version = "2.3.0"
         hilt_version = "2.29.1-alpha"
         google_service_version = "4.3.4"
+        hugo_version = "1.2.1"
+        jfrog_bintray_version = "1.7"
+        dcendents_maven_version = "1.4.1"
 
         compileSdkVersion = 30
         buildToolsVersion = "30.0.2"
-        minSdkVersion = 22
+        minSdkVersion = 23
         targetSdkVersion = 30
+        supportSdkVersion = "25.3.1"
         versionCode = 1
         versionName = "1.0"
     }
@@ -24,11 +28,14 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "com.google.gms:google-services:$google_service_version"
+        classpath "com.jakewharton.hugo:hugo-plugin:$hugo_version"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$jfrog_bintray_version"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:$dcendents_maven_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

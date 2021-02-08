@@ -8,13 +8,16 @@ import com.google.android.material.snackbar.Snackbar
 
 object ToastHelper {
 
+    fun showToast(view: View, message: String, isLong: Boolean = false) = getToast(view, message,
+        isLong).show()
+
     fun showErrorToast(context: Context, view: View, message: String) {
-        shortToast(view, message)
+        getToast(view, message, false)
             .setBackgroundTint(ContextCompat.getColor(context, R.color.color_red_600))
             .setTextColor(ContextCompat.getColor(context, R.color.color_white))
             .show()
     }
 
-    private fun shortToast(view: View, message: String): Snackbar =
-        Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+    private fun getToast(view: View, message: String, isLong: Boolean): Snackbar = Snackbar.make(
+        view, message, if (isLong) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT)
 }

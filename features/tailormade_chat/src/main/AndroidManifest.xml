@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.future.tailormade_chat">
+
+    <application android:theme="@style/Theme.TailorMade">
+
+        <activity
+            android:name=".feature.view.ChatRoomActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateVisible">
+
+            <intent-filter>
+                <action android:name="com.future.tailormade.chatRoom.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>

@@ -11,7 +11,9 @@
         app:startDestination="@id/action_signUpFragment_to_signInFragment">
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_signUpFragment_to_selectGenderFragment"
             app:destination="@id/selectGenderFragment" />
@@ -27,13 +29,5 @@
     <fragment
         android:id="@+id/selectGenderFragment"
         android:name="com.future.tailormade_auth.feature.signUp.view.SelectGenderFragment"
-        android:label="SelectGenderFragment">
-        <action
-            android:id="@+id/action_selectGenderFragment_to_selectRoleFragment"
-            app:destination="@id/selectRoleFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/selectRoleFragment"
-        android:name="com.future.tailormade_auth.feature.signUp.view.SelectRoleFragment"
-        android:label="SelectRoleFragment" />
+        android:label="SelectGenderFragment"/>
 </navigation>
