@@ -47,10 +47,7 @@ class SignInViewModelTest : BaseViewModelTest() {
     val expectedResponse = PayloadMapper.getSignInResponse()
 
     runBlocking {
-      val flow = flow {
-        delay(1000)
-        emit(expectedResponse)
-      }
+      val flow = getFlow(expectedResponse)
       whenever(authRepository.signIn(request)) doReturn flow
       whenever(authSharedPrefRepository.userRole) doReturn USER_ROLE_ORDINAL
 

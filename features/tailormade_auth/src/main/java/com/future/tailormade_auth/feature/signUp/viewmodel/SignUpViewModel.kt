@@ -22,11 +22,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
 
-class SignUpViewModel @ViewModelInject constructor(
-  private val authRepository: AuthRepository,
-  private val authSharedPrefRepository: AuthSharedPrefRepository,
-  @Assisted private val savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+class SignUpViewModel @ViewModelInject constructor(private val authRepository: AuthRepository,
+    private val authSharedPrefRepository: AuthSharedPrefRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
   companion object {
     private const val SIGN_UP_REQUEST = "SIGN_UP_REQUEST"

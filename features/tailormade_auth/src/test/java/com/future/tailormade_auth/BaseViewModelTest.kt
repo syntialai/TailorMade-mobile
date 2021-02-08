@@ -6,9 +6,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.test.BaseTest
+import com.future.tailormade.config.Constants
 import com.nhaarman.mockitokotlin2.mock
+import java.lang.Exception
+import junit.framework.Assert
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Rule
 import org.mockito.Mock
@@ -28,6 +33,18 @@ abstract class BaseViewModelTest : BaseTest() {
   protected val savedStateHandle = mock<SavedStateHandle>()
 
   protected val authSharedPrefRepository = mock<AuthSharedPrefRepository>()
+
+  fun getError() = Exception()
+
+  fun <T> getErrorFlow() = flow<T> {
+    delay(1000)
+    throw getError()
+  }
+
+  fun <T> getFlow(data: T) = flow {
+    delay(1000)
+    emit(data)
+  }
 
   fun <T> LiveData<T>.observeForTesting(block: () -> Unit) {
     val observer = Observer<T> {}
