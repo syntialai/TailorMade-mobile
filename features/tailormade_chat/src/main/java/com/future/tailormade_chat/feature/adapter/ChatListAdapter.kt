@@ -47,7 +47,7 @@ class ChatListAdapter(private val onClickListener: (String, String) -> Unit) :
       with(binding) {
         with(data.second) {
           textViewChatName.text = userName
-          textViewChatTime.text = updatedDate?.toDateString(Constants.HH_MM, true)
+          textViewChatTime.text = updatedDate?.toDateString(Constants.DD_MMM)
           textViewChatContent.text = chat?.text?.body
 
           layoutBadge.root.setVisibility(hasBeenRead?.not().orTrue())

@@ -45,9 +45,6 @@ class SearchTailorResultFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentSearchTailorResultBinding.inflate(inflater, container, false)
-    binding.groupSortAndFilter.chipFilter.setOnClickListener {
-      showFilterDialog()
-    }
     setupRecyclerView()
     return binding.root
   }
@@ -58,7 +55,6 @@ class SearchTailorResultFragment : BaseFragment() {
     viewModel.listOfTailors.observe(viewLifecycleOwner, {
       it?.let { tailors ->
         searchTailorListAdapter.submitList(tailors)
-        Log.d("TAILORS", tailors.toString())
         if (tailors.isEmpty()) {
           showNoDataState()
         } else {

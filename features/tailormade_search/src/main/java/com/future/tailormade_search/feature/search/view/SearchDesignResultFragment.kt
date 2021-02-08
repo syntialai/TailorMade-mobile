@@ -45,9 +45,6 @@ class SearchDesignResultFragment : BaseFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentSearchDesignResultBinding.inflate(inflater, container, false)
-    binding.groupSortAndFilter.chipFilter.setOnClickListener {
-      showFilterDialog()
-    }
     setupRecyclerView()
     return binding.root
   }
