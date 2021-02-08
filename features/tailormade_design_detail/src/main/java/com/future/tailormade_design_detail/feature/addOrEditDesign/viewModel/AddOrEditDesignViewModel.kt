@@ -148,10 +148,10 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
       description = description, image = image, color = colorRequest, size = sizeRequest)
 
   private fun mapToSizeDetailRequest(sizeDetail: SizeDetailUiModel) = DesignSizeDetailRequest(
-      sizeDetail.chest.toFloat(),
-      sizeDetail.waist.toFloat(),
-      sizeDetail.hips.toFloat(),
-      sizeDetail.neckToWaist.toFloat(),
-      sizeDetail.inseam.toFloat()
+      sizeDetail.chest.substringBeforeLast("cm").toFloat(),
+      sizeDetail.waist.substringBeforeLast("cm").toFloat(),
+      sizeDetail.hips.substringBeforeLast("cm").toFloat(),
+      sizeDetail.neckToWaist.substringBeforeLast("cm").toFloat(),
+      sizeDetail.inseam.substringBeforeLast("cm").toFloat()
   )
 }

@@ -82,6 +82,7 @@ class AddOrEditDesignFragment : BaseFragment() {
       buttonAddColor.setOnClickListener {
         openAddColorBottomSheet()
       }
+      buttonSaveDesignInfo.text = getScreenName()
       buttonSaveDesignInfo.setOnClickListener {
         validate()
       }
