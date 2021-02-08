@@ -65,7 +65,6 @@ class CartFragment : BaseFragment() {
   @ExperimentalCoroutinesApi
   override fun onResume() {
     super.onResume()
-    setupSkeleton()
     viewModel.fetchCartData()
   }
 

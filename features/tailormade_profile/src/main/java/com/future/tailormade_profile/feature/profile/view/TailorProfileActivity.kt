@@ -104,6 +104,7 @@ class TailorProfileActivity : BaseActivity() {
 
   private fun setupToolbar() {
     toolbar = binding.topToolbarProfile
+    setSupportActionBar(toolbar)
     setupOnNavigationIconClicked {
       finish()
     }
