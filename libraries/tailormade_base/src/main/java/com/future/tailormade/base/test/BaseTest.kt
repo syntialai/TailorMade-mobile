@@ -6,10 +6,8 @@ import com.future.tailormade.base.model.response.BaseListResponse
 import com.future.tailormade.base.model.response.BasePagingResponse
 import com.future.tailormade.base.model.response.BaseResponse
 import com.future.tailormade.base.model.response.BaseSingleObjectResponse
-import com.future.tailormade.util.extension.flowOnIO
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.flow
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
@@ -31,7 +29,9 @@ abstract class BaseTest {
     const val USER_BIRTHDATE = 161188911L
     const val USER_PASSWORD = "userPassword"
     val USER_ROLE = RoleEnum.ROLE_USER
+    const val USER_ROLE_ORDINAL = 0
     val USER_GENDER = GenderEnum.Anonymous
+    const val USER_GENDER_ORDINAL = 2
   }
 
   abstract fun setUp()

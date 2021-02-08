@@ -35,7 +35,8 @@ ext {
       shimmer_layout        : "2.1.0",
       test_junit            : "4.13",
       test_core             : "1.3.0",
-      test_mockito          : "3.5.13",
+      test_arch_core        : "2.1.0",
+      test_mockito          : "3.7.7",
       test_mockito_kotlin   : "2.2.0",
       androidTest_junit     : "1.1.2",
       androidTest_espresso  : "3.3.0"
@@ -67,7 +68,8 @@ ext {
   test = [
       junit         : "junit:junit:${versions.test_junit}",
       androidx_core : "androidx.test:core:${versions.test_core}",
-      mockito       : "org.mockito:mockito-core:${versions.test_mockito}",
+      arch_core     : "androidx.arch.core:core-testing:${versions.test_arch_core}",
+      mockito       : "org.mockito:mockito-inline:${versions.test_mockito}",
       mockito_kotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.test_mockito_kotlin}"
   ]
 

@@ -39,13 +39,13 @@ class SignUpViewModel @ViewModelInject constructor(
   private var signUpRequest: SignUpRequest? = null
   private var birthDate: Long? = null
 
-  private var _hasSignIn: MutableLiveData<Boolean>
+  private var _hasSignIn = MutableLiveData<Boolean>()
   val hasSignIn: LiveData<Boolean>
     get() = _hasSignIn
 
   init {
-    signUpRequest = savedStateHandle.get(SIGN_UP_REQUEST)
-    _hasSignIn = savedStateHandle.getLiveData(HAS_SIGN_IN, false)
+//    signUpRequest = savedStateHandle.get(SIGN_UP_REQUEST)
+//    _hasSignIn = savedStateHandle.getLiveData(HAS_SIGN_IN, false)
   }
 
   private fun getSignInInfo() = SignInRequest(
