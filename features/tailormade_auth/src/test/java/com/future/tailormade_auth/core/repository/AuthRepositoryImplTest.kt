@@ -1,7 +1,7 @@
 package com.future.tailormade_auth.core.repository
 
 import com.future.tailormade.base.test.BaseTest
-import com.future.tailormade_auth.PayloadMapper
+import com.future.tailormade_auth.base.PayloadMapper
 import com.future.tailormade_auth.core.model.request.RefreshTokenRequest
 import com.future.tailormade_auth.core.model.response.TokenResponse
 import com.future.tailormade_auth.core.repository.impl.AuthRepositoryImpl

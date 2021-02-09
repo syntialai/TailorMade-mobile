@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_dls.databinding.LayoutCardProfileBinding
 import com.future.tailormade_search.R
@@ -42,7 +43,12 @@ class SearchTailorListAdapter(private val onClickListener: (String, String) -> U
     fun bind(data: SearchTailorResponse) {
       with(binding) {
         textViewProfileName.text = data.name
-        textViewProfileCity.text = data.location
+
+        data.location?.address?.let {
+          textViewProfileCity.text = it
+        } ?: run {
+          textViewProfileCity.remove()
+        }
 
         ImageLoader.loadImageUrlWithFitCenterAndPlaceholder(context, data.imagePath.orEmpty(),
             R.drawable.illustration_dashboard_tailor_profile, imageViewProfile, true)

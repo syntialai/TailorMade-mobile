@@ -2,8 +2,8 @@ package com.future.tailormade_auth.feature.signIn
 
 import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.extension.orTrue
-import com.future.tailormade_auth.BaseViewModelTest
-import com.future.tailormade_auth.PayloadMapper
+import com.future.tailormade_auth.base.BaseViewModelTest
+import com.future.tailormade_auth.base.PayloadMapper
 import com.future.tailormade_auth.core.repository.impl.AuthRepositoryImpl
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import com.nhaarman.mockitokotlin2.doReturn
@@ -16,8 +16,7 @@ import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -46,7 +45,7 @@ class SignInViewModelTest : BaseViewModelTest() {
     val request = PayloadMapper.getSignInRequest()
     val expectedResponse = PayloadMapper.getSignInResponse()
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       val flow = getFlow(expectedResponse)
       whenever(authRepository.signIn(request)) doReturn flow
       whenever(authSharedPrefRepository.userRole) doReturn USER_ROLE_ORDINAL
@@ -54,15 +53,14 @@ class SignInViewModelTest : BaseViewModelTest() {
       viewModel.signIn(USER_EMAIL, USER_PASSWORD)
 
       verify(authSharedPrefRepository).userRole
-
       delay(1000)
 
       assertTrue(viewModel.isLoading.value.orFalse())
       delay(1000)
+
       viewModel.isLoading.observeForTesting {
         assertFalse(viewModel.isLoading.value.orTrue())
       }
-
       viewModel.userInfo.observeForTesting {
         assertEquals(viewModel.userInfo.value, expectedResponse.user)
       }
