@@ -32,6 +32,8 @@ class ProfileAboutFragment : BaseFragment() {
 
   override fun getLogName() = "com.future.tailormade_profile.feature.profile.view.ProfileAboutFragment"
 
+  override fun getScreenName(): String = "Profile"
+
   override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

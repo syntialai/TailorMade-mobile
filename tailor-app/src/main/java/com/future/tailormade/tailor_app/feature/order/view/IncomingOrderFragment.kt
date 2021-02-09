@@ -36,6 +36,8 @@ class IncomingOrderFragment : BaseFragment() {
   override fun getLogName() =
       "com.future.tailormade.tailor_app.feature.order.view.IncomingOrderFragment"
 
+  override fun getScreenName() = "Orders"
+
   override fun getViewModel(): BaseViewModel = viewModel
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

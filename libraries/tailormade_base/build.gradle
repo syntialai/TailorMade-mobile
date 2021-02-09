@@ -117,7 +117,7 @@ dependencies {
     androidTestImplementation room.androidTest_arch_persistence
 
     // Logger
-    implementation timber
+    api timber
 
     // Firebase
     api platform(firebase.bom)
