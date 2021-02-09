@@ -1,6 +1,5 @@
 package com.future.tailormade_search.feature.search.viewModel
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -28,11 +27,11 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
   override fun getLogName(): String =
       "com.future.tailormade_search.feature.search.viewModel.SearchViewModel"
 
-  private var _listOfDesigns: MutableLiveData<List<SearchDesignResponse>>
+  private var _listOfDesigns = MutableLiveData<List<SearchDesignResponse>>()
   val listOfDesigns: LiveData<List<SearchDesignResponse>>
     get() = _listOfDesigns
 
-  private var _listOfTailors: MutableLiveData<List<SearchTailorResponse>>
+  private var _listOfTailors = MutableLiveData<List<SearchTailorResponse>>()
   val listOfTailors: LiveData<List<SearchTailorResponse>>
     get() = _listOfTailors
 
@@ -44,8 +43,8 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
   }
 
   init {
-    _listOfDesigns = savedStateHandle.getLiveData(LIST_OF_DESIGNS)
-    _listOfTailors = savedStateHandle.getLiveData(LIST_OF_TAILORS)
+//    _listOfDesigns = savedStateHandle.getLiveData(LIST_OF_DESIGNS)
+//    _listOfTailors = savedStateHandle.getLiveData(LIST_OF_TAILORS)
 
     searchResultCount.addSource(_designCount) {
       if (it > searchResultCount.value.orZero()) {
@@ -65,7 +64,7 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
       searchRepository.searchDesign(query, page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("design"))
       }.collect {
-        _designCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
+        _designCount.value = it.paging?.totalItem.orZero()
         _listOfDesigns.value = it.data.orEmptyList()
       }
     }
@@ -76,7 +75,7 @@ class SearchViewModel @ViewModelInject constructor(private val searchRepository:
       searchRepository.searchTailor(query, page, itemPerPage).onError {
         setErrorMessage(Constants.generateFailedFetchError("tailor"))
       }.collect {
-        _tailorCount.value = it.paging?.itemPerPage.orZero() * it.paging?.totalPage.orZero()
+        _tailorCount.value = it.paging?.totalItem.orZero()
         _listOfTailors.value = it.data.orEmptyList()
       }
     }

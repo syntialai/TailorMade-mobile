@@ -4,8 +4,8 @@ import com.future.tailormade.base.model.enums.GenderEnum
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.extension.orTrue
-import com.future.tailormade_auth.BaseViewModelTest
-import com.future.tailormade_auth.PayloadMapper
+import com.future.tailormade_auth.base.BaseViewModelTest
+import com.future.tailormade_auth.base.PayloadMapper
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.repository.impl.AuthRepositoryImpl
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel

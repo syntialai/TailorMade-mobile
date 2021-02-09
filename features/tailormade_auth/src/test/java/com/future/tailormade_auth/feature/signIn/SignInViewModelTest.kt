@@ -2,8 +2,8 @@ package com.future.tailormade_auth.feature.signIn
 
 import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.extension.orTrue
-import com.future.tailormade_auth.BaseViewModelTest
-import com.future.tailormade_auth.PayloadMapper
+import com.future.tailormade_auth.base.BaseViewModelTest
+import com.future.tailormade_auth.base.PayloadMapper
 import com.future.tailormade_auth.core.repository.impl.AuthRepositoryImpl
 import com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel
 import com.nhaarman.mockitokotlin2.doReturn
@@ -16,7 +16,6 @@ import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
