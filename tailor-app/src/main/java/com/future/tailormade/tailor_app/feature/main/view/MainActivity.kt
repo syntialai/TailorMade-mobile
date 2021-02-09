@@ -138,7 +138,7 @@ class MainActivity : BaseActivity() {
   }
 
   private fun goToOrderList() {
-    showDashboardOrOrderOptionsMenu()
+    resetOptionsMenu()
     showFragment(orderFragment)
   }
 
@@ -149,13 +149,14 @@ class MainActivity : BaseActivity() {
 
   private fun setupFragments() {
     supportFragmentManager.beginTransaction().add(
-        binding.frameLayoutContent.id, dashboardFragment).addToBackStack(null).commit()
+        binding.frameLayoutContent.id, dashboardFragment).commit()
+    supportFragmentManager.popBackStack()
     activeFragment = dashboardFragment
   }
 
   private fun showFragment(fragment: BaseFragment) {
-    supportFragmentManager.beginTransaction().replace(
-        binding.frameLayoutContent.id, fragment).addToBackStack(null).commit()
+    supportFragmentManager.beginTransaction().replace(binding.frameLayoutContent.id, fragment).commit()
+    supportFragmentManager.popBackStack()
     activeFragment = fragment
   }
 

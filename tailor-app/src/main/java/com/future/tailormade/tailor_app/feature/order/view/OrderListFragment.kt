@@ -27,6 +27,10 @@ class OrderListFragment : BaseFragment() {
 
   override fun getViewModel(): BaseViewModel? = null
 
+  override fun onNavigationIconClicked() {
+    // No Implementation Needed
+  }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentOrderListBinding.inflate(inflater, container, false)

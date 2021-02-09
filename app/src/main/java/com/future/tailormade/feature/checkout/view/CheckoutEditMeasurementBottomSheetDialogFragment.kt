@@ -10,6 +10,8 @@ import com.future.tailormade.base.view.BaseBottomSheetDialogFragment
 import com.future.tailormade.core.model.ui.checkout.EditMeasurementFieldUiModel
 import com.future.tailormade.databinding.FragmentCheckoutEditMeasurementBottomSheetDialogBinding
 import com.future.tailormade.feature.checkout.adapter.EditMeasurementFieldAdapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
 
@@ -52,6 +54,11 @@ class CheckoutEditMeasurementBottomSheetDialogFragment : BaseBottomSheetDialogFr
     insertAdapterValue()
     setupRecyclerView()
     return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
   }
 
   private fun initAdapter() {

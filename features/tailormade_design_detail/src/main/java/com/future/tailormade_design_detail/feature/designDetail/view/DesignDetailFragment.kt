@@ -1,11 +1,12 @@
 package com.future.tailormade_design_detail.feature.designDetail.view
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -17,6 +18,7 @@ import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.strikeThrough
+import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
@@ -39,6 +41,7 @@ class DesignDetailFragment : BaseFragment() {
     private const val DESCRIPTION_MAX_LINES = 3
     private const val TYPE_ADD_TO_CART = "TYPE_ADD_TO_CART"
     private const val TYPE_CHECKOUT = "TYPE_CHECKOUT"
+    private const val IMAGE_REQUEST_CODE = 20
 
     fun newInstance() = DesignDetailFragment()
   }
@@ -68,6 +71,17 @@ class DesignDetailFragment : BaseFragment() {
     }
     showSkeleton(binding.layoutDesignDetail, R.layout.layout_design_detail_skeleton)
     return binding.root
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_REQUEST_CODE) {
+      data?.data?.let { imageUri ->
+        activity?.contentResolver?.let {
+          goToSwapFace(ImageHelper.getFileAbsolutePath(it, imageUri).orEmpty())
+        }
+      }
+    }
   }
 
   @ExperimentalCoroutinesApi
@@ -150,6 +164,13 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
+  private fun goToSwapFace(bitmapSource: String) {
+    context?.let { context ->
+      UserAction.goToSwapFace(context, bitmapSource,
+          viewModel.designDetailUiModel.value?.image.orEmpty())
+    }
+  }
+
   private fun goToTailorProfile(tailorId: String, tailorName: String) {
     context?.let { context ->
       UserAction.goToTailorProfile(context, tailorId, tailorName)
@@ -162,6 +183,10 @@ class DesignDetailFragment : BaseFragment() {
       layoutDesignDetailGeneralInfo.buttonSwapFace.remove()
       layoutDesignDetailGeneralInfo.buttonEditDesignDetail.show()
     }
+  }
+
+  private fun openGallery() {
+    (activity as DesignDetailActivity).openGallery(IMAGE_REQUEST_CODE)
   }
 
   private fun setSizeDetailInfoData(sizeDetailUiModel: SizeDetailUiModel) {
@@ -241,7 +266,7 @@ class DesignDetailFragment : BaseFragment() {
       imageUrl: String) {
     with(binding.layoutDesignDetailGeneralInfo) {
       buttonSwapFace.setOnClickListener {
-        // TODO: Go to face swap
+        openGallery()
       }
       buttonEditDesignDetail.setOnClickListener {
         viewModel.designDetailResponse.value?.let { designDetailResponse ->

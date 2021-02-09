@@ -15,6 +15,7 @@ import com.future.tailormade.util.extension.isPhoneNumberValid
 import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.extension.toDateString
 import com.future.tailormade.util.extension.validateInput
+import com.future.tailormade_dls.widget.DatePickerDialog
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentEditProfileBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
@@ -113,11 +114,12 @@ class EditProfileFragment : BaseFragment() {
   }
 
   private fun setupDatePicker() {
-    birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
-        getString(R.string.birth_date_picker_title_label)).build()
-    birthDatePicker.addOnPositiveButtonClickListener {
-      binding.editTextBirthDateEditProfile.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
-      viewModel.setBirthDate(it)
+    birthDatePicker = DatePickerDialog().getDatePicker().setTitleText(
+        getString(R.string.birth_date_picker_title_label)).build().apply {
+      addOnPositiveButtonClickListener {
+        binding.editTextBirthDateEditProfile.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
+        viewModel.setBirthDate(it)
+      }
     }
   }
 

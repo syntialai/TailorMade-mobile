@@ -30,7 +30,8 @@ class ChatRoomAdapter(private val userId: String) :
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = if (viewType == TYPE_SEND) {
+  override fun onCreateViewHolder(
+      parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = if (viewType == TYPE_SEND) {
     ChatRoomSendViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.layout_chat_content_send, parent,
             false))
@@ -66,7 +67,7 @@ class ChatRoomAdapter(private val userId: String) :
     fun bind(data: Chat) {
       with(sendBinding) {
         textViewChatContentSendText.text = data.text?.body
-        textViewChatContentSendTime.text = data.createdDate?.toDateString(Constants.HH_MM, true)
+        textViewChatContentSendTime.text = data.createdDate?.toDateString(Constants.HH_MM)
       }
     }
   }
@@ -80,7 +81,7 @@ class ChatRoomAdapter(private val userId: String) :
     fun bind(data: Chat) {
       with(replyBinding) {
         textViewChatContentReplyText.text = data.text?.body
-        textViewChatContentReplyTime.text = data.createdDate?.toDateString(Constants.HH_MM, true)
+        textViewChatContentReplyTime.text = data.createdDate?.toDateString(Constants.HH_MM)
       }
     }
   }

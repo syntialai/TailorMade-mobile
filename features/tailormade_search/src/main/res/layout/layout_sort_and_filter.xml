@@ -15,15 +15,6 @@
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_filter"
-            style="@style/Theme.TailorMade.Chip.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/filter_label"
-            app:checkedIcon="@drawable/ic_filter"
-            app:chipIcon="@drawable/ic_filter" />
-
-        <com.google.android.material.chip.Chip
             android:id="@+id/chip_sort_newest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

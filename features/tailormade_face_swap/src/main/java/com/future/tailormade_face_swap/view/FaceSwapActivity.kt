@@ -4,8 +4,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.os.Bundle
-import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.config.Constants
+import com.future.tailormade.feature.base.view.BaseSplitActivity
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_face_swap.R
@@ -16,17 +16,17 @@ import com.future.tailormade_face_swap.util.FaceSwap
 import com.future.tailormade_face_swap.util.FileHelper
 import java.io.File
 
-class FaceSwapActivity : BaseActivity() {
+class FaceSwapActivity : BaseSplitActivity() {
 
   companion object {
-    private const val PARAM_SWAP_FACE_IMAGE = "PARAM_SWAP_FACE_IMAGE"
-    private const val PARAM_SWAP_FACE_IMAGE_URL = "PARAM_SWAP_FACE_IMAGE_URL"
+    private const val PARAM_SWAP_FACE_IMAGE_SOURCE = "PARAM_SWAP_FACE_IMAGE_SOURCE"
+    private const val PARAM_SWAP_FACE_IMAGE_DESTINATION = "PARAM_SWAP_FACE_IMAGE_DESTINATION"
   }
 
   private lateinit var binding: ActivityFaceSwapBinding
 
-  private var bitmapDesignImage: Bitmap? = null
-  private var bitmapImage: Bitmap? = null
+  private var bitmapDestination: Bitmap? = null
+  private var bitmapSource: Bitmap? = null
 
   override fun getScreenName() = "Face Swap"
 
@@ -38,19 +38,19 @@ class FaceSwapActivity : BaseActivity() {
     setupToolbar(getScreenName())
     getImage()
 
-    bitmapDesignImage?.let { bitmapDestination ->
-      bitmapImage?.let { bitmapSource ->
+    bitmapDestination?.let { bitmapDestination ->
+      bitmapSource?.let { bitmapSource ->
         startSwapFace(bitmapDestination, bitmapSource)
       }
     }
   }
 
   private fun getImage() {
-    intent?.getByteArrayExtra(PARAM_SWAP_FACE_IMAGE)?.let {
-      bitmapImage = BitmapHelper.convertByteArrayToBitmap(it)
+    intent?.getStringExtra(PARAM_SWAP_FACE_IMAGE_SOURCE)?.let {
+      bitmapSource = BitmapHelper.convertFilePathToBitmap(it)
     }
-    intent?.getStringExtra(PARAM_SWAP_FACE_IMAGE_URL)?.let {
-      bitmapDesignImage = BitmapHelper.convertUrlToBitmap(this@FaceSwapActivity, it)
+    intent?.getStringExtra(PARAM_SWAP_FACE_IMAGE_DESTINATION)?.let {
+      bitmapDestination = BitmapHelper.convertUrlToBitmap(this@FaceSwapActivity, it)
     }
   }
 
@@ -78,8 +78,8 @@ class FaceSwapActivity : BaseActivity() {
 
   private fun swapFace(faceSwap: FaceSwap) {
     val swappedBitmap = faceSwap.selfieSwap()
-    val swappedFace = Bitmap.createBitmap(swappedBitmap, 0, 0, bitmapDesignImage?.width.orZero(),
-        bitmapDesignImage?.height.orZero())
+    val swappedFace = Bitmap.createBitmap(swappedBitmap, 0, 0, bitmapDestination?.width.orZero(),
+        bitmapDestination?.height.orZero())
     setImage(swappedFace)
   }
 

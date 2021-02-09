@@ -9,6 +9,8 @@ import com.future.tailormade.util.extension.text
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.databinding.FragmentAddSizeBottomSheetBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
 
@@ -45,14 +47,13 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
         validate()
       }
       setupData()
-      name?.let {
-        editTextSizeName.setText(it)
-      }
-      sizeDetail?.let {
-        setSizeDetailData(it)
-      }
     }
     return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
   }
 
   private fun getSizeDetails(): SizeDetailUiModel {
@@ -119,6 +120,14 @@ class AddSizeBottomSheetFragment : BaseBottomSheetDialogFragment() {
     arguments?.let {
       name = it.getString(PARAM_SIZE_NAME)
       sizeDetail = it.getParcelable(PARAM_SIZE_DETAIL)
+    }
+    with(binding) {
+      name?.let {
+        editTextSizeName.setText(it)
+      }
+      sizeDetail?.let {
+        setSizeDetailData(it)
+      }
     }
   }
 

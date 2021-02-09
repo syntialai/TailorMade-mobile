@@ -1,5 +1,6 @@
 package com.future.tailormade_design_detail.feature.addOrEditDesign.view
 
+import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import com.future.tailormade.base.view.BaseBottomSheetDialogFragment
 import com.future.tailormade.util.extension.text
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.databinding.FragmentAddColorBottomSheetBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 
@@ -53,6 +56,11 @@ class AddColorBottomSheetFragment : BaseBottomSheetDialogFragment() {
       setColorPickerColor(it)
     }
     return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
   }
 
   private fun getColorName() = binding.editTextColorName.text()

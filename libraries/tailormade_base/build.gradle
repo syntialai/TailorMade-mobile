@@ -1,37 +1,37 @@
 plugins {
-  id 'com.android.library'
-  id 'kotlin-android'
-  id 'kotlin-android-extensions'
-  id 'kotlin-kapt'
-  id 'dagger.hilt.android.plugin'
-  id 'com.google.gms.google-services'
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
-  defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode rootProject.ext.versionCode
-    versionName rootProject.ext.versionName
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    consumerProguardFiles "consumer-rules.pro"
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
-  }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     kotlinOptions {
         jvmTarget = versions.jvm
@@ -39,93 +39,93 @@ android {
 }
 
 dependencies {
-  implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(dir: "libs", include: ["*.jar"])
 
-  // Library
-  api project(":libraries:tailormade_dls")
-  implementation project(":libraries:tailormade_router")
+    // Library
+    api project(":libraries:tailormade_dls")
+    implementation project(":libraries:tailormade_router")
 
-  api core.kotlin
-  api core.legacy_support
+    api core.kotlin
+    api core.legacy_support
 
-  // Navigation
-  api androidx.navigation_fragment
-  api androidx.navigation_ui
+    // Navigation
+    api androidx.navigation_fragment
+    api androidx.navigation_ui
 
-  // Tests
-  testImplementation test.junit
-  testImplementation test.androidx_core
-  testImplementation test.mockito
-  testImplementation test.mockito_kotlin
-  androidTestImplementation androidTest.junit
-  androidTestImplementation androidTest.espresso
+    // Tests
+    testImplementation test.junit
+    testImplementation test.androidx_core
+    testImplementation test.mockito
+    testImplementation test.mockito_kotlin
+    androidTestImplementation androidTest.junit
+    androidTestImplementation androidTest.espresso
 
-  // AndroidX
-  api androidx.appcompat
-  api androidx.core
-  api androidx.constraintlayout
-  api androidx.lifecycle_extensions
-  api androidx.lifecycle_viewmodel
-  api androidx.lifecycle_livedata
-  api androidx.lifecycle_viewmodel_savedstate
-  api androidx.fragment
-  api androidx.recyclerview
-  api androidx.recyclerview_selection
-  api androidx.preferences
-  api androidx.swipe_refresh_layout
+    // AndroidX
+    api androidx.appcompat
+    api androidx.core
+    api androidx.constraintlayout
+    api androidx.lifecycle_extensions
+    api androidx.lifecycle_viewmodel
+    api androidx.lifecycle_livedata
+    api androidx.lifecycle_viewmodel_savedstate
+    api androidx.fragment
+    api androidx.recyclerview
+    api androidx.recyclerview_selection
+    api androidx.preferences
+    api androidx.swipe_refresh_layout
 
-  // Annotation Processing
-  kapt dataBinding.kapt
+    // Annotation Processing
+    kapt dataBinding.kapt
 
-  // MDC
-  api materialDesign
+    // MDC
+    api materialDesign
 
-  // Glide
-  api glide.core
-  kapt glide.kapt
+    // Glide
+    api glide.core
+    kapt glide.kapt
 
-  // Retrofit
-  api retrofit.gson
-  api retrofit.core
-  api retrofit.converter
+    // Retrofit
+    api retrofit.gson
+    api retrofit.core
+    api retrofit.converter
 
-  // Dagger 2
-  api dagger.android
-  api dagger.support
-  kapt dagger.kapt_processor
-  kapt dagger.kapt_compiler
+    // Dagger 2
+    api dagger.android
+    api dagger.support
+    kapt dagger.kapt_processor
+    kapt dagger.kapt_compiler
 
-  // Dagger Hilt
-  api daggerHilt.core
-  api daggerHilt.lifecycle_viewmodel
-  kapt daggerHilt.kapt_compiler
-  kapt daggerHilt.kapt_google_compiler
-  kaptTest daggerHilt.kaptTest_compiler
-  testImplementation daggerHilt.test
+    // Dagger Hilt
+    api daggerHilt.core
+    api daggerHilt.lifecycle_viewmodel
+    kapt daggerHilt.kapt_compiler
+    kapt daggerHilt.kapt_google_compiler
+    kaptTest daggerHilt.kaptTest_compiler
+    testImplementation daggerHilt.test
 
-  // Coroutine
-  api coroutine.core
-  api coroutine.android
-  testImplementation coroutine.test
-  androidTestImplementation coroutine.test
+    // Coroutine
+    api coroutine.core
+    api coroutine.android
+    testImplementation coroutine.test
+    androidTestImplementation coroutine.test
 
-  // Room
-  api room.runtime
-  api room.core
-  kapt room.kapt_compiler
-  androidTestImplementation room.androidTest
-  androidTestImplementation room.androidTest_arch_persistence
+    // Room
+    api room.runtime
+    api room.core
+    kapt room.kapt_compiler
+    androidTestImplementation room.androidTest
+    androidTestImplementation room.androidTest_arch_persistence
 
-  // Logger
-  implementation timber
+    // Logger
+    api timber
 
-  // Firebase
-  api platform(firebase.bom)
-  api firebase.database
-  api firebase.storage
-  api firebase.auth
+    // Firebase
+    api platform(firebase.bom)
+    api firebase.database
+    api firebase.storage
+    api firebase.auth
 
-  // Skeleton and Shimmer Layout
-  api skeleton
-  api shimmer_layout
+    // Skeleton and Shimmer Layout
+    api skeleton
+    api shimmer_layout
 }

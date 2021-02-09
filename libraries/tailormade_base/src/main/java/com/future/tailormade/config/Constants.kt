@@ -5,7 +5,8 @@ object Constants {
   /**
    * Static data
    */
-  const val MIN_DEBOUNCE_TIME = 300L
+  const val DEBOUNCE_TIME_300 = 300L
+  const val DEBOUNCE_TIME_500 = 300L
   const val MIN_PASSWORD_LENGTH = 8
   const val MIN_QUERY_SEARCH_LENGTH = 3
   const val MIN_PHONE_NUMBER_LENGTH = 10
@@ -25,6 +26,7 @@ object Constants {
    */
   const val DD_MMMM_YYYY = "dd MMMM yyyy"
   const val DD_MMM_YYYY = "dd MMM yyyy"
+  const val DD_MMM = "dd MMM"
   const val HH_MM = "hh:mm"
   const val DD_MMMM_YYYY_HH_MM_SS = "dd MMMM yyyy, hh:mm:ss"
 

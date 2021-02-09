@@ -11,10 +11,10 @@
 #include <ostream>
 #include <memory>                 // std::shared_ptr
 
-#include <opencv2/gapi/opencv_includes.hpp>
-#include <opencv2/gapi/gcommon.hpp> // GShape
+#include <gapi/opencv_includes.hpp>
+#include <gapi/gcommon.hpp> // GShape
 
-#include <opencv2/gapi/own/assert.hpp>
+#include <gapi/own/assert.hpp>
 
 // TODO GAPI_EXPORTS or so
 namespace cv

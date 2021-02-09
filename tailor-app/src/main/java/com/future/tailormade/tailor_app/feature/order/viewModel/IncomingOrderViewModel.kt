@@ -15,6 +15,7 @@ import com.future.tailormade.util.extension.onError
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onStart
 
 class IncomingOrderViewModel @ViewModelInject constructor(
     private val orderRepository: OrderRepository,
@@ -62,10 +63,14 @@ class IncomingOrderViewModel @ViewModelInject constructor(
   fun acceptOrder(id: String) {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { tailorId ->
-        orderRepository.acceptOrder(tailorId, id).onError {
+        orderRepository.acceptOrder(tailorId, id).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_ACCEPT_ORDER)
           setHasResponded(Constants.STATUS_ACCEPTED, false)
         }.collect {
+          setFinishLoading()
           setHasResponded(Constants.STATUS_ACCEPTED, true)
         }
       }
@@ -75,10 +80,14 @@ class IncomingOrderViewModel @ViewModelInject constructor(
   fun rejectOrder(id: String) {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { tailorId ->
-        orderRepository.rejectOrder(tailorId, id).onError {
+        orderRepository.rejectOrder(tailorId, id).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_REJECT_ORDER)
           setHasResponded(Constants.STATUS_REJECTED, false)
         }.collect {
+          setFinishLoading()
           setHasResponded(Constants.STATUS_REJECTED, true)
         }
       }
