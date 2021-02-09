@@ -4,8 +4,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.os.Bundle
-import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.config.Constants
+import com.future.tailormade.feature.base.view.BaseSplitActivity
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.view.ToastHelper
 import com.future.tailormade_face_swap.R
@@ -16,7 +16,7 @@ import com.future.tailormade_face_swap.util.FaceSwap
 import com.future.tailormade_face_swap.util.FileHelper
 import java.io.File
 
-class FaceSwapActivity : BaseActivity() {
+class FaceSwapActivity : BaseSplitActivity() {
 
   companion object {
     private const val PARAM_SWAP_FACE_IMAGE_SOURCE = "PARAM_SWAP_FACE_IMAGE_SOURCE"

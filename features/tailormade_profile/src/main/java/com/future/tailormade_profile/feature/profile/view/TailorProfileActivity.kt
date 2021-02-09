@@ -27,9 +27,6 @@ class TailorProfileActivity : BaseActivity() {
     private const val PARAM_TAILOR_NAME = "PARAM_TAILOR_NAME"
   }
 
-  @Inject
-  lateinit var authSharedPrefRepository: AuthSharedPrefRepository
-
   private lateinit var binding: ActivityTailorProfileBinding
 
   private val viewModel: TailorProfileViewModel by viewModels()
@@ -103,12 +100,12 @@ class TailorProfileActivity : BaseActivity() {
   }
 
   private fun setupToolbar() {
-    toolbar = binding.topToolbarProfile
-    setSupportActionBar(toolbar)
-    setupOnNavigationIconClicked {
-      finish()
+    with(binding.topToolbarProfile) {
+      title = getTailorName() ?: getScreenName()
+      setNavigationOnClickListener {
+        finish()
+      }
     }
-    setupToolbar(getTailorName() ?: getScreenName())
   }
 
   private fun setupViewPager() {
