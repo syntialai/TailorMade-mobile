@@ -29,9 +29,7 @@ abstract class BaseViewModelTest : BaseTest() {
 
   protected val savedStateHandle = mock<SavedStateHandle>()
 
-  protected val authSharedPrefRepository = mock<AuthSharedPrefRepository>()
-
-  fun getError() = Exception()
+  private fun getError() = Exception()
 
   fun <T> getErrorFlow() = flow<T> {
     delay(1000)

@@ -17,7 +17,7 @@ import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -46,7 +46,7 @@ class SearchViewModelTest : BaseViewModelTest() {
     val query = PayloadMapper.DESIGN_QUERY
     val expectedResponse = generateListBaseResponse(data = PayloadMapper.getSearchDesignsResponse())
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       val flow = getFlow(expectedResponse)
       whenever(searchRepository.searchDesign(any(), any(), any())) doReturn flow
 
@@ -69,7 +69,7 @@ class SearchViewModelTest : BaseViewModelTest() {
   fun `Given when search design then error and data not updated`() {
     val query = PayloadMapper.DESIGN_QUERY
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       whenever(searchRepository.searchDesign(any(), any(), any())) doReturn getErrorFlow()
 
       viewModel.searchDesign(query)
@@ -90,7 +90,7 @@ class SearchViewModelTest : BaseViewModelTest() {
     val query = PayloadMapper.TAILOR_QUERY
     val expectedResponse = generateListBaseResponse(data = PayloadMapper.getSearchTailorsResponse())
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       val flow = getFlow(expectedResponse)
       whenever(searchRepository.searchTailor(any(), any(), any())) doReturn flow
 
@@ -113,7 +113,7 @@ class SearchViewModelTest : BaseViewModelTest() {
   fun `Given when search tailor then error and data not updated`() {
     val query = PayloadMapper.TAILOR_QUERY
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       whenever(searchRepository.searchTailor(any(), any(), any())) doReturn getErrorFlow()
 
       viewModel.searchTailor(query)

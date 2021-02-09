@@ -16,7 +16,7 @@ import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -45,7 +45,7 @@ class SignInViewModelTest : BaseViewModelTest() {
     val request = PayloadMapper.getSignInRequest()
     val expectedResponse = PayloadMapper.getSignInResponse()
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       val flow = getFlow(expectedResponse)
       whenever(authRepository.signIn(request)) doReturn flow
       whenever(authSharedPrefRepository.userRole) doReturn USER_ROLE_ORDINAL

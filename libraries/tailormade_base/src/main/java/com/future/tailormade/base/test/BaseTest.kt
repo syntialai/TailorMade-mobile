@@ -26,6 +26,7 @@ abstract class BaseTest {
 
     const val PAGE = Constants.INITIAL_PAGING_PAGE
     const val ITEM_PER_PAGE = Constants.INITIAL_PAGING_ITEM_PER_PAGE
+    const val TOTAL_ITEM = 1
 
     const val USER_ID = "USER ID"
     const val USER_NAME = "USER NAME"
@@ -55,7 +56,7 @@ abstract class BaseTest {
   protected fun <T> generateListBaseResponse(code: Int? = null, status: String? = null,
       data: List<T>): BaseListResponse<T> {
     val pagingResponse = BasePagingResponse(Constants.INITIAL_PAGING_PAGE,
-        Constants.INITIAL_PAGING_PAGE, 1, 1)
+        Constants.INITIAL_PAGING_PAGE, TOTAL_ITEM, TOTAL_ITEM)
     return BaseListResponse(data, pagingResponse).apply {
       this.code = code
       this.status = status

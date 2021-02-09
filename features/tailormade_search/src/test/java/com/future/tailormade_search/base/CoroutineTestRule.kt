@@ -13,7 +13,7 @@ class CoroutineTestRule constructor(val dispatcher: TestCoroutineDispatcher) : T
 
   override fun starting(description: Description?) {
     super.starting(description)
-    Dispatchers.setMain(Dispatchers.IO)
+    Dispatchers.setMain(dispatcher)
   }
 
   override fun finished(description: Description?) {
