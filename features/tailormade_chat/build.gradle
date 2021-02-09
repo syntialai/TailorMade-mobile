@@ -58,6 +58,7 @@ dependencies {
   // Tests
   testImplementation test.junit
   testImplementation test.androidx_core
+  testImplementation test.arch_core
   testImplementation test.mockito
   testImplementation test.mockito_kotlin
   androidTestImplementation androidTest.junit

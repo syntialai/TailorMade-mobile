@@ -22,11 +22,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
 
-class SignUpViewModel @ViewModelInject constructor(
-  private val authRepository: AuthRepository,
-  private val authSharedPrefRepository: AuthSharedPrefRepository,
-  @Assisted private val savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+class SignUpViewModel @ViewModelInject constructor(private val authRepository: AuthRepository,
+    private val authSharedPrefRepository: AuthSharedPrefRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
   companion object {
     private const val SIGN_UP_REQUEST = "SIGN_UP_REQUEST"
@@ -39,13 +37,13 @@ class SignUpViewModel @ViewModelInject constructor(
   private var signUpRequest: SignUpRequest? = null
   private var birthDate: Long? = null
 
-  private var _hasSignIn: MutableLiveData<Boolean>
+  private var _hasSignIn = MutableLiveData<Boolean>()
   val hasSignIn: LiveData<Boolean>
     get() = _hasSignIn
 
   init {
-    signUpRequest = savedStateHandle.get(SIGN_UP_REQUEST)
-    _hasSignIn = savedStateHandle.getLiveData(HAS_SIGN_IN, false)
+//    signUpRequest = savedStateHandle.get(SIGN_UP_REQUEST)
+//    _hasSignIn = savedStateHandle.getLiveData(HAS_SIGN_IN, false)
   }
 
   private fun getSignInInfo() = SignInRequest(

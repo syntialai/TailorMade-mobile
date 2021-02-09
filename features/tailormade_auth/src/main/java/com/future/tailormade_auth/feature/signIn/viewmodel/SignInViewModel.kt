@@ -1,6 +1,5 @@
 package com.future.tailormade_auth.feature.signIn.viewmodel
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -21,26 +20,24 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
-class SignInViewModel @ViewModelInject constructor(
-  private val authRepository: AuthRepository,
-  private val authSharedPrefRepository: AuthSharedPrefRepository,
-  @Assisted private val savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
+class SignInViewModel @ViewModelInject constructor(private val authRepository: AuthRepository,
+    private val authSharedPrefRepository: AuthSharedPrefRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
   companion object {
-    private const val USER_INFO = "USER_INFO"
+    const val USER_INFO = "USER_INFO"
   }
 
   override fun getLogName(): String =
       "com.future.tailormade_auth.feature.signIn.viewmodel.SignInViewModel"
 
-  private var _userInfo: MutableLiveData<UserResponse>
+  private var _userInfo = MutableLiveData<UserResponse>()
   val userInfo: LiveData<UserResponse>
     get() = _userInfo
 
-  init {
-    _userInfo = savedStateHandle.getLiveData(USER_INFO)
-  }
+//  init {
+//    _userInfo = savedStateHandle.getLiveData(USER_INFO, null)
+//  }
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
