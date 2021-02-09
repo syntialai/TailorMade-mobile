@@ -1,6 +1,5 @@
 package com.future.tailormade_design_detail.feature.addOrEditDesign.view
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -9,7 +8,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -17,10 +15,8 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.text
@@ -35,6 +31,7 @@ import com.future.tailormade_design_detail.core.model.response.SizeResponse
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.databinding.FragmentAddOrEditDesignBinding
 import com.future.tailormade_design_detail.feature.addOrEditDesign.viewModel.AddOrEditDesignViewModel
+import com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailActivity
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,7 +41,7 @@ import kotlinx.coroutines.FlowPreview
 class AddOrEditDesignFragment : BaseFragment() {
 
   companion object {
-    private const val GALLERY_REQUEST_CODE = 1
+    private const val GALLERY_REQUEST_CODE = 10
 
     fun newInstance() = AddOrEditDesignFragment()
   }
@@ -199,13 +196,7 @@ class AddOrEditDesignFragment : BaseFragment() {
   private fun isImagePreviewShown() = binding.layoutAddOrEditImage.groupFilledImageState.isShown
 
   private fun openGallery() {
-    (activity as BaseActivity).checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
-        BaseActivity.READ_EXTERNAL_STORAGE_PERMISSION) {
-      val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
-        type = Constants.TYPE_IMAGE_ALL
-      }
-      this.startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
-    }
+    (activity as DesignDetailActivity).openGallery(GALLERY_REQUEST_CODE)
   }
 
   private fun openAddColorBottomSheet(name: String? = null, color: String? = null) {
