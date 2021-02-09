@@ -8,12 +8,14 @@ import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.test.BaseTest
 import com.nhaarman.mockitokotlin2.mock
 import java.lang.Exception
+import junit.framework.Assert
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Rule
+import org.mockito.Mock
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi

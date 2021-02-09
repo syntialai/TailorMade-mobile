@@ -10,9 +10,12 @@ import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.repository.impl.AuthRepositoryImpl
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
 import com.nhaarman.mockitokotlin2.argumentCaptor
+import com.nhaarman.mockitokotlin2.clearInvocations
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.inOrder
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.reset
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
@@ -46,7 +49,6 @@ class SignUpViewModelTest : BaseViewModelTest() {
   @After
   override fun tearDown() {
     Mockito.framework().clearInlineMocks()
-
   }
 
   @Test
@@ -140,9 +142,9 @@ class SignUpViewModelTest : BaseViewModelTest() {
       whenever(authRepository.signUp(request)) doReturn getErrorFlow()
 
       viewModel.signUp()
+      delay(1000)
 
       verify(authRepository).signUp(request)
-      delay(1000)
       assertTrue(viewModel.isLoading.value.orFalse())
 
       delay(1000)

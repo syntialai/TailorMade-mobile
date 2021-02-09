@@ -53,15 +53,14 @@ class SignInViewModelTest : BaseViewModelTest() {
       viewModel.signIn(USER_EMAIL, USER_PASSWORD)
 
       verify(authSharedPrefRepository).userRole
-
       delay(1000)
 
       assertTrue(viewModel.isLoading.value.orFalse())
       delay(1000)
+
       viewModel.isLoading.observeForTesting {
         assertFalse(viewModel.isLoading.value.orTrue())
       }
-
       viewModel.userInfo.observeForTesting {
         assertEquals(viewModel.userInfo.value, expectedResponse.user)
       }

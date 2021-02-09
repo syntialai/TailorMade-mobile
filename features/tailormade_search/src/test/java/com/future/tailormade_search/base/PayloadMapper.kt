@@ -13,10 +13,12 @@ object PayloadMapper {
   const val DESIGN_QUERY = "Design"
   const val TAILOR_QUERY = "Tailor"
 
-  fun getSearchDesignsResponse() = SearchDesignResponse(id = BaseTest.DESIGN_ID,
-      title = DESIGN_QUERY, price = BaseTest.DESIGN_PRICE, discount = BaseTest.DESIGN_DISCOUNT,
-      image = BaseTest.DESIGN_IMAGE)
+  fun getSearchDesignsResponse() = listOf(
+      SearchDesignResponse(id = BaseTest.DESIGN_ID, title = DESIGN_QUERY,
+          price = BaseTest.DESIGN_PRICE, discount = BaseTest.DESIGN_DISCOUNT,
+          image = BaseTest.DESIGN_IMAGE))
 
-  fun getSearchTailorsResponse() = SearchTailorResponse(id = BaseTest.TAILOR_ID,
-      name = BaseTest.TAILOR_NAME, imagePath = BaseTest.TAILOR_IMAGE, location = null)
+  fun getSearchTailorsResponse() = listOf(
+      SearchTailorResponse(id = BaseTest.TAILOR_ID, name = BaseTest.TAILOR_NAME,
+          imagePath = BaseTest.TAILOR_IMAGE, location = null))
 }

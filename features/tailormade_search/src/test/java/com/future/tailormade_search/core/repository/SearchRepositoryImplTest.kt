@@ -43,8 +43,7 @@ class SearchRepositoryImplTest : BaseTest() {
 
   @Test
   fun `Given when search design then success return designs response`() {
-    val expectedResponse = generateListBaseResponse(
-        data = listOf(PayloadMapper.getSearchDesignsResponse()))
+    val expectedResponse = generateListBaseResponse(data = PayloadMapper.getSearchDesignsResponse())
 
     dispatcher.runBlockingTest {
       searchService.stub {
@@ -65,8 +64,7 @@ class SearchRepositoryImplTest : BaseTest() {
 
   @Test
   fun `Given when search tailor then success return designs response`() {
-    val expectedResponse = generateListBaseResponse(
-        data = listOf(PayloadMapper.getSearchTailorsResponse()))
+    val expectedResponse = generateListBaseResponse(data = PayloadMapper.getSearchTailorsResponse())
 
     dispatcher.runBlockingTest {
       searchService.stub {
