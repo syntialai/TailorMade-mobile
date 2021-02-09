@@ -16,6 +16,7 @@ import com.future.tailormade.util.extension.validateInput
 import com.future.tailormade_auth.R
 import com.future.tailormade_auth.databinding.FragmentSignUpBinding
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
+import com.future.tailormade_dls.widget.DatePickerDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -120,11 +121,12 @@ class SignUpFragment : BaseFragment() {
   }
 
   private fun setupDatePicker() {
-    birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
-        R.string.birth_date_picker_title_label).build()
-    birthDatePicker.addOnPositiveButtonClickListener {
-      binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
-      viewModel.setSignUpBirthDate(it)
+    birthDatePicker = DatePickerDialog().getDatePicker().setTitleText(
+        R.string.birth_date_picker_title_label).build().apply {
+      addOnPositiveButtonClickListener {
+        binding.editTextBirthDateSignUp.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
+        viewModel.setSignUpBirthDate(it)
+      }
     }
   }
 
