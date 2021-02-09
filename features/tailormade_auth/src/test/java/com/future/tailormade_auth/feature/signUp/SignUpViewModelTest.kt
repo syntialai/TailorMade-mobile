@@ -4,13 +4,12 @@ import com.future.tailormade.base.model.enums.GenderEnum
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.extension.orTrue
-import com.future.tailormade_auth.BaseViewModelTest
-import com.future.tailormade_auth.PayloadMapper
+import com.future.tailormade_auth.base.BaseViewModelTest
+import com.future.tailormade_auth.base.PayloadMapper
 import com.future.tailormade_auth.core.model.request.SignInRequest
-import com.future.tailormade_auth.core.repository.impl.AuthRepositoryImpl
+import com.future.tailormade_auth.core.repository.AuthRepository
 import com.future.tailormade_auth.feature.signUp.viewmodel.SignUpViewModel
 import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -23,6 +22,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -34,7 +34,7 @@ class SignUpViewModelTest : BaseViewModelTest() {
 
   private lateinit var viewModel: SignUpViewModel
 
-  private val authRepository = mock<AuthRepositoryImpl>()
+  private val authRepository = mock<AuthRepository>()
 
   private val signInRequestCaptor = argumentCaptor<SignInRequest>()
 
@@ -46,7 +46,6 @@ class SignUpViewModelTest : BaseViewModelTest() {
   @After
   override fun tearDown() {
     Mockito.framework().clearInlineMocks()
-
   }
 
   @Test
@@ -56,7 +55,7 @@ class SignUpViewModelTest : BaseViewModelTest() {
     val expectedResponse = PayloadMapper.getUserResponse()
     val expectedSignInResponse = PayloadMapper.getSignInResponse()
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       viewModel.setSignUpBirthDate(USER_BIRTHDATE)
       viewModel.setSignUpInfo(USER_NAME, USER_EMAIL, USER_PASSWORD)
       viewModel.setSignUpGender(USER_GENDER.name)
@@ -95,7 +94,7 @@ class SignUpViewModelTest : BaseViewModelTest() {
     val signInRequest = PayloadMapper.getSignInRequest()
     val expectedResponse = PayloadMapper.getUserResponse()
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       viewModel.setSignUpBirthDate(USER_BIRTHDATE)
       viewModel.setSignUpInfo(USER_NAME, USER_EMAIL, USER_PASSWORD)
       viewModel.setSignUpGender(USER_GENDER.name)
@@ -103,9 +102,7 @@ class SignUpViewModelTest : BaseViewModelTest() {
       val signUpFlow = getFlow(expectedResponse)
 
       whenever(authRepository.signUp(request)) doReturn signUpFlow
-      whenever(authRepository.signIn(signInRequest)) doAnswer {
-        throw getError()
-      }
+      whenever(authRepository.signIn(signInRequest)) doReturn getErrorFlow()
 
       viewModel.signUp()
       delay(1000)
@@ -132,7 +129,7 @@ class SignUpViewModelTest : BaseViewModelTest() {
   fun `Given when sign up then error before sign in`() {
     val request = PayloadMapper.getSignUpRequest().copy(gender = GenderEnum.Anonymous)
 
-    runBlocking {
+    rule.dispatcher.runBlockingTest {
       viewModel.setSignUpBirthDate(USER_BIRTHDATE)
       viewModel.setSignUpInfo(USER_NAME, USER_EMAIL, USER_PASSWORD)
       viewModel.setSignUpGender("Other")
@@ -140,13 +137,14 @@ class SignUpViewModelTest : BaseViewModelTest() {
       whenever(authRepository.signUp(request)) doReturn getErrorFlow()
 
       viewModel.signUp()
+      delay(1000)
 
       verify(authRepository).signUp(request)
-      delay(1000)
-      assertTrue(viewModel.isLoading.value.orFalse())
 
       delay(1000)
       assertError(Constants.SIGN_UP_ERROR)
+
+      verifyNoMoreInteractions(authRepository)
     }
   }
 
