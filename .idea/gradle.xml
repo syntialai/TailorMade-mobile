@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/features/tailormade_auth" />
             <option value="$PROJECT_DIR$/features/tailormade_chat" />
             <option value="$PROJECT_DIR$/features/tailormade_design_detail" />
+            <option value="$PROJECT_DIR$/features/tailormade_face_swap" />
             <option value="$PROJECT_DIR$/features/tailormade_profile" />
             <option value="$PROJECT_DIR$/features/tailormade_search" />
             <option value="$PROJECT_DIR$/libraries" />

@@ -44,7 +44,7 @@
 #ifndef OPENCV_OBJDETECT_HPP
 #define OPENCV_OBJDETECT_HPP
 
-#include "opencv2/core.hpp"
+#include "core.hpp"
 
 /**
 @defgroup objdetect Object Detection

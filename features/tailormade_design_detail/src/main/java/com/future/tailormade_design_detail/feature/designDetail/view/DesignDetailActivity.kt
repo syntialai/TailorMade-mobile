@@ -1,9 +1,13 @@
 package com.future.tailormade_design_detail.feature.designDetail.view
 
+import android.Manifest
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.config.Constants
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.databinding.ActivityDesignDetailBinding
 import com.future.tailormade_design_detail.feature.addOrEditDesign.view.AddOrEditDesignFragmentDirections
@@ -50,5 +54,14 @@ class DesignDetailActivity : BaseActivity() {
   private fun setupNavController() {
     val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_design_detail_fragment) as NavHostFragment
     navController = hostFragment.navController
+  }
+
+  fun openGallery(requestCode: Int) {
+    checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE_PERMISSION) {
+      val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+        type = Constants.TYPE_IMAGE_ALL
+      }
+      this.startActivityForResult(galleryIntent, requestCode)
+    }
   }
 }

@@ -49,15 +49,15 @@
 #  error core.hpp header must be compiled as C++
 #endif
 
-#include "opencv2/core/cvdef.h"
-#include "opencv2/core/version.hpp"
-#include "opencv2/core/base.hpp"
-#include "opencv2/core/cvstd.hpp"
-#include "opencv2/core/traits.hpp"
-#include "opencv2/core/matx.hpp"
-#include "opencv2/core/types.hpp"
-#include "opencv2/core/mat.hpp"
-#include "opencv2/core/persistence.hpp"
+#include "core/cvdef.h"
+#include "core/version.hpp"
+#include "core/base.hpp"
+#include "core/cvstd.hpp"
+#include "core/traits.hpp"
+#include "core/matx.hpp"
+#include "core/types.hpp"
+#include "core/mat.hpp"
+#include "core/persistence.hpp"
 
 /**
 @defgroup core Core functionality
@@ -1271,14 +1271,14 @@ representations (usually IEEE754-compliant) are used for the operation.
 In case of multi-channel arrays, each channel is processed
 independently. In the second and third cases above, the scalar is first
 converted to the array type.
-@param src1 first input array or a scalar.
-@param src2 second input array or a scalar.
+@param source1 first input array or a scalar.
+@param source2 second input array or a scalar.
 @param dst output array that has the same size and type as the input
 arrays.
 @param mask optional operation mask, 8-bit single channel array, that
 specifies elements of the output array to be changed.
 */
-CV_EXPORTS_W void bitwise_or(InputArray src1, InputArray src2,
+CV_EXPORTS_W void bitwise_or(InputArray source1, InputArray source2,
                              OutputArray dst, InputArray mask = noArray());
 
 /** @brief Calculates the per-element bit-wise "exclusive or" operation on two
@@ -3290,10 +3290,10 @@ struct ParamType<_Tp, typename std::enable_if< std::is_enum<_Tp>::value >::type>
 
 } //namespace cv
 
-#include "opencv2/core/operations.hpp"
-#include "opencv2/core/cvstd.inl.hpp"
-#include "opencv2/core/utility.hpp"
-#include "opencv2/core/optim.hpp"
-#include "opencv2/core/ovx.hpp"
+#include "core/operations.hpp"
+#include "core/cvstd.inl.hpp"
+#include "core/utility.hpp"
+#include "core/optim.hpp"
+#include "core/ovx.hpp"
 
 #endif /*OPENCV_CORE_HPP*/

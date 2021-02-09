@@ -76,8 +76,8 @@ class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: 
     Imgproc.cvtColor(imageSource, imageSource, Imgproc.COLOR_BGRA2BGR)
 
     val swapped = Mat()
-    portraitSwapNative(imageDestination.nativeObjAddr, imageSource.nativeObjAddr, bitmapDestinationX, bitmapDestinationY, bitmapSourceX, bitmapSourceY,
-        swapped.nativeObjAddr)
+    portraitSwapNative(imageDestination.nativeObjAddr, imageSource.nativeObjAddr,
+        bitmapDestinationX, bitmapDestinationY, bitmapSourceX, bitmapSourceY, swapped.nativeObjAddr)
     val bitmapSwapped = Bitmap.createBitmap(bitmapDestination.width, bitmapDestination.height,
         Bitmap.Config.ARGB_8888)
     matToBitmap(swapped, bitmapSwapped)

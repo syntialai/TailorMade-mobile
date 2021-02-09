@@ -25,6 +25,7 @@
     <string name="add_size_label">Add Size</string>
     <string name="detail_label">Detail</string>
     <string name="cm_label">cm</string>
+    <string name="choose_image_label">Choose Image</string>
 
     <!-- Error message -->
     <string name="design_name_is_empty">Design name is empty.</string>
@@ -39,7 +40,6 @@
     <string name="hips_size_is_empty">Hips size is empty.</string>
     <string name="neck_to_waist_size_is_empty">Neck to Waist size is empty.</string>
     <string name="inseam_size_is_empty">Inseam size is empty.</string>
-
 
     <!-- Success message -->
     <string name="design_added">Design added.</string>

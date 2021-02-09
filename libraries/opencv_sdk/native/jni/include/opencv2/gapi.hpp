@@ -22,15 +22,15 @@
 @}
  */
 
-#include <opencv2/gapi/gmat.hpp>
-#include <opencv2/gapi/garray.hpp>
-#include <opencv2/gapi/gscalar.hpp>
-#include <opencv2/gapi/gopaque.hpp>
-#include <opencv2/gapi/gframe.hpp>
-#include <opencv2/gapi/gcomputation.hpp>
-#include <opencv2/gapi/gcompiled.hpp>
-#include <opencv2/gapi/gtyped.hpp>
-#include <opencv2/gapi/gkernel.hpp>
-#include <opencv2/gapi/operators.hpp>
+#include <gapi/gmat.hpp>
+#include <gapi/garray.hpp>
+#include <gapi/gscalar.hpp>
+#include <gapi/gopaque.hpp>
+#include <gapi/gframe.hpp>
+#include <gapi/gcomputation.hpp>
+#include <gapi/gcompiled.hpp>
+#include <gapi/gtyped.hpp>
+#include <gapi/gkernel.hpp>
+#include <gapi/operators.hpp>
 
 #endif // OPENCV_GAPI_HPP
