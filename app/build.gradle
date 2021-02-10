@@ -1,122 +1,127 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
-    id 'dagger.hilt.android.plugin'
+  id 'com.android.application'
+  id 'kotlin-android'
+  id 'kotlin-android-extensions'
+  id 'kotlin-kapt'
+  id 'androidx.navigation.safeargs.kotlin'
+  id 'dagger.hilt.android.plugin'
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
 
-    defaultConfig {
-        applicationId "com.future.tailormade"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+  defaultConfig {
+    applicationId "com.future.tailormade"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode rootProject.ext.versionCode
+    versionName rootProject.ext.versionName
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
     }
 
-    buildFeatures {
-        dataBinding true
-        viewBinding true
-    }
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
+  buildFeatures {
+    viewBinding true
+  }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+  }
 
-    hilt {
-        enableTransformForLocalTests = true
-    }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 
-    kapt {
-        correctErrorTypes true
-    }
+  hilt {
+    enableTransformForLocalTests = true
+  }
 
-    kotlinOptions {
-        jvmTarget = versions.jvm
-    }
+  kapt {
+    correctErrorTypes true
+  }
 
-    packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
-    }
+  kotlinOptions {
+    jvmTarget = versions.jvm
+  }
 
-    sourceSets {
-        androidTest.assets.srcDirs +=
-                files("$projectDir/schemas".toString())
-    }
+  packagingOptions {
+    exclude 'META-INF/atomicfu.kotlin_module'
+  }
 
-    testOptions {
-        unitTests.includeAndroidResources = true
-        unitTests.returnDefaultValues = true
-    }
+  sourceSets {
+    androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+  }
+
+  testOptions {
+    unitTests.includeAndroidResources = true
+    unitTests.returnDefaultValues = true
+  }
+
+  dynamicFeatures = [":features:tailormade_face_swap"]
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
+  implementation fileTree(dir: "libs", include: ["*.jar", ".aar"])
 
-    // Libraries
-    implementation project(":libraries:tailormade_dls")
-    implementation project(":libraries:tailormade_base")
-    implementation project(":libraries:tailormade_router")
+  // Libraries
+  api project(":libraries:tailormade_base")
+  implementation project(":libraries:tailormade_router")
 
-    // Features
-    implementation project(":features:tailormade_auth")
-    implementation project(":features:tailormade_search")
-    implementation project(":features:tailormade_profile")
-    implementation project(":features:tailormade_chat")
+  // Features
+  implementation project(":features:tailormade_auth")
+  implementation project(":features:tailormade_search")
+  implementation project(":features:tailormade_profile")
+  implementation project(":features:tailormade_chat")
+  implementation project(":features:tailormade_design_detail")
 
-    // Tests
-    testImplementation test.junit
-    testImplementation test.androidx_core
-    testImplementation test.mockito
-    androidTestImplementation androidTest.junit
-    androidTestImplementation androidTest.espresso
+  // Location
+  implementation gms.location
 
-    // Paging
-    testImplementation paging.test_common
+  // Dynamic feature support
+  implementation play_core
 
-    // Annotation Processing
-    kapt dataBinding.kapt
+  // Tests
+  testImplementation test.junit
+  testImplementation test.androidx_core
+  testImplementation test.mockito
+  testImplementation test.mockito_kotlin
+  androidTestImplementation androidTest.junit
+  androidTestImplementation androidTest.espresso
 
-    // Glide
-    kapt glide.kapt
+  // Annotation Processing
+  kapt dataBinding.kapt
 
-    implementation materialDesign
+  // Glide
+  kapt glide.kapt
 
-    // Dagger 2
-    kapt dagger.kapt_processor
-    kapt dagger.kapt_compiler
+  // Coroutine
+  testImplementation coroutine.test
 
-    // Dagger Hilt
-    implementation daggerHilt.core
-    implementation daggerHilt.lifecycle_viewmodel
-    kapt daggerHilt.kapt_compiler
-    kapt daggerHilt.kapt_google_compiler
-    kaptTest daggerHilt.kaptTest_compiler
-    testImplementation daggerHilt.test
+  // Dagger 2
+  kapt dagger.kapt_processor
+  kapt dagger.kapt_compiler
 
-    // Room
-    kapt room.kapt_compiler
-    androidTestImplementation room.androidTest
-    androidTestImplementation room.androidTest_arch_persistence
+  // Dagger Hilt
+  implementation daggerHilt.core
+  implementation daggerHilt.lifecycle_viewmodel
+  kapt daggerHilt.kapt_compiler
+  kapt daggerHilt.kapt_google_compiler
+  kaptTest daggerHilt.kaptTest_compiler
+  testImplementation daggerHilt.test
+
+  // Room
+  kapt room.kapt_compiler
+  androidTestImplementation room.androidTest
+  androidTestImplementation room.androidTest_arch_persistence
 }

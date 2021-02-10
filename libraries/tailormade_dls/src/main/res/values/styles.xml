@@ -4,10 +4,12 @@
     <!-- Bottom Navigation Style -->
     <style name="Theme.TailorMade.BottomNavigation" parent="Widget.Design.BottomNavigationView">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_56</item>
         <item name="android:minHeight">@dimen/dp_56</item>
         <item name="android:layout_margin">@dimen/dp_16</item>
         <item name="android:background">@drawable/drawable_bottom_nav_background</item>
         <item name="labelVisibilityMode">unlabeled</item>
+        <item name="layout_behavior">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</item>
     </style>
 
     <!-- Button Style -->
@@ -31,26 +33,40 @@
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.All</item>
         <item name="backgroundTint">?colorSurface</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Red" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="android:strokeColor">@color/color_red_600</item>
+        <item name="strokeColor">@color/color_red_600</item>
         <item name="android:textColor">@color/color_red_600</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Green" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="android:strokeColor">@color/color_green_600</item>
+        <item name="strokeColor">@color/color_green_600</item>
         <item name="android:textColor">@color/color_green_600</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Left" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.Left</item>
+        <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.Left</item>
+        <item name="minWidth">@dimen/dp_0</item>
+        <item name="android:minWidth">@dimen/dp_0</item>
+        <item name="android:paddingStart">@dimen/dp_16</item>
+        <item name="android:paddingEnd">@dimen/dp_16</item>
     </style>
 
     <style name="Theme.TailorMade.Button.Outlined.Rounded.Right" parent="Theme.TailorMade.Button.Outlined.Rounded">
-        <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.Right</item>
+        <item name="shapeAppearance">@style/Theme.TailorMade.CornerRounded.Right</item>
+        <item name="minWidth">@dimen/dp_0</item>
+        <item name="android:minWidth">@dimen/dp_0</item>
+        <item name="android:paddingStart">@dimen/dp_16</item>
+        <item name="android:paddingEnd">@dimen/dp_16</item>
+    </style>
+
+    <style name="Theme.TailorMade.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="backgroundTint">?colorSurface</item>
+        <item name="android:padding">@dimen/dp_0</item>
     </style>
 
     <!-- Chip Style -->
@@ -68,13 +84,13 @@
     </style>
 
     <!-- Corner Style -->
-    <style name="Theme.TailorMade.CornerRounded">
+    <style name="Theme.TailorMade.CornerRounded" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/dp_0</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.All" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSize">@dimen/dp_200</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded_16dp">
@@ -82,31 +98,31 @@
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.Top" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSizeTopLeft">@dimen/dp_200</item>
-        <item name="cornerSizeTopRight">@dimen/dp_200</item>
+        <item name="cornerSizeTopLeft">50%</item>
+        <item name="cornerSizeTopRight">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.Bottom" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
-        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+        <item name="cornerSizeBottomLeft">50%</item>
+        <item name="cornerSizeBottomRight">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.Left" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSizeTopLeft">@dimen/dp_200</item>
-        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+        <item name="cornerSizeTopLeft">50%</item>
+        <item name="cornerSizeBottomLeft">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.Right" parent="Theme.TailorMade.CornerRounded">
-        <item name="cornerSizeTopRight">@dimen/dp_200</item>
-        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+        <item name="cornerSizeTopRight">50%</item>
+        <item name="cornerSizeBottomRight">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.TopLeft" parent="Theme.TailorMade.CornerRounded.Left">
-        <item name="cornerSizeBottomRight">@dimen/dp_200</item>
+        <item name="cornerSizeBottomRight">50%</item>
     </style>
 
     <style name="Theme.TailorMade.CornerRounded.TopRight" parent="Theme.TailorMade.CornerRounded.Right">
-        <item name="cornerSizeBottomLeft">@dimen/dp_200</item>
+        <item name="cornerSizeBottomLeft">50%</item>
     </style>
 
     <!-- Card Style -->
@@ -123,14 +139,14 @@
 
     <!-- Radio Button Style -->
     <style name="Theme.TailorMade.RadioImageButton">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">111dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:drawablePadding">@dimen/dp_24</item>
-        <item name="android:layout_marginStart">@dimen/dp_16</item>
-        <item name="android:layout_marginEnd">@dimen/dp_16</item>
-        <item name="android:textAppearance">@style/TextAppearance.TailorMade.Subtitle1</item>
+        <item name="android:layout_marginStart">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:textAppearance">@style/TextAppearance.TailorMade.Subtitle1.BlackMedium</item>
     </style>
 
     <!-- Text colors style -->
@@ -174,8 +190,16 @@
         <item name="android:textColor">?colorPrimaryDark</item>
     </style>
 
+    <style name="TextAppearance.TailorMade.Headline3.PrimaryDark.Bold" parent="TextAppearance.TailorMade.Headline3.PrimaryDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.TailorMade.Headline3.BlackHigh" parent="TextAppearance.TailorMade.Headline3">
         <item name="android:textColor">@color/color_black_87</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Headline3.BlackHigh.Bold" parent="TextAppearance.TailorMade.Headline3.BlackHigh">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Headline3.BlackMedium" parent="TextAppearance.TailorMade.Headline3">
@@ -310,16 +334,16 @@
         <item name="android:textColor">@color/color_black_20</item>
     </style>
 
-    <style name="TextAppearance.TailorMade.Overline.Primary" parent="TextAppearance.TailorMade.Overline">
-        <item name="android:textColor">?colorPrimary</item>
-    </style>
-
     <style name="TextAppearance.TailorMade.Caption.Primary" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">?colorPrimary</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Caption.PrimaryDark" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">?colorPrimaryDark</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.PrimaryDark.Bold" parent="TextAppearance.TailorMade.Caption.PrimaryDark">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Caption.BlackHigh" parent="TextAppearance.TailorMade.Caption">
@@ -340,6 +364,20 @@
 
     <style name="TextAppearance.TailorMade.Caption.BlackLight" parent="TextAppearance.TailorMade.Caption">
         <item name="android:textColor">@color/color_black_20</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.Red" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_red_600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Caption.Green" parent="TextAppearance.TailorMade.Caption">
+        <item name="android:textColor">@color/color_green_600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TailorMade.Overline.Primary" parent="TextAppearance.TailorMade.Overline">
+        <item name="android:textColor">?colorPrimary</item>
     </style>
 
     <style name="TextAppearance.TailorMade.Overline.PrimaryDark" parent="TextAppearance.TailorMade.Overline">
@@ -369,14 +407,38 @@
     <!-- Text Fields -->
     <style name="Theme.TailorMade.TextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundColor">?colorSurface</item>
+        <item name="materialThemeOverlay">@style/Theme.TailorMade.TextInputLayout</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputEditText.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxBackgroundColor">?colorSurface</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputEditText.Outlined.Rounded" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_16</item>
     </style>
 
     <style name="Theme.TailorMade.TextInputEditText.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?colorSurface</item>
+        <item name="materialThemeOverlay">@style/Theme.TailorMade.TextInputLayout.Dropdown</item>
     </style>
 
     <style name="Theme.TailorMade.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearanceOverlay">@style/Theme.TailorMade.CornerRounded.All</item>
+        <item name="materialThemeOverlay">@style/Theme.TailorMade.TextInputLayout.OutlinedBox.Text</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="textAppearanceSubtitle1">?textAppearanceBody1</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputLayout.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="textAppearanceSubtitle1">?textAppearanceBody1</item>
+    </style>
+
+    <style name="Theme.TailorMade.TextInputLayout.OutlinedBox.Text" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="textAppearanceSubtitle1">?textAppearanceBody1</item>
     </style>
 
     <!-- Toolbar -->
@@ -387,6 +449,12 @@
 
     <style name="Theme.TailorMade.Toolbar.Back" parent="Theme.TailorMade.Toolbar">
         <item name="navigationIcon">@drawable/ic_back</item>
-        <item name="navigationIconColor">?attr/colorControlNormal</item>
+        <item name="navigationIconTint">?attr/colorControlNormal</item>
+    </style>
+
+    <style name="Theme.TailorMade.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">?attr/textAppearanceHeadline4</item>
+        <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
+        <item name="background">?attr/backgroundColor</item>
     </style>
 </resources>

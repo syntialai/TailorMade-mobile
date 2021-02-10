@@ -1,14 +1,17 @@
 package com.future.tailormade_chat.core.model.entity
 
+import com.google.firebase.database.IgnoreExtraProperties
+
+@IgnoreExtraProperties
 data class UserChatSession(
 
-    val userId: String,
+    var userId: String? = null,
 
-    val userName: String,
+    var userName: String? = null,
 
-    val hasBeenRead: Boolean,
+    var hasBeenRead: Boolean? = null,
 
-    val unreadRoomCount: Int,
+    var unreadRoomCount: Int? = null,
 
-    val sessions: MutableMap<String, Session>
+    var sessions: MutableMap<String, Session>? = null
 )

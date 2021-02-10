@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".feature.view.DesignDetailActivity">
+    tools:context=".feature.designDetail.view.DesignDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_appbar_layout_design_detail"
@@ -16,8 +16,7 @@
             android:id="@+id/top_toolbar_design_detail"
             style="@style/Theme.TailorMade.Toolbar.Back"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/menu_item_design_detail" />
+            android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

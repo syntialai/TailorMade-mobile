@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="delete_chat_alert_dialog_title">Delete Chat?</string>
     <string name="delete_chat_alert_dialog_content">You’ll delete all chat history with </string>
-    <string name="delete_chat_alert_dialog_cancel_button">Cancel</string>
-    <string name="delete_chat_alert_dialog_delete_button">Delete</string>
     <string name="chat_input_message_label">Type a message</string>
 
+    <string name="send_message_error_message">Failed to send message, please try again.</string>
     <string name="delete_chat_error_message">Failed to delete chat</string>
     <string name="load_chat_data_error_message">Failed to load chat data</string>
+
+    <string name="delete_alert_dialog_cancel_button">Cancel</string>
+    <string name="delete_alert_dialog_delete_button">Delete</string>
+
+    <string name="chat_list_title_state">No Messages, yet.</string>
+    <string name="chat_list_description_user_state">Let’s start chatting with a tailor!</string>
+    <string name="chat_list_description_tailor_state">Once your customer send messages to you, it will appear here.</string>
 </resources>

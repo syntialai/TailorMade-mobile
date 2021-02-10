@@ -3,15 +3,20 @@ package com.future.tailormade.base.view
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ethanhua.skeleton.SkeletonScreen
+import com.future.tailormade.R
 import com.future.tailormade.base.viewmodel.BaseViewModel
-import com.future.tailormade.util.extension.orFalse
+import com.future.tailormade.util.extension.getColorResFromAttrs
 import com.future.tailormade.util.logger.AppLogger
 import com.future.tailormade.util.view.DialogHelper
+import com.future.tailormade.util.view.SkeletonHelper
 import com.future.tailormade.util.view.ToastHelper
+import com.future.tailormade_router.actions.Action
 
 abstract class BaseFragment : Fragment() {
 
@@ -19,11 +24,15 @@ abstract class BaseFragment : Fragment() {
 
   open fun getScreenName(): String = ""
 
-  protected var appLogger = AppLogger.create(this.getLogName())
+  open fun onNavigationIconClicked(): Unit? = null
+
+  protected var appLogger = AppLogger(this.getLogName())
 
   protected abstract fun getViewModel(): BaseViewModel?
 
   protected open var loadingDialog: Dialog? = null
+
+  protected var skeletonScreen: SkeletonScreen? = null
 
   override fun onAttach(context: Context) {
     appLogger.logLifecycleOnAttach()
@@ -38,12 +47,15 @@ abstract class BaseFragment : Fragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     appLogger.logLifecycleOnActivityCreated()
     super.onActivityCreated(savedInstanceState)
-
-    activity?.let { activity ->
-      (activity as BaseActivity).setupToolbar(getScreenName())
-    }
-
     setupFragmentObserver()
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    activity?.let { activity ->
+      (activity as BaseActivity).setupOnNavigationIconClicked(::onNavigationIconClicked)
+      activity.setupToolbar(getScreenName())
+    }
   }
 
   override fun onStart() {
@@ -82,24 +94,30 @@ abstract class BaseFragment : Fragment() {
   }
 
   open fun setupFragmentObserver() {
-    getViewModel()?.viewState?.observe(viewLifecycleOwner, { state ->
-      when (state) {
-        is ViewState.Loading -> onLoading(state.isLoading)
-        is ViewState.Unauthorized -> onUnauthorized()
-        else -> showNoInternetConnection()
+    getViewModel()?.isLoading?.observe(viewLifecycleOwner, { isLoading ->
+//      when (state) {
+//        is ViewState.Loading -> onLoading(state.isLoading)
+//        is ViewState.Unauthorized -> onUnauthorized()
+//        else -> showNoInternetConnection()
+//      }
+      isLoading?.let {
+        onLoading(it)
       }
     })
 
     getViewModel()?.errorMessage?.observe(viewLifecycleOwner, { error ->
       hideKeyboard()
-      if (error != null && context != null && view != null) {
-        ToastHelper.showErrorToast(requireContext(), requireView(), error)
+      if (error != null && context != null) {
+        showErrorToast(requireContext(), error)
       }
     })
   }
 
   private fun onUnauthorized() {
-    // TODO: Implement this
+    context?.let {
+      Action.goToSignIn(it)
+      activity?.finish()
+    }
   }
 
   private fun showNoInternetConnection() {
@@ -114,15 +132,26 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
-  open fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
-    val layoutManager: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-    return getViewModel()?.isStillLoading()?.not().orFalse() &&
-           layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition
+  fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
+    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+    return layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition
   }
 
   fun hideToolbar() {
     activity?.let { activity ->
       (activity as BaseActivity).hideToolbar()
+    }
+  }
+
+  private fun showErrorToast(context: Context, message: String) {
+    activity?.findViewById<View>(android.R.id.content)?.let {
+      ToastHelper.showErrorToast(context, it, message)
+    }
+  }
+
+  fun showSuccessToast(messageId: Int) {
+    activity?.findViewById<View>(android.R.id.content)?.let {
+      ToastHelper.showToast(it, getString(messageId))
     }
   }
 
@@ -132,14 +161,14 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
-  fun showLoadingView() {
-    if (loadingDialog == null && context == null) {
+  private fun showLoadingView() {
+    if (loadingDialog == null) {
       loadingDialog = DialogHelper.createLoadingDialog(requireContext())
     }
     DialogHelper.showDialog(loadingDialog)
   }
 
-  fun hideLoadingView() {
+  private fun hideLoadingView() {
     DialogHelper.dismissDialog(loadingDialog)
     loadingDialog = null
   }
@@ -151,4 +180,20 @@ abstract class BaseFragment : Fragment() {
       inputManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
   }
+
+  fun getSkeleton(view: View, layoutId: Int): SkeletonScreen = SkeletonHelper.getSkeleton(view,
+      layoutId).color(getColorSurface()).show()
+
+  fun getSkeleton(recyclerView: RecyclerView, layoutId: Int) = SkeletonHelper.getRecyclerViewSkeleton(
+      recyclerView, layoutId)?.color(R.color.color_black_54)
+
+  fun hideSkeleton() {
+    skeletonScreen?.hide()
+  }
+
+  fun showSkeleton(view: View, layoutId: Int) {
+    skeletonScreen = SkeletonHelper.getSkeleton(view, layoutId).color(getColorSurface()).show()
+  }
+
+  private fun getColorSurface() = requireContext().getColorResFromAttrs(R.attr.colorSurface)
 }

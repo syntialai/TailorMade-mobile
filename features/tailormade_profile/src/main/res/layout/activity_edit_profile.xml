@@ -22,12 +22,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_profile_fragment"
+        android:id="@+id/nav_host_tailor_profile_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/dp_16"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_profile_graph" />
+        app:navGraph="@navigation/nav_edit_profile_graph" />
 
 </LinearLayout>

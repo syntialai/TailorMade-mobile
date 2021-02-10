@@ -5,18 +5,15 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade_auth.core.repository.impl.AuthSharedPrefRepository
-import com.future.tailormade_profile.core.model.entity.Location
-import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
 import com.future.tailormade_profile.core.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class ProfileViewModel @ViewModelInject constructor(
     private val profileRepository: ProfileRepository,
@@ -35,7 +32,7 @@ class ProfileViewModel @ViewModelInject constructor(
     get() = _profileInfoUiModel
 
   init {
-    _profileInfoUiModel = savedStateHandle.getLiveData(PROFILE_INFO, null)
+    _profileInfoUiModel = savedStateHandle.getLiveData(PROFILE_INFO)
   }
 
   @ExperimentalCoroutinesApi
@@ -43,39 +40,23 @@ class ProfileViewModel @ViewModelInject constructor(
   fun fetchProfileInfo() {
     launchViewModelScope {
       authSharedPrefRepository.userId?.let { id ->
-        profileRepository.getProfileInfo(id).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
+        profileRepository.getProfileInfo(id).onError {
           setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
-        }.collectLatest { response ->
-          response.data?.let {
-            _profileInfoUiModel.value = mapToProfileInfoUiModel(it)
-            savedStateHandle.set(PROFILE_INFO, _profileInfoUiModel.value)
-          }
+        }.collectLatest {
+          _profileInfoUiModel.value = it.uiModel
         }
       }
     }
   }
 
-  fun isUserProfile(id: String) = authSharedPrefRepository.userId == id
+  fun getUserGender() = authSharedPrefRepository.userGender
 
-  private fun getAddress(location: Location?) = location?.city.orEmpty() + if (
-      location?.province.isNullOrBlank().not()) {
-        ", ${location?.province}"
-      } else {
-        ""
-      }
+  fun isNoAboutData(): Boolean {
+    val profile = _profileInfoUiModel.value
+    return profile?.let {
+      it.location == null && it.education == null && it.address.isBlank()
+    } ?: true
+  }
 
-  private fun mapToProfileInfoUiModel(profileInfo: ProfileInfoResponse) = ProfileInfoUiModel(
-      id = profileInfo.id,
-      name = profileInfo.name,
-      image = profileInfo.image,
-      phoneNumber = profileInfo.phoneNumber,
-      birthDate = profileInfo.birthDate,
-      address = getAddress(profileInfo.location),
-      location = profileInfo.location,
-      occupation = profileInfo.occupation,
-      education = profileInfo.education
-  )
+  fun isUser() = authSharedPrefRepository.userId == _profileInfoUiModel.value?.id
 }

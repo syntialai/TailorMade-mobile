@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade_search.databinding.FragmentCategoryListBinding
 import com.future.tailormade_search.feature.filter.adapter.ChooseListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategoryListFragment : BaseFragment() {
 
   companion object {
-
     fun newInstance() = CategoryListFragment()
   }
 
@@ -25,6 +25,8 @@ class CategoryListFragment : BaseFragment() {
 
   override fun getScreenName(): String = "Select Category"
 
+  override fun getViewModel(): BaseViewModel? = null
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     binding = FragmentCategoryListBinding.inflate(inflater, container, false)
@@ -32,13 +34,11 @@ class CategoryListFragment : BaseFragment() {
     with(binding) {
       recyclerViewCategoryList.layoutManager = LinearLayoutManager(context)
     }
-
-    // TODO: show toolbar
+    showToolbar()
 
     return binding.root
   }
 
-  // TODO: call onBackPressed for back button in toolbar
   private fun onBackPressed() {
     findNavController().navigateUp()
   }

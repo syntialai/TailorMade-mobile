@@ -45,23 +45,24 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    // Library
+    // Libraries
     api project(":libraries:tailormade_base")
+    implementation project(":libraries:tailormade_router")
 
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core
+    testImplementation test.arch_core
     testImplementation test.mockito
+    testImplementation test.mockito_kotlin
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
 
-    // Paging
-    testImplementation paging.test_common
+    // Coroutine
+    testImplementation coroutine.test
 
     // Annotation Processing
     kapt dataBinding.kapt
-
-    implementation materialDesign
 
     // Glide
     kapt glide.kapt

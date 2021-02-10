@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_checkout_graph"
+    app:startDestination="@id/checkoutFragment">
+
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.future.tailormade.feature.checkout.view.CheckoutFragment"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" >
+        <action
+            android:id="@+id/action_checkoutFragment_to_thanksForOrderFragment"
+            app:destination="@id/thanksForOrderFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/thanksForOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/thanksForOrderFragment"
+        android:name="com.future.tailormade.feature.checkout.view.ThanksForOrderFragment"
+        android:label="fragment_thanks_for_order"
+        tools:layout="@layout/fragment_thanks_for_order" >
+        <argument
+            android:name="history_id"
+            app:argType="string" />
+        <argument
+            android:name="cart_ui_model"
+            app:argType="com.future.tailormade.core.model.ui.cart.CartUiModel" />
+    </fragment>
+</navigation>

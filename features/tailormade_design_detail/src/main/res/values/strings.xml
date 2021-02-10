@@ -10,4 +10,39 @@
     <string name="chat_label">Chat</string>
     <string name="cart_label">Cart</string>
     <string name="order_now_label">Order Now</string>
+    <string name="basic_design_information_label">Basic Design Information</string>
+    <string name="design_discount_label">Design discount</string>
+    <string name="image_label">Image</string>
+    <string name="add_design_image_label">Add a design image. Your image will be appeared here.</string>
+    <string name="change_label">Change</string>
+    <string name="size_design_information_label">Size Design Information</string>
+    <string name="color_design_information_label">Color Design Information</string>
+    <string name="add_design_label">Add Design</string>
+    <string name="edit_design_label">Edit Design</string>
+    <string name="add_color_label">Add Color</string>
+    <string name="description_design_information_label">Description Design Information</string>
+    <string name="design_description_label">Description</string>
+    <string name="add_size_label">Add Size</string>
+    <string name="detail_label">Detail</string>
+    <string name="cm_label">cm</string>
+    <string name="choose_image_label">Choose Image</string>
+
+    <!-- Error message -->
+    <string name="design_name_is_empty">Design name is empty.</string>
+    <string name="design_price_is_empty">Design price is empty.</string>
+    <string name="design_discount_is_empty">Design discount is empty.</string>
+    <string name="design_discount_invalid">Design discount can\'t be higher than the normal price.</string>
+    <string name="design_description_is_empty">Design description is empty.</string>
+    <string name="color_name_is_empty">Color name is empty.</string>
+    <string name="size_name_is_empty">Size name is empty.</string>
+    <string name="chest_size_is_empty">Chest size is empty.</string>
+    <string name="waist_size_is_empty">Waist size is empty.</string>
+    <string name="hips_size_is_empty">Hips size is empty.</string>
+    <string name="neck_to_waist_size_is_empty">Neck to Waist size is empty.</string>
+    <string name="inseam_size_is_empty">Inseam size is empty.</string>
+
+    <!-- Success message -->
+    <string name="design_added">Design added.</string>
+    <string name="design_updated">Design updated.</string>
+    <string name="design_added_to_cart">Design successfully added to cart.</string>
 </resources>

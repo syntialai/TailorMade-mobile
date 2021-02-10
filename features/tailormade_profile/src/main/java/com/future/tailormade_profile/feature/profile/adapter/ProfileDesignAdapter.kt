@@ -27,7 +27,7 @@ class ProfileDesignAdapter(private val onClickListener: (String) -> Unit) :
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProfileDesignViewHolder(
       LayoutInflater.from(parent.context).inflate(R.layout.layout_profile_design_image, parent,
-          true))
+          false))
 
   override fun onBindViewHolder(holder: ProfileDesignViewHolder, position: Int) {
     holder.bind(getItem(position))
@@ -41,7 +41,7 @@ class ProfileDesignAdapter(private val onClickListener: (String) -> Unit) :
     fun bind(data: ProfileDesignResponse) {
       with(binding) {
         ImageLoader.loadImageUrl(context, data.image, imageViewProfileDesign)
-        root.setOnClickListener {
+        imageViewProfileDesign.setOnClickListener {
           onClickListener.invoke(data.id)
         }
       }

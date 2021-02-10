@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 object CoroutineHelper {
 
-  fun <T> debounce(delayMs: Long = Constants.MIN_DEBOUNCE_TIME, scope: CoroutineScope,
+  fun <T> debounce(delayMs: Long = Constants.DEBOUNCE_TIME_300, scope: CoroutineScope,
       destinationFunction: (T) -> Unit): (T) -> Unit {
     var debounceJob: Job? = null
     return { param: T ->

@@ -18,14 +18,14 @@
         <ImageView
             android:id="@+id/image_view_design_detail"
             android:layout_width="match_parent"
-            android:src="@drawable/drawable_gender_male"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_400"
             android:layout_marginBottom="@dimen/dp_28"
+            android:scaleType="centerCrop"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/text_view_design_detail_title"
-            style="@style/TextAppearance.TailorMade.Headline3.Bold"
+            style="@style/TextAppearance.TailorMade.Headline3.BlackHigh.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -41,6 +41,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginTop="@dimen/dp_16"
             android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_14"
             app:maxImageSize="@dimen/dp_40"
             app:srcCompat="@drawable/ic_swap_face"
             tools:ignore="ContentDescription" />
@@ -63,7 +64,6 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/dp_4"
-        android:layout_marginStart="@dimen/dp_16"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/text_view_design_detail_designed_by_label"
         app:layout_constraintStart_toEndOf="@id/text_view_design_detail_price"
@@ -92,6 +92,7 @@
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_4"
         android:text="@string/designed_by_label"
+        app:layout_constraintTop_toBottomOf="@id/text_view_design_detail_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 

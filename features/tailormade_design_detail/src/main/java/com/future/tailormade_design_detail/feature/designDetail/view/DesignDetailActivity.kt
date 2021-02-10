@@ -1,0 +1,67 @@
+package com.future.tailormade_design_detail.feature.designDetail.view
+
+import android.Manifest
+import android.content.Intent
+import android.os.Bundle
+import android.provider.MediaStore
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import com.future.tailormade.base.view.BaseActivity
+import com.future.tailormade.config.Constants
+import com.future.tailormade_design_detail.R
+import com.future.tailormade_design_detail.databinding.ActivityDesignDetailBinding
+import com.future.tailormade_design_detail.feature.addOrEditDesign.view.AddOrEditDesignFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class DesignDetailActivity : BaseActivity() {
+
+  companion object {
+    private const val PARAM_DESIGN_DETAIL_ID = "PARAM_DESIGN_DETAIL_ID"
+    private const val PARAM_DESIGN_DETAIL_ADD = "PARAM_DESIGN_DETAIL_ADD"
+  }
+
+  private lateinit var binding: ActivityDesignDetailBinding
+  private lateinit var navController: NavController
+
+  var designDetailId: String = ""
+
+  override fun getScreenName(): String = "Design Detail Page"
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    binding = ActivityDesignDetailBinding.inflate(layoutInflater)
+    toolbar = binding.topToolbarDesignDetail
+    setContentView(binding.root)
+    setupNavController()
+
+    designDetailId = intent?.getStringExtra(PARAM_DESIGN_DETAIL_ID).orEmpty()
+    goToAddOrEditDesign()
+  }
+
+  private fun goToAddOrEditDesign() {
+    intent?.getBooleanExtra(PARAM_DESIGN_DETAIL_ADD, false).let {
+      it?.let { add ->
+        if (add) {
+          navController.popBackStack()
+          navController.navigate(
+              AddOrEditDesignFragmentDirections.actionGlobalAddOrEditDesignFragment(null))
+        }
+      }
+    }
+  }
+
+  private fun setupNavController() {
+    val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_design_detail_fragment) as NavHostFragment
+    navController = hostFragment.navController
+  }
+
+  fun openGallery(requestCode: Int) {
+    checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE_PERMISSION) {
+      val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+        type = Constants.TYPE_IMAGE_ALL
+      }
+      this.startActivityForResult(galleryIntent, requestCode)
+    }
+  }
+}

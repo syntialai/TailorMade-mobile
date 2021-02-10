@@ -46,14 +46,26 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // Libraries
+    implementation project(":libraries:tailormade_router")
+
+    // Features
     api project(":features:tailormade_auth")
+    implementation project(":libraries:opencv_sdk")
+
+    // Color Picker
+    implementation color_picker
 
     // Tests
     testImplementation test.junit
     testImplementation test.androidx_core
+    testImplementation test.arch_core
     testImplementation test.mockito
+    testImplementation test.mockito_kotlin
     androidTestImplementation androidTest.junit
     androidTestImplementation androidTest.espresso
+
+    // Coroutine
+    testImplementation coroutine.test
 
     // Annotation Processing
     kapt dataBinding.kapt

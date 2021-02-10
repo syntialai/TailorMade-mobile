@@ -3,13 +3,15 @@
     package="com.future.tailormade_search">
 
     <application android:theme="@style/Theme.TailorMade">
+        <activity
+            android:name="com.future.tailormade_search.feature.search.view.SearchActivity"
+            android:screenOrientation="portrait">
 
-        <activity android:name="com.future.tailormade_search.feature.search.view.SearchActivity">
             <intent-filter>
                 <action android:name="com.future.tailormade.search.open" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

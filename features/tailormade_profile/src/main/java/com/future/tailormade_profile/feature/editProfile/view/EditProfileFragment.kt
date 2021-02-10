@@ -8,10 +8,14 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.future.tailormade.base.view.BaseFragment
+import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.debounceOnTextChanged
 import com.future.tailormade.util.extension.isPhoneNumberValid
+import com.future.tailormade.util.extension.text
 import com.future.tailormade.util.extension.toDateString
+import com.future.tailormade.util.extension.validateInput
+import com.future.tailormade_dls.widget.DatePickerDialog
 import com.future.tailormade_profile.R
 import com.future.tailormade_profile.databinding.FragmentEditProfileBinding
 import com.future.tailormade_profile.feature.editProfile.viewModel.EditProfileViewModel
@@ -23,9 +27,11 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class EditProfileFragment : BaseFragment() {
 
-  private val viewModel: EditProfileViewModel by viewModels()
+  companion object {
+    fun newInstance() = EditProfileFragment()
+  }
 
-  private var birthDate: Long = 0L
+  private val viewModel: EditProfileViewModel by viewModels()
 
   private lateinit var binding: FragmentEditProfileBinding
   private lateinit var birthDatePicker: MaterialDatePicker<Long>
@@ -35,29 +41,34 @@ class EditProfileFragment : BaseFragment() {
 
   override fun getScreenName(): String = "Edit Profile"
 
+  override fun getViewModel(): BaseViewModel = viewModel
+
+  override fun onNavigationIconClicked() {
+    activity?.finish()
+  }
+
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
     setupDatePicker()
     binding = FragmentEditProfileBinding.inflate(inflater, container, false)
-
     with(binding) {
       buttonSubmitEditProfileForm.setOnClickListener {
-        submitForm(editTextNameEditProfile.text.toString(),
-            editTextPhoneNumberEditProfile.text.toString(),
-            editTextBirthDateEditProfile.text.toString(),
-            editTextLocationEditProfile.text.toString())
+        submitForm(editTextNameEditProfile.text(), editTextPhoneNumberEditProfile.text())
       }
 
       editTextLocationEditProfile.debounceOnTextChanged(
           viewModel.viewModelScope, viewModel::updateLocations)
+      editTextLocationEditProfile.setOnItemClickListener { _, _, position, _ ->
+        viewModel.setLocation(position)
+      }
 
       textInputBirthDateEditProfile.setEndIconOnClickListener {
         showDatePicker()
       }
     }
-
+    setupValidator()
     return binding.root
   }
 
@@ -65,37 +76,50 @@ class EditProfileFragment : BaseFragment() {
     super.setupFragmentObserver()
     setupProfileDataObserver()
     setupLocationObserver()
+
+    viewModel.isUpdated.observe(viewLifecycleOwner, {
+      it?.let { isUpdated ->
+        if (isUpdated) {
+          onNavigationIconClicked()
+        }
+      }
+    })
   }
 
-  private fun isFormValid(name: String, birthDate: String, phoneNumber: String?) =
-      name.isNotBlank() && birthDate.isNotBlank() && (phoneNumber?.isPhoneNumberValid() ?: true)
+  private fun isFormValid(name: String, phoneNumber: String?) = name.isNotBlank()
+      && viewModel.isBirthDateValid()
+      && (phoneNumber.isNullOrBlank() || phoneNumber.isPhoneNumberValid())
+
+  private fun isPhoneNumberValid(text: String) = Pair(text.isBlank() || text.isPhoneNumberValid(),
+      getString(R.string.phone_number_invalid))
 
   private fun setFormErrorMessage() {
     with(binding) {
       textInputNameEditProfile.error = when {
-        editTextNameEditProfile.text.toString().isBlank() -> Constants.NAME_IS_EMPTY
+        editTextNameEditProfile.text().isBlank() -> getString(R.string.name_is_empty)
         else -> null
       }
 
       textInputPhoneNumberEditProfile.error = when {
-        editTextPhoneNumberEditProfile.text.toString().isPhoneNumberValid().not() -> Constants.PHONE_NUMBER_IS_NOT_VALID
+        editTextPhoneNumberEditProfile.text().isPhoneNumberValid().not() -> getString(
+            R.string.phone_number_invalid)
         else -> null
       }
 
       textInputBirthDateEditProfile.error = when {
-        editTextBirthDateEditProfile.text.toString().isBlank() -> Constants.BIRTH_DATE_IS_NOT_SET
+        editTextBirthDateEditProfile.text().isBlank() -> getString(R.string.birth_date_is_not_set)
         else -> null
       }
     }
   }
 
   private fun setupDatePicker() {
-    birthDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText(
-        getString(R.string.birth_date_picker_title_label)).build()
-    birthDatePicker.addOnPositiveButtonClickListener {
-      birthDate = it
-      binding.editTextBirthDateEditProfile.setText(
-          it.toDateString(Constants.DD_MMMM_YYYY))
+    birthDatePicker = DatePickerDialog().getDatePicker().setTitleText(
+        getString(R.string.birth_date_picker_title_label)).build().apply {
+      addOnPositiveButtonClickListener {
+        binding.editTextBirthDateEditProfile.setText(it.toDateString(Constants.DD_MMMM_YYYY, true))
+        viewModel.setBirthDate(it)
+      }
     }
   }
 
@@ -103,8 +127,7 @@ class EditProfileFragment : BaseFragment() {
     viewModel.listOfLocations.observe(viewLifecycleOwner, { items ->
       context?.let { context ->
         if (items.isNullOrEmpty().not()) {
-          val adapter = ArrayAdapter(context, R.layout.layout_list_item_text,
-              items)
+          val adapter = ArrayAdapter(context, R.layout.layout_list_item_text, items)
           binding.editTextLocationEditProfile.setAdapter(adapter)
           adapter.notifyDataSetChanged()
         }
@@ -117,31 +140,35 @@ class EditProfileFragment : BaseFragment() {
       with(binding) {
         editTextNameEditProfile.setText(it.name)
         editTextBirthDateEditProfile.setText(
-            it.birthDate.toDateString(Constants.DD_MMMM_YYYY))
+            it.birthDate.toDateString(Constants.DD_MMMM_YYYY, true))
         editTextPhoneNumberEditProfile.setText(it.phoneNumber.orEmpty())
         editTextLocationEditProfile.setText(it.location?.address.orEmpty())
       }
     })
   }
 
+  private fun setupValidator() {
+    with(binding) {
+      editTextNameEditProfile.validateInput(textInputNameEditProfile,
+          getString(R.string.name_is_empty))
+      editTextBirthDateEditProfile.validateInput(textInputBirthDateEditProfile,
+          getString(R.string.birth_date_is_not_set))
+      editTextPhoneNumberEditProfile.validateInput(textInputPhoneNumberEditProfile, null,
+          ::isPhoneNumberValid)
+    }
+  }
+
   private fun showDatePicker() {
-    birthDatePicker.show(parentFragmentManager,
-        getString(R.string.birth_date_picker_label))
+    birthDatePicker.show(parentFragmentManager, getString(R.string.birth_date_picker_label))
   }
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
-  private fun submitForm(name: String, phoneNumber: String, birthDate: String,
-      location: String) {
-    if (isFormValid(name, birthDate, phoneNumber)) {
-      viewModel.updateBasicInfo(name, this.birthDate, phoneNumber, location)
+  private fun submitForm(name: String, phoneNumber: String) {
+    if (isFormValid(name, phoneNumber)) {
+      viewModel.updateBasicInfo(name, phoneNumber)
     } else {
       setFormErrorMessage()
     }
-  }
-
-  companion object {
-
-    @JvmStatic fun newInstance() = EditProfileFragment()
   }
 }

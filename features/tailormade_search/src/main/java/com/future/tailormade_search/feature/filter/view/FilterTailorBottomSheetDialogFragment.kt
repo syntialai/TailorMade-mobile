@@ -12,6 +12,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FilterTailorBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
 
+  companion object {
+    fun newInstance() = FilterTailorBottomSheetDialogFragment()
+  }
+
   private lateinit var binding: FragmentFilterTailorBottomSheetDialogBinding
 
   override fun getScreenName(): String = "Filter Tailor Bottom Sheet Dialog Fragment"
@@ -29,12 +33,6 @@ class FilterTailorBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
       buttonSubmitTailorFilter.setOnClickListener {
         applyFilter()
       }
-
-      groupSearchLocation.buttonShowAllLocation.setOnClickListener {
-        findNavController().navigate(
-            FilterTailorBottomSheetDialogFragmentDirections
-                .actionFilterTailorBottomSheetDialogFragmentToLocationListFragment())
-      }
     }
 
     return binding.root
@@ -43,11 +41,5 @@ class FilterTailorBottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
   private fun applyFilter() {
     // TODO: Apply filter
     dismiss()
-  }
-
-  companion object {
-
-    @JvmStatic
-    fun newInstance() = FilterTailorBottomSheetDialogFragment()
   }
 }

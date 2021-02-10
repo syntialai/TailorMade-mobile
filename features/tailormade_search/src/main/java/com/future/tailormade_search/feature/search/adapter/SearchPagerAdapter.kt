@@ -1,18 +1,25 @@
 package com.future.tailormade_search.feature.search.adapter
 
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.future.tailormade_search.feature.search.view.SearchDesignResultFragment
 import com.future.tailormade_search.feature.search.view.SearchTailorResultFragment
 
-class SearchPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
-    FragmentStateAdapter(fragmentManager, lifecycle) {
+class SearchPagerAdapter(fragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(fragmentActivity) {
 
-  override fun getItemCount(): Int = 2
+  companion object {
+    private const val SEARCH_PAGER_COUNT = 2
+    const val DESIGN_FRAGMENT_INDEX = 0
+    const val TAILOR_FRAGMENT_INDEX = 1
+  }
+
+  override fun getItemCount(): Int = SEARCH_PAGER_COUNT
 
   override fun createFragment(position: Int) = when (position) {
-    0 -> SearchDesignResultFragment.newInstance()
-    else -> SearchTailorResultFragment.newInstance()
+    DESIGN_FRAGMENT_INDEX -> SearchDesignResultFragment.newInstance()
+    TAILOR_FRAGMENT_INDEX -> SearchTailorResultFragment.newInstance()
+    else -> Fragment()
   }
 }

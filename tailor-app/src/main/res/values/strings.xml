@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">TailorMade\'s Tailor</string>
+
+    <!-- Dashboard -->
+    <string name="your_design_label">Your Design</string>
+    <string name="add_label">Add</string>
+    <string name="dashboard_title_state">Hello, tailor!</string>
+    <string name="dashboard_description_state">Let’s start adding your designs to attract customer by tapping the button above!</string>
+    <string name="delete_menu_label">Delete</string>
+    <string name="select_all_label">Select All</string>
+    <string name="delete_design_alert_dialog_title">Are you sure?</string>
+
+    <plurals name="delete_design_alert_dialog_content">
+        <item quantity="one">You’ll delete %d design!</item>
+        <item quantity="other">You’ll delete %d designs!</item>
+    </plurals>
+
+    <!-- Order -->
+    <string name="recent_label">Recent</string>
+    <string name="incoming_label">Incoming</string>
+    <string name="order_list_title_state">No Orders, yet.</string>
+    <string name="order_list_description_state">Once your customer order your designs, it will appear here.</string>
+    <string name="rejected_label">Rejected</string>
+    <string name="accepted_label">Accepted</string>
+    <string name="all_label">All</string>
+    <string name="order_accepted">Order accepted.</string>
+    <string name="order_rejected">Order rejected.</string>
+
+    <!-- Order Detail -->
+    <string name="order_id_label">Order ID</string>
+    <string name="order_date_label">Order date</string>
+    <string name="history_title_state">No History</string>
+    <string name="history_description_state">Your order history will be appeared here.</string>
+    <string name="ordered_by_label">Ordered by</string>
+    <string name="payment_information_label">Payment Information</string>
+    <string name="measurement_details_label">Measurement Details</string>
+    <string name="special_instructions_label">Special Instructions</string>
+</resources>

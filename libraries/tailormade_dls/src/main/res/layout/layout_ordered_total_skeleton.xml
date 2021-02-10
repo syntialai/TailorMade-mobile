@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grid_order_total"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    android:rowCount="4"
+    android:useDefaultMargins="true">
+
+    <View
+        android:id="@+id/text_view_order_quantity_label"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_order_quantity"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_order_total_discount_label"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_order_total_discount"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_order_total_price_label"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:background="@drawable/drawable_rounded_view" />
+
+    <View
+        android:id="@+id/text_view_order_total_price"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_14"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_gravity="end"
+        android:background="@drawable/drawable_rounded_view" />
+
+</GridLayout>

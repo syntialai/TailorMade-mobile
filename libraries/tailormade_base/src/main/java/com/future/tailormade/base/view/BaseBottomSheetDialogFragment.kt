@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
-  protected var appLogger = AppLogger.create(this.getScreenName())
+  protected var appLogger = AppLogger(this.getScreenName())
 
   abstract fun getScreenName(): String
 
