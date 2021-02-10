@@ -40,20 +40,20 @@ object PayloadMapper {
   fun getDesignDetailRequest() = DesignRequest(title = BaseTest.DESIGN_TITLE,
       image = BaseTest.DESIGN_IMAGE, discount = BaseTest.DESIGN_DISCOUNT,
       price = BaseTest.DESIGN_PRICE, description = DESIGN_DESCRIPTION, size = getSizeRequest(),
-      color = getColorRequest(), category = listOf())
+      color = getColorRequest(), category = null)
 
   fun getDesignDetailResponse() = DesignDetailResponse(id = BaseTest.DESIGN_ID,
       title = BaseTest.DESIGN_TITLE, image = BaseTest.DESIGN_IMAGE,
       discount = BaseTest.DESIGN_DISCOUNT, price = BaseTest.DESIGN_PRICE,
       tailorId = BaseTest.TAILOR_ID, tailorName = BaseTest.TAILOR_NAME,
       description = DESIGN_DESCRIPTION, size = getSizeResponse(), color = getColorResponse(),
-      category = listOf(), active = true)
+      category = null, active = true)
 
   fun getDesignDetailUiModel() = DesignDetailUiModel(id = BaseTest.DESIGN_ID,
       title = BaseTest.DESIGN_TITLE, image = BaseTest.DESIGN_IMAGE, discount = null,
       price = BaseTest.DESIGN_PRICE_UI_MODEL, tailorId = BaseTest.TAILOR_ID,
       tailorName = BaseTest.TAILOR_NAME, description = DESIGN_DESCRIPTION, size = getSizeUiModel(),
-      color = getColorResponse(), category = listOf())
+      color = getColorResponse(), category = null)
 
   fun getColorRequest() = listOf(DesignColorRequest(name = "Blue", color = "#0000FF"),
       DesignColorRequest(name = "Green", color = "#00FF00"))

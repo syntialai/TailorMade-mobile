@@ -9,11 +9,13 @@ import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade_design_detail.core.model.request.design.DesignColorRequest
 import com.future.tailormade_design_detail.core.model.request.design.DesignRequest
 import com.future.tailormade_design_detail.core.model.request.design.DesignSizeDetailRequest
 import com.future.tailormade_design_detail.core.model.request.design.DesignSizeRequest
 import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
+import com.future.tailormade_design_detail.core.model.response.SizeDetailResponse
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.core.repository.DesignDetailRepository
 import java.io.File
@@ -66,6 +68,9 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
         }.flatMapConcat { imagePath ->
           designDetailRepository.addDesignByTailor(tailorId,
               getDesignRequest(title, imagePath, price, discount, description))
+        }.onError {
+          setFinishLoading()
+          setErrorMessage(Constants.generateFailedUpdateError("design"))
         }.collectLatest {
           setFinishLoading()
           setDesignDetailResponse(it)
@@ -114,6 +119,12 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
 
   fun setDesignDetailResponse(response: DesignDetailResponse) {
     _designDetailResponse.value = response
+    colorRequest = response.color.map {
+      getDesignColorRequest(it.name, it.color)
+    }.toMutableList()
+    sizeRequest = response.size.map {
+      getDesignSizeRequest(it.name, it.detail)
+    }.toMutableList()
   }
 
   fun setImageFile(filePath: String) {
@@ -142,10 +153,21 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
   private fun getDesignSizeRequest(name: String, sizeDetail: SizeDetailUiModel) = DesignSizeRequest(
       name, mapToSizeDetailRequest(sizeDetail))
 
+  private fun getDesignSizeRequest(name: String, sizeDetail: SizeDetailResponse?) = DesignSizeRequest(
+      name, mapToSizeDetailRequest(sizeDetail))
+
   private fun getDesignRequest(
       title: String, image: String, price: String, discount: String, description: String) = DesignRequest(
       title = title, price = price.toDouble(), discount = discount.toDouble(),
       description = description, image = image, color = colorRequest, size = sizeRequest)
+
+  private fun mapToSizeDetailRequest(sizeDetail: SizeDetailResponse?) = DesignSizeDetailRequest(
+      chest = sizeDetail?.chest.orZero(),
+      waist = sizeDetail?.waist.orZero(),
+      hips = sizeDetail?.hips.orZero(),
+      neckToWaist = sizeDetail?.neckToWaist.orZero(),
+      inseam =  sizeDetail?.inseam.orZero()
+  )
 
   private fun mapToSizeDetailRequest(sizeDetail: SizeDetailUiModel) = DesignSizeDetailRequest(
       sizeDetail.chest.substringBeforeLast("cm").toFloat(),
