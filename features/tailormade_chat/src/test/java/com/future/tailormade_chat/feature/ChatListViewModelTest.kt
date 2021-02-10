@@ -1,6 +1,5 @@
 package com.future.tailormade_chat.feature
 
-import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade_chat.base.BaseViewModelTest
 import com.future.tailormade_chat.core.repository.RealtimeDbRepository
 import com.future.tailormade_chat.feature.viewModel.ChatListViewModel
@@ -29,8 +28,6 @@ class ChatListViewModelTest : BaseViewModelTest() {
   private lateinit var viewModel: ChatListViewModel
 
   private val realtimeDbRepository: RealtimeDbRepository = mock()
-
-  private val authSharedPrefRepository: AuthSharedPrefRepository = mock()
 
   @Before
   override fun setUp() {

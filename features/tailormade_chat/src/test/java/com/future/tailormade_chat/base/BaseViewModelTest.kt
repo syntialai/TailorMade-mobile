@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
+import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.test.BaseTest
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.Query
@@ -37,9 +38,11 @@ abstract class BaseViewModelTest : BaseTest() {
   @get:Rule
   val taskExecutorRule = InstantTaskExecutorRule()
 
-  protected val savedStateHandle = mock<SavedStateHandle>()
+  protected val savedStateHandle: SavedStateHandle = mock()
 
-  private fun getError() = Exception()
+  protected val authSharedPrefRepository: AuthSharedPrefRepository = mock()
+
+  fun getError() = Exception()
 
   fun anyQuery() = mock<Query>()
 
