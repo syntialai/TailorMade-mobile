@@ -1,10 +1,12 @@
 package com.future.tailormade_design_detail.feature.designDetail.view
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +14,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
+import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.base.view.BaseFragment
 import com.future.tailormade.base.viewmodel.BaseViewModel
+import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
@@ -186,7 +190,13 @@ class DesignDetailFragment : BaseFragment() {
   }
 
   private fun openGallery() {
-    (activity as DesignDetailActivity).openGallery(IMAGE_REQUEST_CODE)
+    (activity as BaseActivity).checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+        BaseActivity.READ_EXTERNAL_STORAGE_PERMISSION) {
+      val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+        type = Constants.TYPE_IMAGE_ALL
+      }
+      startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE)
+    }
   }
 
   private fun setSizeDetailInfoData(sizeDetailUiModel: SizeDetailUiModel) {

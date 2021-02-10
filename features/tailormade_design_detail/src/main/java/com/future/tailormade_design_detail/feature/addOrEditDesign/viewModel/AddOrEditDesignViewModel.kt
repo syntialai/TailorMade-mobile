@@ -36,11 +36,11 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
     private const val IS_UPDATED = "IS_UPDATED"
   }
 
-  private var _designDetailResponse: MutableLiveData<DesignDetailResponse>
+  private var _designDetailResponse = MutableLiveData<DesignDetailResponse>()
   val designDetailResponse: LiveData<DesignDetailResponse>
     get() = _designDetailResponse
 
-  private var _isUpdated: MutableLiveData<Boolean>
+  private var _isUpdated = MutableLiveData<Boolean>()
   val isUpdated: LiveData<Boolean>
     get() = _isUpdated
 
@@ -48,10 +48,10 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
   private var imageRequest: File = File("")
   private var sizeRequest: MutableList<DesignSizeRequest> = mutableListOf()
 
-  init {
-    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE)
-    _isUpdated = savedStateHandle.getLiveData(IS_UPDATED, false)
-  }
+//  init {
+//    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE)
+//    _isUpdated = savedStateHandle.getLiveData(IS_UPDATED, false)
+//  }
 
   @FlowPreview
   @ExperimentalCoroutinesApi
@@ -121,16 +121,16 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
   }
 
   fun validate() = when {
-    imageRequest.exists().not() -> {
-      setErrorMessage(Constants.IMAGE_MUST_BE_ATTACHED)
-      false
-    }
     sizeRequest.isEmpty() -> {
       setErrorMessage(Constants.SIZE_IS_EMPTY)
       false
     }
     colorRequest.isEmpty() -> {
       setErrorMessage(Constants.COLOR_IS_EMPTY)
+      false
+    }
+    imageRequest.exists().not() -> {
+      setErrorMessage(Constants.IMAGE_MUST_BE_ATTACHED)
       false
     }
     else -> true
