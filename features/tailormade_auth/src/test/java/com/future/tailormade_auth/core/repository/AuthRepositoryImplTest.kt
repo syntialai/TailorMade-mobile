@@ -9,6 +9,7 @@ import com.future.tailormade_auth.core.service.AuthLoginService
 import com.future.tailormade_auth.core.service.AuthService
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.stub
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -64,6 +65,8 @@ class AuthRepositoryImplTest : BaseTest() {
         Mockito.verify(authService).refreshToken(request)
         assertEquals(expectedResponse.data?.token, it)
       }
+
+      verifyNoMoreInteractions(authService)
     }
   }
 
@@ -83,6 +86,8 @@ class AuthRepositoryImplTest : BaseTest() {
         Mockito.verify(authLoginService).signIn(request)
         assertEquals(expectedResponse.data, it)
       }
+
+      verifyNoMoreInteractions(authLoginService)
     }
   }
 
@@ -102,6 +107,8 @@ class AuthRepositoryImplTest : BaseTest() {
         Mockito.verify(authLoginService).signUp(request)
         assertEquals(expectedResponse.data, it)
       }
+
+      verifyNoMoreInteractions(authLoginService)
     }
   }
 
