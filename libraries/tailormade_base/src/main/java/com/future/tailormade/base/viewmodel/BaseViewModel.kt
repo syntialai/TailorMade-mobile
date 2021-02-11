@@ -45,7 +45,7 @@ abstract class BaseViewModel : ViewModel() {
 
   @ExperimentalCoroutinesApi
 	open fun fetchMore() {
-    page.inc()
+    page += 1
   }
 
   @ExperimentalCoroutinesApi
