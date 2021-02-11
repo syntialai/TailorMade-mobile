@@ -1,0 +1,65 @@
+apply plugin: "jacoco"
+apply plugin: "org.sonarqube"
+
+def coverageMainSourceDirs = [
+    "features/tailormade_auth/src/main/kotlin",
+    "features/tailormade_chat/src/main/kotlin",
+    "features/tailormade_design_detail/src/main/kotlin",
+    "features/tailormade_profile/src/main/kotlin",
+    "features/tailormade_search/src/main/kotlin",
+    "app/src/main/kotlin",
+    "tailor_app/src/main/kotlin"
+]
+
+def coverageKotlinClassDirectories = [
+    fileTree(dir: "features/tailormade_auth/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "features/tailormade_chat/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "features/tailormade_design_detail/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "features/tailormade_profile/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "features/tailormade_search/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "app/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "tailor_app/build/tmp/kotlin-classes/debug")
+]
+
+def coverageClassDirectories = [
+    fileTree(dir: "features/tailormade_auth/build/intermediates/classes/debug"),
+    fileTree(dir: "features/tailormade_chat/build/intermediates/classes/debug"),
+    fileTree(dir: "features/tailormade_design_detail/build/intermediates/classes/debug"),
+    fileTree(dir: "features/tailormade_profile/build/intermediates/classes/debug"),
+    fileTree(dir: "features/tailormade_search/build/intermediates/classes/debug"),
+    fileTree(dir: "app/build/intermediates/classes/debug"),
+    fileTree(dir: "tailor_app/build/intermediates/classes/debug")
+]
+
+task rootCodeCoverageReport(type: JacocoReport, dependsOn: [
+    "features:tailormade_auth:codeCoverageReport",
+    "features:tailormade_chat:codeCoverageReport",
+    "features:tailormade_design_detail:codeCoverageReport",
+    "features:tailormade_profile:codeCoverageReport",
+    "features:tailormade_search:codeCoverageReport",
+    "app:codeCoverageReport",
+    "tailor_app:codeCoverageReport"
+]) {
+  group = "Reporting"
+  description = "Generate Jacoco coverage reports after running tests."
+  reports {
+    xml.enabled = true
+    html.enabled = true
+  }
+  sourceDirectories.from = files(coverageMainSourceDirs)
+  classDirectories.from = files(coverageClassDirectories, coverageKotlinClassDirectories)
+  executionData.from = files([
+      "features/tailormade_auth/build/jacoco/testDebugUnitTest.exec",
+      "features/tailormade_chat/build/jacoco/testDebugUnitTest.exec",
+      "features/tailormade_design_detail/build/jacoco/testDebugUnitTest.exec",
+      "features/tailormade_profile/build/jacoco/testDebugUnitTest.exec",
+      "features/tailormade_search/build/jacoco/testDebugUnitTest.exec",
+      "app/build/jacoco/testDebugUnitTest.exec",
+      "tailor_app/build/jacoco/testDebugUnitTest.exec"
+  ])
+}
+
+task getCoverageLocal(type: Exec, dependsOn: 'rootCodeCoverageReport') {
+  group = "Reporting"
+  commandLine "open", "${project.buildDir}/features/${project.name}/build/reports/jacoco/codeCoverageReport/html/index.html"
+}

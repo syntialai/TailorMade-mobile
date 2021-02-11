@@ -61,7 +61,8 @@ class ProfileDesignFragment : BaseFragment() {
     super.setupFragmentObserver()
 
     profileViewModel.tailorId.observe(viewLifecycleOwner, {
-      viewModel.fetchImages(it)
+      viewModel.setId(it)
+      viewModel.fetchImages()
     })
     viewModel.images.observe(viewLifecycleOwner, {
       profileDesignAdapter.submitList(it)

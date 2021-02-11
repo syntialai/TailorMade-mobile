@@ -10,6 +10,8 @@ buildscript {
         hugo_version = "1.2.1"
         jfrog_bintray_version = "1.7"
         dcendents_maven_version = "1.4.1"
+        sonar_version = "2.7.1"
+        jacoco_version = "0.8.3"
 
         compileSdkVersion = 30
         buildToolsVersion = "30.0.2"
@@ -36,11 +38,16 @@ buildscript {
         classpath "com.jakewharton.hugo:hugo-plugin:$hugo_version"
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$jfrog_bintray_version"
         classpath "com.github.dcendents:android-maven-gradle-plugin:$dcendents_maven_version"
+        classpath "org.jacoco:org.jacoco.core:$jacoco_version"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$sonar_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
+
+apply from: 'sonarqube.gradle'
+apply from: 'jacoco.gradle'
 
 allprojects {
     repositories {

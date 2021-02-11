@@ -56,7 +56,7 @@ abstract class BaseTest {
   abstract fun tearDown()
 
   protected fun <T> generateListBaseResponse(code: Int? = null, status: String? = null,
-      data: List<T>): BaseListResponse<T> {
+      data: List<T>? = null): BaseListResponse<T> {
     val pagingResponse = BasePagingResponse(Constants.INITIAL_PAGING_PAGE,
         Constants.INITIAL_PAGING_PAGE, TOTAL_ITEM, TOTAL_ITEM)
     return BaseListResponse(data, pagingResponse).apply {

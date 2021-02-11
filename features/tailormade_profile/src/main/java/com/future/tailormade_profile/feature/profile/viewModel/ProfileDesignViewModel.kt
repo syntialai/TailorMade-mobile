@@ -26,41 +26,40 @@ class ProfileDesignViewModel @ViewModelInject constructor(
 
   private var _id: String? = null
 
-  private var _images: MutableLiveData<ArrayList<ProfileDesignResponse>>
+  private var _images = MutableLiveData<ArrayList<ProfileDesignResponse>>()
   val images: LiveData<ArrayList<ProfileDesignResponse>>
     get() = _images
 
-  init {
-    _images = savedStateHandle.getLiveData(IMAGES)
-  }
+//  init {
+//    _images = savedStateHandle.getLiveData(IMAGES)
+//  }
 
   @ExperimentalCoroutinesApi
-  fun fetchImages(id: String) {
-    _id = id
+  fun fetchImages() {
     launchViewModelScope {
-      profileRepository.getProfileDesigns(id, page, itemPerPage).onError {
-        setErrorMessage(Constants.generateFailedFetchError("tailor designs"))
-      }.collectLatest {
-//        Log.d(IMAGES, it.toString())
-        addToList(it, _images)
-//        Log.d(IMAGES, _images.value.toString())
+      _id?.let { id ->
+        profileRepository.getProfileDesigns(id, page, itemPerPage).onError {
+          setErrorMessage(Constants.generateFailedFetchError("tailor designs"))
+        }.collectLatest {
+          addToList(it, _images)
+        }
       }
     }
+  }
+
+  fun setId(id: String) {
+    _id = id
   }
 
   @ExperimentalCoroutinesApi
   override fun fetchMore() {
     super.fetchMore()
-    _id?.let {
-      fetchImages(it)
-    }
+    fetchImages()
   }
 
   @ExperimentalCoroutinesApi
   override fun refreshFetch() {
     super.refreshFetch()
-    _id?.let {
-      fetchImages(it)
-    }
+    fetchImages()
   }
 }

@@ -1,0 +1,44 @@
+apply plugin: 'org.sonarqube'
+
+def androidCoverageExclusion = [
+    '**/databinding/**/*.*',
+    '**/android/databinding/*Binding.*',
+    '**/BR.*',
+    '**/R.*',
+    '**/R$*.*',
+    '**/BuildConfig.*',
+    '**/Manifest*.*',
+    '**/*Module_*Factory.*'
+]
+
+def androidCodeExclusion = [
+    '**/databinding/**/*.*',
+    '**/android/databinding/*Binding.*',
+    '**/BR.*',
+    '**/R.*',
+    '**/R$*.*',
+    '**/BuildConfig.*',
+    '**/Manifest*.*',
+    '**/mockserver/**'
+]
+
+sonarqube {
+  properties {
+    property "sonar.host.url", "http://localhost:9000/"
+    property "sonar.login", "725ed9948e990815af9d303f8ce56de5b61b53ae"
+    property "sonar.sourceEncoding", "UTF-8"
+    property "sonar.projectKey", "TailorMade"
+    property "sonar.projectName", "TailorMade App"
+    property "sonar.sources", "**/main/**"
+    property "sonar.tests", "**/test/**"
+    property "sonar.java.coveragePlugin", "jacoco"
+    property "sonar.coverage.exclusions", androidCoverageExclusion.join(",")
+    property "sonar.exclusions", androidCodeExclusion.join(",")
+    property "sonar.tags", "android"
+    property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+    property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest"
+    property "sonar.java.binaries", "${project.buildDir}/tmp/kotlin-classes"
+  }
+}
+
+tasks.sonarqube.dependsOn "rootCodeCoverageReport" group "Reporting"
