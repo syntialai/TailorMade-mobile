@@ -61,8 +61,8 @@ object DataMock {
   }
 
   fun getCartByIdMock(): CartUiModel {
-    val cartUiModel = CartResponse(createdAt = "1609644391", id = CART_ID, quantity = 1,
-        tailorId = TAILOR_ID, updatedAt = "1609644400", userId = USER_ID,
+    val cartUiModel = CartResponse(createdAt = 1609644391, id = CART_ID, quantity = 1,
+        tailorId = TAILOR_ID, updatedAt = 1609644400, userId = USER_ID,
         tailorName = TAILOR_NAME, userName = USER_NAME, design = cartDesignMock)
     return CartMapper.mapToCartUiModel(cartUiModel)
   }

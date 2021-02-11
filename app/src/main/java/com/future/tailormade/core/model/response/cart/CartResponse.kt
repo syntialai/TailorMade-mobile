@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 
 data class CartResponse(
 
-    val createdAt: String,
+    val createdAt: Long,
 
     val design: CartDesignResponse,
 
@@ -14,7 +14,7 @@ data class CartResponse(
 
     val tailorId: String,
 
-    val updatedAt: String,
+    val updatedAt: Long,
 
     val userId: String,
 
