@@ -9,11 +9,13 @@ import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.viewmodel.BaseViewModel
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
+import com.future.tailormade.util.extension.orZero
 import com.future.tailormade_design_detail.core.model.request.design.DesignColorRequest
 import com.future.tailormade_design_detail.core.model.request.design.DesignRequest
 import com.future.tailormade_design_detail.core.model.request.design.DesignSizeDetailRequest
 import com.future.tailormade_design_detail.core.model.request.design.DesignSizeRequest
 import com.future.tailormade_design_detail.core.model.response.DesignDetailResponse
+import com.future.tailormade_design_detail.core.model.response.SizeDetailResponse
 import com.future.tailormade_design_detail.core.model.ui.SizeDetailUiModel
 import com.future.tailormade_design_detail.core.repository.DesignDetailRepository
 import java.io.File
@@ -36,11 +38,11 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
     private const val IS_UPDATED = "IS_UPDATED"
   }
 
-  private var _designDetailResponse: MutableLiveData<DesignDetailResponse>
+  private var _designDetailResponse = MutableLiveData<DesignDetailResponse>()
   val designDetailResponse: LiveData<DesignDetailResponse>
     get() = _designDetailResponse
 
-  private var _isUpdated: MutableLiveData<Boolean>
+  private var _isUpdated = MutableLiveData<Boolean>()
   val isUpdated: LiveData<Boolean>
     get() = _isUpdated
 
@@ -48,10 +50,10 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
   private var imageRequest: File = File("")
   private var sizeRequest: MutableList<DesignSizeRequest> = mutableListOf()
 
-  init {
-    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE)
-    _isUpdated = savedStateHandle.getLiveData(IS_UPDATED, false)
-  }
+//  init {
+//    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE)
+//    _isUpdated = savedStateHandle.getLiveData(IS_UPDATED, false)
+//  }
 
   @FlowPreview
   @ExperimentalCoroutinesApi
@@ -66,6 +68,9 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
         }.flatMapConcat { imagePath ->
           designDetailRepository.addDesignByTailor(tailorId,
               getDesignRequest(title, imagePath, price, discount, description))
+        }.onError {
+          setFinishLoading()
+          setErrorMessage(Constants.generateFailedUpdateError("design"))
         }.collectLatest {
           setFinishLoading()
           setDesignDetailResponse(it)
@@ -114,6 +119,12 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
 
   fun setDesignDetailResponse(response: DesignDetailResponse) {
     _designDetailResponse.value = response
+    colorRequest = response.color.map {
+      getDesignColorRequest(it.name, it.color)
+    }.toMutableList()
+    sizeRequest = response.size.map {
+      getDesignSizeRequest(it.name, it.detail)
+    }.toMutableList()
   }
 
   fun setImageFile(filePath: String) {
@@ -121,16 +132,16 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
   }
 
   fun validate() = when {
-    imageRequest.exists().not() -> {
-      setErrorMessage(Constants.IMAGE_MUST_BE_ATTACHED)
-      false
-    }
     sizeRequest.isEmpty() -> {
       setErrorMessage(Constants.SIZE_IS_EMPTY)
       false
     }
     colorRequest.isEmpty() -> {
       setErrorMessage(Constants.COLOR_IS_EMPTY)
+      false
+    }
+    imageRequest.exists().not() -> {
+      setErrorMessage(Constants.IMAGE_MUST_BE_ATTACHED)
       false
     }
     else -> true
@@ -142,10 +153,21 @@ class AddOrEditDesignViewModel @ViewModelInject constructor(
   private fun getDesignSizeRequest(name: String, sizeDetail: SizeDetailUiModel) = DesignSizeRequest(
       name, mapToSizeDetailRequest(sizeDetail))
 
+  private fun getDesignSizeRequest(name: String, sizeDetail: SizeDetailResponse?) = DesignSizeRequest(
+      name, mapToSizeDetailRequest(sizeDetail))
+
   private fun getDesignRequest(
       title: String, image: String, price: String, discount: String, description: String) = DesignRequest(
       title = title, price = price.toDouble(), discount = discount.toDouble(),
       description = description, image = image, color = colorRequest, size = sizeRequest)
+
+  private fun mapToSizeDetailRequest(sizeDetail: SizeDetailResponse?) = DesignSizeDetailRequest(
+      chest = sizeDetail?.chest.orZero(),
+      waist = sizeDetail?.waist.orZero(),
+      hips = sizeDetail?.hips.orZero(),
+      neckToWaist = sizeDetail?.neckToWaist.orZero(),
+      inseam =  sizeDetail?.inseam.orZero()
+  )
 
   private fun mapToSizeDetailRequest(sizeDetail: SizeDetailUiModel) = DesignSizeDetailRequest(
       sizeDetail.chest.substringBeforeLast("cm").toFloat(),

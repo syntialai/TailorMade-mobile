@@ -25,15 +25,15 @@ class DesignDetailViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle) : BaseViewModel() {
 
   companion object {
-    private const val DESIGN_DETAIL_RESPONSE = "DESIGN_DETAIL_RESPONSE"
-    private const val DESIGN_DETAIL_UI_MODEL = "DESIGN_DETAIL_UI_MODEL"
+    const val DESIGN_DETAIL_RESPONSE = "DESIGN_DETAIL_RESPONSE"
+    const val DESIGN_DETAIL_UI_MODEL = "DESIGN_DETAIL_UI_MODEL"
   }
 
-  private var _designDetailResponse: MutableLiveData<DesignDetailResponse>
+  private var _designDetailResponse = MutableLiveData<DesignDetailResponse>()
   val designDetailResponse: LiveData<DesignDetailResponse>
     get() = _designDetailResponse
 
-  private var _designDetailUiModel: MutableLiveData<DesignDetailUiModel>
+  private var _designDetailUiModel = MutableLiveData<DesignDetailUiModel>()
   val designDetailUiModel: LiveData<DesignDetailUiModel>
     get() = _designDetailUiModel
 
@@ -43,10 +43,10 @@ class DesignDetailViewModel @ViewModelInject constructor(
 
   private var addToCartRequest: AddToCartRequest? = null
 
-  init {
-    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE)
-    _designDetailUiModel = savedStateHandle.getLiveData(DESIGN_DETAIL_UI_MODEL)
-  }
+//  init {
+//    _designDetailResponse = savedStateHandle.getLiveData(DESIGN_DETAIL_RESPONSE)
+//    _designDetailUiModel = savedStateHandle.getLiveData(DESIGN_DETAIL_UI_MODEL)
+//  }
 
   override fun getLogName() =
       "com.future.tailormade_design_detail.feature.designDetail.viewModel.DesignDetailViewModel"
@@ -105,7 +105,7 @@ class DesignDetailViewModel @ViewModelInject constructor(
     }
   }
 
-  private fun setResponse(designDetailResponse: DesignDetailResponse) {
+  fun setResponse(designDetailResponse: DesignDetailResponse) {
     _designDetailResponse.value = designDetailResponse
     savedStateHandle.set(DESIGN_DETAIL_RESPONSE, _designDetailResponse.value)
   }
