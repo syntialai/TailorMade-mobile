@@ -26,7 +26,7 @@ class TailorProfileViewModel @ViewModelInject constructor(
 
   override fun getLogName() = "com.future.tailormade_profile.feature.profile.viewModel.TailorProfileViewModel"
 
-  private var _tailorId: MutableLiveData<String>
+  private var _tailorId = MutableLiveData<String>()
   val tailorId: LiveData<String>
     get() = _tailorId
 
@@ -34,10 +34,10 @@ class TailorProfileViewModel @ViewModelInject constructor(
   val profileInfoUiModel: LiveData<ProfileInfoUiModel>
     get() = _profileInfoUiModel
 
-  init {
-    _profileInfoUiModel = savedStateHandle.getLiveData(TAILOR_PROFILE_INFO)
-    _tailorId = savedStateHandle.getLiveData(TAILOR_ID)
-  }
+//  init {
+//    _profileInfoUiModel = savedStateHandle.getLiveData(TAILOR_PROFILE_INFO)
+//    _tailorId = savedStateHandle.getLiveData(TAILOR_ID)
+//  }
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi

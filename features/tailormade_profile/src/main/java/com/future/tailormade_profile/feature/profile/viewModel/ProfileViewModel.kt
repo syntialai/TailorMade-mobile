@@ -31,9 +31,9 @@ class ProfileViewModel @ViewModelInject constructor(
   val profileInfoUiModel: LiveData<ProfileInfoUiModel>
     get() = _profileInfoUiModel
 
-  init {
-    _profileInfoUiModel = savedStateHandle.getLiveData(PROFILE_INFO)
-  }
+//  init {
+//    _profileInfoUiModel = savedStateHandle.getLiveData(PROFILE_INFO)
+//  }
 
   @ExperimentalCoroutinesApi
   @InternalCoroutinesApi
@@ -52,9 +52,8 @@ class ProfileViewModel @ViewModelInject constructor(
   fun getUserGender() = authSharedPrefRepository.userGender
 
   fun isNoAboutData(): Boolean {
-    val profile = _profileInfoUiModel.value
-    return profile?.let {
-      it.location == null && it.education == null && it.address.isBlank()
+    return _profileInfoUiModel.value?.let {
+      it.address.isBlank() && it.occupation == null && it.education == null
     } ?: true
   }
 

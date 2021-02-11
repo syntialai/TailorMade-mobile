@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import com.future.tailormade.base.repository.AuthSharedPrefRepository
 import com.future.tailormade.base.test.BaseTest
+import com.future.tailormade_profile.core.repository.ProfileRepository
 import com.nhaarman.mockitokotlin2.mock
 import java.lang.Exception
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,11 +32,13 @@ abstract class BaseViewModelTest : BaseTest() {
 
   protected val authSharedPrefRepository = mock<AuthSharedPrefRepository>()
 
-  private fun getError() = Exception()
+  protected val profileRepository = mock<ProfileRepository>()
 
-  fun <T> getErrorFlow() = flow<T> {
+  private fun getError(message: String?) = Exception(message)
+
+  fun <T> getErrorFlow(message: String? = null) = flow<T> {
     delay(1000)
-    throw getError()
+    throw getError(message)
   }
 
   fun <T> getFlow(data: T) = flow {
