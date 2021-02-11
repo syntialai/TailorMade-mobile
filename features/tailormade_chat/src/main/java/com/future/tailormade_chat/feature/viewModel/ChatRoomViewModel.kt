@@ -34,9 +34,9 @@ class ChatRoomViewModel @ViewModelInject constructor(
 
   private var _anotherUserInfo: Pair<String, String>? = null
 
-  private var _chatRoomId: MutableLiveData<String>
+  private var _chatRoomId = MutableLiveData<String>()
 
-  private var _chatRoomContent: MutableLiveData<Query>
+  private var _chatRoomContent = MutableLiveData<Query>()
   val chatRoomContent: LiveData<Query>
     get() = _chatRoomContent
 
@@ -44,13 +44,14 @@ class ChatRoomViewModel @ViewModelInject constructor(
   val isMessageSent: LiveData<Boolean>
     get() = _isMessageSent
 
-  init {
-    _chatRoomId = savedStateHandle.getLiveData(CHAT_ROOM_ID)
-    _chatRoomContent = savedStateHandle.getLiveData(CHAT_ROOM_CONTENT)
-    _anotherUserInfo = savedStateHandle.get(CHAT_ROOM_USER_INFO)
-  }
+//  init {
+//    _chatRoomId = savedStateHandle.getLiveData(CHAT_ROOM_ID)
+//    _chatRoomContent = savedStateHandle.getLiveData(CHAT_ROOM_CONTENT)
+//    _anotherUserInfo = savedStateHandle.get(CHAT_ROOM_USER_INFO)
+//  }
 
-  override fun getLogName(): String = "com.future.tailormade_chat.feature.viewModel.ChatRoomViewModel"
+  override fun getLogName(): String =
+      "com.future.tailormade_chat.feature.viewModel.ChatRoomViewModel"
 
   fun readChat() {
     authSharedPrefRepository.userId?.let { id ->
