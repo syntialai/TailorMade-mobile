@@ -94,8 +94,8 @@ class ThanksForOrderFragment : BaseFragment() {
       design.discount?.let { discount ->
         showDiscount()
         textViewOrderBeforeDiscount.text = design.price
+        textViewOrderBeforeDiscount.strikeThrough()
         textViewOrderAfterDiscount.text = discount
-        textViewOrderAfterDiscount.strikeThrough()
       } ?: run {
         textViewOrderPrice.text = design.price
       }
