@@ -28,6 +28,6 @@ object DataMock {
   fun getDesignDetailMock() = DesignDetailResponse(id = DESIGN_ID, title = "Design 1",
       image = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png",
       discount = DISCOUNT, price = PRICE, tailorId = TAILOR_ID, tailorName = TAILOR_NAME,
-      description = "This is design mock only :). please understand me and okokoko byeeeeeeeeee aehahrehaj djkabcuia",
+      description = "",
       size = sizeMock, color = colorMock, category = listOf(), active = true)
 }

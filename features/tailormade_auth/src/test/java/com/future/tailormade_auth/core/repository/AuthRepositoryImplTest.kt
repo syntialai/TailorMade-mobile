@@ -68,6 +68,23 @@ class AuthRepositoryImplTest : BaseTest() {
   }
 
   @Test
+  fun `Given when refresh token and data returned is null then do nothing`() {
+    val request = getRefreshTokenRequest()
+
+    dispatcher.runBlockingTest {
+      authService.stub {
+        onBlocking { refreshToken(request) } doReturn generateSingleBaseResponse()
+      }
+
+      val flow = authRepository.refreshToken(request)
+
+      flow.collect {
+        Mockito.verify(authService).refreshToken(request)
+      }
+    }
+  }
+
+  @Test
   fun `Given when sign in then success return sign in response`() {
     val request = PayloadMapper.getSignInRequest()
     val expectedResponse = generateSingleBaseResponse(data = PayloadMapper.getSignInResponse())
@@ -87,6 +104,23 @@ class AuthRepositoryImplTest : BaseTest() {
   }
 
   @Test
+  fun `Given when sign in and data returned is null then do nothing`() {
+    val request = PayloadMapper.getSignInRequest()
+
+    dispatcher.runBlockingTest {
+      authLoginService.stub {
+        onBlocking { signIn(request) } doReturn generateSingleBaseResponse()
+      }
+
+      val flow = authRepository.signIn(request)
+
+      flow.collect {
+        Mockito.verify(authLoginService).signIn(request)
+      }
+    }
+  }
+
+  @Test
   fun `Given when sign up then success return user response`() {
     val request = PayloadMapper.getSignUpRequest()
     val expectedResponse = generateSingleBaseResponse(data = PayloadMapper.getUserResponse())
@@ -101,6 +135,23 @@ class AuthRepositoryImplTest : BaseTest() {
       flow.collect {
         Mockito.verify(authLoginService).signUp(request)
         assertEquals(expectedResponse.data, it)
+      }
+    }
+  }
+
+  @Test
+  fun `Given when sign up and data returned is null then do nothing`() {
+    val request = PayloadMapper.getSignUpRequest()
+
+    dispatcher.runBlockingTest {
+      authLoginService.stub {
+        onBlocking { signUp(request) } doReturn generateSingleBaseResponse()
+      }
+
+      val flow = authRepository.signUp(request)
+
+      flow.collect {
+        Mockito.verify(authLoginService).signUp(request)
       }
     }
   }

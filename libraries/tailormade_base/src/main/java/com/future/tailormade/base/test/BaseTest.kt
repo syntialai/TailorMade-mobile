@@ -45,8 +45,10 @@ abstract class BaseTest {
     const val DESIGN_ID = "DESIGN ID"
     const val DESIGN_TITLE = "DESIGN TITLE"
     const val DESIGN_PRICE = 50000.0
+    const val DESIGN_PRICE_UI_MODEL = "IDR50,000"
     const val DESIGN_DISCOUNT = 0.0
     const val DESIGN_IMAGE = "IMAGE"
+    const val DESIGN_QUANTITY = 1
   }
 
   abstract fun setUp()
@@ -63,8 +65,8 @@ abstract class BaseTest {
     }
   }
 
-  protected fun <T> generateSingleBaseResponse(
-      code: Int? = null, status: String? = null, data: T) = BaseSingleObjectResponse(data).apply {
+  protected fun <T> generateSingleBaseResponse(code: Int? = null, status: String? = null,
+      data: T? = null) = BaseSingleObjectResponse(data).apply {
     this.code = code
     this.status = status
   }
