@@ -4,6 +4,7 @@ import com.future.tailormade.base.model.BaseMapperModel
 import com.future.tailormade_profile.core.mapper.ProfileMapper
 import com.future.tailormade_profile.core.model.request.UpdateProfileAboutRequest
 import com.future.tailormade_profile.core.model.request.UpdateProfileRequest
+import com.future.tailormade_profile.core.model.response.ProfileDesignResponse
 import com.future.tailormade_profile.core.model.response.ProfileInfoResponse
 import com.future.tailormade_profile.core.model.ui.ProfileInfoUiModel
 import com.future.tailormade_profile.core.repository.ProfileRepository
@@ -34,7 +35,9 @@ class ProfileRepositoryImpl @Inject constructor(private val profileService: Prof
 
   override suspend fun getProfileDesigns(id: String, page: Int, itemPerPage: Int) = flow {
     profileService.getProfileTailorDesigns(id, page, itemPerPage).data?.let {
-      emit(it as ArrayList)
+      val arrayList = arrayListOf<ProfileDesignResponse>()
+      arrayList.addAll(it)
+      emit(arrayList)
     }
   }.flowOn(ioDispatcher)
 
@@ -49,7 +52,8 @@ class ProfileRepositoryImpl @Inject constructor(private val profileService: Prof
     }
   }.flowOn(ioDispatcher)
 
-  override suspend fun updateProfileInfo(id: String, updateProfileRequest: UpdateProfileRequest): Flow<ProfileInfoResponse> = flow {
+  override suspend fun updateProfileInfo(
+      id: String, updateProfileRequest: UpdateProfileRequest): Flow<ProfileInfoResponse> = flow {
     profileService.updateProfileInfo(id, updateProfileRequest).data?.let {
       emit(it)
     }

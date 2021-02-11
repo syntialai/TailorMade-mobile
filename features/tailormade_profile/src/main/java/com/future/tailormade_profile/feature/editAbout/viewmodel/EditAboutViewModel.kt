@@ -30,7 +30,7 @@ class EditAboutViewModel @ViewModelInject constructor(
   override fun getLogName(): String =
       "com.future.tailormade_profile.feature.editAbout.viewmodel.EditAboutViewModel"
 
-  private var _profileAbout: MutableLiveData<ProfileAboutResponse>
+  private var _profileAbout = MutableLiveData<ProfileAboutResponse>()
   val profileAbout: LiveData<ProfileAboutResponse>
     get() = _profileAbout
 
@@ -38,9 +38,9 @@ class EditAboutViewModel @ViewModelInject constructor(
   val isUpdated: LiveData<Boolean>
     get() = _isUpdated
 
-  init {
-    _profileAbout = savedStateHandle.getLiveData(PROFILE_ABOUT)
-  }
+//  init {
+//    _profileAbout = savedStateHandle.getLiveData(PROFILE_ABOUT)
+//  }
 
   @ExperimentalCoroutinesApi
   fun updateProfileAbout(occupation: Occupation, education: Education) {

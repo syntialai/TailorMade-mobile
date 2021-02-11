@@ -66,6 +66,8 @@ class EditAboutFragment : BaseFragment() {
 
   override fun setupFragmentObserver() {
     super.setupFragmentObserver()
+
+    editProfileViewModel.getBasicInfo()
     setupAboutDataObserver()
     setupLocationObserver()
 

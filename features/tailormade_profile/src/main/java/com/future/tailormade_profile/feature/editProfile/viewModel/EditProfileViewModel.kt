@@ -55,9 +55,24 @@ class EditProfileViewModel @ViewModelInject constructor(
   private var _location: Location? = null
   private var locations = arrayListOf<LocationResponse>()
 
-  init {
-    _profileInfo = savedStateHandle.getLiveData(PROFILE_INFO)
-    getBasicInfo()
+//  init {
+//    _profileInfo = savedStateHandle.getLiveData(PROFILE_INFO)
+//  }
+
+  fun getBasicInfo() {
+    launchViewModelScope {
+      authSharedPrefRepository.userId?.let { id ->
+        profileRepository.getProfileInfo(id).onStart {
+          setStartLoading()
+        }.onError {
+          setFinishLoading()
+          setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
+        }.collectLatest { data ->
+          setFinishLoading()
+          _profileInfo.value = data.response
+        }
+      }
+    }
   }
 
   fun isBirthDateValid() = _birthDate.orZero() > 0
@@ -108,22 +123,6 @@ class EditProfileViewModel @ViewModelInject constructor(
           item.display_name.orEmpty()
         }
         _listOfLocations.value = response
-      }
-    }
-  }
-
-  private fun getBasicInfo() {
-    launchViewModelScope {
-      authSharedPrefRepository.userId?.let { id ->
-        profileRepository.getProfileInfo(id).onStart {
-          setStartLoading()
-        }.onError {
-          setFinishLoading()
-          setErrorMessage(Constants.FAILED_TO_GET_PROFILE_INFO)
-        }.collectLatest { data ->
-          setFinishLoading()
-          _profileInfo.value = data.response
-        }
       }
     }
   }
