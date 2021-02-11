@@ -134,7 +134,7 @@ abstract class BaseFragment : Fragment() {
 
   fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-    return layoutManager.findLastCompletelyVisibleItemPosition() == lastItemPosition
+    return layoutManager.findLastCompletelyVisibleItemPosition() == (lastItemPosition - 1)
   }
 
   fun hideToolbar() {

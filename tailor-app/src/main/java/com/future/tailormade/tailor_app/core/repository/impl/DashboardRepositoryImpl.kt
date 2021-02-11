@@ -21,7 +21,6 @@ class DashboardRepositoryImpl @Inject constructor(private val profileService: Pr
     emit(designs?.map {
       DashboardMapper.mapToDashboardDesignUiModel(it)
     } as ArrayList)
-//    emit(DataMock.getProfileDesignsMock())
   }.flowOnIO()
 
   override suspend fun deleteDashboardDesign(tailorId: String, id: String) = flow {

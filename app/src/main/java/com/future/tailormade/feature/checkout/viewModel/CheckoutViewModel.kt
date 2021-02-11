@@ -65,6 +65,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
         }.onError {
           setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_CHECKOUT_ITEM)
+          appLogger.logOnError(it.message.toString(), it)
         }.collectLatest {
           setFinishLoading()
           _historyId.value = it.id

@@ -91,13 +91,11 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
         } else {
           showRecyclerView()
         }
-        with(binding) {
-          swipeRefreshLayoutDashboard.isRefreshing = false
-          recyclerViewTailorDesignsList.post {
-            hideSkeleton()
-          }
+        binding.recyclerViewTailorDesignsList.post {
+          hideSkeleton()
         }
       }
+      binding.swipeRefreshLayoutDashboard.isRefreshing = false
     })
   }
 
