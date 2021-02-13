@@ -45,7 +45,7 @@
 #ifndef OPENCV_CORE_FAST_MATH_HPP
 #define OPENCV_CORE_FAST_MATH_HPP
 
-#include "opencv2/core/cvdef.h"
+#include "cvdef.h"
 
 //! @addtogroup core_utils
 //! @{

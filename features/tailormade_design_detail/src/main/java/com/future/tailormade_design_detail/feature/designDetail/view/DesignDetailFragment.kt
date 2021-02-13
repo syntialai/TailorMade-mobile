@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
@@ -22,7 +23,6 @@ import com.future.tailormade.util.extension.hide
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
 import com.future.tailormade.util.extension.strikeThrough
-import com.future.tailormade.util.image.ImageHelper
 import com.future.tailormade.util.image.ImageLoader
 import com.future.tailormade_design_detail.R
 import com.future.tailormade_design_detail.core.model.response.ColorResponse
@@ -56,7 +56,8 @@ class DesignDetailFragment : BaseFragment() {
 
   private lateinit var binding: FragmentDesignDetailBinding
 
-  override fun getLogName() = "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
+  override fun getLogName() =
+      "com.future.tailormade_design_detail.feature.designDetail.view.DesignDetailFragment"
 
   override fun getScreenName(): String = "Design Detail"
 
@@ -82,7 +83,7 @@ class DesignDetailFragment : BaseFragment() {
     if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_REQUEST_CODE) {
       data?.data?.let { imageUri ->
         activity?.contentResolver?.let {
-          goToSwapFace(ImageHelper.getFileAbsolutePath(it, imageUri).orEmpty())
+          goToSwapFace(imageUri)
         }
       }
     }
@@ -168,7 +169,7 @@ class DesignDetailFragment : BaseFragment() {
     }
   }
 
-  private fun goToSwapFace(bitmapSource: String) {
+  private fun goToSwapFace(bitmapSource: Uri) {
     context?.let { context ->
       UserAction.goToSwapFace(context, bitmapSource,
           viewModel.designDetailUiModel.value?.image.orEmpty())

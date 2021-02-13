@@ -5,7 +5,7 @@
 #ifndef OPENCV_HAL_VSX_UTILS_HPP
 #define OPENCV_HAL_VSX_UTILS_HPP
 
-#include "opencv2/core/cvdef.h"
+#include "../../opencv2/core/cvdef.h"
 
 #ifndef SKIP_INCLUDES
 #   include <assert.h>

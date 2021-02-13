@@ -108,7 +108,7 @@ android {
         externalNativeBuild {
             cmake {
                 arguments "-DANDROID_STL=c++_shared"
-                targets "opencv_jni_shared"
+                targets "nativefaceswap"
             }
         }
     }

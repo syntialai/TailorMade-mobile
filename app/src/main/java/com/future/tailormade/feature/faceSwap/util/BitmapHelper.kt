@@ -1,15 +1,15 @@
-package com.future.tailormade_face_swap.util
+package com.future.tailormade.feature.faceSwap.util
 
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.net.Uri
+import android.provider.MediaStore
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 import com.future.tailormade.config.Constants
-import java.io.File
 
 object BitmapHelper {
 
@@ -23,17 +23,20 @@ object BitmapHelper {
     }
   }
 
-  fun convertByteArrayToBitmap(byteArray: ByteArray): Bitmap = BitmapFactory.decodeByteArray(
-      byteArray, 0, byteArray.size)
+  fun convertFileToBitmap(contentResolver: ContentResolver, mediaUri: Uri): Bitmap? {
+    var bitmapResult: Bitmap? = null
 
-  fun convertFilePathToBitmap(filePath: String): Bitmap? = if (File(filePath).exists()) {
-    BitmapFactory.decodeFile(filePath)
-  } else {
-    null
+    try {
+      bitmapResult = MediaStore.Images.Media.getBitmap(contentResolver, mediaUri)
+    } catch (e: Exception) {
+      e.printStackTrace()
+    }
+
+    return bitmapResult
   }
 
-  fun convertUrlToBitmap(context: Context, imageUrl: String): Bitmap = Glide.with(context).asBitmap().load(
-      imageUrl).submit().get()
+  fun getUrlToBitmapRequestBuilder(context: Context, imageUrl: String): RequestBuilder<Bitmap> = Glide.with(
+      context).asBitmap().load(imageUrl)
 
   fun getAdjustedBitmapSize(bitmapDestination: Bitmap, bitmapSource: Bitmap): Pair<Bitmap, Bitmap> {
     val maxWidth = maxOf(bitmapDestination.width, bitmapSource.width)

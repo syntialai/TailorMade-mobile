@@ -18,6 +18,7 @@
     <dimen name="sp_8">8sp</dimen>
 
     <dimen name="dp_600">600dp</dimen>
+    <dimen name="dp_500">500dp</dimen>
     <dimen name="dp_400">400dp</dimen>
     <dimen name="dp_240">240dp</dimen>
     <dimen name="dp_200">200dp</dimen>

@@ -44,7 +44,7 @@
 #ifndef OPENCV_CORE_CUDAINL_HPP
 #define OPENCV_CORE_CUDAINL_HPP
 
-#include "opencv2/core/cuda.hpp"
+#include "cuda.hpp"
 
 //! @cond IGNORED
 

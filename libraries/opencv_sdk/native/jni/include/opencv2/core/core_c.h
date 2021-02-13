@@ -45,7 +45,7 @@
 #ifndef OPENCV_CORE_C_H
 #define OPENCV_CORE_C_H
 
-#include "opencv2/core/types_c.h"
+#include "types_c.h"
 
 #ifdef __cplusplus
 #  ifdef _MSC_VER

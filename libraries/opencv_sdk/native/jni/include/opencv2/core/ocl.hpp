@@ -42,7 +42,7 @@
 #ifndef OPENCV_OPENCL_HPP
 #define OPENCV_OPENCL_HPP
 
-#include "opencv2/core.hpp"
+#include "../../opencv2/core.hpp"
 
 namespace cv { namespace ocl {
 

@@ -52,7 +52,7 @@ JNIEXPORT void JNICALL
  * @param landmarksY2 y-coordinates to landmarks belonging to image 2.
  * @param addrResult pointer tor face swap result image.
  */
-Java_com_future_tailormade_1face_1swap_util_FaceSwap_portraitSwapNative( JNIEnv *env,
+Java_com_future_tailormade_feature_faceSwap_util_FaceSwap_portraitSwapNative( JNIEnv *env,
                                                     jobject obj,
                                                     jlong addrImg1,
                                                     jlong addrImg2,
