@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/image_view_design_detail"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_500"
+            android:layout_height="@dimen/dp_450"
             android:layout_marginBottom="@dimen/dp_28"
             android:scaleType="fitXY"
             tools:ignore="ContentDescription" />

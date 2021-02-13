@@ -1,10 +1,10 @@
-package com.future.tailormade_face_swap.util
+package com.future.tailormade.feature.faceSwap.util
 
 import android.graphics.Bitmap
 import android.graphics.Point
+import com.future.tailormade.feature.faceSwap.exception.FaceSwapException
 import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade.util.extension.orZero
-import com.future.tailormade_face_swap.exception.FaceSwapException
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils.bitmapToMat
 import org.opencv.android.Utils.matToBitmap
@@ -20,7 +20,7 @@ class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: 
 
   init {
     if (OpenCVLoader.initDebug()) {
-      System.loadLibrary("nativefaceswap");
+      System.loadLibrary("c++_shared")
     }
   }
 
@@ -33,8 +33,10 @@ class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: 
     landmarksDestination = landmarkDetector.detectPeopleAndLandmarks(bitmapDestination)
     landmarksSource = landmarkDetector.detectPeopleAndLandmarks(bitmapSource)
 
-    if (landmarksDestination?.size.orZero() <= 1) throw FaceSwapException("Face(s) missing")
-    if (landmarksSource?.size.orZero() <= 1) throw FaceSwapException("Face(s) missing")
+    if (landmarksDestination?.size.orZero() <= 1) throw FaceSwapException(
+        "Face on the design's image is missing")
+    if (landmarksSource?.size.orZero() <= 1) throw FaceSwapException(
+        "Face on your image is missing")
   }
 
   @Throws(FaceSwapException::class)

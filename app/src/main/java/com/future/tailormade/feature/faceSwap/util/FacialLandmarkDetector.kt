@@ -1,4 +1,4 @@
-package com.future.tailormade_face_swap.util
+package com.future.tailormade.feature.faceSwap.util
 
 import android.graphics.Bitmap
 import android.graphics.Point

@@ -1,3 +1,3 @@
-package com.future.tailormade_face_swap.exception
+package com.future.tailormade.feature.faceSwap.exception
 
 class FaceSwapException(message: String?) : Exception(message)
