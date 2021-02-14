@@ -5,8 +5,8 @@
 #ifndef OPENCV_CORE_BINDINGS_UTILS_HPP
 #define OPENCV_CORE_BINDINGS_UTILS_HPP
 
-#include <opencv2/core/async.hpp>
-#include <opencv2/core/detail/async_promise.hpp>
+#include "async.hpp"
+#include "detail/async_promise.hpp"
 
 namespace cv { namespace utils {
 //! @addtogroup core_utils

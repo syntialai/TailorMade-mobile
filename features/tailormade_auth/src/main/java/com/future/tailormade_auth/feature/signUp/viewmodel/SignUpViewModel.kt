@@ -13,7 +13,6 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.onError
 import com.future.tailormade_auth.core.model.request.SignInRequest
 import com.future.tailormade_auth.core.model.request.SignUpRequest
-import com.future.tailormade_auth.core.model.response.TokenDetailResponse
 import com.future.tailormade_auth.core.model.response.UserResponse
 import com.future.tailormade_auth.core.repository.AuthRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -72,13 +71,9 @@ class SignUpViewModel @ViewModelInject constructor(private val authRepository: A
   }
 
   private fun saveUserData(user: UserResponse) {
-    with(authSharedPrefRepository) {
-      userId = user.id
-      name = user.name
-      username = user.email
-      userRole = RoleEnum.valueOf(user.role).ordinal
-      userGender = GenderEnum.valueOf(user.gender).ordinal
-    }
+    authSharedPrefRepository.updateUser(id = user.id, email = user.email, name = user.name,
+        role = RoleEnum.valueOf(user.role).ordinal,
+        gender = GenderEnum.valueOf(user.gender).ordinal)
   }
 
   @ExperimentalCoroutinesApi
@@ -92,15 +87,17 @@ class SignUpViewModel @ViewModelInject constructor(private val authRepository: A
           appLogger.logOnError(Constants.SIGN_UP_ERROR, it)
           setFinishLoading()
           setErrorMessage(Constants.SIGN_UP_ERROR)
-        }.flatMapLatest { response ->
-          saveUserData(response)
+        }.flatMapLatest {
           authRepository.signIn(getSignInInfo())
         }.onError {
           setErrorMessage(Constants.SIGN_IN_ERROR)
           setFinishLoading()
           _hasSignIn.value = false
         }.collectLatest { data ->
-          updateToken(data.token)
+          with(data.token) {
+            authSharedPrefRepository.setToken(access, refresh)
+          }
+          saveUserData(data.user)
           setFinishLoading()
           _hasSignIn.value = true
         }
@@ -109,11 +106,4 @@ class SignUpViewModel @ViewModelInject constructor(private val authRepository: A
   }
 
   private fun getRole() = RoleEnum.values()[authSharedPrefRepository.userRole]
-
-  private fun updateToken(token: TokenDetailResponse) {
-    with(authSharedPrefRepository) {
-      accessToken = token.access
-      refreshToken = token.refresh
-    }
-  }
 }

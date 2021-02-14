@@ -33,18 +33,11 @@ class SplashScreenViewModel @ViewModelInject constructor(private val authReposit
           _isTokenExpired.value = true
         }.collectLatest { token ->
           _isTokenExpired.value = false
-          setToken(token)
+          authSharedPrefRepository.setToken(token.access, token.refresh)
         }
       } ?: run {
         _isTokenExpired.value = true
       }
-    }
-  }
-
-  private fun setToken(token: TokenDetailResponse) {
-    with(authSharedPrefRepository) {
-      refreshToken = token.refresh
-      accessToken = token.access
     }
   }
 }

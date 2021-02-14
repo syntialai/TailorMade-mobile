@@ -31,11 +31,11 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
 
   override fun getLogName() = "com.future.tailormade.feature.checkout.viewModel.CheckoutViewModel"
 
-  private var _id: MutableLiveData<String>
+  private var _id = MutableLiveData<String>()
   val id: LiveData<String>
     get() = _id
 
-  private var _cartUiModel: MutableLiveData<CartUiModel>
+  private var _cartUiModel = MutableLiveData<CartUiModel>()
   val cartUiModel: LiveData<CartUiModel>
     get() = _cartUiModel
 
@@ -47,13 +47,13 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
   val historyId: LiveData<String>
     get() = _historyId
 
-  init {
-    _id = savedStateHandle.getLiveData(ID, "")
-    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL)
-    _measurementValues.value = _cartUiModel.value?.design?.sizeDetail?.let { sizeDetail ->
-      CartMapper.mapToMeasurementDetail(sizeDetail)
-    }
-  }
+//  init {
+//    _id = savedStateHandle.getLiveData(ID, "")
+//    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL)
+//    _measurementValues.value = _cartUiModel.value?.design?.sizeDetail?.let { sizeDetail ->
+//      CartMapper.mapToMeasurementDetail(sizeDetail)
+//    }
+//  }
 
   @ExperimentalCoroutinesApi
   fun checkoutItem(id: String, specialInstructions: String) {
@@ -65,6 +65,7 @@ class CheckoutViewModel @ViewModelInject constructor(private val cartRepository:
         }.onError {
           setFinishLoading()
           setErrorMessage(Constants.FAILED_TO_CHECKOUT_ITEM)
+          appLogger.logOnError(it.message.toString(), it)
         }.collectLatest {
           setFinishLoading()
           _historyId.value = it.id

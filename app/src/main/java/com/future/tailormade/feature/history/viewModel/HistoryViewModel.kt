@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 
 class HistoryViewModel @ViewModelInject constructor(private val orderRepository: OrderRepository,
-    private var authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
+    private val authSharedPrefRepository: AuthSharedPrefRepository) : BaseViewModel() {
 
   override fun getLogName(): String = "com.future.tailormade.feature.history.viewModel.HistoryViewModel"
 

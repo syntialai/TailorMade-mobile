@@ -66,6 +66,7 @@ class MainActivity : BaseActivity() {
   override fun onRestoreInstanceState(savedInstanceState: Bundle) {
     super.onRestoreInstanceState(savedInstanceState)
     setupBottomNav()
+    supportFragmentManager.popBackStack()
     setupFragments()
   }
 

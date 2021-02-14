@@ -25,6 +25,7 @@ import timber.log.Timber
 class NetworkModule {
 
   private val BASE_URL = "https://tailormade-backend.herokuapp.com/"
+//  private val BASE_URL = "http://localhost:8080/"
 
   private val FIREBASE_URL = "https://tailormade-eac34.firebaseio.com/"
 

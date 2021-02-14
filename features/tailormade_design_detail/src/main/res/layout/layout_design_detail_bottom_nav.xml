@@ -10,7 +10,7 @@
     android:weightSum="4">
 
     <ImageButton
-        android:id="@+id/button_chat_tailor"
+        android:id="@+id/button_chat_tailor_design_detail"
         android:layout_width="@dimen/dp_0"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -19,7 +19,7 @@
         tools:ignore="ContentDescription" />
 
     <ImageButton
-        android:id="@+id/button_add_to_cart"
+        android:id="@+id/button_add_to_cart_design_detail"
         android:layout_width="@dimen/dp_0"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -28,7 +28,7 @@
         tools:ignore="ContentDescription" />
 
     <Button
-        android:id="@+id/button_order_now"
+        android:id="@+id/button_order_now_design_detail"
         style="@style/Theme.TailorMade.Button.Rounded"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"

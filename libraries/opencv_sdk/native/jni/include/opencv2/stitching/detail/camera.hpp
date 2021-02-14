@@ -43,7 +43,7 @@
 #ifndef OPENCV_STITCHING_CAMERA_HPP
 #define OPENCV_STITCHING_CAMERA_HPP
 
-#include "opencv2/core.hpp"
+#include "../../../opencv2/core.hpp"
 
 namespace cv {
 namespace detail {

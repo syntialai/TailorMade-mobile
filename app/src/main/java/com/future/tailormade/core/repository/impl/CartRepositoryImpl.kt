@@ -9,40 +9,38 @@ import com.future.tailormade.core.service.CartService
 import com.future.tailormade.util.extension.flowOnIO
 import com.future.tailormade_design_detail.core.model.response.AddToCartResponse
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
-class CartRepositoryImpl @Inject constructor(private val cartService: CartService) :
-    BaseRepository(), CartRepository {
+class CartRepositoryImpl @Inject constructor(private val cartService: CartService,
+    private val ioDispatcher: CoroutineDispatcher) : BaseRepository(), CartRepository {
 
   override fun getLogName(): String = "com.future.tailormade.core.repository.impl.CartRepositoryImpl"
 
-  override suspend fun getCarts(userId: String, page: Int, itemPerPage: Int): Flow<ArrayList<CartUiModel>> = flow {
-    val carts = cartService.getCarts(userId, page, itemPerPage).data
-    carts?.let {
+  override suspend fun getCarts(userId: String, page: Int, itemPerPage: Int) = flow {
+    cartService.getCarts(userId, page, itemPerPage).data?.let {
       emit(CartMapper.mapToCartUiModel(it))
     }
-//    emit(DataMock.getCartsMock())
-  }.flowOnIO()
+  }.flowOn(ioDispatcher)
 
   override suspend fun getCartById(userId: String, id: String) = flow {
-    val cart = cartService.getCartById(userId, id).data
-    cart?.let {
+    cartService.getCartById(userId, id).data?.let {
       emit(CartMapper.mapToCartUiModel(it))
     }
-//    emit(DataMock.getCartByIdMock())
-  }
+  }.flowOn(ioDispatcher)
 
   override suspend fun editCartItemQuantity(userId: String, id: String,
       editQuantityRequest: CartEditQuantityRequest) = flow {
     cartService.putEditCartItemQuantity(userId, id, editQuantityRequest).data?.let {
       emit(it)
     }
-  }.flowOnIO()
+  }.flowOn(ioDispatcher)
 
-  override suspend fun deleteCartItemById(userId: String, id: String): Flow<AddToCartResponse> = flow {
+  override suspend fun deleteCartItemById(userId: String, id: String) = flow {
     cartService.deleteCartItemById(userId, id).data?.let {
       emit(it)
     }
-  }.flowOnIO()
+  }.flowOn(ioDispatcher)
 }

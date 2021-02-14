@@ -42,7 +42,7 @@ class HistoryFragment : BaseFragment() {
 
   override fun getLogName() = "com.future.tailormade.feature.history.view.HistoryFragment"
 
-  override fun getScreenName(): String = "History"
+  override fun getScreenName(): String = "Order History"
 
   override fun getViewModel(): BaseViewModel = viewModel
 

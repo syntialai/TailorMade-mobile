@@ -1948,7 +1948,7 @@ int simulatedAnnealingSolver(SimulatedAnnealingSolverSystem& solverSystem,
 }
 }
 
-#include <opencv2/ml/ml.inl.hpp>
+#include "ml/ml.inl.hpp"
 
 #endif // __cplusplus
 #endif // OPENCV_ML_HPP

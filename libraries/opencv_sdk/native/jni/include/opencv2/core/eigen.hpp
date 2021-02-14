@@ -49,7 +49,7 @@
 #error "Wrong usage of OpenCV's Eigen utility header. Include Eigen's headers first. See https://github.com/opencv/opencv/issues/17366"
 #endif
 
-#include "opencv2/core.hpp"
+#include "../../opencv2/core.hpp"
 
 #if defined _MSC_VER && _MSC_VER >= 1200
 #define NOMINMAX // fix https://github.com/opencv/opencv/issues/17548

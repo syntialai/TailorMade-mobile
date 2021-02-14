@@ -44,7 +44,7 @@
 #define OPENCV_STITCHING_UTIL_HPP
 
 #include <list>
-#include "opencv2/core.hpp"
+#include "../../../opencv2/core.hpp"
 
 namespace cv {
 namespace detail {

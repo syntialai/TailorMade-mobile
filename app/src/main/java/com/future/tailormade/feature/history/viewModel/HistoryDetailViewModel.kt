@@ -25,13 +25,13 @@ class HistoryDetailViewModel @ViewModelInject constructor(
 
   override fun getLogName() = "com.future.tailormade.feature.history.viewModel.HistoryDetailViewModel"
 
-  private var _orderDetailUiModel: MutableLiveData<OrderDetailUiModel>
+  private var _orderDetailUiModel = MutableLiveData<OrderDetailUiModel>()
   val orderDetailUiModel: LiveData<OrderDetailUiModel>
     get() = _orderDetailUiModel
 
-  init {
-    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL)
-  }
+//  init {
+//    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL)
+//  }
 
   @ExperimentalCoroutinesApi
   fun fetchHistoryDetails(id: String) {
