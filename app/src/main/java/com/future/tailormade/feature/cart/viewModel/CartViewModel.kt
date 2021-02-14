@@ -34,9 +34,9 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
   val hasBeenDeleted: LiveData<Boolean>
     get() = _hasBeenDeleted
 
-  init {
-    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL)
-  }
+//  init {
+//    _cartUiModel = savedStateHandle.getLiveData(CART_UI_MODEL)
+//  }
 
   @ExperimentalCoroutinesApi
   fun fetchCartData() {
@@ -81,6 +81,10 @@ class CartViewModel @ViewModelInject constructor(private val cartRepository: Car
         }
       }
     }
+  }
+
+  fun setCartUiModel(cart: ArrayList<CartUiModel>) {
+    _cartUiModel.value = cart
   }
 
   fun setHasBeenDeleted(value: Boolean) {

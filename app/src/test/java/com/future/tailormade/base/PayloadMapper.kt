@@ -39,7 +39,7 @@ object PayloadMapper {
       price = BaseTest.DESIGN_PRICE, size = SIZE, title = BaseTest.DESIGN_TITLE)
 
   fun getCartResponse() = CartResponse(createdAt = BaseTest.ORDER_DATE,
-      design = getCartDesignResponse(), id = BaseTest.ORDER_ID, quantity = BaseTest.DESIGN_QUANTITY,
+      design = getCartDesignResponse(), id = BaseTest.CART_ID, quantity = BaseTest.DESIGN_QUANTITY,
       tailorId = BaseTest.TAILOR_ID, updatedAt = BaseTest.ORDER_DATE, userId = BaseTest.USER_ID,
       tailorName = BaseTest.TAILOR_NAME, userName = BaseTest.USER_NAME)
 
@@ -51,7 +51,8 @@ object PayloadMapper {
 
   fun getDeleteCartResponse() = AddToCartResponse(BaseTest.CART_ID)
 
-  fun getEditCartQuantityRequest() = CartEditQuantityRequest(BaseTest.DESIGN_QUANTITY)
+  fun getEditCartQuantityRequest(quantity: Int = BaseTest.DESIGN_QUANTITY) = CartEditQuantityRequest(
+      quantity)
 
   fun getEditCartQuantityResponse() = CartEditQuantityResponse(id = BaseTest.CART_ID,
       quantity = BaseTest.DESIGN_QUANTITY)
