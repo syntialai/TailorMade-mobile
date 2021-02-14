@@ -1,0 +1,5 @@
+:features:tailormade_face_swap::debug
+:libraries:dlib::debug
+com.jakewharton.hugo:hugo-annotations
+com.jakewharton.hugo:hugo-runtime
+org.aspectj:aspectjrt
