@@ -10,6 +10,7 @@ import com.future.tailormade.core.model.request.checkout.CheckoutRequest
 import com.future.tailormade.core.model.response.cart.CartDesignResponse
 import com.future.tailormade.core.model.response.cart.CartEditQuantityResponse
 import com.future.tailormade.core.model.response.cart.CartResponse
+import com.future.tailormade.core.model.response.cart.CartSizeDetailResponse
 import com.future.tailormade.core.model.response.checkout.CheckoutDesignResponse
 import com.future.tailormade.core.model.response.checkout.CheckoutResponse
 import com.future.tailormade.core.model.response.dashboard.DashboardTailorResponse
@@ -34,18 +35,27 @@ object PayloadMapper {
   /**
    * Cart Payloads
    */
-  fun getCartDesignResponse() = CartDesignResponse(color = COLOR,
+  fun getCartDesignResponse(isSizeRequired: Boolean) = CartDesignResponse(color = COLOR,
       discount = BaseTest.DESIGN_DISCOUNT, id = BaseTest.DESIGN_ID, image = BaseTest.DESIGN_IMAGE,
-      price = BaseTest.DESIGN_PRICE, size = SIZE, title = BaseTest.DESIGN_TITLE)
+      price = BaseTest.DESIGN_PRICE, size = SIZE, title = BaseTest.DESIGN_TITLE,
+      sizeDetail = if (isSizeRequired) getCartDesignSizeDetailResponse() else null)
 
-  fun getCartResponse() = CartResponse(createdAt = BaseTest.ORDER_DATE,
-      design = getCartDesignResponse(), id = BaseTest.CART_ID, quantity = BaseTest.DESIGN_QUANTITY,
-      tailorId = BaseTest.TAILOR_ID, updatedAt = BaseTest.ORDER_DATE, userId = BaseTest.USER_ID,
-      tailorName = BaseTest.TAILOR_NAME, userName = BaseTest.USER_NAME)
+  fun getCartDesignSizeDetailResponse() = CartSizeDetailResponse(chest = 12f, hips = 13f,
+      inseam = 14f, neckToWaist = 15f, waist = 16f)
+
+  fun getCartDesignSizeDetailUiModel() = CartMapper.mapToMeasurementDetail(
+      getCartDesignSizeDetailResponse())
+
+  fun getCartResponse(isSizeRequired: Boolean = false) = CartResponse(
+      createdAt = BaseTest.ORDER_DATE, design = getCartDesignResponse(isSizeRequired),
+      id = BaseTest.CART_ID, quantity = BaseTest.DESIGN_QUANTITY, tailorId = BaseTest.TAILOR_ID,
+      updatedAt = BaseTest.ORDER_DATE, userId = BaseTest.USER_ID, tailorName = BaseTest.TAILOR_NAME,
+      userName = BaseTest.USER_NAME)
 
   fun getCartResponses() = listOf(getCartResponse())
 
-  fun getCartUiModel() = CartMapper.mapToCartUiModel(getCartResponse())
+  fun getCartUiModel(isSizeRequired: Boolean = false) = CartMapper.mapToCartUiModel(
+      getCartResponse(isSizeRequired))
 
   fun getCartUiModels() = CartMapper.mapToCartUiModel(getCartResponses())
 
@@ -60,6 +70,8 @@ object PayloadMapper {
   /**
    * Checkout Payloads
    */
+  fun getCheckoutMeasurementRequestList() = listOf("12.0", "16.0", "13.0", "15.0", "14.0")
+
   fun getCheckoutMeasurementRequest() = CheckoutMeasurementRequest(chest = 12f, hips = 13f,
       inseam = 14f, neckToWaist = 15f, waist = 16f)
 
