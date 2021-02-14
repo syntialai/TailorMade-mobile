@@ -31,20 +31,20 @@ class DashboardViewModel @ViewModelInject constructor(
   override fun getLogName() =
       "com.future.tailormade.tailor_app.feature.dashboard.viewModel.DashboardViewModel"
 
-  private var _designs: MutableLiveData<ArrayList<DashboardDesignUiModel>>
+  private var _designs = MutableLiveData<ArrayList<DashboardDesignUiModel>>()
   val designs: LiveData<ArrayList<DashboardDesignUiModel>>
     get() = _designs
 
-  private var _selectedDesigns: MutableLiveData<ArrayList<String>>
+  private var _selectedDesigns = MutableLiveData<ArrayList<String>>()
   val selectedDesigns: LiveData<ArrayList<String>>
     get() = _selectedDesigns
 
   private var deletedItem: Int = 0
 
-  init {
-    _designs = savedStateHandle.getLiveData(DESIGNS)
-    _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS)
-  }
+//  init {
+//    _designs = savedStateHandle.getLiveData(DESIGNS)
+//    _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS)
+//  }
 
   @ExperimentalCoroutinesApi
   fun fetchTailorDesigns() {
