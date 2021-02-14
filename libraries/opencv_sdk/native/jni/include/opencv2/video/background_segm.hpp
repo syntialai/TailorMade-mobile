@@ -44,7 +44,7 @@
 #ifndef OPENCV_BACKGROUND_SEGM_HPP
 #define OPENCV_BACKGROUND_SEGM_HPP
 
-#include "opencv2/core.hpp"
+#include "../../opencv2/core.hpp"
 
 namespace cv
 {

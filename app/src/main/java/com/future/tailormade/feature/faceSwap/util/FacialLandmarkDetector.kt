@@ -1,4 +1,4 @@
-package com.future.tailormade_face_swap.util
+package com.future.tailormade.feature.faceSwap.util
 
 import android.graphics.Bitmap
 import android.graphics.Point
@@ -24,8 +24,8 @@ class FacialLandmarkDetector() {
 
   fun detectPeopleAndLandmarks(bitmap: Bitmap): ArrayList<ArrayList<Point>> {
     var mutableBitmap = bitmap.copy(bitmap.config, true)
-    val faces = faceDet.detect(bitmap)
-    val bitmapResizeRatio = getBitmapResizeRatio(bitmap)
+    val faces = faceDet.detect(mutableBitmap)
+    val bitmapResizeRatio = getBitmapResizeRatio(mutableBitmap)
     val resizeRatio = bitmapResizeRatio.second
     bitmapResizeRatio.first?.let {
       mutableBitmap = it

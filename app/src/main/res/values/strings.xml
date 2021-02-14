@@ -4,6 +4,9 @@
 
     <!-- Swap face -->
     <string name="title_tailormade_face_swap">Face Swap</string>
+    <string name="swapping_face">Swapping face…</string>
+    <string name="download_completed">Download completed.</string>
+    <string name="share_image">Share image</string>
 
     <!-- Dashboard -->
     <string name="dashboard_title_state">Hello!</string>

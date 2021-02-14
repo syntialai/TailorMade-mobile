@@ -2,6 +2,7 @@ package com.future.tailormade_router.actions
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 
 object UserAction {
 
@@ -41,9 +42,9 @@ object UserAction {
       })
 
   fun goToSwapFace(
-      context: Context, bitmapSource: String, bitmapDestination: String) = context.startActivity(
+      context: Context, bitmapSource: Uri, bitmapDestination: String) = context.startActivity(
       Action.getIntent(context, ACTION_OPEN_SWAP_FACE).apply {
-        putExtra(PARAM_SWAP_FACE_IMAGE_SOURCE, bitmapSource)
+        putExtra(PARAM_SWAP_FACE_IMAGE_SOURCE, bitmapSource.toString())
         putExtra(PARAM_SWAP_FACE_IMAGE_DESTINATION, bitmapDestination)
       })
 

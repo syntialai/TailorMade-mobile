@@ -39,8 +39,8 @@ Notes:
 #error "core/simd_intrinsics.hpp must be included before core/hal/intrin.hpp"
 #endif
 
-#include "opencv2/core/cvdef.h"
-#include "opencv2/core/version.hpp"
+#include "../opencv2/core/cvdef.h"
+#include "../opencv2/core/version.hpp"
 
 #ifdef OPENCV_SIMD_CONFIG_HEADER
 #include CVAUX_STR(OPENCV_SIMD_CONFIG_HEADER)

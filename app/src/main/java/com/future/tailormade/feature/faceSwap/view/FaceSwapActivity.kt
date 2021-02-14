@@ -1,22 +1,28 @@
-package com.future.tailormade_face_swap.view
+package com.future.tailormade.feature.faceSwap.view
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
+import androidx.activity.viewModels
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.ethanhua.skeleton.SkeletonScreen
+import com.future.tailormade.R
+import com.future.tailormade.base.view.BaseActivity
 import com.future.tailormade.config.Constants
-import com.future.tailormade.feature.base.view.BaseSplitActivity
-import com.future.tailormade.util.extension.orZero
+import com.future.tailormade.databinding.ActivityFaceSwapBinding
+import com.future.tailormade.feature.faceSwap.exception.FaceSwapException
+import com.future.tailormade.feature.faceSwap.util.BitmapHelper
+import com.future.tailormade.feature.faceSwap.util.FaceSwap
+import com.future.tailormade.feature.faceSwap.util.FileHelper
+import com.future.tailormade.feature.faceSwap.viewModel.FaceSwapViewModel
 import com.future.tailormade.util.view.ToastHelper
-import com.future.tailormade_face_swap.R
-import com.future.tailormade_face_swap.databinding.ActivityFaceSwapBinding
-import com.future.tailormade_face_swap.exception.FaceSwapException
-import com.future.tailormade_face_swap.util.BitmapHelper
-import com.future.tailormade_face_swap.util.FaceSwap
-import com.future.tailormade_face_swap.util.FileHelper
 import java.io.File
 
-class FaceSwapActivity : BaseSplitActivity() {
+class FaceSwapActivity : BaseActivity() {
 
   companion object {
     private const val PARAM_SWAP_FACE_IMAGE_SOURCE = "PARAM_SWAP_FACE_IMAGE_SOURCE"
@@ -25,8 +31,7 @@ class FaceSwapActivity : BaseSplitActivity() {
 
   private lateinit var binding: ActivityFaceSwapBinding
 
-  private var bitmapDestination: Bitmap? = null
-  private var bitmapSource: Bitmap? = null
+  private val viewModel: FaceSwapViewModel by viewModels()
 
   override fun getScreenName() = "Face Swap"
 
@@ -37,21 +42,50 @@ class FaceSwapActivity : BaseSplitActivity() {
     setContentView(binding.root)
     setupToolbar(getScreenName())
     getImage()
-
-    bitmapDestination?.let { bitmapDestination ->
-      bitmapSource?.let { bitmapSource ->
-        startSwapFace(bitmapDestination, bitmapSource)
-      }
-    }
+    setupObserver()
+    showSkeleton(binding.imageViewFaceSwap, R.layout.layout_face_swap_image_skeleton)
   }
 
   private fun getImage() {
-    intent?.getStringExtra(PARAM_SWAP_FACE_IMAGE_SOURCE)?.let {
-      bitmapSource = BitmapHelper.convertFilePathToBitmap(it)
+    intent?.getStringExtra(PARAM_SWAP_FACE_IMAGE_SOURCE)?.let { imageSource ->
+      BitmapHelper.convertFileToBitmap(contentResolver, Uri.parse(imageSource))?.let {
+        viewModel.setBitmapSource(it)
+      }
     }
     intent?.getStringExtra(PARAM_SWAP_FACE_IMAGE_DESTINATION)?.let {
-      bitmapDestination = BitmapHelper.convertUrlToBitmap(this@FaceSwapActivity, it)
+      launchCoroutineOnIO({
+        BitmapHelper.getUrlToBitmapRequestBuilder(this@FaceSwapActivity, it).into(object :
+            CustomTarget<Bitmap>() {
+          override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+            viewModel.setBitmapDestination(resource)
+            appLogger.logOnEvent("Bitmap destination: $resource")
+          }
+
+          override fun onLoadCleared(placeholder: Drawable?) {
+            // No implementation needed
+          }
+        })
+      })
     }
+  }
+
+  private fun setupObserver() {
+    viewModel.bitmapSource.observe(this, {
+      it?.let { bitmapSource ->
+        appLogger.logOnMethod("bitmapSource observer")
+        viewModel.bitmapDestination.value?.let { bitmapDestination ->
+          startSwapFace(bitmapDestination, bitmapSource)
+        }
+      }
+    })
+    viewModel.bitmapDestination.observe(this, {
+      it?.let { bitmapDestination ->
+        appLogger.logOnMethod("bitmapDestination observer")
+        viewModel.bitmapSource.value?.let { bitmapSource ->
+          startSwapFace(bitmapDestination, bitmapSource)
+        }
+      }
+    })
   }
 
   private fun startSwapFace(bitmapDestination: Bitmap, bitmapSource: Bitmap) {
@@ -62,9 +96,10 @@ class FaceSwapActivity : BaseSplitActivity() {
     showToast(getString(R.string.swapping_face))
 
     launchCoroutineOnIO({
-      val faceSwap = FaceSwap(finalBitmapDestination, finalBitmapSource)
+      val faceSwap = FaceSwap(this, finalBitmapDestination, finalBitmapSource)
 
       try {
+        appLogger.logOnMethod("Face swap")
         faceSwap.prepareSelfieSwapping()
       } catch (e: FaceSwapException) {
         e.localizedMessage?.let { showErrorToast(it) }
@@ -77,10 +112,10 @@ class FaceSwapActivity : BaseSplitActivity() {
   }
 
   private fun swapFace(faceSwap: FaceSwap) {
-    val swappedBitmap = faceSwap.selfieSwap()
-    val swappedFace = Bitmap.createBitmap(swappedBitmap, 0, 0, bitmapDestination?.width.orZero(),
-        bitmapDestination?.height.orZero())
-    setImage(swappedFace)
+    faceSwap.selfieSwap()?.let { swappedBitmap ->
+      val swappedFace = viewModel.getSwappedFace(swappedBitmap)
+      setImage(swappedFace)
+    }
   }
 
   private fun setImage(image: Bitmap) {
@@ -93,6 +128,7 @@ class FaceSwapActivity : BaseSplitActivity() {
         shareImage(image)
       }
     }
+    hideSkeleton()
   }
 
   private fun downloadImage(image: Bitmap) {

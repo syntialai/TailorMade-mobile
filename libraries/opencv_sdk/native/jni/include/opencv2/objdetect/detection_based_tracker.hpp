@@ -44,7 +44,7 @@
 #ifndef OPENCV_OBJDETECT_DBT_HPP
 #define OPENCV_OBJDETECT_DBT_HPP
 
-#include <opencv2/core.hpp>
+#include "../../opencv2/core.hpp"
 
 #include <vector>
 

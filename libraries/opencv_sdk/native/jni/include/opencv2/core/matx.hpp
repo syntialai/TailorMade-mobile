@@ -48,10 +48,10 @@
 #  error matx.hpp header must be compiled as C++
 #endif
 
-#include "opencv2/core/cvdef.h"
-#include "opencv2/core/base.hpp"
-#include "opencv2/core/traits.hpp"
-#include "opencv2/core/saturate.hpp"
+#include "../../opencv2/core/cvdef.h"
+#include "../../opencv2/core/base.hpp"
+#include "../../opencv2/core/traits.hpp"
+#include "../../opencv2/core/saturate.hpp"
 
 #include <initializer_list>
 

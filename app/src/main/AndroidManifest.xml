@@ -61,6 +61,17 @@
         </activity>
 
         <activity
+            android:name=".feature.faceSwap.view.FaceSwapActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.future.tailormade.faceSwap.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".feature.splash.view.SplashScreenActivity"
             android:screenOrientation="portrait">
 
