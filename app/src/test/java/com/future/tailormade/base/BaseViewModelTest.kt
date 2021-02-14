@@ -18,7 +18,7 @@ import org.junit.Rule
 @InternalCoroutinesApi
 abstract class BaseViewModelTest : BaseTest() {
 
-  val dispatcher = TestCoroutineDispatcher()
+  private val dispatcher = TestCoroutineDispatcher()
 
   @get:Rule
   val rule = CoroutineTestRule(dispatcher)

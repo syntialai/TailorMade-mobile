@@ -1,6 +1,5 @@
 package com.future.tailormade.feature.dashboard.viewModel
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,10 +8,8 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.core.model.ui.dashboard.DashboardTailorUiModel
 import com.future.tailormade.core.repository.DashboardRepository
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade.util.extension.orEmptyList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 
 class DashboardViewModel @ViewModelInject constructor(
     private val dashboardRepository: DashboardRepository) : BaseViewModel() {

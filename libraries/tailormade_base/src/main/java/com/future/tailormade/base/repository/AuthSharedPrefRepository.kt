@@ -78,4 +78,17 @@ class AuthSharedPrefRepository private constructor(context: Context) {
   fun isUser() = userRole == RoleEnum.ROLE_USER.ordinal
 
   fun isTailor() = userRole == RoleEnum.ROLE_TAILOR.ordinal
+
+  fun setToken(access: String, refresh: String) {
+    refreshToken = refresh
+    accessToken = access
+  }
+
+  fun updateUser(id: String, name: String, email: String, role: Int, gender: Int) {
+    this.userId = id
+    this.username = email
+    this.name = name
+    this.userRole = role
+    this.userGender = gender
+  }
 }
