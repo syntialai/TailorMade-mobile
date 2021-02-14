@@ -122,4 +122,6 @@ dependencies {
   kapt room.kapt_compiler
   androidTestImplementation room.androidTest
   androidTestImplementation room.androidTest_arch_persistence
+
+  implementation relinker
 }

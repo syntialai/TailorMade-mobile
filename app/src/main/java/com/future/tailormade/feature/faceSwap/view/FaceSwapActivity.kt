@@ -96,7 +96,7 @@ class FaceSwapActivity : BaseActivity() {
     showToast(getString(R.string.swapping_face))
 
     launchCoroutineOnIO({
-      val faceSwap = FaceSwap(finalBitmapDestination, finalBitmapSource)
+      val faceSwap = FaceSwap(this, finalBitmapDestination, finalBitmapSource)
 
       try {
         appLogger.logOnMethod("Face swap")
@@ -112,9 +112,10 @@ class FaceSwapActivity : BaseActivity() {
   }
 
   private fun swapFace(faceSwap: FaceSwap) {
-    val swappedBitmap = faceSwap.selfieSwap()
-    val swappedFace = viewModel.getSwappedFace(swappedBitmap)
-    setImage(swappedFace)
+    faceSwap.selfieSwap()?.let { swappedBitmap ->
+      val swappedFace = viewModel.getSwappedFace(swappedBitmap)
+      setImage(swappedFace)
+    }
   }
 
   private fun setImage(image: Bitmap) {

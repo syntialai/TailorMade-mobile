@@ -36,10 +36,6 @@ void applyAffineTransform(Mat &warpImage, Mat &src, vector<Point2f> &srcTri, vec
 Mat myClone(Mat src, Mat dst, Mat mask);
 Mat getSobel(Mat src_gray);
 
-
-
-extern "C" {
-JNIEXPORT void JNICALL
 /**
  * Makes the face swap. Native function, that can be called from Java code.
  * @param env TBD.
@@ -52,16 +48,17 @@ JNIEXPORT void JNICALL
  * @param landmarksY2 y-coordinates to landmarks belonging to image 2.
  * @param addrResult pointer tor face swap result image.
  */
-Java_com_future_tailormade_feature_faceSwap_util_FaceSwap_portraitSwapNative( JNIEnv *env,
-                                                    jobject obj,
-                                                    jlong addrImg1,
-                                                    jlong addrImg2,
-                                                    jintArray landmarksX1,
-                                                    jintArray landmarksY1,
-                                                    jintArray landmarksX2,
-                                                    jintArray landmarksY2,
-                                                    jlong addrResult )
-{
+extern "C" {
+JNIEXPORT void
+Java_com_future_tailormade_feature_faceSwap_util_FaceSwap_portraitSwapNative(JNIEnv *env,
+                                                                             jobject obj,
+                                                                             jlong addrImg1,
+                                                                             jlong addrImg2,
+                                                                             jintArray landmarksX1,
+                                                                             jintArray landmarksY1,
+                                                                             jintArray landmarksX2,
+                                                                             jintArray landmarksY2,
+                                                                             jlong addrResult) {
     // Transform java points to readable OpenCV points
     vector<Point2f> points1 = readPoints(env, landmarksX1, landmarksY1);
     vector<Point2f> points2 = readPoints(env, landmarksX2, landmarksY2);

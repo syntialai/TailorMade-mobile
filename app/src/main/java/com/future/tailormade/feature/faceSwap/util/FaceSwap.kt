@@ -1,31 +1,60 @@
 package com.future.tailormade.feature.faceSwap.util
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
 import com.future.tailormade.feature.faceSwap.exception.FaceSwapException
-import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade.util.extension.orZero
+import com.future.tailormade.util.logger.AppLogger
+import com.getkeepsafe.relinker.ReLinker
+import org.opencv.android.BaseLoaderCallback
+import org.opencv.android.LoaderCallbackInterface
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils.bitmapToMat
 import org.opencv.android.Utils.matToBitmap
 import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 
-class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: Bitmap) {
+class FaceSwap(context: Context, private val bitmapDestination: Bitmap,
+    private val bitmapSource: Bitmap) {
+
+  private val logger = AppLogger("com.future.tailormade.feature.faceSwap.util.FaceSwap")
+  private val reLinkerLogger = ReLinker.Logger {
+    logger.logOnEvent(it)
+  }
 
   private var landmarksDestination: ArrayList<ArrayList<Point>>? = null
   private var landmarksSource: ArrayList<ArrayList<Point>>? = null
   private var landmarks: ArrayList<ArrayList<Point>>? = null
   private var bitmap: Bitmap? = null
+  private var swapped: Mat? = null
 
-  init {
-    if (OpenCVLoader.initDebug()) {
-      System.loadLibrary("c++_shared")
+  private val mLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(context) {
+    override fun onManagerConnected(status: Int) {
+      when (status) {
+        SUCCESS -> {
+          logger.logOnEvent("OpenCV loaded successfully")
+          swapped = Mat()
+        }
+        else -> {
+          super.onManagerConnected(status)
+        }
+      }
     }
   }
 
-  private external fun portraitSwapNative(addrImg1: Long, addrImg2: Long, landmarksX1: IntArray?,
-      landmarksY1: IntArray?, landmarksX2: IntArray?, landmarksY2: IntArray?, addrResult: Long)
+  init {
+    if (OpenCVLoader.initDebug()) {
+      OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_4_0, context, mLoaderCallback)
+      ReLinker.log(reLinkerLogger).loadLibrary(context, "c++_shared")
+    } else {
+      mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS)
+    }
+  }
+
+  private external fun portraitSwapNative(addressImageDestination: Long, addressImageSource: Long,
+      landmarksDestinationX: IntArray?, landmarksDestinationY: IntArray?,
+      landmarksSourceX: IntArray?, landmarksSourceY: IntArray?, addressImageResult: Long)
 
   @Throws(FaceSwapException::class)
   fun prepareSelfieSwapping() {
@@ -33,10 +62,8 @@ class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: 
     landmarksDestination = landmarkDetector.detectPeopleAndLandmarks(bitmapDestination)
     landmarksSource = landmarkDetector.detectPeopleAndLandmarks(bitmapSource)
 
-    if (landmarksDestination?.size.orZero() <= 1) throw FaceSwapException(
-        "Face on the design's image is missing")
-    if (landmarksSource?.size.orZero() <= 1) throw FaceSwapException(
-        "Face on your image is missing")
+    throwErrorIfEmpty(landmarksDestination, "Face on the design's image is missing")
+    throwErrorIfEmpty(landmarksSource, "Face on your image is missing")
   }
 
   @Throws(FaceSwapException::class)
@@ -44,14 +71,17 @@ class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: 
     val landmarkDetector = FacialLandmarkDetector()
     bitmap?.let {
       landmarks = landmarkDetector.detectPeopleAndLandmarks(it)
-      if (landmarks?.size.orZero() <= 1) throw FaceSwapException("Face(s) missing")
+      throwErrorIfEmpty(landmarks, "Face(s) missing")
     }
   }
 
-  fun selfieSwap(): Bitmap {
-    val pointsDestination: ArrayList<Point> = landmarksDestination?.get(0).orEmptyList()
-    val pointsSource: ArrayList<Point> = landmarksSource?.get(1).orEmptyList()
-    return swap(bitmapDestination, bitmapSource, pointsDestination, pointsSource)
+  fun selfieSwap(): Bitmap? {
+    landmarksDestination?.get(0)?.let { pointsDestination ->
+      landmarksSource?.get(1)?.let { pointsSource ->
+        return swap(bitmapDestination, bitmapSource, pointsDestination, pointsSource)
+      }
+    }
+    return null
   }
 
   private fun swap(bitmapDestination: Bitmap, bitmapSource: Bitmap,
@@ -77,9 +107,11 @@ class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: 
     Imgproc.cvtColor(imageDestination, imageDestination, Imgproc.COLOR_BGRA2BGR)
     Imgproc.cvtColor(imageSource, imageSource, Imgproc.COLOR_BGRA2BGR)
 
-    val swapped = Mat()
-    portraitSwapNative(imageDestination.nativeObjAddr, imageSource.nativeObjAddr,
-        bitmapDestinationX, bitmapDestinationY, bitmapSourceX, bitmapSourceY, swapped.nativeObjAddr)
+    swapped?.let { swapped ->
+      portraitSwapNative(imageDestination.nativeObjAddr, imageSource.nativeObjAddr,
+          bitmapDestinationX, bitmapDestinationY, bitmapSourceX, bitmapSourceY,
+          swapped.nativeObjAddr)
+    }
     val bitmapSwapped = Bitmap.createBitmap(bitmapDestination.width, bitmapDestination.height,
         Bitmap.Config.ARGB_8888)
     matToBitmap(swapped, bitmapSwapped)
@@ -96,5 +128,9 @@ class FaceSwap(private val bitmapDestination: Bitmap, private val bitmapSource: 
     }
 
     return Pair(pointsX, pointsY)
+  }
+
+  private fun throwErrorIfEmpty(landmarksArray: ArrayList<ArrayList<Point>>?, message: String) {
+    if (landmarksArray?.size.orZero() <= 1) throw FaceSwapException(message)
   }
 }

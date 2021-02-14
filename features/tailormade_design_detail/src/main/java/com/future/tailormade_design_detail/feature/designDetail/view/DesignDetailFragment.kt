@@ -212,13 +212,13 @@ class DesignDetailFragment : BaseFragment() {
 
   private fun setupBottomNav() {
     with(binding.layoutDesignDetailBottomNav) {
-      buttonChatTailor.setOnClickListener {
+      buttonChatTailorDesignDetail.setOnClickListener {
         goToChat()
       }
-      buttonAddToCart.setOnClickListener {
+      buttonAddToCartDesignDetail.setOnClickListener {
         viewModel.addToCart(TYPE_ADD_TO_CART)
       }
-      buttonOrderNow.setOnClickListener {
+      buttonOrderNowDesignDetail.setOnClickListener {
         viewModel.addToCart(TYPE_CHECKOUT)
       }
     }

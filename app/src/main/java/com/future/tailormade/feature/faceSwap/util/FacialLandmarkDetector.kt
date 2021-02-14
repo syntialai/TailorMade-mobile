@@ -24,8 +24,8 @@ class FacialLandmarkDetector() {
 
   fun detectPeopleAndLandmarks(bitmap: Bitmap): ArrayList<ArrayList<Point>> {
     var mutableBitmap = bitmap.copy(bitmap.config, true)
-    val faces = faceDet.detect(bitmap)
-    val bitmapResizeRatio = getBitmapResizeRatio(bitmap)
+    val faces = faceDet.detect(mutableBitmap)
+    val bitmapResizeRatio = getBitmapResizeRatio(mutableBitmap)
     val resizeRatio = bitmapResizeRatio.second
     bitmapResizeRatio.first?.let {
       mutableBitmap = it
