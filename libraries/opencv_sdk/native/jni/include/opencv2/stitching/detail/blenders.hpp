@@ -47,8 +47,8 @@
 #  warning Detected Apple 'NO' macro definition, it can cause build conflicts. Please, include this header before any Apple headers.
 #endif
 
-#include "opencv2/core.hpp"
-#include "opencv2/core/cuda.hpp"
+#include "../../../opencv2/core.hpp"
+#include "../../../opencv2/core/cuda.hpp"
 
 namespace cv {
 namespace detail {

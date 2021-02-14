@@ -33,6 +33,7 @@ ext {
       gms_location          : "17.0.0",
       skeleton              : "1.1.2",
       shimmer_layout        : "2.1.0",
+      relinker              : "1.4.1",
       test_junit            : "4.13",
       test_core             : "1.3.0",
       test_arch_core        : "2.1.0",
@@ -154,4 +155,6 @@ ext {
   skeleton = "com.ethanhua:skeleton:${versions.skeleton}"
 
   shimmer_layout = "io.supercharge:shimmerlayout:${versions.shimmer_layout}"
+
+  relinker = "com.getkeepsafe.relinker:relinker:${versions.relinker}"
 }

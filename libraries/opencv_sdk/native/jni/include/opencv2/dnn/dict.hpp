@@ -39,11 +39,11 @@
 //
 //M*/
 
-#include <opencv2/core.hpp>
+#include "../../opencv2/core.hpp"
 #include <map>
 #include <ostream>
 
-#include <opencv2/dnn/dnn.hpp>
+#include "dnn.hpp"
 
 #ifndef OPENCV_DNN_DNN_DICT_HPP
 #define OPENCV_DNN_DNN_DICT_HPP

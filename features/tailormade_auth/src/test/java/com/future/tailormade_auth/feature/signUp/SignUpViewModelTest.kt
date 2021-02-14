@@ -1,6 +1,7 @@
 package com.future.tailormade_auth.feature.signUp
 
 import com.future.tailormade.base.model.enums.GenderEnum
+import com.future.tailormade.base.model.enums.RoleEnum
 import com.future.tailormade.config.Constants
 import com.future.tailormade.util.extension.orFalse
 import com.future.tailormade.util.extension.orTrue
@@ -14,6 +15,7 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertFalse
@@ -21,7 +23,6 @@ import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
@@ -37,6 +38,12 @@ class SignUpViewModelTest : BaseViewModelTest() {
   private val authRepository = mock<AuthRepository>()
 
   private val signInRequestCaptor = argumentCaptor<SignInRequest>()
+
+  private val tokenCaptor = argumentCaptor<String>()
+
+  private val userDataCaptor = argumentCaptor<String>()
+
+  private val userDataOrdinalCaptor = argumentCaptor<Int>()
 
   @Before
   override fun setUp() {
@@ -56,6 +63,8 @@ class SignUpViewModelTest : BaseViewModelTest() {
     val expectedSignInResponse = PayloadMapper.getSignInResponse()
 
     rule.dispatcher.runBlockingTest {
+      whenever(authSharedPrefRepository.userRole) doReturn USER_ROLE_ORDINAL
+
       viewModel.setSignUpBirthDate(USER_BIRTHDATE)
       viewModel.setSignUpInfo(USER_NAME, USER_EMAIL, USER_PASSWORD)
       viewModel.setSignUpGender(USER_GENDER.name)
@@ -67,8 +76,8 @@ class SignUpViewModelTest : BaseViewModelTest() {
       whenever(authRepository.signIn(signInRequest)) doReturn signInFlow
 
       viewModel.signUp()
-      delay(1000)
 
+      verify(authSharedPrefRepository).userRole
       verify(authRepository).signUp(request)
       assertTrue(viewModel.isLoading.value.orFalse())
       delay(1000)
@@ -84,7 +93,22 @@ class SignUpViewModelTest : BaseViewModelTest() {
         assertTrue(viewModel.hasSignIn.value.orFalse())
       }
 
-      verifyNoMoreInteractions(authRepository)
+      verify(authSharedPrefRepository).setToken(tokenCaptor.capture(), tokenCaptor.capture())
+      assertEquals(tokenCaptor.firstValue, expectedSignInResponse.token.access)
+      assertEquals(tokenCaptor.secondValue, expectedSignInResponse.token.refresh)
+
+      verify(authSharedPrefRepository).updateUser(userDataCaptor.capture(),
+          userDataCaptor.capture(), userDataCaptor.capture(), userDataOrdinalCaptor.capture(),
+          userDataOrdinalCaptor.capture())
+      with(expectedSignInResponse.user) {
+        assertEquals(id, userDataCaptor.firstValue)
+        assertEquals(name, userDataCaptor.secondValue)
+        assertEquals(email, userDataCaptor.thirdValue)
+        assertEquals(RoleEnum.valueOf(role).ordinal, userDataOrdinalCaptor.firstValue)
+        assertEquals(GenderEnum.valueOf(gender).ordinal, userDataOrdinalCaptor.secondValue)
+      }
+
+      verifyNoMoreInteractions(authRepository, authSharedPrefRepository)
     }
   }
 
@@ -105,22 +129,22 @@ class SignUpViewModelTest : BaseViewModelTest() {
       whenever(authRepository.signIn(signInRequest)) doReturn getErrorFlow()
 
       viewModel.signUp()
-      delay(1000)
 
+      verify(authSharedPrefRepository).userRole
       verify(authRepository).signUp(request)
       assertTrue(viewModel.isLoading.value.orFalse())
       delay(1000)
 
       verify(authRepository).signIn(signInRequestCaptor.capture())
       assertEquals(signInRequestCaptor.firstValue, signInRequest)
-
       delay(1000)
+
       assertError(Constants.SIGN_IN_ERROR)
       viewModel.hasSignIn.observeForTesting {
         assertFalse(viewModel.hasSignIn.value.orTrue())
       }
 
-      verifyNoMoreInteractions(authRepository)
+      verifyNoMoreInteractions(authRepository, authSharedPrefRepository)
     }
   }
 
@@ -137,20 +161,22 @@ class SignUpViewModelTest : BaseViewModelTest() {
       whenever(authRepository.signUp(request)) doReturn getErrorFlow()
 
       viewModel.signUp()
-      delay(1000)
 
+      verify(authSharedPrefRepository).userRole
       verify(authRepository).signUp(request)
-
       delay(1000)
+
       assertError(Constants.SIGN_UP_ERROR)
 
       verifyNoMoreInteractions(authRepository)
+      verifyZeroInteractions(authSharedPrefRepository)
     }
   }
 
   @Test
   fun `Given when sign up and request is null then do nothing`() {
     viewModel.signUp()
+    verifyZeroInteractions(authSharedPrefRepository, authRepository)
   }
 
   private fun assertError(message: String) {

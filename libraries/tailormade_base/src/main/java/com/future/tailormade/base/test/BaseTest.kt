@@ -49,6 +49,10 @@ abstract class BaseTest {
     const val DESIGN_DISCOUNT = 0.0
     const val DESIGN_IMAGE = "IMAGE"
     const val DESIGN_QUANTITY = 1
+
+    const val ORDER_DATE = 161200000L
+    const val ORDER_ID = "ORDER ID"
+    const val CART_ID = "CART ID"
   }
 
   abstract fun setUp()

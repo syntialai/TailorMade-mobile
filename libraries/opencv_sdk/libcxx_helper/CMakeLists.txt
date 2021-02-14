@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.4.1)
 
-add_library(opencv_jni_shared STATIC nativefaceswap.cpp)
+file(GLOB SOURCES ../libcxx_helper/*.cpp)
 
-include_directories(../native/jni/include)
+add_library(nativefaceswap STATIC nativefaceswap.cpp)
+
+install()
