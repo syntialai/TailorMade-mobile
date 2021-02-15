@@ -26,6 +26,9 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+    debug {
+      testCoverageEnabled = true
+    }
   }
 
   buildFeatures {
@@ -40,6 +43,14 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
+
+//  testOptions {
+//    unitTests.all {
+//      jacoco {
+//        includeNoLocationClasses = true
+//      }
+//    }
+//  }
 }
 
 dependencies {

@@ -1,94 +1,105 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
-    id 'androidx.navigation.safeargs.kotlin'
-    id 'dagger.hilt.android.plugin'
+  id 'com.android.library'
+  id 'kotlin-android'
+  id 'kotlin-kapt'
+  id 'kotlin-android-extensions'
+  id 'androidx.navigation.safeargs.kotlin'
+  id 'dagger.hilt.android.plugin'
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
 
-    defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode rootProject.ext.versionCode
+    versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles "consumer-rules.pro"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    debug {
+      testCoverageEnabled = true
     }
+  }
 
-    buildFeatures {
-        viewBinding true
-    }
+  buildFeatures {
+    viewBinding true
+  }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 
-    kotlinOptions {
-        jvmTarget = versions.jvm
-    }
+  kotlinOptions {
+    jvmTarget = versions.jvm
+  }
+
+//  testOptions {
+//    unitTests.all {
+//      jacoco {
+//        includeNoLocationClasses = true
+//      }
+//    }
+//  }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+  implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    // Libraries
-    implementation project(":libraries:tailormade_router")
+  // Libraries
+  implementation project(":libraries:tailormade_router")
 
-    // Features
-    api project(":features:tailormade_auth")
+  // Features
+  api project(":features:tailormade_auth")
 
-    // OSM
-    implementation osm
+  // OSM
+  implementation osm
 
-    // Preferences
-    implementation androidx.preferences
+  // Preferences
+  implementation androidx.preferences
 
-    // Tests
-    testImplementation test.junit
-    testImplementation test.androidx_core
-    testImplementation test.arch_core
-    testImplementation test.mockito
-    testImplementation test.mockito_kotlin
-    androidTestImplementation androidTest.junit
-    androidTestImplementation androidTest.espresso
+  // Tests
+  testImplementation test.junit
+  testImplementation test.androidx_core
+  testImplementation test.arch_core
+  testImplementation test.mockito
+  testImplementation test.mockito_kotlin
+  androidTestImplementation androidTest.junit
+  androidTestImplementation androidTest.espresso
 
-    // Coroutine
-    testImplementation coroutine.test
+  // Coroutine
+  testImplementation coroutine.test
 
-    // Annotation Processing
-    kapt dataBinding.kapt
+  // Annotation Processing
+  kapt dataBinding.kapt
 
-    // Glide
-    kapt glide.kapt
+  // Glide
+  kapt glide.kapt
 
-    // Dagger 2
-    kapt dagger.kapt_processor
-    kapt dagger.kapt_compiler
+  // Dagger 2
+  kapt dagger.kapt_processor
+  kapt dagger.kapt_compiler
 
-    // Dagger Hilt
-    implementation daggerHilt.core
-    implementation daggerHilt.lifecycle_viewmodel
-    kapt daggerHilt.kapt_compiler
-    kapt daggerHilt.kapt_google_compiler
-    kaptTest daggerHilt.kaptTest_compiler
-    testImplementation daggerHilt.test
+  // Dagger Hilt
+  implementation daggerHilt.core
+  implementation daggerHilt.lifecycle_viewmodel
+  kapt daggerHilt.kapt_compiler
+  kapt daggerHilt.kapt_google_compiler
+  kaptTest daggerHilt.kaptTest_compiler
+  testImplementation daggerHilt.test
 
-    // Room
-    kapt room.kapt_compiler
-    androidTestImplementation room.androidTest
-    androidTestImplementation room.androidTest_arch_persistence
+  // Room
+  kapt room.kapt_compiler
+  androidTestImplementation room.androidTest
+  androidTestImplementation room.androidTest_arch_persistence
 }

@@ -2,43 +2,43 @@ apply plugin: "jacoco"
 apply plugin: "org.sonarqube"
 
 def coverageMainSourceDirs = [
-    "features/tailormade_auth/src/main/kotlin",
-    "features/tailormade_chat/src/main/kotlin",
-    "features/tailormade_design_detail/src/main/kotlin",
-    "features/tailormade_profile/src/main/kotlin",
-    "features/tailormade_search/src/main/kotlin",
-    "app/src/main/kotlin",
-    "tailor_app/src/main/kotlin"
+    "${rootProject.buildDir}/features/tailormade_auth/src/main/java",
+    "${rootProject.buildDir}/features/tailormade_chat/src/main/java",
+    "${rootProject.buildDir}/features/tailormade_design_detail/src/main/java",
+    "${rootProject.buildDir}/features/tailormade_profile/src/main/java",
+    "${rootProject.buildDir}/features/tailormade_search/src/main/java",
+    "${rootProject.buildDir}/app/src/main/java",
+    "${rootProject.buildDir}/tailor_app/src/main/java"
 ]
 
 def coverageKotlinClassDirectories = [
-    fileTree(dir: "features/tailormade_auth/build/tmp/kotlin-classes/debug"),
-    fileTree(dir: "features/tailormade_chat/build/tmp/kotlin-classes/debug"),
-    fileTree(dir: "features/tailormade_design_detail/build/tmp/kotlin-classes/debug"),
-    fileTree(dir: "features/tailormade_profile/build/tmp/kotlin-classes/debug"),
-    fileTree(dir: "features/tailormade_search/build/tmp/kotlin-classes/debug"),
-    fileTree(dir: "app/build/tmp/kotlin-classes/debug"),
-    fileTree(dir: "tailor_app/build/tmp/kotlin-classes/debug")
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_auth/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_chat/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_design_detail/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_profile/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_search/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/app/build/tmp/kotlin-classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/tailor_app/build/tmp/kotlin-classes/debug")
 ]
 
 def coverageClassDirectories = [
-    fileTree(dir: "features/tailormade_auth/build/intermediates/classes/debug"),
-    fileTree(dir: "features/tailormade_chat/build/intermediates/classes/debug"),
-    fileTree(dir: "features/tailormade_design_detail/build/intermediates/classes/debug"),
-    fileTree(dir: "features/tailormade_profile/build/intermediates/classes/debug"),
-    fileTree(dir: "features/tailormade_search/build/intermediates/classes/debug"),
-    fileTree(dir: "app/build/intermediates/classes/debug"),
-    fileTree(dir: "tailor_app/build/intermediates/classes/debug")
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_auth/build/intermediates/classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_chat/build/intermediates/classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_design_detail/build/intermediates/classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_profile/build/intermediates/classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/features/tailormade_search/build/intermediates/classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/app/build/intermediates/classes/debug"),
+    fileTree(dir: "${rootProject.buildDir}/tailor_app/build/intermediates/classes/debug")
 ]
 
-task rootCodeCoverageReport(type: JacocoReport, dependsOn: [
-    "features:tailormade_auth:codeCoverageReport",
-    "features:tailormade_chat:codeCoverageReport",
-    "features:tailormade_design_detail:codeCoverageReport",
-    "features:tailormade_profile:codeCoverageReport",
-    "features:tailormade_search:codeCoverageReport",
-    "app:codeCoverageReport",
-    "tailor_app:codeCoverageReport"
+task jacocoTestReport(type: JacocoReport, dependsOn: [
+    "features:tailormade_auth:testDebugUnitTest",
+    "features:tailormade_chat:testDebugUnitTest",
+    "features:tailormade_design_detail:testDebugUnitTest",
+    "features:tailormade_profile:testDebugUnitTest",
+    "features:tailormade_search:testDebugUnitTest",
+    "app:testDebugUnitTest"
+//    "tailor_app:testDebugUnitTest"
 ]) {
   group = "Reporting"
   description = "Generate Jacoco coverage reports after running tests."
@@ -46,20 +46,20 @@ task rootCodeCoverageReport(type: JacocoReport, dependsOn: [
     xml.enabled = true
     html.enabled = true
   }
-  sourceDirectories.from = files(coverageMainSourceDirs)
-  classDirectories.from = files(coverageClassDirectories, coverageKotlinClassDirectories)
+  sourceDirectories.from = files([coverageMainSourceDirs])
+  classDirectories.from = files([coverageClassDirectories, coverageKotlinClassDirectories])
   executionData.from = files([
-      "features/tailormade_auth/build/jacoco/testDebugUnitTest.exec",
-      "features/tailormade_chat/build/jacoco/testDebugUnitTest.exec",
-      "features/tailormade_design_detail/build/jacoco/testDebugUnitTest.exec",
-      "features/tailormade_profile/build/jacoco/testDebugUnitTest.exec",
-      "features/tailormade_search/build/jacoco/testDebugUnitTest.exec",
-      "app/build/jacoco/testDebugUnitTest.exec",
-      "tailor_app/build/jacoco/testDebugUnitTest.exec"
+      "${rootProject.buildDir}/features/tailormade_auth/build/jacoco/testDebugUnitTest.exec",
+      "${rootProject.buildDir}/features/tailormade_chat/build/jacoco/testDebugUnitTest.exec",
+      "${rootProject.buildDir}/features/tailormade_design_detail/build/jacoco/testDebugUnitTest.exec",
+      "${rootProject.buildDir}/features/tailormade_profile/build/jacoco/testDebugUnitTest.exec",
+      "${rootProject.buildDir}/features/tailormade_search/build/jacoco/testDebugUnitTest.exec",
+      "${rootProject.buildDir}/app/build/jacoco/testDebugUnitTest.exec",
+      "${rootProject.buildDir}/tailor_app/build/jacoco/testDebugUnitTest.exec"
   ])
 }
 
-task getCoverageLocal(type: Exec, dependsOn: 'rootCodeCoverageReport') {
+task getCoverageLocal(type: Exec, dependsOn: 'jacocoTestReport') {
   group = "Reporting"
-  commandLine "open", "${project.buildDir}/features/${project.name}/build/reports/jacoco/codeCoverageReport/html/index.html"
+  commandLine "open", "${rootProject.buildDir}/features/${rootProject.name}/build/reports/jacoco/codeCoverageReport/html/index.html"
 }
