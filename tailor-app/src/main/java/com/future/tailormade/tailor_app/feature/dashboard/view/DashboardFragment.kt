@@ -15,8 +15,6 @@ import com.future.tailormade.tailor_app.R
 import com.future.tailormade.tailor_app.databinding.FragmentDashboardBinding
 import com.future.tailormade.tailor_app.feature.dashboard.adapter.DashboardAdapter
 import com.future.tailormade.tailor_app.feature.dashboard.viewModel.DashboardViewModel
-import com.future.tailormade.tailor_app.feature.main.contract.MainDashboardView
-import com.future.tailormade.tailor_app.feature.main.view.MainActivity
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.extension.remove
 import com.future.tailormade.util.extension.show
@@ -27,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment(), MainDashboardView {
+class DashboardFragment : BaseFragment() {
 
   companion object {
     fun newInstance() = DashboardFragment()
@@ -36,7 +34,7 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   private lateinit var binding: FragmentDashboardBinding
 
   private val dashboardAdapter by lazy {
-    DashboardAdapter(this::goToDesignDetail, this::selectDesign)
+    DashboardAdapter(this::goToDesignDetail, this::showConfirmDeleteDialog)
   }
   private val deleteDesignDialog by lazy {
     context?.let { context ->
@@ -58,8 +56,6 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   @ExperimentalCoroutinesApi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View {
-    (activity as MainActivity).injectMainDashboardView(this)
-
     binding = FragmentDashboardBinding.inflate(inflater, container, false)
     binding.buttonAddDesign.setOnClickListener {
       goToDesignDetail()
@@ -74,8 +70,7 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
   @ExperimentalCoroutinesApi
   override fun onResume() {
     super.onResume()
-    binding.swipeRefreshLayoutDashboard.isRefreshing = true
-    viewModel.fetchTailorDesigns()
+    refreshFetch()
   }
 
   @ExperimentalCoroutinesApi
@@ -97,23 +92,33 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
       }
       binding.swipeRefreshLayoutDashboard.isRefreshing = false
     })
+    viewModel.hasBeenDeleted.observe(viewLifecycleOwner, {
+      it?.let { hasBeenDeleted ->
+        if (hasBeenDeleted) {
+          showSuccessToast(R.string.design_deleted_message)
+          refreshFetch()
+        }
+      }
+    })
   }
 
-  override fun setAllSelected(selected: Boolean) {
-    viewModel.selectAllDesigns(selected)
+  @ExperimentalCoroutinesApi
+  private fun refreshFetch() {
+    binding.swipeRefreshLayoutDashboard.isRefreshing = true
+    viewModel.refreshFetch()
   }
 
-  override fun showConfirmDeleteDialog() {
+  private fun showConfirmDeleteDialog(id: String) {
     deleteDesignDialog?.setMessage(
-        getDialogMessage(viewModel.selectedDesigns.value?.size.orZero()))?.setPositiveButton(
+        getDialogMessage(id))?.setPositiveButton(
         R.string.delete_alert_dialog_delete_button) { dialog, _ ->
-      viewModel.deleteDesigns()
+      viewModel.deleteDesign(id)
       dialog.dismiss()
     }?.show()
   }
 
-  private fun getDialogMessage(quantity: Int) = resources.getQuantityString(
-      R.plurals.delete_design_alert_dialog_content, quantity, quantity)
+  private fun getDialogMessage(id: String) = resources.getString(
+      R.string.delete_design_alert_dialog_content, id)
 
   private fun getDividerItemDecoration(orientation: Int, drawableId: Int) = DividerItemDecoration(context,
       orientation).apply {
@@ -138,11 +143,6 @@ class DashboardFragment : BaseFragment(), MainDashboardView {
 
   private fun hideState() {
     binding.layoutDashboardState.root.remove()
-  }
-
-  private fun selectDesign(id: String) {
-    (activity as MainActivity).startContextualActionMode()
-    viewModel.selectDesign(id)
   }
 
   @ExperimentalCoroutinesApi
