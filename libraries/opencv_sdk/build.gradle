@@ -105,12 +105,13 @@ android {
         versionCode openCVersionCode
         versionName openCVersionName
 
-        externalNativeBuild {
-            cmake {
-                arguments "-DANDROID_STL=c++_shared"
-                targets "nativefaceswap"
-            }
-        }
+//        externalNativeBuild {
+//            cmake {
+//                cppFlags "-std=c++14 -fexceptions -frtti"
+//                arguments "-DANDROID_ARM_NEON=TRUE", "-DANDROID_STL=c++_shared"
+//                targets "nativefaceswap"
+//            }
+//        }
     }
 
     buildTypes {

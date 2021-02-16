@@ -12,7 +12,7 @@ data class UserResponse (
 
   val name: String = "",
 
-  val email: String = "",
+  val email: String? = null,
 
   val gender: String,
 

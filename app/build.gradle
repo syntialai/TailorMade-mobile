@@ -132,4 +132,7 @@ dependencies {
   androidTestImplementation room.androidTest_arch_persistence
 
   implementation relinker
+
+  implementation gms.face_detection
+  implementation mlkit.face_detection
 }

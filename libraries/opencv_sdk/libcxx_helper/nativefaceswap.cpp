@@ -212,7 +212,10 @@ void applyAffineTransform(Mat &warpImage, Mat &src, vector<Point2f> &srcTri, vec
  * @param points the points used for triangulation.
  * @param delaunayTri triangulation result.
  */
-static void calculateDelaunayTriangles(Rect rect, vector<Point2f> &points, vector< vector<int> > &delaunayTri)
+static void calculateDelaunayTriangles(
+        Rect rect,
+        vector<Point2f> &points,
+        vector< vector<int> > &delaunayTri)
 {
 	// Create an instance of Subdiv2D
     Subdiv2D subdiv(rect);
