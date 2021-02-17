@@ -25,8 +25,6 @@ import com.future.tailormade.feature.faceSwap.util.FileHelper
 import com.future.tailormade.feature.faceSwap.viewModel.FaceSwapViewModel
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.view.ToastHelper
-import com.google.mlkit.vision.face.Face
-import com.google.mlkit.vision.face.FaceLandmark
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -155,13 +153,16 @@ class FaceSwapActivity : BaseActivity() {
 
     faceDestination.left?.let { left ->
       faceDestination.right?.let {
+        appLogger.logOnMethod("deepFakeFace")
         val croppedBitmapSource = getCroppedBitmapSource(faceSource, bitmapSource)
-
-        canvas.drawBitmap(bitmapDestination, 0f, 0f, null)
 
         canvas.drawBitmap(
             Bitmap.createScaledBitmap(croppedBitmapSource, faceDestination.width, faceDestination.height,
-                true), left, faceDestination.top, paintDestination)
+                true), left, faceDestination.top, null)
+
+        paintDestination.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_ATOP)
+        canvas.drawBitmap(bitmapDestination, 0f, 0f, paintDestination)
+
         setImage(resultBitmap)
       }
     }
@@ -173,6 +174,7 @@ class FaceSwapActivity : BaseActivity() {
       faceSource.height)
 
   private fun setImage(image: Bitmap) {
+    appLogger.logOnMethod("setImage")
     with(binding) {
       imageViewFaceSwap.setImageBitmap(image)
       buttonDownloadSwapFace.setOnClickListener {
