@@ -43,9 +43,6 @@ class SplashScreenViewModel @ViewModelInject constructor(private val authReposit
   }
 
   private fun setToken(token: TokenDetailResponse) {
-    with(authSharedPrefRepository) {
-      refreshToken = token.refresh
-      accessToken = token.access
-    }
+    authSharedPrefRepository.setToken(token.access, token.refresh)
   }
 }

@@ -27,18 +27,18 @@ class RecentOrderViewModel @ViewModelInject constructor(
   override fun getLogName() =
       "com.future.tailormade.tailor_app.feature.order.viewModel.RecentOrderViewModel"
 
-  private var _acceptedOrders: MutableLiveData<ArrayList<OrderUiModel>>
+  private var _acceptedOrders = MutableLiveData<ArrayList<OrderUiModel>>()
   val acceptedOrders: LiveData<ArrayList<OrderUiModel>>
     get() = _acceptedOrders
 
-  private var _rejectedOrders: MutableLiveData<ArrayList<OrderUiModel>>
+  private var _rejectedOrders = MutableLiveData<ArrayList<OrderUiModel>>()
   val rejectedOrders: LiveData<ArrayList<OrderUiModel>>
     get() = _rejectedOrders
 
-  init {
-    _acceptedOrders = savedStateHandle.getLiveData(ACCEPTED_ORDERS)
-    _rejectedOrders = savedStateHandle.getLiveData(REJECTED_ORDERS)
-  }
+//  init {
+//    _acceptedOrders = savedStateHandle.getLiveData(ACCEPTED_ORDERS)
+//    _rejectedOrders = savedStateHandle.getLiveData(REJECTED_ORDERS)
+//  }
 
   fun fetchAcceptedOrders() {
     fetchRecentOrders(OrderStatus.Accepted.name)

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/dp_16"
+    android:paddingBottom="@dimen/dp_16"
     tools:context=".feature.cart.view.CartFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_cart_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dp_72"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

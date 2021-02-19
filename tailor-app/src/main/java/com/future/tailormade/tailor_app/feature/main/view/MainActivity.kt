@@ -29,10 +29,6 @@ class MainActivity : BaseActivity() {
   private val orderFragment by lazy { OrderListFragment.newInstance() }
   private val profileFragment by lazy { ProfileFragment.newInstance() }
 
-  private var actionMode: ActionMode? = null
-
-  private var mainDashboardView: MainDashboardView? = null
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityMainBinding.inflate(layoutInflater)
@@ -68,40 +64,6 @@ class MainActivity : BaseActivity() {
     setupBottomNav()
     supportFragmentManager.popBackStack()
     setupFragments()
-  }
-
-  fun injectMainDashboardView(view: MainDashboardView) {
-    mainDashboardView = view
-  }
-
-  fun startContextualActionMode() {
-    actionMode = startActionMode(getActionModeCallback())
-  }
-
-  private fun getActionModeCallback() = object : ActionMode.Callback {
-
-    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-      mode?.menuInflater?.inflate(R.menu.menu_contextual_top_nav_main, menu)
-      return true
-    }
-
-    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?) = false
-
-    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?) = when (item?.itemId) {
-      R.id.item_delete -> {
-        mainDashboardView?.showConfirmDeleteDialog()
-        true
-      }
-      R.id.item_select_all -> {
-        mainDashboardView?.setAllSelected(item.isChecked)
-        true
-      }
-      else -> false
-    }
-
-    override fun onDestroyActionMode(mode: ActionMode?) {
-      actionMode = null
-    }
   }
 
   private fun setupBottomNav() {

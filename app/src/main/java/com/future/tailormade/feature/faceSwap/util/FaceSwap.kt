@@ -3,12 +3,10 @@ package com.future.tailormade.feature.faceSwap.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
-import com.future.tailormade.feature.faceSwap.exception.FaceSwapException
+import com.future.tailormade.feature.faceSwap.model.FaceSwapException
 import com.future.tailormade.util.extension.orZero
 import com.future.tailormade.util.logger.AppLogger
 import com.getkeepsafe.relinker.ReLinker
-import org.opencv.android.BaseLoaderCallback
-import org.opencv.android.LoaderCallbackInterface
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils.bitmapToMat
 import org.opencv.android.Utils.matToBitmap
@@ -18,37 +16,24 @@ import org.opencv.imgproc.Imgproc
 class FaceSwap(context: Context, private val bitmapDestination: Bitmap,
     private val bitmapSource: Bitmap) {
 
+  private var landmarksDestination: ArrayList<ArrayList<Point>>? = null
+  private var landmarksSource: ArrayList<ArrayList<Point>>? = null
+  private var landmarks: ArrayList<ArrayList<Point>>? = null
+  private var bitmap: Bitmap? = null
+
+//  companion object {
   private val logger = AppLogger("com.future.tailormade.feature.faceSwap.util.FaceSwap")
   private val reLinkerLogger = ReLinker.Logger {
     logger.logOnEvent(it)
   }
 
-  private var landmarksDestination: ArrayList<ArrayList<Point>>? = null
-  private var landmarksSource: ArrayList<ArrayList<Point>>? = null
-  private var landmarks: ArrayList<ArrayList<Point>>? = null
-  private var bitmap: Bitmap? = null
-  private var swapped: Mat? = null
-
-  private val mLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(context) {
-    override fun onManagerConnected(status: Int) {
-      when (status) {
-        SUCCESS -> {
-          logger.logOnEvent("OpenCV loaded successfully")
-          swapped = Mat()
-        }
-        else -> {
-          super.onManagerConnected(status)
-        }
-      }
-    }
-  }
-
   init {
     if (OpenCVLoader.initDebug()) {
-      OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_4_0, context, mLoaderCallback)
+      //      OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_4_0, context, mLoaderCallback)
       ReLinker.log(reLinkerLogger).loadLibrary(context, "c++_shared")
-    } else {
-      mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS)
+      //    } else {
+      //      mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS)
+      //    }
     }
   }
 
@@ -107,18 +92,20 @@ class FaceSwap(context: Context, private val bitmapDestination: Bitmap,
     Imgproc.cvtColor(imageDestination, imageDestination, Imgproc.COLOR_BGRA2BGR)
     Imgproc.cvtColor(imageSource, imageSource, Imgproc.COLOR_BGRA2BGR)
 
-    swapped?.let { swapped ->
-      portraitSwapNative(imageDestination.nativeObjAddr, imageSource.nativeObjAddr,
-          bitmapDestinationX, bitmapDestinationY, bitmapSourceX, bitmapSourceY,
-          swapped.nativeObjAddr)
-    }
+    val swapped = Mat()
+    portraitSwapNative(imageDestination.nativeObjAddr, imageSource.nativeObjAddr,
+        bitmapDestinationX, bitmapDestinationY, bitmapSourceX, bitmapSourceY, swapped.nativeObjAddr)
     val bitmapSwapped = Bitmap.createBitmap(bitmapDestination.width, bitmapDestination.height,
         Bitmap.Config.ARGB_8888)
     matToBitmap(swapped, bitmapSwapped)
     return bitmapSwapped
   }
 
-  private fun mapToSimpleIntArray(points: ArrayList<Point>): Pair<IntArray, IntArray> {
+  private fun throwErrorIfEmpty(landmarksArray: ArrayList<ArrayList<Point>>?, message: String) {
+    if (landmarksArray?.size.orZero() <= 1) throw FaceSwapException(message)
+  }
+
+  fun mapToSimpleIntArray(points: ArrayList<Point>): Pair<IntArray, IntArray> {
     val pointsX = IntArray(points.size)
     val pointsY = IntArray(points.size)
 
@@ -128,9 +115,5 @@ class FaceSwap(context: Context, private val bitmapDestination: Bitmap,
     }
 
     return Pair(pointsX, pointsY)
-  }
-
-  private fun throwErrorIfEmpty(landmarksArray: ArrayList<ArrayList<Point>>?, message: String) {
-    if (landmarksArray?.size.orZero() <= 1) throw FaceSwapException(message)
   }
 }

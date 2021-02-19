@@ -26,13 +26,13 @@ class OrderDetailViewModel @ViewModelInject constructor(
     private const val ORDER_DETAIL_UI_MODEL = "ORDER_DETAIL_UI_MODEL"
   }
 
-  private var _orderDetailUiModel: MutableLiveData<OrderDetailUiModel>
+  private var _orderDetailUiModel = MutableLiveData<OrderDetailUiModel>()
   val orderDetailUiModel: LiveData<OrderDetailUiModel>
     get() = _orderDetailUiModel
 
-  init {
-    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL_UI_MODEL)
-  }
+//  init {
+//    _orderDetailUiModel = savedStateHandle.getLiveData(ORDER_DETAIL_UI_MODEL)
+//  }
 
   fun fetchOrderDetail(id: String) {
     launchViewModelScope {
