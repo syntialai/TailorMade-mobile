@@ -9,11 +9,8 @@
     <string name="delete_menu_label">Delete</string>
     <string name="select_all_label">Select All</string>
     <string name="delete_design_alert_dialog_title">Are you sure?</string>
-
-    <plurals name="delete_design_alert_dialog_content">
-        <item quantity="one">You’ll delete %d design!</item>
-        <item quantity="other">You’ll delete %d designs!</item>
-    </plurals>
+    <string name="delete_design_alert_dialog_content">You\'ll delete design with id %s!</string>
+    <string name="design_deleted_message">Design deleted.</string>
 
     <!-- Order -->
     <string name="recent_label">Recent</string>

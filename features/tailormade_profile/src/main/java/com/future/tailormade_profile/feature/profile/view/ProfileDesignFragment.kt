@@ -104,7 +104,7 @@ class ProfileDesignFragment : BaseFragment() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
           super.onScrolled(recyclerView, dx, dy)
 
-          if (isLastItemViewed(recyclerView, viewModel.images.value?.size.orZero())) {
+          if (isLastItemViewed(recyclerView, viewModel.images.value?.size.orZero(), false)) {
             viewModel.fetchMore()
           }
         }

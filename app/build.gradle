@@ -36,6 +36,9 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+    debug {
+      testCoverageEnabled = true
+    }
   }
 
   compileOptions {
@@ -64,6 +67,11 @@ android {
   }
 
   testOptions {
+//    unitTests.all {
+//      jacoco {
+//        includeNoLocationClasses = true
+//      }
+//    }
     unitTests.includeAndroidResources = true
     unitTests.returnDefaultValues = true
   }
@@ -75,8 +83,6 @@ dependencies {
   // Libraries
   api project(":libraries:tailormade_base")
   implementation project(":libraries:tailormade_router")
-  implementation project(":libraries:opencv_sdk")
-  implementation project(":libraries:dlib")
 
   // Features
   implementation project(":features:tailormade_auth")
@@ -124,4 +130,7 @@ dependencies {
   androidTestImplementation room.androidTest_arch_persistence
 
   implementation relinker
+
+  implementation gms.face_detection
+  implementation mlkit.face_detection
 }

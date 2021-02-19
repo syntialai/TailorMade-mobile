@@ -1,5 +1,7 @@
 package com.future.tailormade.core.di.module
 
+import com.future.tailormade.core.repository.FaceDetectionRepository
+import com.future.tailormade.core.repository.impl.FaceDetectionRepositoryImpl
 import com.future.tailormade.core.service.CartService
 import com.future.tailormade.core.service.CheckoutService
 import com.future.tailormade.core.service.DashboardService
@@ -10,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Singleton
 import retrofit2.Retrofit
 
 @Module(includes = [NetworkModule::class])
@@ -34,5 +37,10 @@ class ServiceModule {
   @Provides
   fun provideOrderService(@TailormadeApi retrofit: Retrofit): OrderService {
     return retrofit.create(OrderService::class.java)
+  }
+
+  @Provides
+  fun provideFaceDetectionRepositoryImpl(): FaceDetectionRepositoryImpl {
+    return FaceDetectionRepositoryImpl()
   }
 }

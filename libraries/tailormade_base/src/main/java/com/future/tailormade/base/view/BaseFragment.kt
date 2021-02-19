@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ethanhua.skeleton.SkeletonScreen
@@ -132,9 +133,13 @@ abstract class BaseFragment : Fragment() {
     }
   }
 
-  fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int): Boolean {
-    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-    return layoutManager.findLastCompletelyVisibleItemPosition() == (lastItemPosition - 1)
+  fun isLastItemViewed(recyclerView: RecyclerView, lastItemPosition: Int, isLinear: Boolean = true): Boolean {
+    val layoutManager = recyclerView.layoutManager
+    return if (isLinear) {
+        (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition() == (lastItemPosition - 1)
+    } else {
+      (layoutManager as GridLayoutManager).findLastCompletelyVisibleItemPosition() == (lastItemPosition - 1)
+    }
   }
 
   fun hideToolbar() {

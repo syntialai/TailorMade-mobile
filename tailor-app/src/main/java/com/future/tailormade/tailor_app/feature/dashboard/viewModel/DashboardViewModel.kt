@@ -1,6 +1,5 @@
 package com.future.tailormade.tailor_app.feature.dashboard.viewModel
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -12,7 +11,6 @@ import com.future.tailormade.config.Constants
 import com.future.tailormade.tailor_app.core.model.ui.dashboard.DashboardDesignUiModel
 import com.future.tailormade.tailor_app.core.repository.DashboardRepository
 import com.future.tailormade.util.extension.onError
-import com.future.tailormade.util.extension.orEmptyList
 import com.future.tailormade.util.extension.orFalse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -31,20 +29,18 @@ class DashboardViewModel @ViewModelInject constructor(
   override fun getLogName() =
       "com.future.tailormade.tailor_app.feature.dashboard.viewModel.DashboardViewModel"
 
-  private var _designs: MutableLiveData<ArrayList<DashboardDesignUiModel>>
+  private var _designs = MutableLiveData<ArrayList<DashboardDesignUiModel>>()
   val designs: LiveData<ArrayList<DashboardDesignUiModel>>
     get() = _designs
 
-  private var _selectedDesigns: MutableLiveData<ArrayList<String>>
-  val selectedDesigns: LiveData<ArrayList<String>>
-    get() = _selectedDesigns
+  private var _hasBeenDeleted = MutableLiveData<Boolean>()
+  val hasBeenDeleted: LiveData<Boolean>
+    get() = _hasBeenDeleted
 
-  private var deletedItem: Int = 0
-
-  init {
-    _designs = savedStateHandle.getLiveData(DESIGNS)
-    _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS)
-  }
+//  init {
+//    _designs = savedStateHandle.getLiveData(DESIGNS)
+//    _selectedDesigns = savedStateHandle.getLiveData(SELECTED_DESIGNS)
+//  }
 
   @ExperimentalCoroutinesApi
   fun fetchTailorDesigns() {
@@ -71,42 +67,16 @@ class DashboardViewModel @ViewModelInject constructor(
     fetchTailorDesigns()
   }
 
-  fun deleteDesigns() {
+  fun deleteDesign(id: String) {
     launchViewModelScope {
-      authSharedPrefRepository.userId?.let { userId ->
-        _selectedDesigns.value?.forEach {
-          deleteDesign(userId, it)
+      authSharedPrefRepository.userId?.let { tailorId ->
+        dashboardRepository.deleteDashboardDesign(tailorId, id).onError {
+          setErrorMessage(Constants.FAILED_TO_DELETE_DESIGN)
+          _hasBeenDeleted.value = false
+        }.collect {
+          _hasBeenDeleted.value = true
         }
-        _selectedDesigns.value?.clear()
       }
     }
   }
-
-  fun selectAllDesigns(selected: Boolean) {
-    val designs = _designs.value?.map { it.id } as ArrayList
-    _selectedDesigns.value?.let { selectedDesigns ->
-      selectedDesigns.clear()
-      if (!selected) {
-        selectedDesigns.addAll(designs)
-      }
-    }
-  }
-
-  fun selectDesign(id: String) {
-    if (isDesignSelected(id).orFalse()) {
-      _selectedDesigns.value?.remove(id)
-    } else {
-      _selectedDesigns.value?.add(id)
-    }
-  }
-
-  private suspend fun deleteDesign(tailorId: String, id: String) {
-    dashboardRepository.deleteDashboardDesign(tailorId, id).onError {
-      setErrorMessage(Constants.FAILED_TO_DELETE_DESIGN)
-    }.collect {
-      deletedItem.inc()
-    }
-  }
-
-  private fun isDesignSelected(id: String) = _selectedDesigns.value?.contains(id)
 }

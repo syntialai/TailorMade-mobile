@@ -84,7 +84,7 @@ class AuthSharedPrefRepository private constructor(context: Context) {
     accessToken = access
   }
 
-  fun updateUser(id: String, name: String, email: String, role: Int, gender: Int) {
+  fun updateUser(id: String, name: String, email: String?, role: Int, gender: Int) {
     this.userId = id
     this.username = email
     this.name = name

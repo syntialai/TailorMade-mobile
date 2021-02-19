@@ -8,7 +8,19 @@ def androidCoverageExclusion = [
     '**/R$*.*',
     '**/BuildConfig.*',
     '**/Manifest*.*',
-    '**/*Module_*Factory.*'
+    '**/*Module_*Factory.*',
+    '**/libraries/**',
+    '**/core/mock/**',
+    '**/core/api/**',
+    '**/core/di/**',
+    '**/core/mapper/**',
+    '**/core/model/**',
+    '**/core/model/**',
+    '**/feature/**/view/**',
+    '**/feature/**/adapter/**',
+    '**/core/config/**',
+    '**/feature/faceSwap/**',
+    '**/tailormade_chat/core/repository/**'
 ]
 
 def androidCodeExclusion = [
@@ -19,26 +31,38 @@ def androidCodeExclusion = [
     '**/R$*.*',
     '**/BuildConfig.*',
     '**/Manifest*.*',
-    '**/mockserver/**'
+    '**/libraries/**',
+    '**/mock/**',
+    '**/api/**',
+    '**/di/**',
+    '**/mapper/**',
+    '**/model/**',
+    '**/model/**',
+    '**/feature/**/view/**',
+    '**/feature/**/adapter/**',
+    '**/config/**',
+    '**/feature/faceSwap/**',
+    '**/tailormade_chat/core/repository/**'
 ]
 
 sonarqube {
   properties {
     property "sonar.host.url", "http://localhost:9000/"
-    property "sonar.login", "725ed9948e990815af9d303f8ce56de5b61b53ae"
+    property "sonar.login", "admin" // Token : "725ed9948e990815af9d303f8ce56de5b61b53ae"
+    property "sonar.password", "admin"
     property "sonar.sourceEncoding", "UTF-8"
     property "sonar.projectKey", "TailorMade"
     property "sonar.projectName", "TailorMade App"
-    property "sonar.sources", "**/main/**"
-    property "sonar.tests", "**/test/**"
+    property "sonar.sources", "src/main/java"
+    property "sonar.tests", "src/test/java"
     property "sonar.java.coveragePlugin", "jacoco"
     property "sonar.coverage.exclusions", androidCoverageExclusion.join(",")
     property "sonar.exclusions", androidCodeExclusion.join(",")
     property "sonar.tags", "android"
-    property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+    property "sonar.coverage.jacoco.xmlReportPaths", "${rootProject.buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest"
     property "sonar.java.binaries", "${project.buildDir}/tmp/kotlin-classes"
   }
 }
 
-tasks.sonarqube.dependsOn "rootCodeCoverageReport" group "Reporting"
+tasks.sonarqube.dependsOn "jacocoTestReport" group "Reporting"

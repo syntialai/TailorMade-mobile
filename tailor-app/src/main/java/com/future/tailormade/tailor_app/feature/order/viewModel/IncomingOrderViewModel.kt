@@ -29,7 +29,7 @@ class IncomingOrderViewModel @ViewModelInject constructor(
   override fun getLogName() =
       "com.future.tailormade.tailor_app.feature.order.viewModel.IncomingOrderViewModel"
 
-  private var _incomingOrders: MutableLiveData<ArrayList<OrderUiModel>>
+  private var _incomingOrders = MutableLiveData<ArrayList<OrderUiModel>>()
   val incomingOrders: LiveData<ArrayList<OrderUiModel>>
     get() = _incomingOrders
 
@@ -37,9 +37,9 @@ class IncomingOrderViewModel @ViewModelInject constructor(
   val hasOrderResponded: LiveData<Pair<String, Boolean>>
     get() = _hasOrderResponded
 
-  init {
-    _incomingOrders = savedStateHandle.getLiveData(INCOMING_ORDERS)
-  }
+//  init {
+//    _incomingOrders = savedStateHandle.getLiveData(INCOMING_ORDERS)
+//  }
 
   fun fetchIncomingOrders() {
     _hasOrderResponded.value = null
