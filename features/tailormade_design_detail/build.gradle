@@ -61,7 +61,6 @@ dependencies {
 
   // Features
   api project(":features:tailormade_auth")
-  implementation project(":libraries:opencv_sdk")
 
   // Color Picker
   implementation color_picker

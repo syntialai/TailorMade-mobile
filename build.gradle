@@ -11,7 +11,7 @@ buildscript {
         jfrog_bintray_version = "1.7"
         dcendents_maven_version = "1.4.1"
         sonar_version = "2.7.1"
-        jacoco_version = "0.8.3"
+        jacoco_version = "0.8.6"
 
         compileSdkVersion = 30
         buildToolsVersion = "30.0.2"

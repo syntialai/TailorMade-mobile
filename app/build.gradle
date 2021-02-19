@@ -83,8 +83,6 @@ dependencies {
   // Libraries
   api project(":libraries:tailormade_base")
   implementation project(":libraries:tailormade_router")
-  implementation project(":libraries:opencv_sdk")
-  implementation project(":libraries:dlib")
 
   // Features
   implementation project(":features:tailormade_auth")

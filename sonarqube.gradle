@@ -59,7 +59,7 @@ sonarqube {
     property "sonar.coverage.exclusions", androidCoverageExclusion.join(",")
     property "sonar.exclusions", androidCodeExclusion.join(",")
     property "sonar.tags", "android"
-    property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+    property "sonar.coverage.jacoco.xmlReportPaths", "${rootProject.buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     property "sonar.junit.reportsPath", "${project.buildDir}/test-results/testDebugUnitTest"
     property "sonar.java.binaries", "${project.buildDir}/tmp/kotlin-classes"
   }
